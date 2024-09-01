@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAccessorie
 {
-    public void AddEffect(IPorn);
+    public void AddEffect(IPorn porn);
 }
