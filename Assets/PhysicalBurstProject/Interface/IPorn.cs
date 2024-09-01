@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IPorn : MonoBehaviour
+public interface IPorn
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float attack {  get; }
+    public float defence { get; }
+    public float speed { get; }
+    public float range { get; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool death { get; }
 }
