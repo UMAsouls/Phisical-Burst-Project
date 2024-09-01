@@ -5,6 +5,10 @@ using UnityEngine;
 public class BattlePorn : MonoBehaviour, IPorn
 {
 
+    protected IStatus status;
+
+    protected IAccessorie[] accessories;
+
 
     public float attack 
     {
