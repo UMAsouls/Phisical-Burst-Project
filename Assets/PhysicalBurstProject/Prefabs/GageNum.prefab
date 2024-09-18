@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6638415066519357907}
   - component: {fileID: 2762350764274102330}
   - component: {fileID: 6316325766822075034}
+  - component: {fileID: 3355616989035216055}
   m_Layer: 0
   m_Name: GageNum
   m_TagString: Untagged
@@ -134,3 +135,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3355616989035216055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122489048005770045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d855e73eff1050d43b715fc1636a05a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
