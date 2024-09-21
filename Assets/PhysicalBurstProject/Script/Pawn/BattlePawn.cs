@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattlePorn : MonoBehaviour, IPorn
+public class BattlePawn : MonoBehaviour, IPawn
 {
 
     protected IStatus status;

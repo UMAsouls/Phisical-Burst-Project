@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface StringSetable
+public interface ICmdUI
 {
-    public string Text { set; }
+    public void CmdAdd(string text);
 }
+

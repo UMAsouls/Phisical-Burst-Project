@@ -6,5 +6,5 @@ public interface ICmdUIPrinter
 {
     public void PrintActionSelecter();
 
-    public void PrintPlayerInformation(IPorn porn);
+    public void PrintPlayerInformation(IPawn porn);
 }

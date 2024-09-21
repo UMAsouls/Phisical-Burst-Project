@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPorn
+public interface IPawn
 {
     public float attack {  get; }
     public float defence { get; }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICmdSelectable : IPorn
+public interface ICmdSelectable : IPawn
 {
     ICommand[] GetCommands();
 }

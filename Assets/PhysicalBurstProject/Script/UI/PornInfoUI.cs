@@ -6,10 +6,10 @@ using UnityEngine;
 public class PornInfoUI : MonoBehaviour, IPornInfoUI
 {
     
-    public string Name { set => nameTag.Name = value; }
+    public string Name { set => nameTag.Text = value; }
 
     private GageSetable[] HPbars;
-    private StringSetable nameTag;
+    private ICmdTextSetable nameTag;
 
     public void SetHP(int MaxHP, int HP)
     {
@@ -24,7 +24,7 @@ public class PornInfoUI : MonoBehaviour, IPornInfoUI
     void Start()
     {
         HPbars = GetComponentsInChildren<GageSetable>();
-        nameTag = GetComponentInChildren<StringSetable>();
+        nameTag = GetComponentInChildren<ICmdTextSetable>();
     }
 
     // Update is called once per frame

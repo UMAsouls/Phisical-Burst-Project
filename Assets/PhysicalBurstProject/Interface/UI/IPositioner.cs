@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface StringSetable
+public interface IPositioner
 {
-    public string Text { set; }
+    public Vector2 Position { get;  set; }
 }
