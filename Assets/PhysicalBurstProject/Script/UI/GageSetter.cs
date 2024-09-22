@@ -13,10 +13,14 @@ public class GageSetter : MonoBehaviour, GageSetable
 
     private TextMeshProUGUI tmp;
 
+    private void Awake()
+    {
+        tmp = GetComponent<TextMeshProUGUI>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        tmp = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame

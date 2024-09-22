@@ -8,15 +8,19 @@ public class HPbar : MonoBehaviour, GageSetable
 {
     public void Set(int maxValue, int value)
     {
-        m_Slider.value = value / maxValue;
+        m_Slider.value = (float)value / (float)maxValue;
     }
 
     private Slider m_Slider;
 
+    private void Awake()
+    {
+        m_Slider = GetComponent<Slider>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        m_Slider = GetComponent<Slider>();
     }
 
     // Update is called once per frame

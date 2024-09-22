@@ -9,7 +9,7 @@ public class PornInfoUI : MonoBehaviour, IPornInfoUI
     public string Name { set => nameTag.Text = value; }
 
     private GageSetable[] HPbars;
-    private ICmdTextSetable nameTag;
+    private StringSetable nameTag;
 
     public void SetHP(int MaxHP, int HP)
     {
@@ -19,12 +19,17 @@ public class PornInfoUI : MonoBehaviour, IPornInfoUI
         }
     }
 
+    private void Awake()
+    {
+        HPbars = GetComponentsInChildren<GageSetable>();
+        nameTag = GetComponentInChildren<StringSetable>();
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        HPbars = GetComponentsInChildren<GageSetable>();
-        nameTag = GetComponentInChildren<ICmdTextSetable>();
+
     }
 
     // Update is called once per frame
