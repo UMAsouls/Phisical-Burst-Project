@@ -8,12 +8,12 @@ public class MemInfoTest : MonoBehaviour
     [SerializeField]
     GameObject obj;
 
-    IPornInfoUI ui;
+    IPawnInfoUI ui;
 
     // Start is called before the first frame update
     void Start()
     {
-        ui = obj.GetComponent<IPornInfoUI>();
+        ui = obj.GetComponent<IPawnInfoUI>();
         ui.SetHP(100, 50);
         ui.Name = "Test";
     }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICmdUIPrinter
-{
+public interface IBattleUIPrinter{
     public void PrintActionSelecter();
 
-    public void PrintPlayerInformation(IPawn porn);
+    public void PrintPlayerInformation(IPawn pawn);
 }

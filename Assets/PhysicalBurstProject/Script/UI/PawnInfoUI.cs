@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PornInfoUI : MonoBehaviour, IPornInfoUI
+public class PawnInfoUI : MonoBehaviour, IPawnInfoUI
 {
     
     public string Name { set => nameTag.Text = value; }

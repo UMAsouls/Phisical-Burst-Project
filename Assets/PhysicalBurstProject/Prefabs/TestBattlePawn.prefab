@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 761340618331522130}
   m_Layer: 0
-  m_Name: TestBattlePorn
+  m_Name: TestBattlePawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,7 +9,7 @@ public class BattleSystem : MonoBehaviour
     private ICmdSelectable[] porns;
 
     [Inject]
-    private ICmdUIPrinter uiPrinter;
+    private IBattleUIPrinter uiPrinter;
 
     private bool isConfirm;
 

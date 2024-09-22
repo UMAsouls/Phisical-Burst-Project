@@ -4,6 +4,11 @@ using UnityEngine;
 
 public interface IPawn
 {
+    public string Name { get; }
+
+    public int MaxHP { get; }
+    public int HP { get; }
+
     public float attack {  get; }
     public float defence { get; }
     public float speed { get; }

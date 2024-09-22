@@ -35,6 +35,12 @@ public class BattlePawn : MonoBehaviour, IPawn
         get { return false; }
     }
 
+    public string Name => "";
+
+    public int MaxHP => 100;
+
+    public int HP => 50;
+
 
     // Start is called before the first frame update
     void Start()
