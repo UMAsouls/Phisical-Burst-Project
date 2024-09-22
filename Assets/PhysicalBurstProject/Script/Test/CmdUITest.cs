@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
-public class NameTag : MonoBehaviour, StringSetable
+public class CmdUITest : MonoBehaviour
 {
-    public string Text { set => tmp.text = value; }
 
-    private TextMeshProUGUI tmp;
+    [SerializeField]
+    GameObject obj;
+
+    ICmdUI ui;
+
     private void Awake()
     {
-        tmp = GetComponent<TextMeshProUGUI>();
+        ui = obj.GetComponent<ICmdUI>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
+        ui.CmdAdd("テスト1");
+        ui.CmdAdd("テスト100");
     }
 
     // Update is called once per frame

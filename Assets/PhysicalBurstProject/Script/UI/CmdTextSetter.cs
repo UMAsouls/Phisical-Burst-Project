@@ -15,17 +15,29 @@ public class CmdTextSetter : MonoBehaviour, ICmdTextSetable
     void SetCommandText(string text)
     {
         tmp.text = text;
-        rectTransform.sizeDelta = new Vector2(FontSize, FontSize * text.Length);
+        rectTransform.sizeDelta = new Vector2(TextWidth, FontSize);
+    }
+
+    void fontSizeUpdate(float size)
+    {
+        tmp.fontSize = size;
+        rectTransform.sizeDelta = new Vector2(TextWidth, size);
     }
 
     public string Text { set => SetCommandText(value); }
-    public float FontSize { get => tmp.fontSize; set => tmp.fontSize = value; }
+    public float FontSize { get => tmp.fontSize; set => fontSizeUpdate(value); }
+    public float TextWidth { get => tmp.preferredWidth; }
+
+    private void Awake()
+    {
+        tmp = GetComponent<TextMeshProUGUI>();
+        rectTransform = GetComponent<RectTransform>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        tmp = GetComponent<TextMeshProUGUI>();
-        rectTransform = GetComponent<RectTransform>();
+        
     }
 
     // Update is called once per frame

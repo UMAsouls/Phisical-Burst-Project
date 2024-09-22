@@ -16,10 +16,15 @@ public class TextWindowScaler : MonoBehaviour, IWindowScaler
         
     private RectTransform rectTransform;
 
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
+
     }
 
     // Update is called once per frame

@@ -25,17 +25,18 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
     public void CmdAdd(string text)
     {
         var obj = Instantiate(CmdTextUI);
-        transform.SetParent(obj.transform, false);
+        obj.transform.SetParent(transform, false);
 
         var rect = obj.GetComponent<RectTransform>();
         var height = Vector2.down * fontSize * cmdNum;
         rect.localPosition = (Vector3)(firstCmdPos + height);
 
         ICmdTextSetable textSetter = obj.GetComponent<ICmdTextSetable>();
-        textSetter.Text = text;
         textSetter.FontSize = fontSize;
+        textSetter.Text = text;
+        var width = textSetter.TextWidth;
 
-        if(maxWidth < fontSize*text.Length) maxWidth = fontSize * text.Length;
+        if(maxWidth < width) maxWidth = width;
 
         cmdTexts.Add(text);
         cmdNum++;
@@ -45,14 +46,20 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
 
     private void ScaleUpdate()
     {
-        scaler.Scale = new Vector2(maxWidth, fontSize * cmdNum) + firstCmdPos;
+        Vector2 firstSize = new Vector2(2*firstCmdPos.x, -2*firstCmdPos.y);
+        scaler.Scale = new Vector2(maxWidth, fontSize * cmdNum) + firstSize;
+    }
+
+    private void Awake()
+    {
+        cmdNum = 0;
+        scaler = GetComponentInChildren<IWindowScaler>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        cmdNum = 0;
-        scaler = GetComponentInChildren<IWindowScaler>();
+
     }
 
     // Update is called once per frame

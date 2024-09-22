@@ -6,4 +6,5 @@ using UnityEngine;
 public interface ICmdTextSetable: StringSetable
 {
     public float FontSize { set; get; }
+    public float TextWidth { get; }
 }
