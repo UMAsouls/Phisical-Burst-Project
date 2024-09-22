@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
-public class CmdWindowSetter : MonoBehaviour, ICmdUI
+public class CmdWindowSetter : MonoBehaviour, ICmdUI,ICmdTextRectGetter
 {
-    private List<string> cmdTexts = new List<string>();
+    private List<RectTransform> cmdTextRects = new List<RectTransform>();
 
     [SerializeField]
     private GameObject CmdTextUI;
@@ -18,9 +18,18 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
     private int fontSize;
 
     [SerializeField]
+    private float textSpace;
+
+    [SerializeField]
     private Vector2 firstCmdPos;
 
     private IWindowScaler scaler;
+
+    private ISelectorController selectorController;
+
+    private int selectorIndex = 0;
+
+    public List<RectTransform> CmdTextRects => cmdTextRects;
 
     public void CmdAdd(string text)
     {
@@ -28,7 +37,7 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
         obj.transform.SetParent(transform, false);
 
         var rect = obj.GetComponent<RectTransform>();
-        var height = Vector2.down * fontSize * cmdNum;
+        var height = Vector2.down * (fontSize+textSpace) * cmdNum;
         rect.localPosition = (Vector3)(firstCmdPos + height);
 
         ICmdTextSetable textSetter = obj.GetComponent<ICmdTextSetable>();
@@ -38,7 +47,7 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
 
         if(maxWidth < width) maxWidth = width;
 
-        cmdTexts.Add(text);
+        cmdTextRects.Add(rect);
         cmdNum++;
 
         ScaleUpdate();
@@ -47,19 +56,22 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
     private void ScaleUpdate()
     {
         Vector2 firstSize = new Vector2(2*firstCmdPos.x, -2*firstCmdPos.y);
-        scaler.Scale = new Vector2(maxWidth, fontSize * cmdNum) + firstSize;
+        scaler.Scale = new Vector2(maxWidth+fontSize, (fontSize+textSpace) * cmdNum - textSpace) + firstSize;
     }
+
+    
 
     private void Awake()
     {
         cmdNum = 0;
         scaler = GetComponentInChildren<IWindowScaler>();
+        selectorController = GetComponentInChildren<ISelectorController>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        selectorController.Scale = fontSize;
     }
 
     // Update is called once per frame
@@ -67,4 +79,6 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI
     {
         
     }
+
+    
 }

@@ -10,11 +10,9 @@ public class UIPrinter : IBattleUIPrinter, BattleUIPrinterSetter
 
     public void PrintActionSelecter() => battleUIPrinter.PrintActionSelecter();
 
-    public void PrintPlayerInformation(IPawn pawn)
-    {
-        Debug.Log(pawn);
-        battleUIPrinter.PrintPlayerInformation(pawn);
-    }
+    public void PrintCmdSelecter(string[] cmdList) => battleUIPrinter.PrintCmdSelecter(cmdList);
+
+    public void PrintPlayerInformation(IPawn pawn) => battleUIPrinter.PrintPlayerInformation(pawn);
 
     // Start is called before the first frame update
     void Start()

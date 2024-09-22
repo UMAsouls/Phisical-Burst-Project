@@ -24,7 +24,9 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
     {
         var obj = Instantiate(CmdWindow);
         obj.transform.SetParent(transform, false);
-        obj.transform.localPosition = CmdWindowPos;
+
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        rect.anchoredPosition = CmdWindowPos;
 
         ICmdUI ui = obj.GetComponent<ICmdUI>();
         ui.CmdAdd("èPåÇ");
@@ -33,11 +35,28 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
         ui.CmdAdd("çsìÆ");
     }
 
+    public void PrintCmdSelecter(string[] cmdList)
+    {
+        var obj = Instantiate(CmdWindow);
+        obj.transform.SetParent(transform, false);
+
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        rect.anchoredPosition = CmdWindowPos;
+
+        ICmdUI ui = obj.GetComponent <ICmdUI>();
+        foreach (string cmd in cmdList)
+        {
+            ui.CmdAdd(cmd);
+        }
+    }
+
     public void PrintPlayerInformation(IPawn pawn)
     {
         var obj = Instantiate(PawnInfo);
         obj.transform.SetParent(transform, false);
-        obj.transform.localPosition = PawnInfoPos;
+
+        RectTransform rect = obj.GetComponent<RectTransform>();
+        rect.anchoredPosition = PawnInfoPos;
 
         IPawnInfoUI ui = obj.GetComponent<IPawnInfoUI>();
         ui.Name = pawn.Name;
