@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 [RequireComponent(typeof(ICmdTextRectGetter))]
 public class CmdUIController : MonoBehaviour
 {
+
+    [Inject]
+    private CmdConfirmAble cmdConfirmAble;
 
     private ICmdTextRectGetter getter;
     private ISelectorController selector;
@@ -30,6 +34,11 @@ public class CmdUIController : MonoBehaviour
             Move(1);
         }
         
+    }
+
+    public void OnConfirm(InputAction.CallbackContext context)
+    {
+        if (context.performed) cmdConfirmAble.CommandConfirm(selectorIndex);
     }
 
     public void Move(int dir)

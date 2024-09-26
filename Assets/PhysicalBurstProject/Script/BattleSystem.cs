@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class BattleSystem : MonoBehaviour,CmdConfirmAble
+public class BattleSystem : MonoBehaviour, CmdConfirmAble
 {
     private string[] defaultActions =
     {
@@ -43,6 +43,8 @@ public class BattleSystem : MonoBehaviour,CmdConfirmAble
         uiPrinter.PrintCmdSelecter(defaultActions);
 
         await UniTask.WaitUntil(() => isConfirm);
+
+        Debug.Log("confirm");
     }
 
     // Start is called before the first frame update

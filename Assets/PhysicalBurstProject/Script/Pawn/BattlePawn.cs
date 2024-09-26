@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattlePawn : MonoBehaviour, IPawn
+public class BattlePawn : MonoBehaviour, IPawn, IDGettable, ICmdSelectable
 {
 
     protected IStatus status;
 
     protected IAccessorie[] accessories;
+
+    private int id;
 
 
     public float attack 
@@ -40,6 +42,13 @@ public class BattlePawn : MonoBehaviour, IPawn
     public int MaxHP => 100;
 
     public int HP => 50;
+
+    public int ID => id;
+
+    public ICommand[] GetCommands()
+    {
+        throw new System.NotImplementedException();
+    }
 
 
     // Start is called before the first frame update
