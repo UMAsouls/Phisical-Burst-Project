@@ -57,6 +57,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
     private async UniTask Select(ICmdSelectablePawn pawn)
     {
+        isConfirm = false;
         uiPrinter.PrintCmdSelecter(defaultActions);
 
         await UniTask.WaitUntil(() => isConfirm);
@@ -68,6 +69,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     // Start is called before the first frame update
     void Start()
     {
+
         Battle().Forget();
     }
 

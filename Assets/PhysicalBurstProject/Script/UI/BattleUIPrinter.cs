@@ -8,6 +8,9 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
     [Inject]
     BattleUIPrinterSetter setter;
 
+    [Inject]
+    DiContainer diContainer;
+
     [SerializeField]
     private GameObject CmdWindow;
 
@@ -37,7 +40,8 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
 
     public void PrintCmdSelecter(string[] cmdList)
     {
-        var obj = Instantiate(CmdWindow);
+
+        var obj = diContainer.InstantiatePrefab(CmdWindow);
         obj.transform.SetParent(transform, false);
 
         RectTransform rect = obj.GetComponent<RectTransform>();
