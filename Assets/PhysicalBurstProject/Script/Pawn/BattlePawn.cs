@@ -2,34 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattlePawn : MonoBehaviour, IPawn, IDGettable, ICmdSelectable
+public class BattlePawn : MonoBehaviour, 
+    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable
 {
 
     protected IStatus status;
 
-    protected IAccessorie[] accessories;
-
     private int id;
-
 
     public float attack 
     {
-        get { return 0; }
+        get { return status.Attack; }
     }
 
     public float defence
     {
-        get { return 0; }
+        get { return status.Defence; }
     }
 
     public float speed
     {
-        get { return 0; }
+        get { return status.Speed; }
     }
 
     public float range
     {
-        get { return 0; }
+        get { return status.Range; }
     }
 
     public bool death
@@ -37,13 +35,21 @@ public class BattlePawn : MonoBehaviour, IPawn, IDGettable, ICmdSelectable
         get { return false; }
     }
 
-    public string Name => "";
+    public string Name => status.Name;
 
-    public int MaxHP => 100;
+    public int MaxHP => status.MaxHP;
 
-    public int HP => 50;
+    public int HP => status.HP;
 
     public int ID => id;
+
+    public IStatus Status { set => status = value; }
+    int PawnOptionSettable.ID { set => id = value; }
+
+    public void Action()
+    {
+        throw new System.NotImplementedException();
+    }
 
     public ICommand[] GetCommands()
     {

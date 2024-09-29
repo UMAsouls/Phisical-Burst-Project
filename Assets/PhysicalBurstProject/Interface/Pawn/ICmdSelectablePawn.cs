@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICmdSelectable : IPawn
+public interface ICmdSelectablePawn : IPawn
 {
     ICommand[] GetCommands();
+
+    void Action();
 }

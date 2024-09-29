@@ -8,6 +8,12 @@ using UnityEngine;
 
 public interface IStatus
 {
+    public int HP { get; }
+
+    public int MaxHP { get; }
+
+    public string Name { get; }
+
    /// <summary>
    /// Œ»İ‚ÌUŒ‚—Í
    /// </summary>

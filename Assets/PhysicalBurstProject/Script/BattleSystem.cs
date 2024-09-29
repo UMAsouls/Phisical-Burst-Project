@@ -11,10 +11,13 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         "ˆÚ“®", "PŒ‚", "‘Ò‚¿•š‚¹", "s“®"
     };
 
-    private ICmdSelectable[] porns;
+    private ICmdSelectablePawn[] pawns;
 
     [Inject]
     private IBattleUIPrinter uiPrinter;
+
+    [Inject]
+    private IPawnGettable pawnGettable;
 
     private bool isConfirm;
 
@@ -26,31 +29,46 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         cmdIndex = index;
     }
 
+    private async UniTask BattleStart()
+    {
+        await UniTask.WaitUntil(() => pawnGettable.IsSetComplete);
+
+        pawns = pawnGettable.GetPawnList<ICmdSelectablePawn>();
+        Debug.Log("pawn get");
+
+        return;
+    }
+
     private async UniTask Battle()
     {
-        foreach (var p in porns)
+        Debug.Log("BattleStart");
+        await BattleStart();
+
+        foreach (var p in pawns)
         {
+            Debug.Log("Select faze");
             uiPrinter.PrintPlayerInformation(p);
             
             await Select(p);
         }
 
-        
+        return;
     }
 
-    private async UniTask Select(ICmdSelectable porn)
+    private async UniTask Select(ICmdSelectablePawn pawn)
     {
         uiPrinter.PrintCmdSelecter(defaultActions);
 
         await UniTask.WaitUntil(() => isConfirm);
 
         Debug.Log("confirm");
+        return;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Battle().Forget();
     }
 
     // Update is called once per frame

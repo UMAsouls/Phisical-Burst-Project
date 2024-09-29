@@ -13,6 +13,10 @@ public class BattleSceneInstaller : MonoInstaller
             .BindInterfacesTo<BattleSystem>()
             .AsSingle();
 
+
+        Container
+            .BindInterfacesTo<BattlePawnStrage>()
+            .AsSingle();
         
     }
 }

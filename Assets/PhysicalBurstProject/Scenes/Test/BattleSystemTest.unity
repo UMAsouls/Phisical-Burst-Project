@@ -4029,6 +4029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1697598551}
   - component: {fileID: 1697598552}
+  - component: {fileID: 1697598553}
   m_Layer: 0
   m_Name: TesterObj1
   m_TagString: Untagged
@@ -4063,7 +4064,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509b39bbae65bc04e89efd46776b6002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1747783513
+--- !u!114 &1697598553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697598549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96d85c57f6e6a44c85a46126f1d8d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawn: {fileID: 9110315097187147631, guid: 9b6d1e4f937522448be955be76286072, type: 3}
+--- !u!1001 &2142603417
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -4073,11 +4087,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 761340618331522130, guid: 9b6d1e4f937522448be955be76286072, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.45
+      value: 1.1253009
       objectReference: {fileID: 0}
     - target: {fileID: 761340618331522130, guid: 9b6d1e4f937522448be955be76286072, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.95
+      value: 1.1236253
       objectReference: {fileID: 0}
     - target: {fileID: 761340618331522130, guid: 9b6d1e4f937522448be955be76286072, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4111,20 +4125,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3040357504579601206, guid: 9b6d1e4f937522448be955be76286072, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
+    - target: {fileID: 1407300612939210154, guid: 9b6d1e4f937522448be955be76286072, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.79
       objectReference: {fileID: 0}
-    - target: {fileID: 3040357504579601206, guid: 9b6d1e4f937522448be955be76286072, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1846053231
+    - target: {fileID: 1407300612939210154, guid: 9b6d1e4f937522448be955be76286072, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.28
       objectReference: {fileID: 0}
     - target: {fileID: 9110315097187147631, guid: 9b6d1e4f937522448be955be76286072, type: 3}
       propertyPath: m_Name
       value: TestBattlePawn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6965251500861228017, guid: 9b6d1e4f937522448be955be76286072, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b6d1e4f937522448be955be76286072, type: 3}
@@ -4246,10 +4261,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 136652227}
-  - {fileID: 1747783513}
   - {fileID: 1545244995}
   - {fileID: 1474123116}
   - {fileID: 1697598551}
   - {fileID: 9005786755792606385}
   - {fileID: 863402878}
   - {fileID: 1143571154}
+  - {fileID: 2142603417}
