@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface PosSelectorUIPrinter
+public interface IPosSelectorUIPrinter
 {
     public void PrintPosSelectorUI();
     public void DestroyPosSelectorUI();

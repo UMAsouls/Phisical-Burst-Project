@@ -19,7 +19,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     private IPawnGettable strage;
 
     [Inject]
-    PosSelectorUIPrinter uiPrinter;
+    IPosSelectorUIPrinter uiPrinter;
 
     [Inject]
     MoveActionMakeable actMaker;
