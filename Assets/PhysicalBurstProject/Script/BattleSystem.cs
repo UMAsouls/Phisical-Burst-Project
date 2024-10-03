@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +12,16 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         "ˆÚ“®", "PŒ‚", "‘Ò‚¿•š‚¹", "s“®"
     };
 
-    private ICmdSelectablePawn[] pawns;
+    private SpeedGettable[] pawns;
 
     [Inject]
     private IBattleUIPrinter uiPrinter;
 
     [Inject]
     private IPawnGettable pawnGettable;
+
+    [Inject]
+    private MovePosSelectable MovePosSelectable;
 
     private bool isConfirm;
 
@@ -33,9 +37,15 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     {
         await UniTask.WaitUntil(() => pawnGettable.IsSetComplete);
 
-        pawns = pawnGettable.GetPawnList<ICmdSelectablePawn>();
+        pawns = pawnGettable.GetPawnList<SpeedGettable>();
         Debug.Log("pawn get");
 
+        return;
+    }
+
+    private async UniTask TurnStart()
+    {
+        
         return;
     }
 
@@ -43,6 +53,8 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     {
         Debug.Log("BattleStart");
         await BattleStart();
+
+        await TurnStart(); 
 
         foreach (var p in pawns)
         {
@@ -62,8 +74,20 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
         await UniTask.WaitUntil(() => isConfirm);
 
-        Debug.Log("confirm");
+        if (cmdIndex == 0) await MovePosSelect();
+
         return;
+    }
+
+    private async UniTask MovePosSelect()
+    {
+
+        uiPrinter.DestroyPlayerInformation();
+        uiPrinter.DestroyCmdSelector();
+
+        isConfirm = false;
+
+        await MovePosSelectable.MovePosSelect();
     }
 
     // Start is called before the first frame update

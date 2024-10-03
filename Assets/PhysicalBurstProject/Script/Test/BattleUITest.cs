@@ -25,6 +25,10 @@ public class BattleUITest : MonoBehaviour
         public float range => 10;
 
         public bool death => true;
+
+        public Vector2 Position => throw new System.NotImplementedException();
+
+        public int Mana => throw new System.NotImplementedException();
     }
 
     private TestPawn test;

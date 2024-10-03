@@ -6,11 +6,15 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject gameManager;
 
+    [SerializeField]
+    GameObject battleUI;
+
     public override void InstallBindings()
     {
         Container
-            .BindInterfacesTo<UIPrinter>()
-            .AsSingle();
+            .BindInterfacesTo<BattleUIPrinter>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
 
 
         Container
@@ -20,6 +24,15 @@ public class BattleSceneInstaller : MonoInstaller
         Container
             .Bind<CmdConfirmAble>()
             .To<BattleSystem>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<ActionMaker>()
+            .AsSingle();
+
+        Container
+            .BindInterfacesTo<MovePosSelectSystem>()
             .FromComponentOn(gameManager)
             .AsTransient();
     }

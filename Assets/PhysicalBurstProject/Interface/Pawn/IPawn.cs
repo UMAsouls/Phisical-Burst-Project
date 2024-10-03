@@ -15,4 +15,8 @@ public interface IPawn
     public float range { get; }
 
     public bool death { get; }
+
+    public Vector2 Position {  get; }
+
+    public int Mana { get; }
 }

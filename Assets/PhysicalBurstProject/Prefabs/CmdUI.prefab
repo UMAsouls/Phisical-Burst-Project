@@ -53,9 +53,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CmdTextUI: {fileID: 5917292618425102226, guid: b89c0500229b29441b341440fd9e8bc6, type: 3}
-  fontSize: 72
+  fontSize: 56
   textSpace: 10
-  firstCmdPos: {x: 40, y: -40}
+  firstCmdPos: {x: 30, y: -30}
 --- !u!114 &4617564748747415760
 MonoBehaviour:
   m_ObjectHideFlags: 0
