@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
+using ModestTree;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,8 +25,25 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     private MovePosSelectable MovePosSelectable;
 
     private bool isConfirm;
+    private bool isCancel;
 
     private int cmdIndex;
+
+    /// <summary>
+    /// SpeedGettable[]ÇÃCoparer
+    /// ç~èáÇ…É\Å[Ég
+    /// </summary>
+    class SpeedComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            SpeedGettable sx = (SpeedGettable)x;
+            SpeedGettable sy = (SpeedGettable)y;
+
+            return (new CaseInsensitiveComparer()).Compare(sy.speed, sx.speed);
+        }
+    }
+
 
     public void CommandConfirm(int index)
     {
@@ -45,7 +63,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
     private async UniTask TurnStart()
     {
-        
+        System.Array.Sort(pawns, new SpeedComparer());
         return;
     }
 
@@ -59,7 +77,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         foreach (var p in pawns)
         {
             Debug.Log("Select faze");
-            uiPrinter.PrintPlayerInformation(p);
+            uiPrinter.PrintPlayerInformation(p.ID);
             
             await Select(p);
         }
@@ -67,19 +85,19 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         return;
     }
 
-    private async UniTask Select(ICmdSelectablePawn pawn)
+    private async UniTask Select(SpeedGettable pawn)
     {
         isConfirm = false;
         uiPrinter.PrintCmdSelecter(defaultActions);
 
         await UniTask.WaitUntil(() => isConfirm);
 
-        if (cmdIndex == 0) await MovePosSelect();
+        if (cmdIndex == 0) await MovePosSelect(pawn);
 
         return;
     }
 
-    private async UniTask MovePosSelect()
+    private async UniTask MovePosSelect(SpeedGettable pawn)
     {
 
         uiPrinter.DestroyPlayerInformation();
@@ -87,7 +105,13 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
         isConfirm = false;
 
-        await MovePosSelectable.MovePosSelect();
+        isConfirm = await MovePosSelectable.MovePosSelect(pawn.ID);
+
+        if (!isConfirm)
+        {
+            isCancel = true;
+            return;
+        }
     }
 
     // Start is called before the first frame update

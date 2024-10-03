@@ -7,7 +7,7 @@ public interface IBattleUIPrinter{
 
     public void PrintCmdSelecter(string[] cmdList);
 
-    public void PrintPlayerInformation(IPawn pawn);
+    public void PrintPlayerInformation(int id);
 
     public void DestroyCmdSelector();
 

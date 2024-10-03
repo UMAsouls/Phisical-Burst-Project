@@ -37,7 +37,7 @@ public class BattleUITest : MonoBehaviour
     void Start()
     {
         test = new TestPawn();
-        battleUIPrinter.PrintPlayerInformation(test);
+        //battleUIPrinter.PrintPlayerInformation(test);
         battleUIPrinter.PrintActionSelecter();
     }
 

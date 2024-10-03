@@ -8,6 +8,9 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
     [Inject]
     DiContainer diContainer;
 
+    [Inject]
+    IPawnGettable pawnStrage;
+
     [SerializeField]
     private GameObject CmdWindow;
 
@@ -72,8 +75,10 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
         printedCmdWindow = obj;
     }
 
-    public void PrintPlayerInformation(IPawn pawn)
+    public void PrintPlayerInformation(int id)
     {
+        IPawn pawn = pawnStrage.GetPawnById<IPawn>(id);
+
         DestroyPlayerInformation();
 
         var obj = Instantiate(PawnInfo);
