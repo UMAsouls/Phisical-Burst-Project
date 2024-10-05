@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattlePawn : MonoBehaviour, 
-    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, SpeedGettable, ActionSettable, BefActPawn
+    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, SpeedGettable, ActionSettable
 {
 
     protected IStatus status;
@@ -42,12 +42,11 @@ public class BattlePawn : MonoBehaviour,
 
     public int Mana => mana;
 
-    public Vector2 VirtualPos => virtualPos;
+    public Vector2 VirtualPos { get => virtualPos; set => virtualPos = value; }
 
     public int ActionNum => throw new System.NotImplementedException();
 
     int PawnOptionSettable.ID { set => id = value; }
-    Vector2 BefActPawn.VirtualPos { set => virtualPos = value; }
 
     public void Action()
     {

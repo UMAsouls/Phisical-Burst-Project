@@ -58,7 +58,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         if (isCancel) return false;
 
         Vector2 diff = pos - pawn.VirtualPos;
-        pawn.ActionAdd(actMaker.MakeMoveAction(diff));
+        actMaker.MakeMoveAction(diff).setAct(pawn);
 
         Destroy(obj1);
         

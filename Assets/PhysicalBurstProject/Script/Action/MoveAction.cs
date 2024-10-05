@@ -17,4 +17,14 @@ public class MoveAction : IAction
     {
         await pawn.movePos(delta);
     }
+
+    public bool setAct(ActionSettable pawn)
+    {
+       if (!pawn.useActPoint(1)) return false;
+
+        pawn.VirtualPos += delta;
+        pawn.ActionAdd(this);
+
+       return true;
+    }
 }
