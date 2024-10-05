@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattlePawn : MonoBehaviour, 
-    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable,ActablePawn,SpeedGettable
+    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, SpeedGettable, ActionSettable, BefActPawn
 {
 
     protected IStatus status;
@@ -14,30 +14,19 @@ public class BattlePawn : MonoBehaviour,
 
     private int mana;
 
-    public float attack 
-    {
-        get { return status.Attack; }
-    }
+    private Vector2 virtualPos;
 
-    public float defence
-    {
-        get { return status.Defence; }
-    }
+    private int actPoint;
 
-    public float speed
-    {
-        get { return status.Speed; }
-    }
+    public float attack => status.Attack;
 
-    public float range
-    {
-        get { return status.Range; }
-    }
+    public float defence => status.Defence;
 
-    public bool death
-    {
-        get { return false; }
-    }
+    public float speed => status.Speed;
+
+    public float range => status.Range;
+
+    public bool death => false;
 
     public string Name => status.Name;
 
@@ -53,9 +42,19 @@ public class BattlePawn : MonoBehaviour,
 
     public int Mana => mana;
 
+    public Vector2 VirtualPos => virtualPos;
+
+    public int ActionNum => throw new System.NotImplementedException();
+
     int PawnOptionSettable.ID { set => id = value; }
+    Vector2 BefActPawn.VirtualPos { set => virtualPos = value; }
 
     public void Action()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ActionAdd(IAction action)
     {
         throw new System.NotImplementedException();
     }
@@ -70,11 +69,21 @@ public class BattlePawn : MonoBehaviour,
         await transform.DOMove((Vector3)delta, 0.5f).AsyncWaitForCompletion();
     }
 
+    public bool useActPoint(int point)
+    {
+        if(actPoint < point) return false;
+
+        actPoint -= point;
+        return true;
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        mana = 0;
+        virtualPos = transform.position;
+        actPoint = 2;
     }
 
     // Update is called once per frame
