@@ -11,4 +11,6 @@ public interface IAction
     public  UniTask DoAct(ActablePawn pawn);
 
     public bool setAct(ActionSettable pawn);
+
+    public bool CancelAct(ActionSettable pawn);
 }

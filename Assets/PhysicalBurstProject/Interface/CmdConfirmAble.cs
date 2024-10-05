@@ -5,4 +5,6 @@ using UnityEngine;
 public interface CmdConfirmAble 
 {
     public void CommandConfirm(int index);
+
+    public void CmdCancel();
 }

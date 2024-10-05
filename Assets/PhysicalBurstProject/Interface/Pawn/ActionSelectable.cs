@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public interface SpeedGettable
+public interface ActionSelectable
 {
     public int ID { get; }
     public float speed { get; }
@@ -12,4 +12,6 @@ public interface SpeedGettable
     public UniTask TurnStart();
 
     public UniTask TurnEnd();
+
+    public bool CancelSelect();
 }

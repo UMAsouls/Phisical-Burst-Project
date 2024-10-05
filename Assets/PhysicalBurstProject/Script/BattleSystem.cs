@@ -13,7 +13,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         "ˆÚ“®", "PŒ‚", "‘Ò‚¿•š‚¹", "s“®"
     };
 
-    private SpeedGettable[] pawns;
+    private ActionSelectable[] pawns;
 
     [Inject]
     private IBattleUIPrinter uiPrinter;
@@ -39,8 +39,8 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     {
         public int Compare(object x, object y)
         {
-            SpeedGettable sx = (SpeedGettable)x;
-            SpeedGettable sy = (SpeedGettable)y;
+            ActionSelectable sx = (ActionSelectable)x;
+            ActionSelectable sy = (ActionSelectable)y;
 
             return (new CaseInsensitiveComparer()).Compare(sy.speed, sx.speed);
         }
@@ -51,6 +51,11 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     {
         isConfirm = true;
         cmdIndex = index;
+    }
+
+    public void CmdCancel()
+    {
+        isCancel = true;
     }
 
     private async UniTask Battle()
@@ -69,7 +74,16 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
                     Debug.Log("Select faze");
                     uiPrinter.PrintPlayerInformation(p.ID);
 
-                    await Select(p);
+                    do
+                    {
+                        isCancel = false;
+                        await Select(p);
+                        if (isCancel)
+                        {
+                            if(p.CancelSelect()) uiPrinter.DestroyCmdSelector();
+                        }
+                    } while (isCancel);
+                    
                 }
                
             }
@@ -86,7 +100,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     {
         await UniTask.WaitUntil(() => pawnGettable.IsSetComplete);
 
-        pawns = pawnGettable.GetPawnList<SpeedGettable>();
+        pawns = pawnGettable.GetPawnList<ActionSelectable>();
         Debug.Log("pawn get");
 
         isBattleEnd = false;
@@ -101,14 +115,20 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         return;
     }
 
-    private async UniTask Select(SpeedGettable pawn)
+    private async UniTask Select(ActionSelectable pawn)
     {
         isConfirm = false;
-        uiPrinter.PrintCmdSelecter(defaultActions);
+        do
+        {
+            isCancel = false;
+            uiPrinter.PrintCmdSelecter(defaultActions);
 
-        await UniTask.WaitUntil(() => isConfirm);
+            await UniTask.WaitUntil(() => isConfirm | isCancel);
 
-        if (cmdIndex == 0) await MovePosSelect(pawn);
+            if (isCancel) break;
+
+            if (cmdIndex == 0) await MovePosSelect(pawn);
+        }while(isCancel);
 
         return;
     }
@@ -119,7 +139,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         return;
     }
 
-    private async UniTask MovePosSelect(SpeedGettable pawn)
+    private async UniTask MovePosSelect(ActionSelectable pawn)
     {
 
         uiPrinter.DestroyPlayerInformation();
@@ -131,6 +151,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
         if (!isConfirm)
         {
+            uiPrinter.PrintPlayerInformation(pawn.ID);
             isCancel = true;
             return;
         }

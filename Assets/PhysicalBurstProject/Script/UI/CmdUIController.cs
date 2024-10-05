@@ -41,6 +41,11 @@ public class CmdUIController : MonoBehaviour
         if (context.performed) cmdConfirmAble.CommandConfirm(selectorIndex);
     }
 
+    public void OnCancel(InputAction.CallbackContext context)
+    {
+        if (context.performed) cmdConfirmAble.CmdCancel();
+    }
+
     public void Move(int dir)
     {
         cmdTextRects = getter.CmdTextRects;

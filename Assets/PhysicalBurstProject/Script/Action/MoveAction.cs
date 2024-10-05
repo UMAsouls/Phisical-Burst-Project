@@ -27,4 +27,12 @@ public class MoveAction : IAction
 
        return true;
     }
+
+    public bool CancelAct(ActionSettable pawn)
+    {
+        pawn.VirtualPos -= delta;
+        pawn.UseActPoint(-1);
+
+        return true;
+    }
 }

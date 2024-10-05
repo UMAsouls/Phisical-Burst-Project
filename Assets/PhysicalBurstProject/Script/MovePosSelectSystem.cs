@@ -62,7 +62,13 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm)); 
 
-        if (isCancel) return false;
+        if (isCancel)
+        {
+            Destroy(obj1);
+            Destroy(obj2);
+            uiPrinter.DestroyPosSelectorUI();
+            return false;
+        }
 
         Vector2 diff = pos - pawn.VirtualPos;
         actMaker.MakeMoveAction(diff).setAct(pawn);

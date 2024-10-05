@@ -24,7 +24,6 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
     public void OnMove(InputValue value)
     {
        movedir = value.Get<Vector2>();
-        Debug.Log(movedir);
     }
 
     public void OnConfirm(InputValue value)

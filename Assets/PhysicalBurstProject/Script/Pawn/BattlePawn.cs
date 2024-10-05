@@ -2,10 +2,11 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattlePawn : MonoBehaviour, 
-    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, SpeedGettable, ActionSettable
+    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable
 {
 
     protected IStatus status;
@@ -17,6 +18,8 @@ public class BattlePawn : MonoBehaviour,
     private Vector2 virtualPos;
 
     private int actPoint;
+
+    private int actMax;
 
     private List<IAction> actions;
 
@@ -75,20 +78,35 @@ public class BattlePawn : MonoBehaviour,
 
     public async UniTask TurnStart()
     {
-        actPoint = 2;
-        VirtualPos = transform.position;
+        actPoint = actMax;
     }
 
     public async UniTask TurnEnd()
     {
-        
+        actions = new List<IAction>();
+        VirtualPos = transform.position;
     }
 
     public bool UseActPoint(int point)
     {
         if(actPoint < point) return false;
 
-        actPoint -= point;
+        actPoint = Mathf.Clamp(actPoint - point, 0, actMax);
+        return true;
+    }
+
+    public bool CancelSelect()
+    {
+
+        if(actions.Count == 0) return false;
+
+        var cAct = actions.Last<IAction>();
+        Debug.Log("bef: " + virtualPos.ToString());
+        cAct.CancelAct(this);
+        Debug.Log("aft: " + virtualPos.ToString());
+
+        actions.Remove(cAct);
+
         return true;
     }
 
@@ -98,7 +116,8 @@ public class BattlePawn : MonoBehaviour,
     {
         mana = 0;
         virtualPos = transform.position;
-        actPoint = 2;
+        actMax = 2;
+        actPoint = actMax;
         actions = new List<IAction>();
     }
 

@@ -126,7 +126,19 @@ MonoBehaviour:
     m_ActionId: 5bf94062-c684-45a0-aea4-21c3f4c5ae15
     m_ActionName: Battle/Confirm[/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4617564748747415760}
+        m_TargetAssemblyTypeName: CmdUIController, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: cad0633a-5c3c-4e1e-ad0a-789936700990
     m_ActionName: Battle/Cancel[/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
