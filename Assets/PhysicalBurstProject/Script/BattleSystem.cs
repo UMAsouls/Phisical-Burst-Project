@@ -64,11 +64,18 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
             foreach (var p in pawns)
             {
-                Debug.Log("Select faze");
-                uiPrinter.PrintPlayerInformation(p.ID);
+                while (p.ActPoint > 0)
+                {
+                    Debug.Log("Select faze");
+                    uiPrinter.PrintPlayerInformation(p.ID);
 
-                await Select(p);
+                    await Select(p);
+                }
+               
             }
+
+            await TurnEnd();
+            
         }
         
 
@@ -90,6 +97,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     private async UniTask TurnStart()
     {
         System.Array.Sort(pawns, new SpeedComparer());
+        foreach (var p in pawns) await p.TurnStart();
         return;
     }
 
@@ -102,6 +110,11 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
         if (cmdIndex == 0) await MovePosSelect(pawn);
 
+        return;
+    }
+
+    private async UniTask TurnEnd()
+    {
         return;
     }
 

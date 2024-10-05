@@ -68,7 +68,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         actMaker.MakeMoveAction(diff).setAct(pawn);
 
         Destroy(obj1);
-        
+        Destroy(obj2);
 
         uiPrinter.DestroyPosSelectorUI(); 
         return true;

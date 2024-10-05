@@ -46,7 +46,7 @@ public class BattlePawn : MonoBehaviour,
 
     public Vector2 VirtualPos { get => virtualPos; set => virtualPos = value; }
 
-    public int ActionNum => throw new System.NotImplementedException();
+    public int ActPoint => actPoint;
 
     int PawnOptionSettable.ID { set => id = value; }
 
@@ -73,7 +73,12 @@ public class BattlePawn : MonoBehaviour,
         await transform.DOMove((Vector3)delta, 0.5f).AsyncWaitForCompletion();
     }
 
-    public bool useActPoint(int point)
+    public async UniTask TurnStart()
+    {
+        actPoint = 2;
+    }
+
+    public bool UseActPoint(int point)
     {
         if(actPoint < point) return false;
 

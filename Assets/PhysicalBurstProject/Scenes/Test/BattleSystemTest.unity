@@ -284,7 +284,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 1
+    m_Style: 0
     m_Time: 2
     m_CustomCurve:
       serializedVersion: 2
@@ -4353,7 +4353,7 @@ MonoBehaviour:
         attackBase: 12
         defenceBase: 12
         speedBase: 12
-        rangeBase: 10
+        rangeBase: 5
 --- !u!1001 &9005786755792606385
 PrefabInstance:
   m_ObjectHideFlags: 0
