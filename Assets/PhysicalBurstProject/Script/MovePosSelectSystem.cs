@@ -6,6 +6,9 @@ using Zenject;
 
 public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectable
 {
+    [Inject]
+    DiContainer container;
+
     private bool isConfirm;
 
     private bool isCancel;
@@ -45,10 +48,14 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         isConfirm = false;
 
         uiPrinter.PrintPosSelectorUI();
-        var obj1 = Instantiate(posSelector, pawn.VirtualPos, Quaternion.identity);
-        var obj2 = Instantiate(posSelectorRangeCircle, pawn.VirtualPos, Quaternion.identity) ;
+        Vector3 cameraPos = pawn.VirtualPos;
+        cameraPos.z = -1;
+        var obj1 = container.InstantiatePrefab(posSelector);
+        obj1.transform.position = cameraPos;
 
-        obj2.transform.localScale = new Vector3(pawn.range, pawn.range, 1);
+        var obj2 = container.InstantiatePrefab(posSelectorRangeCircle) ;
+        obj2.transform.position = pawn.VirtualPos;
+        obj2.transform.localScale = new Vector3(pawn.range*2, pawn.range*2, 1);
 
         PosSelectorRangeSetter setter = obj1.GetComponent<PosSelectorRangeSetter>();
         setter.Range = pawn.range;

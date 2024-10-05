@@ -6,13 +6,14 @@ using Zenject;
 
 public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 {
+
     [Inject]
     private PosConfirmAble posConfirmAble;
 
     private Vector2 movedir;
 
     [SerializeField]
-    float moveSpeed = 1;
+    float moveSpeed = 0.05f;
 
     private float range;
 
@@ -20,21 +21,20 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 
     public float Range { set => range = value; }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputValue value)
     {
-        if (!context.performed) return;
-
-       movedir = context.ReadValue<Vector2>();
+       movedir = value.Get<Vector2>();
+        Debug.Log(movedir);
     }
 
-    public void OnConfirm(InputAction.CallbackContext context)
+    public void OnConfirm(InputValue value)
     {
-        if (context.performed) posConfirmAble.PosConfirm(transform.position);
+        posConfirmAble.PosConfirm(transform.position);
     }
 
-    public void OnCancel(InputAction.CallbackContext context)
+    public void OnCancel(InputValue value)
     {
-        if(context.performed) posConfirmAble.Cancel();
+        posConfirmAble.Cancel();
     }
 
     // Start is called before the first frame update
@@ -46,10 +46,12 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
     // Update is called once per frame
     void Update()
     {
-        transform.position += (Vector3)movedir;
+        transform.position += (Vector3)movedir*moveSpeed;
         if(Vector2.Distance(transform.position, firstPos) > range)
         {
-            transform.position -= (Vector3)movedir;
+            transform.position = firstPos + ((Vector2)transform.position - firstPos).normalized*range;
         }
+
+        transform.position = new Vector3(transform.position.x, transform.position.y, -1);
     }
 }

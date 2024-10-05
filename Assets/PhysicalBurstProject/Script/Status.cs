@@ -49,5 +49,14 @@ public class Status : IStatus
 
     public int HP => hp;
     public int MaxHP => maxhp;
+
+    public void init()
+    {
+        hp = maxhp;
+        attack = attackBase;
+        speed = speedBase;
+        defence = defenceBase;
+        range = rangeBase;
+    }
     //ÉQÉbÉ^Å[ ç≈å„
 }

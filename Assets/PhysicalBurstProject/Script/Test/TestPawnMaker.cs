@@ -19,7 +19,7 @@ public class TestPawnMaker : MonoBehaviour
 
     private void Awake()
     {
-        
+        status.init();
     }
 
     private void Start()

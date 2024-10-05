@@ -18,6 +18,8 @@ public class BattlePawn : MonoBehaviour,
 
     private int actPoint;
 
+    private List<IAction> actions;
+
     public float attack => status.Attack;
 
     public float defence => status.Defence;
@@ -48,14 +50,17 @@ public class BattlePawn : MonoBehaviour,
 
     int PawnOptionSettable.ID { set => id = value; }
 
-    public void Action()
+    public async void Action()
     {
-        throw new System.NotImplementedException();
+        foreach (var action in actions)
+        {
+            await action.DoAct(this);
+        }
     }
 
     public void ActionAdd(IAction action)
     {
-        throw new System.NotImplementedException();
+       actions.Add(action);
     }
 
     public ICommand[] GetCommands()
@@ -83,6 +88,7 @@ public class BattlePawn : MonoBehaviour,
         mana = 0;
         virtualPos = transform.position;
         actPoint = 2;
+        actions = new List<IAction>();
     }
 
     // Update is called once per frame

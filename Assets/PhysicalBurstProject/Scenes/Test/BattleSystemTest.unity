@@ -4353,7 +4353,7 @@ MonoBehaviour:
         attackBase: 12
         defenceBase: 12
         speedBase: 12
-        rangeBase: 3
+        rangeBase: 10
 --- !u!1001 &9005786755792606385
 PrefabInstance:
   m_ObjectHideFlags: 0

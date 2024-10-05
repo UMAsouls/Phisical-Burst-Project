@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
+public class BattleUIPrinter : UIPrinter,IBattleUIPrinter
 {
-    [Inject]
-    DiContainer diContainer;
+    
 
     [Inject]
     IPawnGettable pawnStrage;
@@ -43,13 +42,9 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
 
     public void PrintActionSelecter()
     {
-        var obj = Instantiate(CmdWindow);
-        obj.transform.SetParent(transform, false);
+        printedCmdWindow = PrintUIAsChildAt(CmdWindow, CmdWindowPos);
 
-        RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.anchoredPosition = CmdWindowPos;
-
-        ICmdUI ui = obj.GetComponent<ICmdUI>();
+        ICmdUI ui = printedCmdWindow.GetComponent<ICmdUI>();
         ui.CmdAdd("èPåÇ");
         ui.CmdAdd("ë“ÇøïöÇπ");
         ui.CmdAdd("à⁄ìÆ");
@@ -60,11 +55,7 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
     {
         DestroyCmdSelector();
 
-        var obj = diContainer.InstantiatePrefab(CmdWindow);
-        obj.transform.SetParent(transform, false);
-
-        RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.anchoredPosition = CmdWindowPos;
+        var obj = PrintUIAsChildAt(CmdWindow, CmdWindowPos);
 
         ICmdUI ui = obj.GetComponent <ICmdUI>();
         foreach (string cmd in cmdList)
@@ -81,11 +72,7 @@ public class BattleUIPrinter : MonoBehaviour,IBattleUIPrinter
 
         DestroyPlayerInformation();
 
-        var obj = Instantiate(PawnInfo);
-        obj.transform.SetParent(transform, false);
-
-        RectTransform rect = obj.GetComponent<RectTransform>();
-        rect.anchoredPosition = PawnInfoPos;
+        var obj = PrintUIAsChildAt(PawnInfo, PawnInfoPos);
 
         IPawnInfoUI ui = obj.GetComponent<IPawnInfoUI>();
         ui.Name = pawn.Name;

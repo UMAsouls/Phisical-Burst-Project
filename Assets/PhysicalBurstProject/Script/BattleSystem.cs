@@ -29,6 +29,8 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
     private int cmdIndex;
 
+    private bool isBattleEnd;
+
     /// <summary>
     /// SpeedGettable[]‚ÌCoparer
     /// ~‡‚Éƒ\[ƒg
@@ -51,6 +53,28 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         cmdIndex = index;
     }
 
+    private async UniTask Battle()
+    {
+        Debug.Log("BattleStart");
+        await BattleStart();
+
+        while (!isBattleEnd)
+        {
+            await TurnStart();
+
+            foreach (var p in pawns)
+            {
+                Debug.Log("Select faze");
+                uiPrinter.PrintPlayerInformation(p.ID);
+
+                await Select(p);
+            }
+        }
+        
+
+        return;
+    }
+
     private async UniTask BattleStart()
     {
         await UniTask.WaitUntil(() => pawnGettable.IsSetComplete);
@@ -58,30 +82,14 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         pawns = pawnGettable.GetPawnList<SpeedGettable>();
         Debug.Log("pawn get");
 
+        isBattleEnd = false;
+
         return;
     }
 
     private async UniTask TurnStart()
     {
         System.Array.Sort(pawns, new SpeedComparer());
-        return;
-    }
-
-    private async UniTask Battle()
-    {
-        Debug.Log("BattleStart");
-        await BattleStart();
-
-        await TurnStart(); 
-
-        foreach (var p in pawns)
-        {
-            Debug.Log("Select faze");
-            uiPrinter.PrintPlayerInformation(p.ID);
-            
-            await Select(p);
-        }
-
         return;
     }
 

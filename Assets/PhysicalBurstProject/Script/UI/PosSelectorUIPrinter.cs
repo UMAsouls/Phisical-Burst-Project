@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class PosSelectorUIPrinter : MonoBehaviour, IPosSelectorUIPrinter
+public class PosSelectorUIPrinter : UIPrinter, IPosSelectorUIPrinter
 {
     [SerializeField]
     private GameObject posSelectorUI;
@@ -18,7 +18,7 @@ public class PosSelectorUIPrinter : MonoBehaviour, IPosSelectorUIPrinter
 
     public void PrintPosSelectorUI()
     {
-        printedSelector = Instantiate(posSelectorUI);
+        printedSelector = PrintUIAsChild(posSelectorUI);
     }
 
     // Use this for initialization
