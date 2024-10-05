@@ -115,6 +115,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
     private async UniTask TurnEnd()
     {
+        foreach (var p in pawns) await p.TurnEnd();
         return;
     }
 

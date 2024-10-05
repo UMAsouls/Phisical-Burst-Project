@@ -10,4 +10,6 @@ public interface SpeedGettable
     public int ActPoint { get; }
 
     public UniTask TurnStart();
+
+    public UniTask TurnEnd();
 }

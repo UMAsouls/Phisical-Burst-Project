@@ -76,6 +76,12 @@ public class BattlePawn : MonoBehaviour,
     public async UniTask TurnStart()
     {
         actPoint = 2;
+        VirtualPos = transform.position;
+    }
+
+    public async UniTask TurnEnd()
+    {
+        
     }
 
     public bool UseActPoint(int point)
