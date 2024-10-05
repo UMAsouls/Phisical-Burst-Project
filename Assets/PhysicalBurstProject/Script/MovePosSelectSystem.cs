@@ -15,6 +15,9 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     [SerializeField]
     private GameObject posSelector;
 
+    [SerializeField]
+    private GameObject posSelectorRangeCircle;
+
     [Inject]
     private IPawnGettable strage;
 
@@ -43,6 +46,12 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
         uiPrinter.PrintPosSelectorUI();
         var obj1 = Instantiate(posSelector, pawn.VirtualPos, Quaternion.identity);
+        var obj2 = Instantiate(posSelectorRangeCircle, pawn.VirtualPos, Quaternion.identity) ;
+
+        obj2.transform.localScale = new Vector3(pawn.range, pawn.range, 1);
+
+        PosSelectorRangeSetter setter = obj1.GetComponent<PosSelectorRangeSetter>();
+        setter.Range = pawn.range;
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm)); 
 

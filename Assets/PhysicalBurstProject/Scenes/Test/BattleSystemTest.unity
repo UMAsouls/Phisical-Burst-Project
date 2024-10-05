@@ -4006,7 +4006,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91fc11d14e07a98468f86af6d1382693, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  posSelector: {fileID: 4437032430013382475, guid: b4a34a13e46cf0849a706db428b4e2b1, type: 3}
+  posSelector: {fileID: 793296659689745174, guid: b4a34a13e46cf0849a706db428b4e2b1, type: 3}
+  posSelectorRangeCircle: {fileID: 1559190507143676218, guid: 3522dd4220c986f49b90b93f01a6ee5b, type: 3}
 --- !u!1 &1257356882
 GameObject:
   m_ObjectHideFlags: 3
