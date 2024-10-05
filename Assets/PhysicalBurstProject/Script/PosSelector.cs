@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PosSelector : MonoBehaviour
+public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 {
     [Inject]
     private PosConfirmAble posConfirmAble;
@@ -13,6 +13,12 @@ public class PosSelector : MonoBehaviour
 
     [SerializeField]
     float moveSpeed = 1;
+
+    private float range;
+
+    private Vector2 firstPos;
+
+    public float Range { set => range = value; }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -34,12 +40,16 @@ public class PosSelector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        firstPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.position += (Vector3)movedir;
+        if(Vector2.Distance(transform.position, firstPos) > range)
+        {
+            transform.position -= (Vector3)movedir;
+        }
     }
 }
