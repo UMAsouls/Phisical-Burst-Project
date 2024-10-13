@@ -83,16 +83,10 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
                             if(p.CancelSelect()) uiPrinter.DestroyCmdSelector();
                         }
                     } while (isCancel);
-                    
-                }
-               
+                }  
             }
-
             await TurnEnd();
-            
         }
-        
-
         return;
     }
 
@@ -156,6 +150,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
             return;
         }
     }
+
 
     // Start is called before the first frame update
     void Start()

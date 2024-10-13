@@ -2,12 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
-[Serializable]
-public class BattleCommand : ICommand
+public class BattleCommand : IBattleCommand
 {
     private string name;
-
     public string Name => name;
 
-    
+    public BattleCommandType Type => throw new NotImplementedException();
 }

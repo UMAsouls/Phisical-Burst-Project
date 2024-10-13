@@ -48,6 +48,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         isConfirm = false;
 
         uiPrinter.PrintPosSelectorUI();
+
         Vector3 cameraPos = pawn.VirtualPos;
         cameraPos.z = -1;
         var obj1 = container.InstantiatePrefab(posSelector);
