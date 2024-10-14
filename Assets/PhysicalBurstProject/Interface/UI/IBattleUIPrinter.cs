@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IBattleUIPrinter{
     public void PrintActionSelecter();
 
-    public void PrintCmdSelecter(string[] cmdList);
+    public ICmdSelectorController PrintCmdSelecter(string[] cmdList);
 
     public void PrintPlayerInformation(int id);
 

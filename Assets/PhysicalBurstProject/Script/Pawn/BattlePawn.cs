@@ -6,7 +6,8 @@ using System.Linq;
 using UnityEngine;
 
 public class BattlePawn : MonoBehaviour, 
-    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable
+    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
+    CommandActionSettable
 {
 
     protected IStatus status;
@@ -73,7 +74,7 @@ public class BattlePawn : MonoBehaviour,
 
     public async UniTask movePos(Vector2 delta)
     {
-        await transform.DOMove((Vector3)delta, 0.5f).AsyncWaitForCompletion();
+        await transform.DOMove((Vector3)delta, 0.5f);
     }
 
     public async UniTask TurnStart()
@@ -110,6 +111,11 @@ public class BattlePawn : MonoBehaviour,
         return true;
     }
 
+    public ICommand[] GetActionCommands()
+    {
+        throw new System.NotImplementedException();
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -126,4 +132,6 @@ public class BattlePawn : MonoBehaviour,
     {
         
     }
+
+    
 }

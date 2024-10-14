@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9206347844497184038}
   - component: {fileID: 8592780557027358269}
   - component: {fileID: 4617564748747415760}
-  - component: {fileID: 1302871471014548255}
   m_Layer: 5
   m_Name: CmdUI
   m_TagString: Untagged
@@ -68,84 +67,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bd2fd7fb4cccc40a2d0642408e72ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1302871471014548255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1604902454665360852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: bd64384e38c747b4c982a5f6dea784e5, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4617564748747415760}
-        m_TargetAssemblyTypeName: CmdUIController, Assembly-CSharp
-        m_MethodName: OnSelectorMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 614736af-426e-482b-a3ae-3fd6a7d0a4f0
-    m_ActionName: Battle/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4617564748747415760}
-        m_TargetAssemblyTypeName: CmdUIController, Assembly-CSharp
-        m_MethodName: OnConfirm
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 5bf94062-c684-45a0-aea4-21c3f4c5ae15
-    m_ActionName: Battle/Confirm[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4617564748747415760}
-        m_TargetAssemblyTypeName: CmdUIController, Assembly-CSharp
-        m_MethodName: OnCancel
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cad0633a-5c3c-4e1e-ad0a-789936700990
-    m_ActionName: Battle/Cancel[/Keyboard/backspace]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Battle
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1001 &6681666350119369074
 PrefabInstance:
   m_ObjectHideFlags: 0

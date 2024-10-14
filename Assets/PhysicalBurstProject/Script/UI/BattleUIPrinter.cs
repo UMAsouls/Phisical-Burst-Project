@@ -51,7 +51,7 @@ public class BattleUIPrinter : UIPrinter,IBattleUIPrinter
         ui.CmdAdd("çsìÆ");
     }
 
-    public void PrintCmdSelecter(string[] cmdList)
+    public ICmdSelectorController PrintCmdSelecter(string[] cmdList)
     {
         DestroyCmdSelector();
 
@@ -64,6 +64,7 @@ public class BattleUIPrinter : UIPrinter,IBattleUIPrinter
         }
 
         printedCmdWindow = obj;
+        return obj.GetComponent<ICmdSelectorController>();
     }
 
     public void PrintPlayerInformation(int id)

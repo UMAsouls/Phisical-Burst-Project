@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(ICmdTextRectGetter))]
-public class CmdUIController : MonoBehaviour
+public class CmdUIController : MonoBehaviour, ICmdSelectorController
 {
 
     [Inject]
@@ -18,33 +18,7 @@ public class CmdUIController : MonoBehaviour
     private int selectorIndex;
     private List<RectTransform> cmdTextRects;
 
-    public void OnSelectorMove(InputAction.CallbackContext context)
-    {
-        Vector2 moveInput = context.ReadValue<Vector2>();
-
-        if (!context.performed) return;
-
-        if (moveInput.y > 0)
-        {
-            Move(-1);
-        }
-
-        if(moveInput.y < 0)
-        {
-            Move(1);
-        }
-        
-    }
-
-    public void OnConfirm(InputAction.CallbackContext context)
-    {
-        if (context.performed) cmdConfirmAble.CommandConfirm(selectorIndex);
-    }
-
-    public void OnCancel(InputAction.CallbackContext context)
-    {
-        if (context.performed) cmdConfirmAble.CmdCancel();
-    }
+    
 
     public void Move(int dir)
     {

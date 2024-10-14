@@ -4,8 +4,10 @@ using ModestTree;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Zenject;
 
+[RequireComponent(typeof(PlayerInput))]
 public class BattleSystem : MonoBehaviour, CmdConfirmAble
 {
     private string[] defaultActions =
@@ -28,8 +30,13 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     private bool isCancel;
 
     private int cmdIndex;
+    private int cmdLength;
 
     private bool isBattleEnd;
+
+    private ICmdSelectorController controller;
+
+    private PlayerInput input;
 
     /// <summary>
     /// SpeedGettable[]‚ÌCoparer
@@ -44,6 +51,37 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
             return (new CaseInsensitiveComparer()).Compare(sy.speed, sx.speed);
         }
+    }
+
+    public void OnSelectorMove(InputAction.CallbackContext context)
+    {
+        Vector2 moveInput = context.ReadValue<Vector2>();
+
+        if (!context.performed) return;
+        
+        //inputã‚Å‚Íup > 0 down < 0
+        if (moveInput.y > 0)
+        {
+            controller.Move(-1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex-1, cmdLength-1);
+        }
+
+        if (moveInput.y < 0)
+        {
+            controller.Move(1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength-1); 
+        }
+
+    }
+
+    public void OnConfirm(InputAction.CallbackContext context)
+    {
+        if (context.performed) CommandConfirm(cmdIndex);
+    }
+
+    public void OnCancel(InputAction.CallbackContext context)
+    {
+        if (context.performed) CmdCancel();
     }
 
 
@@ -114,8 +152,12 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         isConfirm = false;
         do
         {
+            input.SwitchCurrentActionMap("FirstSelect");
+
             isCancel = false;
-            uiPrinter.PrintCmdSelecter(defaultActions);
+            cmdIndex = 0;
+            cmdLength = 4;
+            controller = uiPrinter.PrintCmdSelecter(defaultActions);
 
             await UniTask.WaitUntil(() => isConfirm | isCancel);
 
@@ -124,6 +166,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
             if (cmdIndex == 0) await MovePosSelect(pawn);
         }while(isCancel);
 
+        controller = null;
         return;
     }
 
@@ -135,6 +178,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
 
     private async UniTask MovePosSelect(ActionSelectable pawn)
     {
+        input.SwitchCurrentActionMap("Move");
 
         uiPrinter.DestroyPlayerInformation();
         uiPrinter.DestroyCmdSelector();
@@ -151,11 +195,16 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         }
     }
 
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
         Battle().Forget();
     }
 
