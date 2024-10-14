@@ -2,5 +2,5 @@
 
 public interface CommandActionSettable : ActionSettable
 {
-    ICommand[] GetActionCommands();
+    IActionCommand[] GetActionCommands();
 }

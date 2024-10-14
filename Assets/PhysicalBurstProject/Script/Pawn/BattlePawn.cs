@@ -72,6 +72,11 @@ public class BattlePawn : MonoBehaviour,
         throw new System.NotImplementedException();
     }
 
+    public IActionCommand[] GetActionCommands()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public async UniTask movePos(Vector2 delta)
     {
         await transform.DOMove((Vector3)delta, 0.5f);
@@ -109,11 +114,6 @@ public class BattlePawn : MonoBehaviour,
         actions.Remove(cAct);
 
         return true;
-    }
-
-    public ICommand[] GetActionCommands()
-    {
-        throw new System.NotImplementedException();
     }
 
 

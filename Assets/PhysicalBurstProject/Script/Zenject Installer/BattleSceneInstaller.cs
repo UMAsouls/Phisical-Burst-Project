@@ -27,12 +27,6 @@ public class BattleSceneInstaller : MonoInstaller
             .AsSingle();
 
         Container
-            .Bind<CmdConfirmAble>()
-            .To<BattleSystem>()
-            .FromComponentOn(gameManager)
-            .AsTransient();
-
-        Container
             .BindInterfacesTo<ActionMaker>()
             .AsSingle();
 

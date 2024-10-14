@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(PlayerInput))]
-public class BattleSystem : MonoBehaviour, CmdConfirmAble
+public class BattleSystem : MonoBehaviour
 {
     private string[] defaultActions =
     {

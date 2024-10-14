@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-public interface ICmdSelectSystem
+public interface IActionCommandBehaviour
 {
-    public UniTask<bool> CmdSelect(int id);
+
+    public UniTask DoAction(int pawnID);
 }
