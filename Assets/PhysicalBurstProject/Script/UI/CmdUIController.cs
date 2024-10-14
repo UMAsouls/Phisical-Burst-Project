@@ -9,9 +9,6 @@ using Zenject;
 public class CmdUIController : MonoBehaviour, ICmdSelectorController
 {
 
-    [Inject]
-    private CmdConfirmAble cmdConfirmAble;
-
     private ICmdTextRectGetter getter;
     private ISelectorController selector;
 

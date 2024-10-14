@@ -39,5 +39,11 @@ public class BattleSceneInstaller : MonoInstaller
             .BindInterfacesTo<BattleCmdSelectSystem>()
             .FromComponentOn(gameManager)
             .AsTransient();
+
+
+        Container
+            .BindInterfacesTo<CommandBehaviourMaker>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
     }
 }
