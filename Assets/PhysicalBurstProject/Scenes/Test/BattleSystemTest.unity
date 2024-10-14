@@ -3918,6 +3918,7 @@ GameObject:
   - component: {fileID: 1143571153}
   - component: {fileID: 1143571155}
   - component: {fileID: 1143571156}
+  - component: {fileID: 1143571157}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3952,8 +3953,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571155}
-        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571157}
+        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
         m_MethodName: OnSelectorMove
         m_Mode: 0
         m_Arguments:
@@ -3968,8 +3969,8 @@ MonoBehaviour:
     m_ActionName: Battle/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571155}
-        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571157}
+        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
         m_MethodName: OnConfirm
         m_Mode: 0
         m_Arguments:
@@ -3984,8 +3985,8 @@ MonoBehaviour:
     m_ActionName: Battle/Confirm[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571155}
-        m_TargetAssemblyTypeName: BattleSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571157}
+        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
         m_MethodName: OnCancel
         m_Mode: 0
         m_Arguments:
@@ -3998,9 +3999,29 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cad0633a-5c3c-4e1e-ad0a-789936700990
     m_ActionName: Battle/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 35e18385-23e5-43fe-9206-a3d7de21f267
+    m_ActionName: Move/None
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 50ce750e-4030-4343-9eed-eaf8eaf888da
+    m_ActionName: CmdSelect/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ae191c5-3b16-4121-ba25-9bfd4a65e9c8
+    m_ActionName: CmdSelect/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ad6afac-289f-48c5-819c-9acf6462a89b
+    m_ActionName: CmdSelect/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d8e9161a-7c92-413d-8697-3285aa4817d8
+    m_ActionName: BattleCmdSelect/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Battle
+  m_DefaultActionMap: FirstSelect
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &1143571154
@@ -4044,6 +4065,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posSelector: {fileID: 793296659689745174, guid: b4a34a13e46cf0849a706db428b4e2b1, type: 3}
   posSelectorRangeCircle: {fileID: 1559190507143676218, guid: 3522dd4220c986f49b90b93f01a6ee5b, type: 3}
+--- !u!114 &1143571157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f064142d6937884f819e575f68d44c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1257356882
 GameObject:
   m_ObjectHideFlags: 3

@@ -2,6 +2,8 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 using Zenject;
 
 public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectable
@@ -30,6 +32,8 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     [Inject]
     MoveActionMakeable actMaker;
 
+    private PlayerInput input;
+
     public void Cancel()
     {
         isCancel = true;
@@ -43,6 +47,8 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
     public async UniTask<bool> MovePosSelect(int id)
     {
+        input.SwitchCurrentActionMap("Move");
+
         ActionSettable pawn = strage.GetPawnById<ActionSettable>(id);
         isCancel = false;
         isConfirm = false;
@@ -79,5 +85,10 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
         uiPrinter.DestroyPosSelectorUI(); 
         return true;
+    }
+
+    private void Awake()
+    {
+        input = GetComponent<PlayerInput>();
     }
 }
