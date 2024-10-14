@@ -6,7 +6,7 @@ using Zenject;
 public class BattleUITest : MonoBehaviour
 {
     [Inject]
-    private IBattleUIPrinter battleUIPrinter;
+    private ICmdSelectUIPrinter battleUIPrinter;
 
     class TestPawn : IPawn
     {

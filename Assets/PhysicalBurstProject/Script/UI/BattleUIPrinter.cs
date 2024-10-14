@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class BattleUIPrinter : UIPrinter,IBattleUIPrinter
+public class BattleUIPrinter : UIPrinter,ICmdSelectUIPrinter,IPlayerInformationUIPrinter
 {
     
 

@@ -18,7 +18,9 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
     private ActionSelectable[] pawns;
 
     [Inject]
-    private IBattleUIPrinter uiPrinter;
+    private ICmdSelectUIPrinter uiPrinter2;
+    [Inject]
+    private IPlayerInformationUIPrinter uiPrinter;
 
     [Inject]
     private IPawnGettable pawnGettable;
@@ -118,7 +120,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
                         await Select(p);
                         if (isCancel)
                         {
-                            if(p.CancelSelect()) uiPrinter.DestroyCmdSelector();
+                            if(p.CancelSelect()) uiPrinter2.DestroyCmdSelector();
                         }
                     } while (isCancel);
                 }  
@@ -157,7 +159,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
             isCancel = false;
             cmdIndex = 0;
             cmdLength = 4;
-            controller = uiPrinter.PrintCmdSelecter(defaultActions);
+            controller = uiPrinter2.PrintCmdSelecter(defaultActions);
 
             await UniTask.WaitUntil(() => isConfirm | isCancel);
 
@@ -181,7 +183,7 @@ public class BattleSystem : MonoBehaviour, CmdConfirmAble
         input.SwitchCurrentActionMap("Move");
 
         uiPrinter.DestroyPlayerInformation();
-        uiPrinter.DestroyCmdSelector();
+        uiPrinter2.DestroyCmdSelector();
 
         isConfirm = false;
 

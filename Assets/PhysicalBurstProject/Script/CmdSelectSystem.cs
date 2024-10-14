@@ -9,7 +9,7 @@ public class CmdSelectSystem : ICmdSelectSystem
     IPawnGettable strage;
 
     [Inject]
-    IBattleUIPrinter uiPrinter;
+    ICmdSelectUIPrinter uiPrinter;
 
     public async UniTask CmdSelect(int id)
     {
