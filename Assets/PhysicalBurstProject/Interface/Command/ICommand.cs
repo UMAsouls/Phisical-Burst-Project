@@ -5,4 +5,6 @@ using UnityEngine;
 public interface ICommand 
 {
     string Name { get; }
+
+    public float UseMana { get; }
 }

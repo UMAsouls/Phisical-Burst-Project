@@ -11,4 +11,6 @@ public class StrongAttackCommand : IBattleCommand
     public BattleCommandType Type => BattleCommandType.Strong;
 
     public string Name => name;
+
+    public float UseMana => throw new NotImplementedException();
 }
