@@ -9,7 +9,12 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
 
     public async UniTask<IActionCommandBehaviour> MakeCommandBehaviour(IActionCommand cmd)
     {
-        
+        ActionCmdType type  = cmd.Type;
+
+        switch(type)
+        {
+
+        }
 
         return null;
     }

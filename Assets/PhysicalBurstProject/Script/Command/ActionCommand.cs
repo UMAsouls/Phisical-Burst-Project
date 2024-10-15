@@ -8,4 +8,9 @@ public class ActionCommand : IActionCommand
     public string Name => name;
 
     public ActionCmdType Type => throw new System.NotImplementedException();
+
+    public T GetMySelf<T>()
+    {
+        throw new System.NotImplementedException();
+    }
 }

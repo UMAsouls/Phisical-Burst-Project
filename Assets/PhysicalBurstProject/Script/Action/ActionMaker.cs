@@ -7,9 +7,9 @@ public class ActionMaker: MoveActionMakeable, CommandActionMakeable
         return new MoveAction(delta);
     }
 
-    public IAction MakeCommandAction(IActionCommand cmd, IActionCommandBehaviour behaviour)
+    public IAction MakeCommandAction(IActionCommandBehaviour behaviour)
     {
-        return new CommandAction(cmd, behaviour);
+        return new CommandAction(behaviour);
     }
 
 }

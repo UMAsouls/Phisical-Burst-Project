@@ -6,13 +6,10 @@ public class CommandAction : IAction
 {
     public ActionType Type => ActionType.Action;
 
-    private IActionCommand command;
-
     private IActionCommandBehaviour behaviour;
 
-    public CommandAction(IActionCommand cmd, IActionCommandBehaviour behaviour)
+    public CommandAction(IActionCommandBehaviour behaviour)
     {
-        command = cmd;
         this.behaviour = behaviour;
     }
 
