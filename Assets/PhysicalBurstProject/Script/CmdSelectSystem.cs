@@ -83,7 +83,7 @@ public class CmdSelectSystem : ICmdSelectSystem
     private async UniTask<IAction> MakeAction(IActionCommand cmd)
     {
         var behaviour = await behaviourMaker.MakeCommandBehaviour(cmd);
-        return actionMaker.MakeCommandAction(cmd, behaviour);
+        return actionMaker.MakeCommandAction(behaviour);
     }
 
     // Use this for initialization

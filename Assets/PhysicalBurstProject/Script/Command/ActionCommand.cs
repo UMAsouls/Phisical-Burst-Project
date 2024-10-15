@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionCommand : IActionCommand
+public abstract class ActionCommand<V> : IActionCommand
 {
-    private string name;
+    protected string name;
     public string Name => name;
 
-    public ActionCmdType Type => throw new System.NotImplementedException();
+    public abstract ActionCmdType Type { get; }
+
+    protected float mana;
+    public float UseMana => mana;
 
     public T GetMySelf<T>()
     {
-        throw new System.NotImplementedException();
+        if (typeof(T) is V) return (T)(object)this;
+        else return default(T);
     }
 }
