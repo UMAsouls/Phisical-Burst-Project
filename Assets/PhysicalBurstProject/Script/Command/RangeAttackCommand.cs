@@ -5,7 +5,9 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
 {
     public override ActionCmdType Type => ActionCmdType.RangeAttack;
 
-    public float Range => throw new System.NotImplementedException();
+    private float range;
+    public float Range => range;
 
-    public float Damage => throw new System.NotImplementedException();
+    private float damage;
+    public float Damage => damage;
 }
