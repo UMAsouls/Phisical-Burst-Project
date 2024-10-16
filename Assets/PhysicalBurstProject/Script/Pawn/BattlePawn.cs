@@ -12,6 +12,12 @@ public class BattlePawn : MonoBehaviour,
 
     protected IStatus status;
 
+    protected IVirtualPawn virtualPawn;
+
+    [SerializeField]
+    private GameObject virtualObjBase;
+    private GameObject virtualObj;
+
     private int id;
 
     private int mana;
@@ -48,7 +54,7 @@ public class BattlePawn : MonoBehaviour,
 
     public int Mana => mana;
 
-    public Vector2 VirtualPos { get => virtualPos; set => virtualPos = value; }
+    public Vector2 VirtualPos { get => virtualPawn.VirtualPos; set => virtualPawn.VirtualPos = value; }
 
     public int ActPoint => actPoint;
 
@@ -84,6 +90,8 @@ public class BattlePawn : MonoBehaviour,
 
     public async UniTask TurnStart()
     {
+        virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
+        virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
         actPoint = actMax;
     }
 
@@ -91,6 +99,8 @@ public class BattlePawn : MonoBehaviour,
     {
         actions = new List<IAction>();
         VirtualPos = transform.position;
+        virtualPawn = null;
+        Destroy(virtualObj);
     }
 
     public bool UseActPoint(int point)
