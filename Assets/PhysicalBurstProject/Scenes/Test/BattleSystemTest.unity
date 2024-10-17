@@ -331,7 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1143571152}
   battleUI: {fileID: 33893491}
-  commandMaker: {fileID: 0}
+  commandMaker: {fileID: 2088272282}
 --- !u!114 &863402877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4006,15 +4006,51 @@ MonoBehaviour:
     m_ActionId: 35e18385-23e5-43fe-9206-a3d7de21f267
     m_ActionName: Move/None
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1143571158}
+        m_TargetAssemblyTypeName: CmdSelectSystem, Assembly-CSharp
+        m_MethodName: OnSelectorMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 50ce750e-4030-4343-9eed-eaf8eaf888da
     m_ActionName: CmdSelect/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1143571158}
+        m_TargetAssemblyTypeName: CmdSelectSystem, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9ae191c5-3b16-4121-ba25-9bfd4a65e9c8
     m_ActionName: CmdSelect/Confirm[/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1143571158}
+        m_TargetAssemblyTypeName: CmdSelectSystem, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 1ad6afac-289f-48c5-819c-9acf6462a89b
     m_ActionName: CmdSelect/Cancel[/Keyboard/backspace]
   - m_PersistentCalls:
