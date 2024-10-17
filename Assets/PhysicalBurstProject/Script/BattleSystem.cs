@@ -29,6 +29,9 @@ public class BattleSystem : MonoBehaviour
     [Inject]
     private IBattleCmdSelectSystem battleCmdSelectSystem;
 
+    [Inject]
+    private ICmdSelectSystem cmdSelectSystem;
+
     private bool isConfirm;
     private bool isCancel;
 
@@ -120,12 +123,16 @@ public class BattleSystem : MonoBehaviour
             isCancel = false;
             cmdIndex = await battleCmdSelectSystem.BattleCmdSelect(pawn.ID);
 
+            Debug.Log($"idx: {cmdIndex}");
             switch(cmdIndex)
             {
                 case -1:
                     isCancel = true; break;
                 case 0:
                     await MovePosSelect(pawn);
+                    break;
+                case 3:
+                    await ActionCmdSelect(pawn.ID);
                     break;
             }
 
@@ -137,6 +144,22 @@ public class BattleSystem : MonoBehaviour
     {
         foreach (var p in pawns) await p.TurnEnd();
         return;
+    }
+
+    private async UniTask ActionCmdSelect(int id)
+    {
+        uiPrinter.DestroyPlayerInformation();
+
+        isConfirm = false;
+
+        isConfirm = await cmdSelectSystem.CmdSelect(id);
+
+        if (!isConfirm)
+        {
+            uiPrinter.PrintPlayerInformation(id);
+            isCancel = true;
+            return;
+        }
     }
 
     private async UniTask MovePosSelect(ActionSelectable pawn)

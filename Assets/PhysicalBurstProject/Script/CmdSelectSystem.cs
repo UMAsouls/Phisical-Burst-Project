@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class CmdSelectSystem : ICmdSelectSystem
+public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
 {
     [Inject]
     IPawnGettable strage;
@@ -20,6 +20,8 @@ public class CmdSelectSystem : ICmdSelectSystem
     CommandBehaviourMakeable behaviourMaker;
 
     ICmdSelectorController controller;
+
+    private PlayerInput input;
 
     private int cmdIndex = 0;
     private int cmdLength = 0;
@@ -61,6 +63,8 @@ public class CmdSelectSystem : ICmdSelectSystem
 
     public async UniTask<bool> CmdSelect(int id)
     {
+        input.SwitchCurrentActionMap("CmdSelect");
+
         CommandActionSettable pawn = strage.GetPawnById<CommandActionSettable>(id);
 
         IActionCommand[] commands = pawn.GetActionCommands();
@@ -75,21 +79,21 @@ public class CmdSelectSystem : ICmdSelectSystem
 
         if (isCancel) return false;
 
-        pawn.ActionAdd(await MakeAction(commands[cmdIndex]));
+        pawn.ActionAdd(await MakeAction(commands[cmdIndex], id));
 
         return true;
     }
 
-    private async UniTask<IAction> MakeAction(IActionCommand cmd)
+    private async UniTask<IAction> MakeAction(IActionCommand cmd, int pawnID)
     {
-        var behaviour = await behaviourMaker.MakeCommandBehaviour(cmd);
+        var behaviour = await behaviourMaker.MakeCommandBehaviour(cmd, pawnID);
         return actionMaker.MakeCommandAction(behaviour);
     }
 
     // Use this for initialization
     void Start()
     {
-
+        input = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame

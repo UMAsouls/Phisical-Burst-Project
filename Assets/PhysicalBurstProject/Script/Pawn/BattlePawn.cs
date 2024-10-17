@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable
+    CommandActionSettable, IVirtualPawn
 {
 
     protected IStatus status;
@@ -27,6 +27,8 @@ public class BattlePawn : MonoBehaviour,
     private int actPoint;
 
     private int actMax;
+
+    private IActionCommand[] actCmds;
 
     private List<IAction> actions;
 
@@ -60,6 +62,12 @@ public class BattlePawn : MonoBehaviour,
 
     int PawnOptionSettable.ID { set => id = value; }
 
+    public IActionCommand[] ActionCommands { get => actCmds; set => actCmds = value; }
+    public float VirtualRange { get => virtualPawn.VirtualRange; set => virtualPawn.VirtualRange = value; }
+    public float VirtualMana { get => virtualPawn.VirtualMana; set => virtualPawn.VirtualMana = value; }
+    public float VirtualHP { get => virtualPawn.VirtualHP; set => virtualPawn.VirtualHP = value; }
+    public bool IsBurst { get => virtualPawn.IsBurst; set => virtualPawn.IsBurst = value; }
+
     public async void Action()
     {
         foreach (var action in actions)
@@ -80,7 +88,7 @@ public class BattlePawn : MonoBehaviour,
 
     public IActionCommand[] GetActionCommands()
     {
-        throw new System.NotImplementedException();
+        return actCmds;
     }
 
     public async UniTask movePos(Vector2 delta)

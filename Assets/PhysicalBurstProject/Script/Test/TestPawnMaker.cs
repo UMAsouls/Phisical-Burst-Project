@@ -15,6 +15,9 @@ public class TestPawnMaker : MonoBehaviour
     [SerializeReference, SubclassSelector]
     IStatus status;
 
+    [SerializeReference, SubclassSelector]
+    IActionCommand[] commands;
+
     int id = 0;
 
     private void Awake()
@@ -29,6 +32,7 @@ public class TestPawnMaker : MonoBehaviour
         PawnOptionSettable statusSettable = obj.GetComponent<PawnOptionSettable>();
         statusSettable.Status = status;
         statusSettable.ID = id;
+        statusSettable.ActionCommands = commands;
 
         pawnStrageable.AddPawnObj(obj);
         pawnStrageable.IsSetComplete = true;

@@ -9,6 +9,9 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject battleUI;
 
+    [SerializeField]
+    GameObject commandMaker;
+
     public override void InstallBindings()
     {
         Container
@@ -40,10 +43,15 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(gameManager)
             .AsTransient();
 
+        Container
+            .BindInterfacesTo<CmdSelectSystem>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
 
         Container
             .BindInterfacesTo<CommandBehaviourMaker>()
-            .FromComponentOn(gameManager)
+            .FromComponentOn(commandMaker)
             .AsTransient();
     }
 }

@@ -7,4 +7,6 @@ public interface ICommand
     string Name { get; }
 
     public float UseMana { get; }
+
+    public float BurstRatio { get; }
 }

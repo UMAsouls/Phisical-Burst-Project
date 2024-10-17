@@ -4,13 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public class StrongAttackCommand : IBattleCommand
+public class StrongAttackCommand : BattleCommand
 {
-    private string name;
 
-    public BattleCommandType Type => BattleCommandType.Strong;
-
-    public string Name => name;
-
-    public float UseMana => throw new NotImplementedException();
+    public override BattleCommandType Type => BattleCommandType.Strong;
 }

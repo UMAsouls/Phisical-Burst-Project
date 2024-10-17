@@ -37,14 +37,17 @@ public class BattleCmdSelectSystem : MonoBehaviour, IBattleCmdSelectSystem
         if (moveInput.y > 0)
         {
             controller.Move(-1);
-            cmdIndex = (int)Mathf.Repeat(cmdIndex - 1, cmdLength - 1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex - 1, cmdLength);
         }
 
         if (moveInput.y < 0)
         {
             controller.Move(1);
-            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength - 1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
+
+        Debug.Log($"{cmdIndex}");
+
 
     }
 
@@ -63,6 +66,7 @@ public class BattleCmdSelectSystem : MonoBehaviour, IBattleCmdSelectSystem
         isCancel = false;
         isConfirm = false;
         cmdIndex = 0;
+        cmdLength = 4;
 
         controller = uiPrinter.PrintCmdSelecter(defaultActions);
 

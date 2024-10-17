@@ -5,9 +5,17 @@ using UnityEngine;
 public class HealMaker : CommandMakerBase<IHealCommand>
 {
 
-    public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IHealCommand cmd)
+    [SerializeField]
+    private GameObject RangeCircle;
+
+    public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IHealCommand cmd , int pawnID)
     {
+        var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
+        var obj = Instantiate(RangeCircle, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
+
         await UniTask.WaitUntil(() => isConfirm | isCancel);
+
+        Destroy(obj);
         if (isConfirm) { return new HealBehaviour(cmd); }
         else { return null; }
     }

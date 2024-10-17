@@ -12,14 +12,14 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
 
     HealMaker healMaker;
 
-    public async UniTask<IActionCommandBehaviour> MakeCommandBehaviour(IActionCommand cmd)
+    public async UniTask<IActionCommandBehaviour> MakeCommandBehaviour(IActionCommand cmd, int pawnID)
     {
         ActionCmdType type  = cmd.Type;
 
         switch(type)
         {
             case ActionCmdType.Heal:
-                await healMaker.MakeBehaviour(cmd.GetMySelf<IHealCommand>()); break;
+                await healMaker.MakeBehaviour(cmd.GetMySelf<IHealCommand>(), pawnID); break;
         }
 
         return null;

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BattleCommand : IBattleCommand
+public abstract class BattleCommand : IBattleCommand
 {
     protected string name;
     public string Name => name;
@@ -10,5 +10,8 @@ public class BattleCommand : IBattleCommand
     protected float mana;
     public float UseMana => mana;
 
-    public BattleCommandType Type => throw new NotImplementedException();
+    public abstract BattleCommandType Type { get; }
+
+    private float burstRatio;
+    public float BurstRatio => burstRatio;
 }
