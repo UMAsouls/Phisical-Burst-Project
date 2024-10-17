@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
 
-public class CameraManager : MonoBehaviour, PawnCameraAddable, CameraChangeAble
+public class CameraManager : MonoBehaviour,  CameraChangeAble
 {
     [Inject]
     private IPawnGettable strage;
@@ -33,11 +33,6 @@ public class CameraManager : MonoBehaviour, PawnCameraAddable, CameraChangeAble
     public void ChangeToSelectPhazeCamera()
     {
         ChangeCameraTo(selectPhazeCamera);
-    }
-
-    public void PawnCameraAdd(CinemachineVirtualCamera camera, int pawnID)
-    {
-        throw new System.NotImplementedException();
     }
 
     // Use this for initialization
