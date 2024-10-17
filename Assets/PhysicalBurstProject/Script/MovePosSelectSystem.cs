@@ -34,6 +34,9 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
     private PlayerInput input;
 
+    [Inject]
+    CameraChangeAble cameraChanger;
+
     public void Cancel()
     {
         isCancel = true;
@@ -67,7 +70,11 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         PosSelectorRangeSetter setter = obj1.GetComponent<PosSelectorRangeSetter>();
         setter.Range = pawn.range;
 
+        cameraChanger.ChangeToSelectPhazeCamera();
+
         await UniTask.WaitUntil(() => (isCancel || isConfirm)); 
+
+        cameraChanger.ChangeToPawnCamera(id);
 
         if (isCancel)
         {

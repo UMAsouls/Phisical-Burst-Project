@@ -8,6 +8,9 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 {
 
     [Inject]
+    SelectPhazeCameraControllable cameraController;
+
+    [Inject]
     private PosConfirmAble posConfirmAble;
 
     private Vector2 movedir;
@@ -52,5 +55,6 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
         }
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
+        cameraController.Position = transform.position;
     }
 }

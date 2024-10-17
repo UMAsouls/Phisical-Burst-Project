@@ -5,5 +5,5 @@ public interface CameraChangeAble
 {
     public void ChangeToPawnCamera(int pawnID);
 
-    public void ChangeToVirtualPawnCamera();
+    public void ChangeToSelectPhazeCamera();
 }
