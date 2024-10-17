@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,11 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
     public T GetPawnById<T>(int id)
     {
         return pawnDict[id].GetComponent<T>();
+    }
+
+    public CinemachineVirtualCamera GetPawnCameraByID(int id)
+    {
+        return pawnDict[id].GetComponentInChildren<CinemachineVirtualCamera>();
     }
 
     public T[] GetPawnList<T>()

@@ -12,6 +12,12 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject commandMaker;
 
+    [SerializeField]
+    GameObject cameraManager;
+
+    [SerializeField]
+    GameObject selectPhazeCamera;
+
     public override void InstallBindings()
     {
         Container
@@ -67,6 +73,16 @@ public class BattleSceneInstaller : MonoInstaller
         Container
             .BindInterfacesAndSelfTo<RangeAttackMaker>()
             .FromComponentOn(commandMaker)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<CameraManager>()
+            .FromComponentOn(cameraManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<SelectPhazeCamera>()
+            .FromComponentOn(selectPhazeCamera)
             .AsTransient();
     }
 }

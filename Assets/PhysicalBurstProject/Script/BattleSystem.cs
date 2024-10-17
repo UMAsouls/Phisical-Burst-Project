@@ -32,6 +32,9 @@ public class BattleSystem : MonoBehaviour
     [Inject]
     private ICmdSelectSystem cmdSelectSystem;
 
+    [Inject]
+    private CameraChangeAble cameraChanger;
+
     private bool isConfirm;
     private bool isCancel;
 
@@ -79,6 +82,8 @@ public class BattleSystem : MonoBehaviour
 
             foreach (var p in pawns)
             {
+                cameraChanger.ChangeToPawnCamera(p.ID);
+
                 while (p.ActPoint > 0)
                 {
                     Debug.Log("Select faze");
@@ -104,7 +109,6 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("pawn get");
 
         isBattleEnd = false;
-
         return;
     }
 
