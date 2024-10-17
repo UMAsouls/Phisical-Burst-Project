@@ -13,6 +13,7 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
     {
         var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
         var obj = Instantiate(RangeViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
+        obj.transform.localScale = new Vector3(cmd.Range, cmd.Range, 1);
 
         await UniTask.WaitUntil(() => isConfirm | isCancel);
 

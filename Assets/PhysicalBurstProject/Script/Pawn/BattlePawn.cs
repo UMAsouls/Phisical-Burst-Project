@@ -100,6 +100,7 @@ public class BattlePawn : MonoBehaviour,
     {
         virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
         virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
+        virtualPawn.VirtualPos = transform.position;
         actPoint = actMax;
     }
 

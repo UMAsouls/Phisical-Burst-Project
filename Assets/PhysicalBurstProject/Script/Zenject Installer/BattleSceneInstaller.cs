@@ -53,5 +53,20 @@ public class BattleSceneInstaller : MonoInstaller
             .BindInterfacesTo<CommandBehaviourMaker>()
             .FromComponentOn(commandMaker)
             .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<HealMaker>()
+            .FromComponentOn(commandMaker)
+            .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<LongRangeMaker>()
+            .FromComponentOn(commandMaker)
+            .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<RangeAttackMaker>()
+            .FromComponentOn(commandMaker)
+            .AsTransient();
     }
 }

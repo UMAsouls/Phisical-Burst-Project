@@ -79,6 +79,8 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
 
         if (isCancel) return false;
 
+        uiPrinter.DestroyCmdSelector();
+        input.SwitchCurrentActionMap("None");
         pawn.ActionAdd(await MakeAction(commands[cmdIndex], id));
 
         return true;

@@ -22,7 +22,7 @@ public abstract class ActionCommand<V> : IActionCommand
 
     public T GetMySelf<T>()
     {
-        if (typeof(T) is V) return (T)(object)this;
+        if (typeof(T) == typeof(V)) return (T)(object)this;
         else return default(T);
     }
 }

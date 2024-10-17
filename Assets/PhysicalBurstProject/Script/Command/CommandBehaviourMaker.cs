@@ -10,7 +10,12 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
 
     Dictionary<ActionCmdType, CommandMakerBase<IActionCommand>> dict;
 
+    [Inject]
     HealMaker healMaker;
+    [Inject]
+    RangeAttackMaker rangeAttackMaker;
+    [Inject]
+    LongRangeMaker longRangeMaker;
 
     public async UniTask<IActionCommandBehaviour> MakeCommandBehaviour(IActionCommand cmd, int pawnID)
     {
@@ -20,6 +25,10 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
         {
             case ActionCmdType.Heal:
                 await healMaker.MakeBehaviour(cmd.GetMySelf<IHealCommand>(), pawnID); break;
+            case ActionCmdType.RangeAttack:
+                await rangeAttackMaker.MakeBehaviour(cmd.GetMySelf<IRangeAttackCommand>(), pawnID); break;
+            case ActionCmdType.LongRangeAttack:
+                await longRangeMaker.MakeBehaviour(cmd.GetMySelf<ILongRangeAttackCommand>(), pawnID); break;  
         }
 
         return null;
