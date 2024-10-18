@@ -7,7 +7,7 @@ using Zenject;
 using UnityEngine.Windows;
 using UnityEditor;
 
-public class BattleCmdSelectSystem : MonoBehaviour, IBattleCmdSelectSystem
+public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 {
     [Inject]
     private ICmdSelectUIPrinter uiPrinter;
@@ -61,7 +61,7 @@ public class BattleCmdSelectSystem : MonoBehaviour, IBattleCmdSelectSystem
         if (context.performed) isCancel = true;
     }
 
-    public async UniTask<int> BattleCmdSelect(int id)
+    public async UniTask<int> BattleActionSelect(int id)
     {
         isCancel = false;
         isConfirm = false;

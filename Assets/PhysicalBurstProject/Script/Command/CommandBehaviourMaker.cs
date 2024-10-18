@@ -24,11 +24,11 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
         switch(type)
         {
             case ActionCmdType.Heal:
-                await healMaker.MakeBehaviour(cmd.GetMySelf<IHealCommand>(), pawnID); break;
+                return await healMaker.GetBehaviour(cmd.GetMySelf<IHealCommand>(), pawnID);
             case ActionCmdType.RangeAttack:
-                await rangeAttackMaker.MakeBehaviour(cmd.GetMySelf<IRangeAttackCommand>(), pawnID); break;
+                return await rangeAttackMaker.GetBehaviour(cmd.GetMySelf<IRangeAttackCommand>(), pawnID);
             case ActionCmdType.LongRangeAttack:
-                await longRangeMaker.MakeBehaviour(cmd.GetMySelf<ILongRangeAttackCommand>(), pawnID); break;  
+                return await longRangeMaker.GetBehaviour(cmd.GetMySelf<ILongRangeAttackCommand>(), pawnID); 
         }
 
         return null;

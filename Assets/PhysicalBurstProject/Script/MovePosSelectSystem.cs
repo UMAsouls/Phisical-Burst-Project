@@ -37,6 +37,8 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     [Inject]
     CameraChangeAble cameraChanger;
 
+    OrthoCameraZoomAble cameraZoomController;
+
     public void Cancel()
     {
         isCancel = true;
@@ -48,29 +50,40 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         this.pos = pos;
     }
 
-    public async UniTask<bool> MovePosSelect(int id)
+    public void Init()
     {
-        input.SwitchCurrentActionMap("Move");
-
-        ActionSettable pawn = strage.GetPawnById<ActionSettable>(id);
         isCancel = false;
         isConfirm = false;
 
+        input.SwitchCurrentActionMap("Move");
         uiPrinter.PrintPosSelectorUI();
+
+        cameraChanger.ChangeToSelectPhazeCamera();
+        cameraZoomController = cameraChanger.GetZoomController();
+    }
+
+    public async UniTask<bool> MovePosSelect(int id)
+    {
+        Init();
+
+        ActionSettable pawn = strage.GetPawnById<ActionSettable>(id);
 
         Vector3 cameraPos = pawn.VirtualPos;
         cameraPos.z = -1;
+
         var obj1 = container.InstantiatePrefab(posSelector);
         obj1.transform.position = cameraPos;
 
         var obj2 = container.InstantiatePrefab(posSelectorRangeCircle) ;
         obj2.transform.position = pawn.VirtualPos;
-        obj2.transform.localScale = new Vector3(pawn.range*2, pawn.range*2, 1);
 
         PosSelectorRangeSetter setter = obj1.GetComponent<PosSelectorRangeSetter>();
         setter.Range = pawn.range;
 
-        cameraChanger.ChangeToSelectPhazeCamera();
+        IRangeCircleScaler scaler = obj2.GetComponent<IRangeCircleScaler>();
+        scaler.SetRadius(pawn.range);
+
+        cameraZoomController.OrthoSize = pawn.range;
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm)); 
 

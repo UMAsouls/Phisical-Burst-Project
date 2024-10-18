@@ -2,8 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
-public interface IActionCommandBehaviour
+public interface IActionCommandBehaviour: ICommand
 {
 
     public UniTask DoAction(int pawnID);
+
+    public bool IsBurst { get; }
 }

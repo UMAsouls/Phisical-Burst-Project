@@ -233,7 +233,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 0
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -258,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 136652224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalPosition: {x: 1.1041732, y: 0.3209392, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -284,8 +284,8 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 0
-    m_Time: 2
+    m_Style: 1
+    m_Time: 0.5
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 633999172}
   - component: {fileID: 633999171}
   - component: {fileID: 633999173}
+  - component: {fileID: 633999174}
   m_Layer: 0
   m_Name: SelecPhazeCamera
   m_TagString: Untagged
@@ -365,7 +366,7 @@ Transform:
   m_GameObject: {fileID: 633999170}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1041732, y: 0.3209392, z: -0.038909804}
+  m_LocalPosition: {x: 1.1041732, y: 0.3209392, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -384,6 +385,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68cdc4314211da478b1dacb8062a80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &633999174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633999170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 405c79fab55eb034e9985002b906f5ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomSpeed: 0.08
+  minOrthoSize: 2
+  maxOrthoSize: 12
 --- !u!1 &863402875
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,8 +4022,8 @@ GameObject:
   - component: {fileID: 1143571153}
   - component: {fileID: 1143571155}
   - component: {fileID: 1143571156}
-  - component: {fileID: 1143571157}
   - component: {fileID: 1143571158}
+  - component: {fileID: 1143571159}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4042,8 +4058,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571157}
-        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571159}
+        m_TargetAssemblyTypeName: BattleActionSelectSystem, Assembly-CSharp
         m_MethodName: OnSelectorMove
         m_Mode: 0
         m_Arguments:
@@ -4058,8 +4074,8 @@ MonoBehaviour:
     m_ActionName: Battle/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571157}
-        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571159}
+        m_TargetAssemblyTypeName: BattleActionSelectSystem, Assembly-CSharp
         m_MethodName: OnConfirm
         m_Mode: 0
         m_Arguments:
@@ -4074,8 +4090,8 @@ MonoBehaviour:
     m_ActionName: Battle/Confirm[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571157}
-        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571158}
+        m_TargetAssemblyTypeName: CmdSelectSystem, Assembly-CSharp
         m_MethodName: OnCancel
         m_Mode: 0
         m_Arguments:
@@ -4194,18 +4210,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posSelector: {fileID: 793296659689745174, guid: b4a34a13e46cf0849a706db428b4e2b1, type: 3}
   posSelectorRangeCircle: {fileID: 1559190507143676218, guid: 3522dd4220c986f49b90b93f01a6ee5b, type: 3}
---- !u!114 &1143571157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143571152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f064142d6937884f819e575f68d44c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1143571158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4216,6 +4220,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88c504aa076856640b31a2fcb86a3922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1143571159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3149d9b757e8bb44a80768b2c92be16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1257356882
@@ -4554,6 +4570,7 @@ MonoBehaviour:
   commands:
   - rid: 6372080386449866761
   - rid: 6372080386449866762
+  - rid: 6372080401891983360
   references:
     version: 2
     RefIds:
@@ -4581,9 +4598,17 @@ MonoBehaviour:
         name: "\u9060\u8DDD\u96E2\u653B\u6483"
         mana: 0
         burstRatio: 1.2
-        attackArea: 5
-        range: 5
+        attackArea: 3
+        range: 10
         damage: 5
+    - rid: 6372080401891983360
+      type: {class: RangeAttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u7BC4\u56F2\u653B\u6483"
+        mana: 0
+        burstRatio: 1.2
+        range: 10
+        damage: 10
 --- !u!1 &1750713653
 GameObject:
   m_ObjectHideFlags: 3
@@ -4686,6 +4711,7 @@ GameObject:
   - component: {fileID: 2088272286}
   - component: {fileID: 2088272285}
   - component: {fileID: 2088272284}
+  - component: {fileID: 2088272288}
   m_Layer: 0
   m_Name: CommandMaker
   m_TagString: Untagged
@@ -4747,6 +4773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AreaViewer: {fileID: 1559190507143676218, guid: 647cd8aa82575574f8a2285a68161936, type: 3}
+  RangeCircle: {fileID: 1559190507143676218, guid: f721b5479ca29374d801f1583fbc3196, type: 3}
 --- !u!114 &2088272287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4759,6 +4786,200 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d905d38aa1bf7848b5aa97df1497292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2088272288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088272282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 6e5ccbeb94b72bd4bb7fbfb3ed7fa280, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272285}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8728d0ba-547c-4d54-b709-00bd23ebad7c
+    m_ActionName: Range/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272285}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b093939c-60ca-4457-ba5f-6fe644f07807
+    m_ActionName: Range/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272285}
+        m_TargetAssemblyTypeName: CommandMakerBase`1[[IRangeAttackCommand, Assembly-CSharp
+        m_MethodName: OnBurst
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3b510b9c-52bf-46c3-a725-45d47d81ecf0
+    m_ActionName: Range/Burst
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272284}
+        m_TargetAssemblyTypeName: CommandMakerBase`1[[IHealCommand, Assembly-CSharp
+        m_MethodName: OnBurst
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 51f5fa88-8edd-42ba-a7f9-1e2e475e13f5
+    m_ActionName: Heal/Burst[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272284}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 01d4ea83-0313-4199-bced-ba926aee4a86
+    m_ActionName: Heal/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272284}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f4e0b050-ef57-457e-ab13-d7fa6af52859
+    m_ActionName: Heal/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272286}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 77ca183a-a5fb-4574-9f82-b5ece21f213d
+    m_ActionName: Long Range/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272286}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 311441cf-c8fb-4dce-a892-d837eaca739a
+    m_ActionName: Long Range/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272286}
+        m_TargetAssemblyTypeName: CommandMakerBase`1[[ILongRangeAttackCommand, Assembly-CSharp
+        m_MethodName: OnBurst
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9145b4aa-47c3-46c3-bea6-04a97ce5d114
+    m_ActionName: Long Range/Burst[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2088272286}
+        m_TargetAssemblyTypeName: LongRangeMaker, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: aef27ca5-56c9-4a30-8e45-8971ac4b796e
+    m_ActionName: Long Range/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 640fa1ad-03f9-48de-b23d-6a29ce807258
+    m_ActionName: None/None
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: None
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &9005786755792606385
 PrefabInstance:
   m_ObjectHideFlags: 0

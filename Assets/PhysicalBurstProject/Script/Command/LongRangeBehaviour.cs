@@ -3,19 +3,19 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class LongRangeBehaviour : IActionCommandBehaviour
+public class LongRangeBehaviour : CommandBehaviourBase<ILongRangeAttackCommand>
 {
-    private ILongRangeAttackCommand cmd;
 
     private Vector2 pos;
 
-    public LongRangeBehaviour(ILongRangeAttackCommand cmd, Vector2 pos)
+    public LongRangeBehaviour(ILongRangeAttackCommand cmd, bool burst, Vector2 pos)
     {
         this.cmd = cmd;
+        this.burst = burst;
         this.pos = pos;
     }
 
-    public UniTask DoAction(int pawnID)
+    public override async UniTask DoAction(int pawnID)
     {
         throw new System.NotImplementedException();
     }

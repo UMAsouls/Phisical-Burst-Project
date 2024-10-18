@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
 {
@@ -9,16 +10,50 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
 
     [SerializeField]
     private GameObject AreaViewer;
+    private GameObject area;
+
+    private RangeMovable areaMover;
+
+    [SerializeField]
+    private GameObject RangeCircle;
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        Vector2 dir = context.ReadValue<Vector2>();
+        areaMover.SetMoveDir(dir);
+        Debug.Log(dir);
+    }
 
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(ILongRangeAttackCommand cmd, int pawnID)
     {
+        Debug.Log(input.currentActionMap);
         var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
-        var obj = Instantiate(AreaViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
+        area = Instantiate(AreaViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
+        var obj = Instantiate(RangeCircle, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
+
+        var a_scaler = area.GetComponent<IRangeCircleScaler>();
+        a_scaler.SetRadius(cmd.AttackArea);
+
+        var r_scaler = obj.GetComponent<IRangeCircleScaler>();
+        r_scaler.SetRadius(cmd.Range);
+
+        areaMover = area.GetComponent<RangeMovable>();
+        areaMover.Range = cmd.Range;
+
+        if(cameraZoomController.OrthoSize < cmd.Range) cameraZoomController.OrthoSize = cmd.Range;
 
         await UniTask.WaitUntil(() => isConfirm | isCancel);
 
+        pos = area.transform.position;
+        Destroy(area);
         Destroy(obj);
-        if (isConfirm) { return new LongRangeBehaviour(cmd, pos); }
+        if (isConfirm) { return new LongRangeBehaviour(cmd, isBurst, pos); }
         else { return null; }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        actionMap = "Long Range";
     }
 }

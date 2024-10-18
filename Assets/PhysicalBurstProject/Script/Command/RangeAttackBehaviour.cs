@@ -1,17 +1,16 @@
 ﻿
 using Cysharp.Threading.Tasks;
 
-public class RangeAttackBehaviour : IActionCommandBehaviour
+public class RangeAttackBehaviour : CommandBehaviourBase<IRangeAttackCommand>
 {
 
-    private IRangeAttackCommand cmd;
-
-    public RangeAttackBehaviour(IRangeAttackCommand cmd)
+    public RangeAttackBehaviour(IRangeAttackCommand cmd, bool burst)
     {
         this.cmd = cmd;
+        this.burst = burst;
     }
 
-    public async UniTask DoAction(int pawnID)
+    public override async UniTask DoAction(int pawnID)
     {
         throw new System.NotImplementedException();
     }

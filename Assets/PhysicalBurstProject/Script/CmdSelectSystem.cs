@@ -61,9 +61,18 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
         if (context.performed) isCancel = true;
     }
 
+    private void Init()
+    {
+        isCancel = false;
+        isConfirm = false;
+        cmdIndex = 0;
+
+        input.SwitchCurrentActionMap("CmdSelect");
+    }
+
     public async UniTask<bool> CmdSelect(int id)
     {
-        input.SwitchCurrentActionMap("CmdSelect");
+        Init();
 
         CommandActionSettable pawn = strage.GetPawnById<CommandActionSettable>(id);
 
@@ -81,14 +90,19 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
 
         uiPrinter.DestroyCmdSelector();
         input.SwitchCurrentActionMap("None");
-        pawn.ActionAdd(await MakeAction(commands[cmdIndex], id));
 
+        var action = await MakeAction(commands[cmdIndex], id);
+        if(action == null) return false;
+
+        Debug.Log("setted comannd");
+        action.setAct(pawn);
         return true;
     }
 
     private async UniTask<IAction> MakeAction(IActionCommand cmd, int pawnID)
     {
         var behaviour = await behaviourMaker.MakeCommandBehaviour(cmd, pawnID);
+        if(behaviour == null) return null;
         return actionMaker.MakeCommandAction(behaviour);
     }
 

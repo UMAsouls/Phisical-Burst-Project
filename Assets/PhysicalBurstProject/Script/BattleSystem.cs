@@ -27,7 +27,7 @@ public class BattleSystem : MonoBehaviour
     private MovePosSelectable MovePosSelectable;
 
     [Inject]
-    private IBattleCmdSelectSystem battleCmdSelectSystem;
+    private IBattleActionSelectSystem battleCmdSelectSystem;
 
     [Inject]
     private ICmdSelectSystem cmdSelectSystem;
@@ -109,6 +109,8 @@ public class BattleSystem : MonoBehaviour
         Debug.Log("pawn get");
 
         isBattleEnd = false;
+
+        await UniTask.WaitUntil(() => cameraChanger.IsSetComplete);
         return;
     }
 
@@ -125,7 +127,7 @@ public class BattleSystem : MonoBehaviour
         do
         {
             isCancel = false;
-            cmdIndex = await battleCmdSelectSystem.BattleCmdSelect(pawn.ID);
+            cmdIndex = await battleCmdSelectSystem.BattleActionSelect(pawn.ID);
 
             Debug.Log($"idx: {cmdIndex}");
             switch(cmdIndex)
@@ -139,6 +141,8 @@ public class BattleSystem : MonoBehaviour
                     await ActionCmdSelect(pawn.ID);
                     break;
             }
+
+            if (isCancel) pawn.CancelSelect();
 
         }while(isCancel);
         return;
@@ -161,7 +165,6 @@ public class BattleSystem : MonoBehaviour
         if (!isConfirm)
         {
             uiPrinter.PrintPlayerInformation(id);
-            isCancel = true;
             return;
         }
     }
@@ -177,7 +180,6 @@ public class BattleSystem : MonoBehaviour
         if (!isConfirm)
         {
             uiPrinter.PrintPlayerInformation(pawn.ID);
-            isCancel = true;
             return;
         }
     }

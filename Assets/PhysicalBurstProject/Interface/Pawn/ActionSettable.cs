@@ -2,11 +2,12 @@
 
 using UnityEngine;
 
-public interface ActionSettable : IDGettable
+public interface ActionSettable : IDGettable, IVirtualPawn
 {
-    public Vector2 VirtualPos { get; set; }
     public int ActPoint { get; }
     public float range { get; }
+
+    public int MaxHP { get; }
 
     public void ActionAdd(IAction action);
     

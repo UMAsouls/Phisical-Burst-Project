@@ -45,7 +45,7 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
-            .BindInterfacesTo<BattleCmdSelectSystem>()
+            .BindInterfacesTo<BattleActionSelectSystem>()
             .FromComponentOn(gameManager)
             .AsTransient();
 

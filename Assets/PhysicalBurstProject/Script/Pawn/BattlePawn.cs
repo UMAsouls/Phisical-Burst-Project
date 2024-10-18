@@ -125,7 +125,7 @@ public class BattlePawn : MonoBehaviour,
 
         if(actions.Count == 0) return false;
 
-        var cAct = actions.Last<IAction>();
+        var cAct = actions.Last();
         Debug.Log("bef: " + virtualPos.ToString());
         cAct.CancelAct(this);
         Debug.Log("aft: " + virtualPos.ToString());

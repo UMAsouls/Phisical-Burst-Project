@@ -13,12 +13,20 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
     {
         var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
         var obj = Instantiate(RangeViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
-        obj.transform.localScale = new Vector3(cmd.Range, cmd.Range, 1);
+
+        var r_scaler = obj.GetComponent<IRangeCircleScaler>();
+        r_scaler.SetRadius(cmd.Range);
 
         await UniTask.WaitUntil(() => isConfirm | isCancel);
 
         Destroy(obj);
-        if (isConfirm) { return new RangeAttackBehaviour(cmd);  }
+        if (isConfirm) { return new RangeAttackBehaviour(cmd, isBurst);  }
         else { return null; }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        actionMap = "Range";
     }
 }

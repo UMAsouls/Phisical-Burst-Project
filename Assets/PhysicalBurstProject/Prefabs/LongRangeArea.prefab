@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5206250598360323983}
-  - component: {fileID: 7647784311410802154}
-  - component: {fileID: -3169285985043254085}
+  - component: {fileID: -91609503532679372}
+  - component: {fileID: -2366261545421875076}
   m_Layer: 0
-  m_Name: PosSelectorRange
+  m_Name: LongRangeArea
   m_TagString: Battle_PosSelectorRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 2556305173083788177}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7647784311410802154
+--- !u!114 &-91609503532679372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ff26f55ab88b944952e2b5f3216722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-3169285985043254085
+--- !u!114 &-2366261545421875076
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,7 +219,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0, g: 0.240856, b: 0.4433962, a: 1}
+  m_Color: {r: 0.18409613, g: 0, b: 0.44313726, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -303,7 +303,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.23230802, g: 0.86104625, b: 0.97199994, a: 0.19607843}
+  m_Color: {r: 0.45431995, g: 0, b: 1, a: 0.050980393}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

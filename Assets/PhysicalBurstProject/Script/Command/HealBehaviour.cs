@@ -2,16 +2,16 @@
 
 using Cysharp.Threading.Tasks;
 
-public class HealBehaviour : IActionCommandBehaviour
+public class HealBehaviour : CommandBehaviourBase<IHealCommand>
 {
-    private IHealCommand cmd;
 
-    public HealBehaviour(IHealCommand cmd)
+    public HealBehaviour(IHealCommand cmd, bool burst)
     {
         this.cmd = cmd;
+        this.burst = burst;
     }
     
-    public UniTask DoAction(int pawnID)
+    public override async UniTask DoAction(int pawnID)
     {
         throw new System.NotImplementedException();
     }

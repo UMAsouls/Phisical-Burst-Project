@@ -18,11 +18,20 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
 
     private CinemachineVirtualCamera main;
 
+    private float firstCameraSize;
+
+    public bool IsSetComplete { private set; get; } = false;
+
     private void ChangeCameraTo(CinemachineVirtualCamera camera)
     {
-        if(main != null) main.Priority = -1;
+        if(main != null)
+        {
+            main.Priority = -1;
+            main.m_Lens.OrthographicSize = firstCameraSize;
+        }
         main = camera;
         main.Priority = 5;
+        firstCameraSize = main.m_Lens.OrthographicSize;
     }
 
     public void ChangeToPawnCamera(int pawnID)
@@ -35,6 +44,12 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
         ChangeCameraTo(selectPhazeCamera);
     }
 
+    public OrthoCameraZoomAble GetZoomController()
+    {
+        if(main == null) return null;
+        return main.gameObject.GetComponent<OrthoCameraZoomAble>();
+    }
+
     // Use this for initialization
     async void Start()
     {
@@ -44,8 +59,11 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
         IDGettable[] list = strage.GetPawnList<IDGettable>();
         foreach (IDGettable item in list)
         {
+            Debug.Log("camera add: " + item.ID);
             pawnCameras.Add(item.ID, strage.GetPawnCameraByID(item.ID));
         }
+
+        IsSetComplete = true;
     }
 
     // Update is called once per frame
@@ -53,4 +71,6 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
     {
 
     }
+
+    
 }
