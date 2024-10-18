@@ -24,6 +24,7 @@ public class CommandAction : IAction
         pawn.VirtualMana += behaviour.UseMana;
         if (behaviour.IsBurst) pawn.VirtualHP += pawn.MaxHP / 5;
 
+        pawn.UseActPoint(-1);
         return true;
     }
 
@@ -36,5 +37,10 @@ public class CommandAction : IAction
         pawn.ActionAdd(this);
 
         return true;
+    }
+
+    public string GetActionName()
+    {
+        return "行動: " + behaviour.Name;
     }
 }

@@ -21,6 +21,10 @@ public class BattleSystem : MonoBehaviour
     private IPlayerInformationUIPrinter uiPrinter;
 
     [Inject]
+    private IActionSlotPrinter slotPrinter;
+    private ActionSlotControlable slotController;
+
+    [Inject]
     private IPawnGettable pawnGettable;
 
     [Inject]
@@ -71,6 +75,12 @@ public class BattleSystem : MonoBehaviour
         isCancel = true;
     }
 
+    public void slotPrint(string[] actNames)
+    {
+        slotController = slotPrinter.PrintActionSlot();
+        for (int i = 0; i < actNames.Length; i++) slotController.ActionSet(actNames[i], i);
+    }
+
     private async UniTask Battle()
     {
         Debug.Log("BattleStart");
@@ -86,11 +96,11 @@ public class BattleSystem : MonoBehaviour
 
                 while (p.ActPoint > 0)
                 {
-                    Debug.Log("Select faze");
-                    uiPrinter.PrintPlayerInformation(p.ID);
-
+                    
+                    Debug.Log("Select phaze");
                     do
                     {
+
                         isCancel = false;
                         await Select(p);
                     } while (isCancel);
@@ -126,14 +136,20 @@ public class BattleSystem : MonoBehaviour
         isConfirm = false;
         do
         {
+            uiPrinter.PrintPlayerInformation(pawn.ID);
+            slotPrint(pawn.GetActionNames());
+            Debug.Log("len:" + pawn.GetActionNames().Length);
+
             isCancel = false;
+            bool actCancel = false;
             cmdIndex = await battleCmdSelectSystem.BattleActionSelect(pawn.ID);
 
-            Debug.Log($"idx: {cmdIndex}");
+            slotPrinter.DestroyActionSlot();
             switch(cmdIndex)
             {
                 case -1:
-                    isCancel = true; break;
+                    actCancel= true;
+                    break;
                 case 0:
                     await MovePosSelect(pawn);
                     break;
@@ -142,7 +158,12 @@ public class BattleSystem : MonoBehaviour
                     break;
             }
 
-            if (isCancel) pawn.CancelSelect();
+            if(actCancel)
+            {
+                pawn.CancelSelect();
+                isCancel = true;
+                break;
+            }
 
         }while(isCancel);
         return;
@@ -165,6 +186,7 @@ public class BattleSystem : MonoBehaviour
         if (!isConfirm)
         {
             uiPrinter.PrintPlayerInformation(id);
+            isCancel = true;
             return;
         }
     }
@@ -180,6 +202,7 @@ public class BattleSystem : MonoBehaviour
         if (!isConfirm)
         {
             uiPrinter.PrintPlayerInformation(pawn.ID);
+            isCancel = true;
             return;
         }
     }

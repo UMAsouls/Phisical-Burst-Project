@@ -46,8 +46,6 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
             cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
 
-        Debug.Log($"{cmdIndex}");
-
 
     }
 
