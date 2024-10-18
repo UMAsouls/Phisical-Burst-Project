@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Zenject;
 using UnityEngine.Windows;
 using UnityEditor;
+using System.Threading;
 
 public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 {
@@ -26,6 +27,8 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
     private ICmdSelectorController controller;
 
     private PlayerInput input;
+
+    private CancellationToken cts;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
@@ -70,7 +73,7 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
         input.SwitchCurrentActionMap("FirstSelect");
 
-        await UniTask.WaitUntil(() => isConfirm | isCancel);
+        await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
         if (isCancel) return -1;
 
@@ -87,7 +90,7 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
     // Use this for initialization
     void Start()
     {
-
+        cts = this.GetCancellationTokenOnDestroy();
     }
 
     // Update is called once per frame

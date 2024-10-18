@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks.Triggers;
 using ModestTree;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -38,6 +39,8 @@ public class BattleSystem : MonoBehaviour
 
     [Inject]
     private CameraChangeAble cameraChanger;
+
+    private CancellationToken cts;
 
     private bool isConfirm;
     private bool isCancel;
@@ -113,14 +116,14 @@ public class BattleSystem : MonoBehaviour
 
     private async UniTask BattleStart()
     {
-        await UniTask.WaitUntil(() => pawnGettable.IsSetComplete);
+        await UniTask.WaitUntil(() => pawnGettable.IsSetComplete, PlayerLoopTiming.Update, cts);
 
         pawns = pawnGettable.GetPawnList<ActionSelectable>();
         Debug.Log("pawn get");
 
         isBattleEnd = false;
 
-        await UniTask.WaitUntil(() => cameraChanger.IsSetComplete);
+        await UniTask.WaitUntil(() => cameraChanger.IsSetComplete, PlayerLoopTiming.Update, cts);
         return;
     }
 
@@ -216,7 +219,7 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        cts = this.GetCancellationTokenOnDestroy();
         Battle().Forget();
     }
 

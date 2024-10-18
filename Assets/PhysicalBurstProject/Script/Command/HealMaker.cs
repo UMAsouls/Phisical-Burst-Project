@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class HealMaker : CommandMakerBase<IHealCommand>
@@ -7,6 +8,8 @@ public class HealMaker : CommandMakerBase<IHealCommand>
 
     [SerializeField]
     private GameObject RangeCircle;
+
+    private CancellationToken cts;
 
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IHealCommand cmd , int pawnID)
     {
@@ -16,7 +19,7 @@ public class HealMaker : CommandMakerBase<IHealCommand>
         var r_scaler = obj.GetComponent<IRangeCircleScaler>();
         r_scaler.SetRadius(cmd.Range);
 
-        await UniTask.WaitUntil(() => isConfirm | isCancel);
+        await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
         Destroy(obj);
         if (isConfirm) { return new HealBehaviour(cmd, isBurst); }
@@ -27,6 +30,8 @@ public class HealMaker : CommandMakerBase<IHealCommand>
     {
         base.Awake();
         actionMap = "Heal";
+
+        cts = this.GetCancellationTokenOnDestroy();
     }
 
     // Use this for initialization

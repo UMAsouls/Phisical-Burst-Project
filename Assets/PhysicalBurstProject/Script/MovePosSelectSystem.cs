@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -38,6 +39,8 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     CameraChangeAble cameraChanger;
 
     OrthoCameraZoomAble cameraZoomController;
+
+    private CancellationToken cts;
 
     public void Cancel()
     {
@@ -85,7 +88,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
         cameraZoomController.OrthoSize = pawn.range;
 
-        await UniTask.WaitUntil(() => (isCancel || isConfirm)); 
+        await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts); 
 
         cameraChanger.ChangeToPawnCamera(id);
 
@@ -109,6 +112,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
     private void Awake()
     {
+        cts = this.GetCancellationTokenOnDestroy();
         input = GetComponent<PlayerInput>();
     }
 }

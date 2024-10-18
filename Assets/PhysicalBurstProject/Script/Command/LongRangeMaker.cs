@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,11 +18,12 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
     [SerializeField]
     private GameObject RangeCircle;
 
+    private CancellationToken cts;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 dir = context.ReadValue<Vector2>();
         areaMover.SetMoveDir(dir);
-        Debug.Log(dir);
     }
 
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(ILongRangeAttackCommand cmd, int pawnID)
@@ -42,7 +44,7 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
 
         if(cameraZoomController.OrthoSize < cmd.Range) cameraZoomController.OrthoSize = cmd.Range;
 
-        await UniTask.WaitUntil(() => isConfirm | isCancel);
+        await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
         pos = area.transform.position;
         Destroy(area);
@@ -55,5 +57,7 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
     {
         base.Awake();
         actionMap = "Long Range";
+
+        cts = this.GetCancellationTokenOnDestroy();
     }
 }

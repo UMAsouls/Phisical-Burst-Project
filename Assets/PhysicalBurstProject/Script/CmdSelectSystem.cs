@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
@@ -29,6 +30,8 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
     private bool isConfirm = false;
 
     private bool isCancel = false;
+
+    private CancellationToken cts;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
@@ -84,7 +87,7 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
 
         controller = uiPrinter.PrintCmdSelecter(names);
 
-        await UniTask.WaitUntil(() => isConfirm | isCancel);
+        await UniTask.WaitUntil(() => isConfirm | isCancel, PlayerLoopTiming.Update, cts);
 
         if (isCancel) return false;
 
@@ -109,6 +112,7 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
     // Use this for initialization
     void Start()
     {
+        cts = this.GetCancellationTokenOnDestroy();
         input = GetComponent<PlayerInput>();
     }
 

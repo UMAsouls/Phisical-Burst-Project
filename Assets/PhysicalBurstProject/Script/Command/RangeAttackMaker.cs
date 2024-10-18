@@ -1,5 +1,6 @@
 ﻿
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,8 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
     [SerializeField]
     private GameObject RangeViewer;
 
+    private CancellationToken cts;
+
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IRangeAttackCommand cmd, int pawnID)
     {
         var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
@@ -17,7 +20,7 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
         var r_scaler = obj.GetComponent<IRangeCircleScaler>();
         r_scaler.SetRadius(cmd.Range);
 
-        await UniTask.WaitUntil(() => isConfirm | isCancel);
+        await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
         Destroy(obj);
         if (isConfirm) { return new RangeAttackBehaviour(cmd, isBurst);  }
@@ -28,5 +31,6 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
     {
         base.Awake();
         actionMap = "Range";
+        cts = this.GetCancellationTokenOnDestroy();
     }
 }
