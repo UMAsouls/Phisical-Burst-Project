@@ -35,4 +35,9 @@ public class MoveAction : IAction
 
         return true;
     }
+
+    public string GetActionName()
+    {
+        return "移動: " + delta.ToString();
+    }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class OrthoCameraZoom : CinemachineExtension, OrthoCameraZoomAble
 {
     [SerializeField]
-    [Range(0.03f, 0.2f)]
+    [Range(1f, 5f)]
     private float zoomSpeed;
 
     [SerializeField]
@@ -42,7 +42,7 @@ public class OrthoCameraZoom : CinemachineExtension, OrthoCameraZoomAble
         if(stage != CinemachineCore.Stage.Aim) return;
 
         var lens = state.Lens;
-        t += zoomSpeed;
+        t += zoomSpeed*deltaTime;
 
         lens.OrthographicSize = Mathf.Lerp(befOrthoSize, targetOrthoSize, t);
         state.Lens = lens;

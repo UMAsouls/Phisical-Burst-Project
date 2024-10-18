@@ -134,6 +134,16 @@ public class BattlePawn : MonoBehaviour,
 
         return true;
     }
+    public string[] GetActionNames()
+    {
+        string[] names = new string[actions.Count];
+        for(int i = 0; i < names.Length; i++)
+        {
+            names[i] = actions[i].GetActionName();
+        }
+        return names;
+    }
+
 
 
     // Start is called before the first frame update

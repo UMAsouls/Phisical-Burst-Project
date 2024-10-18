@@ -34,7 +34,8 @@ public class RangeMover : MonoBehaviour, RangeMovable
     // Update is called once per frame
     void Update()
     {
-        transform.position += movedir * moveSpeed;
+        float dt = Time.deltaTime;
+        transform.position += movedir * moveSpeed*dt;
         Debug.Log(moveSpeed);
         if (Vector2.Distance(transform.position, firstPos) > range)
         {

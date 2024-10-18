@@ -48,7 +48,8 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
     // Update is called once per frame
     void Update()
     {
-        transform.position += (Vector3)movedir*moveSpeed;
+        float dt = Time.deltaTime;
+        transform.position += (Vector3)movedir*moveSpeed*dt;
         if(Vector2.Distance(transform.position, firstPos) > range)
         {
             transform.position = firstPos + ((Vector2)transform.position - firstPos).normalized*range;

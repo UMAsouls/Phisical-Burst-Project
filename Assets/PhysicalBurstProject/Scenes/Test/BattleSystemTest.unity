@@ -233,7 +233,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 0
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -258,7 +258,7 @@ Transform:
   m_GameObject: {fileID: 136652224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1041732, y: 0.3209392, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405c79fab55eb034e9985002b906f5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 0.08
+  zoomSpeed: 5
   minOrthoSize: 2
   maxOrthoSize: 12
 --- !u!1 &863402875
@@ -4090,8 +4090,8 @@ MonoBehaviour:
     m_ActionName: Battle/Confirm[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1143571158}
-        m_TargetAssemblyTypeName: CmdSelectSystem, Assembly-CSharp
+      - m_Target: {fileID: 1143571159}
+        m_TargetAssemblyTypeName: BattleActionSelectSystem, Assembly-CSharp
         m_MethodName: OnCancel
         m_Mode: 0
         m_Arguments:
@@ -4988,22 +4988,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 578208950958873413, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: PawnInfoPos.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 578208950958873413, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: PawnInfoPos.y
-      value: -300
-      objectReference: {fileID: 0}
-    - target: {fileID: 578208950958873413, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: CmdWindowPos.x
-      value: 1700
-      objectReference: {fileID: 0}
-    - target: {fileID: 578208950958873413, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: CmdWindowPos.y
-      value: -300
-      objectReference: {fileID: 0}
     - target: {fileID: 2933808775816390706, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5083,6 +5067,14 @@ PrefabInstance:
     - target: {fileID: 2933808775816390706, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961312101626996576, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      propertyPath: pos.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961312101626996576, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      propertyPath: pos.y
+      value: -900
       objectReference: {fileID: 0}
     - target: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
       propertyPath: m_Name

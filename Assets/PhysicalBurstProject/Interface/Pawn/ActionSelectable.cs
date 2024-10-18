@@ -14,4 +14,6 @@ public interface ActionSelectable
     public UniTask TurnEnd();
 
     public bool CancelSelect();
+
+    public string[] GetActionNames();
 }

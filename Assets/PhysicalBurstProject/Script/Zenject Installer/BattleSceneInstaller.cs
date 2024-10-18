@@ -30,6 +30,11 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(battleUI)
             .AsTransient();
 
+        Container
+            .BindInterfacesTo<ActionSlotPrinter>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
+
 
         Container
             .BindInterfacesTo<BattlePawnStrage>()
@@ -84,5 +89,7 @@ public class BattleSceneInstaller : MonoInstaller
             .BindInterfacesTo<SelectPhazeCamera>()
             .FromComponentOn(selectPhazeCamera)
             .AsTransient();
+
+        
     }
 }

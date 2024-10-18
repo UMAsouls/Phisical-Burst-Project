@@ -13,4 +13,6 @@ public interface IAction
     public bool setAct(ActionSettable pawn);
 
     public bool CancelAct(ActionSettable pawn);
+
+    public string GetActionName();
 }
