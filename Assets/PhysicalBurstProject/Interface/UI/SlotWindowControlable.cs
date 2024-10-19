@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public interface ActionSlotControlable 
+public interface SlotWindowControlable 
 {
     public void ActionSet(string action, int idx);
 }

@@ -2,7 +2,7 @@
 
 public interface IActionSlotPrinter
 { 
-    public ActionSlotControlable PrintActionSlot();
+    public SlotWindowControlable PrintActionSlot();
 
     public void DestroyActionSlot();
 }
