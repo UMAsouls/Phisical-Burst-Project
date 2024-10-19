@@ -76,7 +76,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
     {
 
 
-        pawn = strage.GetPawnById<BattleCmdSelectable>(pawnID);
+        pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
 
         selectorController = selectUIPrinter.PrintCmdSelecter(MakeCmdList(pawn.BattleCommands));
         slotController = slotUIPrinter.PrintUI();

@@ -29,7 +29,7 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(ILongRangeAttackCommand cmd, int pawnID)
     {
         Debug.Log(input.currentActionMap);
-        var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
+        var vpawn = strage.GetPawnByID<IVirtualPawn>(pawnID);
         area = Instantiate(AreaViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
         var obj = Instantiate(RangeCircle, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
 

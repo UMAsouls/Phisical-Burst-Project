@@ -69,7 +69,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     {
         Init();
 
-        ActionSettable pawn = strage.GetPawnById<ActionSettable>(id);
+        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(id);
 
         Vector3 cameraPos = pawn.VirtualPos;
         cameraPos.z = -1;

@@ -13,7 +13,7 @@ public class HealMaker : CommandMakerBase<IHealCommand>
 
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IHealCommand cmd , int pawnID)
     {
-        var vpawn = strage.GetPawnById<IVirtualPawn>(pawnID);
+        var vpawn = strage.GetPawnByID<IVirtualPawn>(pawnID);
         var obj = Instantiate(RangeCircle, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
 
         var r_scaler = obj.GetComponent<IRangeCircleScaler>();
