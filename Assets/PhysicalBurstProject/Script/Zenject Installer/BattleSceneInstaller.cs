@@ -35,6 +35,11 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(battleUI)
             .AsTransient();
 
+        Container
+            .BindInterfacesTo<BattleCmdSlotUIPrinter>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
+
 
         Container
             .BindInterfacesTo<BattlePawnStrage>()

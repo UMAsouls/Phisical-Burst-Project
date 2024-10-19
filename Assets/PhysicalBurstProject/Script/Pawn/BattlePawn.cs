@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable
 {
 
     protected IStatus status;
@@ -29,6 +29,8 @@ public class BattlePawn : MonoBehaviour,
     private int actMax;
 
     private IActionCommand[] actCmds;
+
+    private IBattleCommand[] battleCmds;
 
     private List<IAction> actions;
 
@@ -67,6 +69,8 @@ public class BattlePawn : MonoBehaviour,
     public float VirtualMana { get => virtualPawn.VirtualMana; set => virtualPawn.VirtualMana = value; }
     public float VirtualHP { get => virtualPawn.VirtualHP; set => virtualPawn.VirtualHP = value; }
     public bool IsBurst { get => virtualPawn.IsBurst; set => virtualPawn.IsBurst = value; }
+
+    public IBattleCommand[] BattleCommands => battleCmds;
 
     public async void Action()
     {
