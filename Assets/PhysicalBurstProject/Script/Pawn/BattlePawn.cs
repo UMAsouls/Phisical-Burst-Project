@@ -72,6 +72,8 @@ public class BattlePawn : MonoBehaviour,
 
     public IBattleCommand[] BattleCommands => battleCmds;
 
+    public float AttackRange => status.AttackRange;
+
     public async void Action()
     {
         foreach (var action in actions)
