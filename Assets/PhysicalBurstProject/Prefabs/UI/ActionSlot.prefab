@@ -160,6 +160,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b1995b189f1748642bbd5a44f9562492, type: 3}
+    - target: {fileID: 532448074147453333, guid: 31a1caff76f7bf44884dbb7ffb52e217, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 532448074147453333, guid: 31a1caff76f7bf44884dbb7ffb52e217, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 5f909fddee43df343a4b511f04b411fb, type: 2}
+    - target: {fileID: 532448074147453333, guid: 31a1caff76f7bf44884dbb7ffb52e217, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1323888816349920898, guid: 31a1caff76f7bf44884dbb7ffb52e217, type: 3}
       propertyPath: m_Sprite
       value: 

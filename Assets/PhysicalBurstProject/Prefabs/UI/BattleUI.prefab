@@ -50,7 +50,7 @@ Canvas:
   m_GameObject: {fileID: 6354556076871745779}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -61,7 +61,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1353605561
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8540371294233656491
@@ -76,10 +76,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2560, y: 1440}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -117,9 +117,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CmdWindow: {fileID: 1604902454665360852, guid: 29231cbfb02209b478f485bfce0cf62d, type: 3}
-  CmdWindowPos: {x: 1700, y: -300}
+  CmdWindowPos: {x: 1500, y: -200}
   PawnInfo: {fileID: 1325529895688281983, guid: 67488127c99a4c641af584900a90b422, type: 3}
-  PawnInfoPos: {x: 200, y: -300}
+  PawnInfoPos: {x: 200, y: -200}
 --- !u!114 &502897552149929579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionSlot: {fileID: 6374969048871704070, guid: 536e76bc2f6f9fe4eb0dc6f9e2d982d1, type: 3}
-  pos: {x: 0, y: 0}
+  pos: {x: 300, y: -900}
