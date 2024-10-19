@@ -2,13 +2,13 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class ActionSlotController : MonoBehaviour, ActionSlotControlable
+public class SlotWindowController : MonoBehaviour, SlotWindowControlable
 {
 
     [SerializeField]
     private GameObject[] Slots;
 
-    private IActionTextSettable[] slotSetters;
+    private ISlotTextSettable[] slotSetters;
     private RectTransform[] slotRects;
 
     [SerializeField]
@@ -30,15 +30,12 @@ public class ActionSlotController : MonoBehaviour, ActionSlotControlable
             if (i == idx) slotSetters[i].Text = action;
             else slotSetters[i].SizeUpdate();
 
-            if(MaxWidth < slotRects[i].sizeDelta.x) MaxWidth = slotRects[i].sizeDelta.x;
+            if(MaxWidth < slotSetters[i].TextWidth) MaxWidth = slotSetters[i].TextWidth;
         }
 
         if(MaxWidth < firstWidth) MaxWidth = firstWidth;
 
-        foreach (var rect in slotRects)
-        {
-            rect.sizeDelta = new Vector2(MaxWidth, rect.sizeDelta.y);
-        }
+        foreach (var rect in slotRects) rect.sizeDelta = new Vector2(0, rect.sizeDelta.y);
 
         selfRect.sizeDelta = new Vector2 (MaxWidth+20, slotRects[0].sizeDelta.y*2 + 10);
 
@@ -47,12 +44,12 @@ public class ActionSlotController : MonoBehaviour, ActionSlotControlable
 
     private void Awake()
     {
-        slotSetters = new IActionTextSettable[Slots.Length];
+        slotSetters = new ISlotTextSettable[Slots.Length];
         slotRects = new RectTransform[Slots.Length];
 
         for (int i = 0; i < Slots.Length; i++)
         {
-            slotSetters[i] = Slots[i].GetComponent<IActionTextSettable>();
+            slotSetters[i] = Slots[i].GetComponent<ISlotTextSettable>();
             slotRects[i] = Slots[i].GetComponent<RectTransform>();
         }
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(RectTransform))]
-public class ActionSlotTextSetter : MonoBehaviour, IActionTextSettable
+public class SlotTextSetter : MonoBehaviour, ISlotTextSettable
 { 
     private TextMeshProUGUI tmp;
     private RectTransform rectTransform;

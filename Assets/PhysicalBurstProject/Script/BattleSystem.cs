@@ -23,7 +23,7 @@ public class BattleSystem : MonoBehaviour
 
     [Inject]
     private IActionSlotPrinter slotPrinter;
-    private ActionSlotControlable slotController;
+    private SlotWindowControlable slotController;
 
     [Inject]
     private IPawnGettable pawnGettable;

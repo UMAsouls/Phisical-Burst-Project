@@ -21,13 +21,13 @@ public class ActionSlotPrinter : UIPrinter, IActionSlotPrinter
         }
     }
 
-    public ActionSlotControlable PrintActionSlot()
+    public SlotWindowControlable PrintActionSlot()
     {
         if (printedSlot != null) DestroyActionSlot();
 
             printedSlot = PrintUIAsChildAt(actionSlot, pos);
 
-        return printedSlot.GetComponent<ActionSlotControlable>();
+        return printedSlot.GetComponent<SlotWindowControlable>();
     }
 
     // Use this for initialization
