@@ -20,7 +20,9 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
 
     private float firstCameraSize;
 
-    public bool IsSetComplete { private set; get; } = false;
+    private bool isSetComplete;
+
+    public bool IsSetComplete => isSetComplete;
 
     private void ChangeCameraTo(CinemachineVirtualCamera camera)
     {
@@ -63,7 +65,8 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
             pawnCameras.Add(item.ID, strage.GetPawnCameraByID(item.ID));
         }
 
-        IsSetComplete = true;
+        Debug.Log("camera set complete");
+        isSetComplete = true;
     }
 
     // Update is called once per frame

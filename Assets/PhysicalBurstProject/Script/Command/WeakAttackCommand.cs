@@ -10,5 +10,6 @@ public class WeakAttackCommand : BattleCommand
     private float damage;
 
     [SerializeField]
+    [Range(0f, 10f)]
     private float burstRatio;
 }

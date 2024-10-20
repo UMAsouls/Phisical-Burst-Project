@@ -292,10 +292,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761340618331522130}
-  - component: {fileID: 126908633780279500}
   - component: {fileID: 4075842707317630981}
+  - component: {fileID: 2481720707668272313}
   m_Layer: 0
-  m_Name: TestBattlePawn
+  m_Name: TestEnemyPawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,19 +319,6 @@ Transform:
   - {fileID: 8396010097035697146}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &126908633780279500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9110315097187147631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f683a621886bf49a3671a43b062963, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  virtualObjBase: {fileID: 8646123376930983589, guid: bb845934970335a4eb84b556d7d699f9, type: 3}
 --- !u!114 &4075842707317630981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,3 +334,16 @@ MonoBehaviour:
   FocusArrow: {fileID: 8682954292589991786, guid: 8ef7b99838c123a45b7eb67460e5af08, type: 3}
   SelectableSize: 3
   colliderObj: {fileID: 8121136847040734232}
+--- !u!114 &2481720707668272313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110315097187147631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915481c94cdeffa42a44d1b881838c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualObjBase: {fileID: 8646123376930983589, guid: bb845934970335a4eb84b556d7d699f9, type: 3}

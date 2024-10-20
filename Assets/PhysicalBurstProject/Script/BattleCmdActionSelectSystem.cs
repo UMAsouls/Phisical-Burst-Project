@@ -19,7 +19,7 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
 
         BattleCmdSelectable pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
 
-        int select = await pawnSelector.PawnSelect(pawn.VirtualPos, PawnType.Enemy);
+        int select = await pawnSelector.PawnSelect(pawnID, PawnType.Enemy);
 
         if(select == -1) return false;
 

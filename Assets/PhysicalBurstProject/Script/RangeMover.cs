@@ -6,11 +6,11 @@ public class RangeMover : MonoBehaviour, RangeMovable
     private float range;
 
     [SerializeField]
-    private float moveSpeed = 0.15f;
+    protected float moveSpeed = 0.15f;
 
-    private Vector3 movedir;
+    protected Vector3 movedir;
 
-    private Vector3 firstPos;
+    protected Vector3 firstPos;
 
     public float Range { set => range = value; }
 
@@ -26,17 +26,16 @@ public class RangeMover : MonoBehaviour, RangeMovable
     }
 
     // Use this for initialization
-    void Start()
+    protected virtual void Start()
     {
         SetFirstPos();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         float dt = Time.deltaTime;
         transform.position += movedir * moveSpeed*dt;
-        Debug.Log(moveSpeed);
         if (Vector2.Distance(transform.position, firstPos) > range)
         {
             transform.position = firstPos + (transform.position - firstPos).normalized * range;

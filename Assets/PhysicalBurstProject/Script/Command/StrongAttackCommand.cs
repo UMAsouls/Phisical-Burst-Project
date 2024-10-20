@@ -11,5 +11,6 @@ public class StrongAttackCommand : BattleCommand
     public float damage;
 
     [SerializeField]
+    [Range(0f, 10f)]
     public float burstRatio;
 }

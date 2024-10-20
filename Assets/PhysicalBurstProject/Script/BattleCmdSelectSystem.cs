@@ -28,6 +28,8 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     private BattleCmdSelectable pawn;
 
+    private PlayerInput input;
+
 
     private int selectCount;
 
@@ -74,7 +76,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     public async UniTask<IBattleCommand[]> Select(int pawnID)
     {
-
+        input.SwitchCurrentActionMap("BattleCmdSelect");
 
         pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
 
@@ -82,6 +84,9 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         slotController = slotUIPrinter.PrintUI();
 
         selectCount = 0;
+
+        cmdIndex = 0;
+        cmdLength = pawn.BattleCommands.Length;
 
         IBattleCommand[] ans = new IBattleCommand[3];
         while(selectCount < 3)
@@ -93,7 +98,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
             if(isCancel)
             {
-                if (selectCount <= 0) return null;
+                if (selectCount <= 0) { ans = null; break; }
                 CancelCmd(ans);
                 continue;
             }
@@ -110,6 +115,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
             selectCount++;
         }
 
+        input.SwitchCurrentActionMap("BattleCmdSelect");
 
         return ans;
     }
@@ -118,6 +124,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
     void Start()
     {
         token = this.GetCancellationTokenOnDestroy();
+        input = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame
