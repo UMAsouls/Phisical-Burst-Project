@@ -2,7 +2,7 @@
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class BattleCmdSlotUIPrinter : MonoBehaviour, IBattleCmdSlotUIPrinter
+public class BattleCmdSlotUIPrinter : UIPrinter, IBattleCmdSlotUIPrinter
 {
     [SerializeField]
     GameObject ui;
@@ -21,7 +21,7 @@ public class BattleCmdSlotUIPrinter : MonoBehaviour, IBattleCmdSlotUIPrinter
     {
         if(printedUI != null)  DestroyUI();
 
-        printedUI = Instantiate(ui, pos, Quaternion.identity);
+        printedUI = PrintUIAsChildAt(ui, pos);
 
         return printedUI.GetComponent<SlotWindowControlable>();
     }

@@ -114,9 +114,9 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
         Vector3 screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0.0f);
         Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
-        center.y += 0.5f;
+        //center.y += 0.5f;
 
-        RaycastHit2D hit = Physics2D.Raycast(center, Vector2.down);
+        RaycastHit2D hit = Physics2D.Raycast(center, Vector2.down, 0f);
 
         if (hit.collider != null) RayHit(hit.collider);
         else if (pawn != null)

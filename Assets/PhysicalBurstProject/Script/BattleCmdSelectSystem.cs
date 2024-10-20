@@ -115,6 +115,8 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
             selectCount++;
         }
 
+        selectUIPrinter.DestroyCmdSelector();
+        slotUIPrinter.DestroyUI();
         input.SwitchCurrentActionMap("BattleCmdSelect");
 
         return ans;
