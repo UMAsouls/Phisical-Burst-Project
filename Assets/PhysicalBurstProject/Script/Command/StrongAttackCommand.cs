@@ -1,11 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
+[Serializable]
 public class StrongAttackCommand : BattleCommand
 {
 
     public override BattleCommandType Type => BattleCommandType.Strong;
+
+    [SerializeField]
+    public float damage;
+
+    [SerializeField]
+    [Range(0f, 10f)]
+    public float burstRatio;
 }

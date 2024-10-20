@@ -114,7 +114,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -167,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 532448074147453333, guid: 31a1caff76f7bf44884dbb7ffb52e217, type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 2100000, guid: 5f909fddee43df343a4b511f04b411fb, type: 2}
+      objectReference: {fileID: 2100000, guid: 853c206a58492dd429b445b9763e9033, type: 2}
     - target: {fileID: 532448074147453333, guid: 31a1caff76f7bf44884dbb7ffb52e217, type: 3}
       propertyPath: m_RaycastTarget
       value: 0

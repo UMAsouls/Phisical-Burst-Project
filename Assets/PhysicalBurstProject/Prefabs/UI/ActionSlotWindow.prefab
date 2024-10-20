@@ -54,7 +54,7 @@ MonoBehaviour:
   Slots:
   - {fileID: 9195537241013522747}
   - {fileID: 574365117079070247}
-  fontSize: 48
+  fontSize: 72
 --- !u!1001 &2559636732501823855
 PrefabInstance:
   m_ObjectHideFlags: 0

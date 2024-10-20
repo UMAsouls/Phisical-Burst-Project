@@ -23,23 +23,28 @@ public class SlotWindowController : MonoBehaviour, SlotWindowControlable
     public void ActionSet(string action, int idx)
     {
         Debug.Log("actset: " + action);
+        for (int i = 0; i < Slots.Length; i++)
+        {
+            if (i == idx) slotSetters[i].Text = action;
+        }
+        SizeUpdate();
+    }
+
+    private void SizeUpdate()
+    {
         MaxWidth = -1;
         for (int i = 0; i < Slots.Length; i++)
         {
             slotSetters[i].FontSize = fontSize;
-            if (i == idx) slotSetters[i].Text = action;
-            else slotSetters[i].SizeUpdate();
-
-            if(MaxWidth < slotSetters[i].TextWidth) MaxWidth = slotSetters[i].TextWidth;
+            slotSetters[i].SizeUpdate();
+            if (MaxWidth < slotSetters[i].TextWidth) MaxWidth = slotSetters[i].TextWidth;
         }
 
-        if(MaxWidth < firstWidth) MaxWidth = firstWidth;
+        if (MaxWidth < firstWidth) MaxWidth = firstWidth;
 
         foreach (var rect in slotRects) rect.sizeDelta = new Vector2(0, rect.sizeDelta.y);
 
-        selfRect.sizeDelta = new Vector2 (MaxWidth+20, slotRects[0].sizeDelta.y*2 + 10);
-
-
+        selfRect.sizeDelta = new Vector2(MaxWidth + 20, slotRects[0].sizeDelta.y * Slots.Length + 10);
     }
 
     private void Awake()
@@ -56,14 +61,12 @@ public class SlotWindowController : MonoBehaviour, SlotWindowControlable
         selfRect = GetComponent<RectTransform>();
         firstWidth = selfRect.sizeDelta.x - 20;
 
-        Debug.Log("setComplete");
-        Debug.Log(slotSetters[0]);
-
     }
 
     // Use this for initialization
     void Start()
     {
+        SizeUpdate();
     }
 
     // Update is called once per frame

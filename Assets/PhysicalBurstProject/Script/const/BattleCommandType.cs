@@ -6,5 +6,5 @@ public enum BattleCommandType
     Strong,
     Weak,
     Defence,
-    Avoid
+    Dodge
 }

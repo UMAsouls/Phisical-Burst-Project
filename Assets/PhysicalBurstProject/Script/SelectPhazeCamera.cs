@@ -1,9 +1,18 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class SelectPhazeCamera : MonoBehaviour, SelectPhazeCameraControllable
+public class SelectPhazeCamera : RangeMover, SelectPhazeCameraControllable
 {
     public Vector2 Position { get => transform.position; set => SetPosition(value); }
+    public bool RangeMode { get => rangeMode; set => rangeMode = value; }
+
+    private bool rangeMode;
+
+    public void SetFirstPos(Vector2 pos)
+    {
+        transform.position = pos;
+        SetFirstPos();
+    }
 
     private void SetPosition(Vector2 pos)
     {
@@ -13,14 +22,20 @@ public class SelectPhazeCamera : MonoBehaviour, SelectPhazeCameraControllable
     }
 
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
-
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-
+        if(rangeMode)
+        {
+            base.Update();
+            var pos = transform.position;
+            pos.z = -1;
+            transform.position = pos;
+        }
     }
 }

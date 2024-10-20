@@ -26,7 +26,7 @@ public class SlotTextSetter : MonoBehaviour, ISlotTextSettable
 
     public void SizeUpdate()
     {
-        float size = tmp.fontSize;
+        float size = tmp.fontSize + tmp.fontSize*1/5;
         float width = TextWidth;
         rectTransform.sizeDelta = new Vector2(width, size);
     }
