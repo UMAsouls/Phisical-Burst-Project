@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(SelectablePawn))]
 public abstract class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble
 {
 
     protected IStatus status;
@@ -184,5 +184,8 @@ public abstract class BattlePawn : MonoBehaviour,
         
     }
 
-    
+    public void Attack(int attack)
+    {
+        throw new System.NotImplementedException();
+    }
 }
