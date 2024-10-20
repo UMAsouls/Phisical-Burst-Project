@@ -16,7 +16,10 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
 
     public async UniTask<bool> Select(int pawnID)
     {
+        posSelectorUIPrinter.PrintPosSelectorUI();
+
         BattleCmdSelectable pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
+        
 
 
 

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattlePawn : MonoBehaviour, 
+public abstract class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable
 {
 
     protected IStatus status;
@@ -73,6 +73,8 @@ public class BattlePawn : MonoBehaviour,
     public IBattleCommand[] BattleCommands => battleCmds;
 
     public float AttackRange => status.AttackRange;
+
+    public abstract PawnType Type { get; }
 
     public async void Action()
     {

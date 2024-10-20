@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405c79fab55eb034e9985002b906f5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 10
+  zoomSpeed: 5
   minOrthoSize: 2
   maxOrthoSize: 12
 --- !u!1 &9110315097187147631
@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 761340618331522130}
-  - component: {fileID: 839179256353353412}
+  - component: {fileID: 126908633780279500}
   m_Layer: 0
   m_Name: TestBattlePawn
   m_TagString: Untagged
@@ -250,7 +250,7 @@ Transform:
   - {fileID: 4017717087507381849}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &839179256353353412
+--- !u!114 &126908633780279500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9110315097187147631}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d75ab6a0ac5f9f4bbf1bbb9f605b502, type: 3}
+  m_Script: {fileID: 11500000, guid: 58f683a621886bf49a3671a43b062963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   virtualObjBase: {fileID: 8646123376930983589, guid: bb845934970335a4eb84b556d7d699f9, type: 3}
