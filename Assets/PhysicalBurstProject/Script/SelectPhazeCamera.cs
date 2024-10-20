@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SelectPhazeCamera : MonoBehaviour, SelectPhazeCameraControllable
 {
-    public Vector2 Position { set => SetPosition(value); }
+    public Vector2 Position { get => transform.position; set => SetPosition(value); }
 
     private void SetPosition(Vector2 pos)
     {

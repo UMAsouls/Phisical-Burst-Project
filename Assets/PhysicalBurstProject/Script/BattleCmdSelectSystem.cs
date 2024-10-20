@@ -93,6 +93,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
             if(isCancel)
             {
+                if (selectCount <= 0) return null;
                 CancelCmd(ans);
                 continue;
             }

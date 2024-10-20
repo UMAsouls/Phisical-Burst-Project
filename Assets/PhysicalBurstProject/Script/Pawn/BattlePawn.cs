@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(SelectablePawn))]
 public abstract class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn
 {
 
     protected IStatus status;
 
     protected IVirtualPawn virtualPawn;
+
+    private SelectablePawn selectable;
 
     [SerializeField]
     private GameObject virtualObjBase;
@@ -152,11 +155,22 @@ public abstract class BattlePawn : MonoBehaviour,
         return names;
     }
 
+    public void SelectedFocus()
+    {
+        selectable.OnFocus();
+    }
+
+    public void SelectedUnFocus()
+    {
+        selectable.OnUnFocus();
+    }
+
 
 
     // Start is called before the first frame update
     void Start()
     {
+        selectable = GetComponent<SelectablePawn>();
         mana = 0;
         virtualPos = transform.position;
         actMax = 2;

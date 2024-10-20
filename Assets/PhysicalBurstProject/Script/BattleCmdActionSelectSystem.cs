@@ -6,22 +6,26 @@ using Zenject;
 public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelectSystem
 {
     [Inject]
-    private IPosSelectorUIPrinter posSelectorUIPrinter;
+    private IBattleCmdSelectSystem battleCmdSelectSystem;
 
     [Inject]
-    private IBattleCmdSelectSystem battleCmdSelectSystem;
+    private IPawnSelector pawnSelector;
 
     [Inject]
     private IPawnGettable strage;
 
     public async UniTask<bool> Select(int pawnID)
     {
-        posSelectorUIPrinter.PrintPosSelectorUI();
 
         BattleCmdSelectable pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
-        
 
+        int select = await pawnSelector.PawnSelect(pawn.VirtualPos, PawnType.Enemy);
 
+        if(select == -1) return false;
+
+        IBattleCommand[] cmds = await battleCmdSelectSystem.Select(pawnID);
+
+        if(cmds == null) return false;
 
         return true;
     }

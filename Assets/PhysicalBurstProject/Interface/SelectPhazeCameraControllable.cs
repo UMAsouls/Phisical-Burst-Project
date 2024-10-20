@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface SelectPhazeCameraControllable
 {
-    public Vector2 Position { set; }
+    public Vector2 Position { get;  set; }
 }
