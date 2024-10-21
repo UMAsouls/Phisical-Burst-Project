@@ -2,9 +2,8 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public interface ActionSelectable
+public interface ActionSelectable: PawnTypeGettable, IDGettable
 {
-    public int ID { get; }
     public float speed { get; }
 
     public int ActPoint { get; }

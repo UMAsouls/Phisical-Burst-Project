@@ -5,14 +5,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattlePawn : MonoBehaviour, 
+[RequireComponent(typeof(SelectablePawn))]
+public abstract class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble
 {
 
     protected IStatus status;
 
     protected IVirtualPawn virtualPawn;
+
+    private SelectablePawn selectable;
 
     [SerializeField]
     private GameObject virtualObjBase;
@@ -20,15 +23,17 @@ public class BattlePawn : MonoBehaviour,
 
     private int id;
 
-    private int mana;
+    private int mana = 0;
 
     private Vector2 virtualPos;
 
     private int actPoint;
 
-    private int actMax;
+    private int actMax = 2;
 
     private IActionCommand[] actCmds;
+
+    private IBattleCommand[] battleCmds;
 
     private List<IAction> actions;
 
@@ -68,7 +73,13 @@ public class BattlePawn : MonoBehaviour,
     public float VirtualHP { get => virtualPawn.VirtualHP; set => virtualPawn.VirtualHP = value; }
     public bool IsBurst { get => virtualPawn.IsBurst; set => virtualPawn.IsBurst = value; }
 
-    public async void Action()
+    public IBattleCommand[] BattleCommands { get => battleCmds; set => battleCmds = value; }
+
+    public float AttackRange => status.AttackRange;
+
+    public abstract PawnType Type { get; }
+
+    public virtual async void Action()
     {
         foreach (var action in actions)
         {
@@ -76,7 +87,7 @@ public class BattlePawn : MonoBehaviour,
         }
     }
 
-    public void ActionAdd(IAction action)
+    public virtual void ActionAdd(IAction action)
     {
        actions.Add(action);
     }
@@ -86,17 +97,17 @@ public class BattlePawn : MonoBehaviour,
         throw new System.NotImplementedException();
     }
 
-    public IActionCommand[] GetActionCommands()
+    public virtual IActionCommand[] GetActionCommands()
     {
         return actCmds;
     }
 
-    public async UniTask movePos(Vector2 delta)
+    public virtual async UniTask movePos(Vector2 delta)
     {
         await transform.DOMove((Vector3)delta, 0.5f);
     }
 
-    public async UniTask TurnStart()
+    public virtual async UniTask TurnStart()
     {
         virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
         virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
@@ -104,7 +115,7 @@ public class BattlePawn : MonoBehaviour,
         actPoint = actMax;
     }
 
-    public async UniTask TurnEnd()
+    public virtual async UniTask TurnEnd()
     {
         actions = new List<IAction>();
         VirtualPos = transform.position;
@@ -144,11 +155,22 @@ public class BattlePawn : MonoBehaviour,
         return names;
     }
 
+    public void SelectedFocus()
+    {
+        selectable.OnFocus();
+    }
+
+    public void SelectedUnFocus()
+    {
+        selectable.OnUnFocus();
+    }
+
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
+        selectable = GetComponent<SelectablePawn>();
         mana = 0;
         virtualPos = transform.position;
         actMax = 2;
@@ -157,10 +179,13 @@ public class BattlePawn : MonoBehaviour,
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
 
-    
+    public void Attack(int attack)
+    {
+        throw new System.NotImplementedException();
+    }
 }

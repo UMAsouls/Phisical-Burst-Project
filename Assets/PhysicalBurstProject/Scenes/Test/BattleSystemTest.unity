@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 136652226}
   - component: {fileID: 136652225}
   - component: {fileID: 136652228}
+  - component: {fileID: 136652229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -299,6 +300,174 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &136652229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136652224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+--- !u!1 &397776697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397776698}
+  - component: {fileID: 397776699}
+  - component: {fileID: 397776700}
+  m_Layer: 0
+  m_Name: PawnSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397776698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397776697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9435285, y: -0.19788474, z: -0.95012456}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &397776699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397776697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c70c1929fc10e9049b431fa49e03af9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoom: 6
+--- !u!114 &397776700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397776697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: a45a6547defb9774a9997598d36385de, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 397776699}
+        m_TargetAssemblyTypeName: PawnSelector, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cd8383c4-db12-4c9c-99fb-2746b09125f1
+    m_ActionName: Battle/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 397776699}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6cdf0f59-8db3-4c85-bc1a-664b3a68b856
+    m_ActionName: Battle/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 397776699}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2d899818-5053-4cdd-825d-3f39864cc5d3
+    m_ActionName: Battle/Cancel[/Keyboard/backspace]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: None
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &633999170
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68cdc4314211da478b1dacb8062a80d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 20
 --- !u!114 &633999174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +605,7 @@ MonoBehaviour:
   commandMaker: {fileID: 2088272282}
   cameraManager: {fileID: 1859753151}
   selectPhazeCamera: {fileID: 633999170}
+  pawnSelector: {fileID: 397776697}
 --- !u!114 &863402877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4024,6 +4195,8 @@ GameObject:
   - component: {fileID: 1143571156}
   - component: {fileID: 1143571158}
   - component: {fileID: 1143571159}
+  - component: {fileID: 1143571160}
+  - component: {fileID: 1143571161}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4158,12 +4331,56 @@ MonoBehaviour:
     m_ActionName: CmdSelect/Cancel[/Keyboard/backspace]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: d8e9161a-7c92-413d-8697-3285aa4817d8
-    m_ActionName: BattleCmdSelect/New action
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 617b3d15-451f-4805-9274-a24242e19e3d
     m_ActionName: None/None
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571160}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5624c2ab-b277-4653-a4a9-fbd18e05dce7
+    m_ActionName: BattleCmdSelect/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571160}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 23cbd8c9-8322-4841-b8fd-6f8c7617354a
+    m_ActionName: BattleCmdSelect/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571160}
+        m_TargetAssemblyTypeName: BattleCmdSelectSystem, Assembly-CSharp
+        m_MethodName: OnSelectorMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 26820532-5ef5-4d21-a6a4-3d569915ee75
+    m_ActionName: BattleCmdSelect/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: FirstSelect
@@ -4234,6 +4451,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3149d9b757e8bb44a80768b2c92be16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1143571160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 471b7371515afe24981df31782e47719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1143571161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ef1e9636b3c5894bad0bb43042b0d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1257356882
 GameObject:
   m_ObjectHideFlags: 3
@@ -4244,7 +4485,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1257356883}
   - component: {fileID: 1257356885}
-  - component: {fileID: 1257356884}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -4267,49 +4507,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1354478887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1257356884
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257356882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 0
-  m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_TargetMovementOnly: 1
-  m_ScreenX: 0.5
-  m_ScreenY: 0.5
-  m_CameraDistance: 10
-  m_DeadZoneWidth: 0
-  m_DeadZoneHeight: 0
-  m_DeadZoneDepth: 0
-  m_UnlimitedSoftZone: 0
-  m_SoftZoneWidth: 0.8
-  m_SoftZoneHeight: 0.8
-  m_BiasX: 0
-  m_BiasY: 0
-  m_CenterOnActivate: 1
-  m_GroupFramingMode: 2
-  m_AdjustmentMode: 0
-  m_GroupFramingSize: 0.8
-  m_MaxDollyIn: 5000
-  m_MaxDollyOut: 5000
-  m_MinimumDistance: 1
-  m_MaximumDistance: 5000
-  m_MinimumFOV: 3
-  m_MaximumFOV: 60
-  m_MinimumOrthoSize: 1
-  m_MaximumOrthoSize: 5000
 --- !u!114 &1257356885
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -4534,7 +4731,7 @@ Transform:
   m_GameObject: {fileID: 1697598549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 271.11188, y: 868.688, z: -1.7180569}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4565,15 +4762,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pawn: {fileID: 9110315097187147631, guid: 9b6d1e4f937522448be955be76286072, type: 3}
+  EnemyPawn: {fileID: 9110315097187147631, guid: 377f2aa0eb250524599cf4a189b337f9, type: 3}
   status:
     rid: 5642437053980344320
   commands:
   - rid: 6372080386449866761
   - rid: 6372080386449866762
   - rid: 6372080401891983360
+  battleCommands:
+  - rid: 2558427675506245632
+  - rid: 2558427675506245633
+  - rid: 2558427675506245634
+  - rid: 2558427675506245635
   references:
     version: 2
     RefIds:
+    - rid: 2558427675506245632
+      type: {class: DefenceCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u9632\u5FA1"
+        mana: 0
+        ratio: 80
+        burstRatio: 85
+        Breakable: 0
+    - rid: 2558427675506245633
+      type: {class: DodgeCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u56DE\u907F"
+        mana: 0
+        possibility: 50
+        Bonus: 1
+    - rid: 2558427675506245634
+      type: {class: StrongAttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u5F37\u653B\u6483"
+        mana: 0
+        damage: 80
+        burstRatio: 1.5
+    - rid: 2558427675506245635
+      type: {class: WeakAttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u5F31\u653B\u6483"
+        mana: 0
+        damage: 50
+        burstRatio: 1.2
     - rid: 5642437053980344320
       type: {class: Status, ns: , asm: Assembly-CSharp}
       data:
@@ -4584,6 +4816,7 @@ MonoBehaviour:
         defenceBase: 12
         speedBase: 12
         rangeBase: 5
+        attackRangeBase: 10
     - rid: 6372080386449866761
       type: {class: HealCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -4988,6 +5221,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 442909993691298405, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 136652226}
     - target: {fileID: 2933808775816390706, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -5068,17 +5305,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3961312101626996576, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: pos.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 3961312101626996576, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: pos.y
-      value: -900
-      objectReference: {fileID: 0}
     - target: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
       propertyPath: m_Name
       value: BattleUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690572161590940366, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 6374969048871704070, guid: 3a86bdfb15ec17f43afd3538f3cd70cc, type: 3}
+    - target: {fileID: 7690572161590940366, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      propertyPath: pos.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7690572161590940366, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      propertyPath: pos.y
+      value: -900
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5100,3 +5341,4 @@ SceneRoots:
   - {fileID: 2088272283}
   - {fileID: 633999172}
   - {fileID: 1859753153}
+  - {fileID: 397776698}

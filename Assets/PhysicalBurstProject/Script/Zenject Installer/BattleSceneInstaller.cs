@@ -18,6 +18,9 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject selectPhazeCamera;
 
+    [SerializeField]
+    GameObject pawnSelector;
+
     public override void InstallBindings()
     {
         Container
@@ -32,6 +35,11 @@ public class BattleSceneInstaller : MonoInstaller
 
         Container
             .BindInterfacesTo<ActionSlotPrinter>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<BattleCmdSlotUIPrinter>()
             .FromComponentOn(battleUI)
             .AsTransient();
 
@@ -57,6 +65,21 @@ public class BattleSceneInstaller : MonoInstaller
         Container
             .BindInterfacesTo<CmdSelectSystem>()
             .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<BattleCmdSelectSystem>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<BattleCmdActionSelectSystem>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesTo<PawnSelector>()
+            .FromComponentOn(pawnSelector)
             .AsTransient();
 
 

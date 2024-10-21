@@ -77,7 +77,7 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
     {
         Init();
 
-        CommandActionSettable pawn = strage.GetPawnById<CommandActionSettable>(id);
+        CommandActionSettable pawn = strage.GetPawnByID<CommandActionSettable>(id);
 
         IActionCommand[] commands = pawn.GetActionCommands();
         cmdLength = commands.Length;

@@ -40,6 +40,9 @@ public class BattleSystem : MonoBehaviour
     [Inject]
     private CameraChangeAble cameraChanger;
 
+    [Inject]
+    private IBattleCmdActionSelectSystem battleCmdActionSelectSystem;
+
     private CancellationToken cts;
 
     private bool isConfirm;
@@ -97,6 +100,14 @@ public class BattleSystem : MonoBehaviour
             {
                 cameraChanger.ChangeToPawnCamera(p.ID);
 
+                await UniTask.Delay(100);
+                Debug.Log($"Turn {p.ID}");
+
+                if (p.Type == PawnType.Enemy)
+                {
+                    continue;
+                }
+
                 while (p.ActPoint > 0)
                 {
                     
@@ -119,45 +130,55 @@ public class BattleSystem : MonoBehaviour
         await UniTask.WaitUntil(() => pawnGettable.IsSetComplete, PlayerLoopTiming.Update, cts);
 
         pawns = pawnGettable.GetPawnList<ActionSelectable>();
-        Debug.Log("pawn get");
+        Debug.Log("pawn get:" + pawns.Length);
 
         isBattleEnd = false;
 
-        await UniTask.WaitUntil(() => cameraChanger.IsSetComplete, PlayerLoopTiming.Update, cts);
+        await UniTask.Delay(100);
+
+        await UniTask.WaitUntil(() => cameraChanger.IsSetComplete, cancellationToken: cts);
         return;
     }
 
     private async UniTask TurnStart()
     {
         System.Array.Sort(pawns, new SpeedComparer());
-        foreach (var p in pawns) await p.TurnStart();
+        int i = 0;
+        foreach (var p in pawns)
+        {
+            await p.TurnStart();
+        }
         return;
     }
 
     private async UniTask Select(ActionSelectable pawn)
     {
-        isConfirm = false;
         do
         {
             uiPrinter.PrintPlayerInformation(pawn.ID);
             slotPrint(pawn.GetActionNames());
             Debug.Log("len:" + pawn.GetActionNames().Length);
 
+            isConfirm = false;
             isCancel = false;
             bool actCancel = false;
             cmdIndex = await battleCmdSelectSystem.BattleActionSelect(pawn.ID);
 
             slotPrinter.DestroyActionSlot();
-            switch(cmdIndex)
+            uiPrinter.DestroyPlayerInformation();
+            switch (cmdIndex)
             {
                 case -1:
                     actCancel= true;
                     break;
                 case 0:
-                    await MovePosSelect(pawn);
+                    isConfirm = await MovePosSelectable.MovePosSelect(pawn.ID);
+                    break;
+                case 1:
+                    isConfirm = await battleCmdActionSelectSystem.Select(pawn.ID);
                     break;
                 case 3:
-                    await ActionCmdSelect(pawn.ID);
+                    isConfirm = await cmdSelectSystem.CmdSelect(pawn.ID);
                     break;
             }
 
@@ -168,7 +189,9 @@ public class BattleSystem : MonoBehaviour
                 break;
             }
 
-        }while(isCancel);
+            if (!isConfirm) isCancel = true;
+
+        } while(isCancel);
         return;
     }
 
@@ -176,38 +199,6 @@ public class BattleSystem : MonoBehaviour
     {
         foreach (var p in pawns) await p.TurnEnd();
         return;
-    }
-
-    private async UniTask ActionCmdSelect(int id)
-    {
-        uiPrinter.DestroyPlayerInformation();
-
-        isConfirm = false;
-
-        isConfirm = await cmdSelectSystem.CmdSelect(id);
-
-        if (!isConfirm)
-        {
-            uiPrinter.PrintPlayerInformation(id);
-            isCancel = true;
-            return;
-        }
-    }
-
-    private async UniTask MovePosSelect(ActionSelectable pawn)
-    {
-        uiPrinter.DestroyPlayerInformation();
-
-        isConfirm = false;
-
-        isConfirm = await MovePosSelectable.MovePosSelect(pawn.ID);
-
-        if (!isConfirm)
-        {
-            uiPrinter.PrintPlayerInformation(pawn.ID);
-            isCancel = true;
-            return;
-        }
     }
 
     private void Awake()

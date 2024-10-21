@@ -27,7 +27,7 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
         pawnDict[idgettable.ID] = obj;
     }
 
-    public T GetPawnById<T>(int id)
+    public T GetPawnByID<T>(int id)
     {
         return pawnDict[id].GetComponent<T>();
     }

@@ -79,6 +79,8 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
         uiPrinter.DestroyCmdSelector();
         controller = null;
+
+        input.SwitchCurrentActionMap("None");
         return cmdIndex;
     }
 

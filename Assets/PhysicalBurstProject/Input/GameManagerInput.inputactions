@@ -1,5 +1,5 @@
 {
-    "name": "CmdWindowControll",
+    "name": "GameManagerInput",
     "maps": [
         {
             "name": "FirstSelect",
@@ -246,24 +246,108 @@
             "id": "7f33a5d5-701d-4ade-887d-8be2fadfccb7",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Cancel",
                     "type": "Button",
-                    "id": "d8e9161a-7c92-413d-8697-3285aa4817d8",
+                    "id": "5624c2ab-b277-4653-a4a9-fbd18e05dce7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "23cbd8c9-8322-4841-b8fd-6f8c7617354a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "selectorMove",
+                    "type": "Value",
+                    "id": "26820532-5ef5-4d21-a6a4-3d569915ee75",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "c30a62dd-1427-41f0-b6fc-db2cdd928425",
-                    "path": "",
+                    "name": "WASD",
+                    "id": "e16faf40-06d8-4235-b064-bd861210dc64",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "selectorMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "6c2a3ce5-8316-4de1-9b95-78b3759512e5",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selectorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "7304f744-4bed-4fbd-8f37-59d0a931fe25",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selectorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "8e8f871a-2762-4571-a46a-e1533871ce14",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selectorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "aaf4c2f1-489d-4686-9b2c-54e19ed2c159",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "selectorMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "b57c896e-babb-4c4c-8b76-7d9b9877fe9e",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2245718a-a366-47e9-a6d6-c4babe208aef",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

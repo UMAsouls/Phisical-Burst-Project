@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public interface ActionSettable : IDGettable, IVirtualPawn
+public interface ActionSettable : IDGettable, IVirtualPawn, PawnTypeGettable
 {
     public int ActPoint { get; }
     public float range { get; }
