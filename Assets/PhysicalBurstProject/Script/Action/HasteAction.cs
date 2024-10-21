@@ -2,35 +2,13 @@
 using UnityEngine;
 
 
-public class HasteAction : IAction
+public class HasteAction : AttackAction
 {
-    public IBattleCommand[] cmds;
+    protected override int ActPoint => 2;
 
-    public AttackAble battlePawn;
+    protected override int PriorityBonus => 1;
 
-    public ActionType Type => ActionType.Attack;
+    protected override string actName => "速攻";
 
-    public bool CancelAct(ActionSettable pawn)
-    {
-        pawn.UseActPoint(-2);
-        foreach (var cmd in cmds) { pawn.VirtualMana += cmd.UseMana; }
-        return true;
-    }
-
-    public UniTask DoAct(ActablePawn pawn)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public string GetActionName()
-    {
-        return "速攻";
-    }
-
-    public bool setAct(ActionSettable pawn)
-    {
-        pawn.ActionAdd(this);
-
-        return true;
-    }
+    public HasteAction(IBattleCommand[] cmds, AttackAble battlePawn) : base(cmds, battlePawn) { }
 }

@@ -14,6 +14,9 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
     [Inject]
     private IPawnGettable strage;
 
+    [Inject]
+    private AttackActionMakeable actionMaker;
+
     public async UniTask<bool> Select(int pawnID)
     {
 
@@ -23,9 +26,19 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
 
         if(select == -1) return false;
 
+        AttackAble battlePawn = strage.GetPawnByID<AttackAble>(pawnID);
+
         IBattleCommand[] cmds = await battleCmdSelectSystem.Select(pawnID);
 
         if(cmds == null) return false;
+
+        if(pawn.ActPoint >= 2)
+        {
+            actionMaker.MakeHasteAction(cmds, battlePawn).setAct(pawn);
+        }else
+        {
+            actionMaker.MakeNormalAttackAction(cmds, battlePawn).setAct(pawn);
+        }
 
         return true;
     }
