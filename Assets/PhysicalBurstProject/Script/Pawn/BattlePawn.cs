@@ -40,6 +40,8 @@ public abstract class BattlePawn : MonoBehaviour,
 
     private IBattleCommand[] battleCmds;
 
+    private IBattleCommand[] emergencyCmds;
+
     private List<IAction> actions;
 
     public float attack => status.Attack;
@@ -85,6 +87,8 @@ public abstract class BattlePawn : MonoBehaviour,
     public abstract PawnType Type { get; }
 
     public bool IsMove => throw new System.NotImplementedException();
+
+    public IBattleCommand[] EmergencyCmds => emergencyCmds;
 
     public virtual void ActionAdd(IAction action)
     {
@@ -172,10 +176,7 @@ public abstract class BattlePawn : MonoBehaviour,
         throw new System.NotImplementedException();
     }
 
-    public UniTask EmergencyBattle()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract UniTask EmergencyBattle();
 
 
 

@@ -30,6 +30,9 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     private PlayerInput input;
 
+    [Inject]
+    LastConfirmSystem lastConfirmSystem;
+
 
     private int selectCount;
 
@@ -113,6 +116,12 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
             ans[selectCount] = cmd;
             slotController.ActionSet(cmd.Name, selectCount);
             selectCount++;
+
+            if (selectCount == 3)
+            {
+                if (! await lastConfirmSystem.ConfirmWait()) CancelCmd(ans);
+            }
+ 
         }
 
         selectUIPrinter.DestroyCmdSelector();

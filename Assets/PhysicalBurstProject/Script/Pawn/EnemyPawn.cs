@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyPawn : BattlePawn
 {
     public override PawnType Type => PawnType.Enemy;
+
+    public override UniTask EmergencyBattle()
+    {
+        throw new System.NotImplementedException();
+    }
 
     // Use this for initialization
     protected override void Start()
