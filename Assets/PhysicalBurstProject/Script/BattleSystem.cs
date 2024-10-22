@@ -43,6 +43,12 @@ public class BattleSystem : MonoBehaviour
     [Inject]
     private IBattleCmdActionSelectSystem battleCmdActionSelectSystem;
 
+    [Inject]
+    private IStandardUIPritner standardUIPritner;
+
+    [Inject]
+    private LastConfirmSystem lastConfirmSystem;
+
     private CancellationToken cts;
 
     private bool isConfirm;
@@ -108,18 +114,31 @@ public class BattleSystem : MonoBehaviour
                     continue;
                 }
 
-                while (p.ActPoint > 0)
+                do
                 {
-                    
-                    Debug.Log("Select phaze");
-                    do
+                    while (p.ActPoint > 0)
                     {
 
-                        isCancel = false;
-                        await Select(p);
-                    } while (isCancel);
-                }  
+                        Debug.Log("Select phaze");
+                        do
+                        {
+                            isCancel = false;
+                            await Select(p);
+                        } while (isCancel);
+                    }
+                    slotPrint(p.GetActionNames());
+                    if (! await lastConfirmSystem.ConfirmWait())
+                    {
+                        isCancel=true;
+                        p.CancelSelect();
+                    }
+                    slotPrinter.DestroyActionSlot();
+
+                } while(isCancel);
+
+                await p.DoAction();
             }
+
             await TurnEnd();
         }
         return;

@@ -15,4 +15,6 @@ public interface ActionSelectable: PawnTypeGettable, IDGettable
     public bool CancelSelect();
 
     public string[] GetActionNames();
+
+    public UniTask DoAction();
 }

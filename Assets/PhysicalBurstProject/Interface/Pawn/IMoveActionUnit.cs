@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IMoveActionUnit
 {
-    public UniTask Move(Vector2 delta, IEmergencyBattleUnit pawn);
+    public UniTask Move(Vector2 delta, PawnActInterface pawn);
 }

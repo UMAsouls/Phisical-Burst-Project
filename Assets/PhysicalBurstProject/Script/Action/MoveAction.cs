@@ -15,6 +15,7 @@ public class MoveAction : IAction
 
     public async UniTask DoAct(ActablePawn pawn)
     {
+        Debug.Log("actstart");
         await pawn.MovePos(delta);
     }
 

@@ -4197,6 +4197,7 @@ GameObject:
   - component: {fileID: 1143571159}
   - component: {fileID: 1143571160}
   - component: {fileID: 1143571161}
+  - component: {fileID: 1143571162}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4381,6 +4382,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 26820532-5ef5-4d21-a6a4-3d569915ee75
     m_ActionName: BattleCmdSelect/selectorMove[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571162}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 22e770a7-bd1b-460e-9cd7-0bb65f4a5385
+    m_ActionName: LastConfirm/Cancel[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571162}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9e8ac1c6-e95a-4a56-b3c1-cc30c2d4bbc6
+    m_ActionName: LastConfirm/Confirm[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: FirstSelect
@@ -4473,6 +4506,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ef1e9636b3c5894bad0bb43042b0d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1143571162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25da6f3e5e23a9248b1a40d88607a15f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1257356882
@@ -5308,18 +5353,6 @@ PrefabInstance:
     - target: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
       propertyPath: m_Name
       value: BattleUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690572161590940366, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: ui
-      value: 
-      objectReference: {fileID: 6374969048871704070, guid: 3a86bdfb15ec17f43afd3538f3cd70cc, type: 3}
-    - target: {fileID: 7690572161590940366, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: pos.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690572161590940366, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
-      propertyPath: pos.y
-      value: -900
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

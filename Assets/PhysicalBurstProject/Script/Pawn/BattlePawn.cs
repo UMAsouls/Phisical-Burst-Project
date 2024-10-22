@@ -6,9 +6,10 @@ using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SelectablePawn))]
+[RequireComponent(typeof(IPawnAnimator))]
 public abstract class BattlePawn : MonoBehaviour, 
-    IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble, IEmergencyBattleUnit
+    IPawn, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble, PawnActInterface
 {
 
     protected IStatus status;
@@ -16,6 +17,10 @@ public abstract class BattlePawn : MonoBehaviour,
     protected IVirtualPawn virtualPawn;
 
     private SelectablePawn selectable;
+
+    private IPawnAnimator animator;
+
+    private MoveActionUnit moveUnit;
 
     [SerializeField]
     private GameObject virtualObjBase;
@@ -81,14 +86,6 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public bool IsMove => throw new System.NotImplementedException();
 
-    public virtual async void Action()
-    {
-        foreach (var action in actions)
-        {
-            await action.DoAct(this);
-        }
-    }
-
     public virtual void ActionAdd(IAction action)
     {
        actions.Add(action);
@@ -106,7 +103,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public virtual async UniTask MovePos(Vector2 delta)
     {
-        await transform.DOMove((Vector3)delta, 0.5f);
+        await moveUnit.Move(delta, this);
     }
 
     public virtual async UniTask TurnStart()
@@ -135,13 +132,9 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public bool CancelSelect()
     {
-
         if(actions.Count == 0) return false;
-
         var cAct = actions.Last();
-        Debug.Log("bef: " + virtualPos.ToString());
         cAct.CancelAct(this);
-        Debug.Log("aft: " + virtualPos.ToString());
 
         actions.Remove(cAct);
 
@@ -150,10 +143,7 @@ public abstract class BattlePawn : MonoBehaviour,
     public string[] GetActionNames()
     {
         string[] names = new string[actions.Count];
-        for(int i = 0; i < names.Length; i++)
-        {
-            names[i] = actions[i].GetActionName();
-        }
+        for(int i = 0; i < names.Length; i++) names[i] = actions[i].GetActionName();
         return names;
     }
 
@@ -192,6 +182,8 @@ public abstract class BattlePawn : MonoBehaviour,
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        moveUnit = GetComponent<MoveActionUnit>();
+        animator = GetComponent<IPawnAnimator>();
         selectable = GetComponent<SelectablePawn>();
         mana = 0;
         virtualPos = transform.position;
@@ -206,5 +198,12 @@ public abstract class BattlePawn : MonoBehaviour,
         
     }
 
-    
+    public void MoveAnimation(Vector2 dir) => animator.MoveAnimation(dir);
+
+    public void EndMove() => animator.EndMove();
+
+    public async UniTask DoAction()
+    {
+        foreach (var action in actions) await action.DoAct(this);
+    }
 }
