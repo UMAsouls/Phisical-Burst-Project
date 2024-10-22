@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(SelectablePawn))]
 public abstract class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, ICmdSelectablePawn, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble, IEmergencyBattleUnit
 {
 
     protected IStatus status;
@@ -79,6 +79,8 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public abstract PawnType Type { get; }
 
+    public bool IsMove => throw new System.NotImplementedException();
+
     public virtual async void Action()
     {
         foreach (var action in actions)
@@ -102,7 +104,7 @@ public abstract class BattlePawn : MonoBehaviour,
         return actCmds;
     }
 
-    public virtual async UniTask movePos(Vector2 delta)
+    public virtual async UniTask MovePos(Vector2 delta)
     {
         await transform.DOMove((Vector3)delta, 0.5f);
     }
@@ -165,6 +167,26 @@ public abstract class BattlePawn : MonoBehaviour,
         selectable.OnUnFocus();
     }
 
+    public void Attack(int attack)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public UniTask Battle(IBattleCommand[] cmds, AttackAble pawn)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public UniTask Action(IActionCommandBehaviour action)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public UniTask EmergencyBattle()
+    {
+        throw new System.NotImplementedException();
+    }
+
 
 
     // Start is called before the first frame update
@@ -184,8 +206,5 @@ public abstract class BattlePawn : MonoBehaviour,
         
     }
 
-    public void Attack(int attack)
-    {
-        throw new System.NotImplementedException();
-    }
+    
 }

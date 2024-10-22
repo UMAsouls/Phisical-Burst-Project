@@ -4761,7 +4761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96d85c57f6e6a44c85a46126f1d8d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 9110315097187147631, guid: 9b6d1e4f937522448be955be76286072, type: 3}
+  pawn: {fileID: 9110315097187147631, guid: 952400e1de5f1e94eb475f4130e4cf52, type: 3}
   EnemyPawn: {fileID: 9110315097187147631, guid: 377f2aa0eb250524599cf4a189b337f9, type: 3}
   status:
     rid: 5642437053980344320

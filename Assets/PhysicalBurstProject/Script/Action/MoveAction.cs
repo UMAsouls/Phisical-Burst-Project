@@ -15,7 +15,7 @@ public class MoveAction : IAction
 
     public async UniTask DoAct(ActablePawn pawn)
     {
-        await pawn.movePos(delta);
+        await pawn.MovePos(delta);
     }
 
     public bool setAct(ActionSettable pawn)
