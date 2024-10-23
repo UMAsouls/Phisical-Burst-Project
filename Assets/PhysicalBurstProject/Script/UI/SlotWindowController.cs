@@ -10,6 +10,7 @@ public class SlotWindowController : MonoBehaviour, SlotWindowControlable
 
     private ISlotTextSettable[] slotSetters;
     private RectTransform[] slotRects;
+    private SlotUIAnimControl[] slotAnims;
 
     [SerializeField]
     private float fontSize;
@@ -51,11 +52,13 @@ public class SlotWindowController : MonoBehaviour, SlotWindowControlable
     {
         slotSetters = new ISlotTextSettable[Slots.Length];
         slotRects = new RectTransform[Slots.Length];
+        slotAnims = new SlotUIAnimControl[Slots.Length];
 
         for (int i = 0; i < Slots.Length; i++)
         {
             slotSetters[i] = Slots[i].GetComponent<ISlotTextSettable>();
             slotRects[i] = Slots[i].GetComponent<RectTransform>();
+            slotAnims[i] = Slots[i].GetComponent<SlotUIAnimControl>();
         }
 
         selfRect = GetComponent<RectTransform>();
@@ -73,5 +76,30 @@ public class SlotWindowController : MonoBehaviour, SlotWindowControlable
     void Update()
     {
 
+    }
+
+    public void BurstAnim(int idx)
+    {
+        slotAnims[idx].BurstAnimation();
+    }
+
+    public void FocusAnim(int idx)
+    {
+        slotAnims[idx].FocusAnimation();
+    }
+
+    public void BlueFocusAnim(int idx)
+    {
+        slotAnims[idx].BlueFocusAnimation();
+    }
+
+    public void YellowFocusAnim(int idx)
+    {
+        slotAnims[idx].YellowFocusAnimation();
+    }
+
+    public void AnimEnd(int idx)
+    {
+        slotAnims[idx].EndAnimation();
     }
 }

@@ -41,8 +41,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Blue: 0
     - _Burst: 0
     - _Selected: 0
+    - _Yellow: 1.2
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &3673406968043315317
