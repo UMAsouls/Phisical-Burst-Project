@@ -54,6 +54,10 @@ public interface IStatus
 
     public float AttackRangeBase { get; }
 
+    public int Priority { get; set; }
+
+    public void InitPriority();
+
     public void init();
 
 }

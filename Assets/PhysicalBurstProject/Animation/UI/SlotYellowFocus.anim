@@ -55,7 +55,7 @@ AnimationClip:
     functionName: TurnYellow
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 1.2
+    floatParameter: 12
     intParameter: 0
     messageOptions: 0
   - time: 0.06666667
@@ -69,7 +69,7 @@ AnimationClip:
     functionName: TurnYellow
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 1.2
+    floatParameter: 12
     intParameter: 0
     messageOptions: 0
   - time: 0.2
@@ -83,7 +83,7 @@ AnimationClip:
     functionName: TurnYellow
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 1.2
+    floatParameter: 12
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
@@ -97,6 +97,6 @@ AnimationClip:
     functionName: TurnYellow
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 1.2
+    floatParameter: 12
     intParameter: 0
     messageOptions: 0

@@ -1,6 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.InputSystem;
 
 public class MemberPawn : BattlePawn
 {
@@ -9,6 +12,13 @@ public class MemberPawn : BattlePawn
     public override UniTask EmergencyBattle()
     {
         throw new System.NotImplementedException();
+    }
+
+    private bool isBurst;
+
+    public void OnBurst(InputAction.CallbackContext context)
+    {
+        if (context.performed) isBurst = true;
     }
 
     // Use this for initialization

@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
+using System.Threading;
 using UnityEngine;
 
 public class EnemyPawn : BattlePawn
@@ -10,6 +11,7 @@ public class EnemyPawn : BattlePawn
     {
         throw new System.NotImplementedException();
     }
+
 
     // Use this for initialization
     protected override void Start()

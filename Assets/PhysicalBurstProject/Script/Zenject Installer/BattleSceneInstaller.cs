@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 using Zenject;
 
@@ -55,6 +56,10 @@ public class BattleSceneInstaller : MonoInstaller
 
         Container
             .BindInterfacesTo<ActionMaker>()
+            .AsSingle();
+
+        Container
+            .BindInterfacesAndSelfTo<BattleJudge>()
             .AsSingle();
 
         Container
@@ -123,6 +128,7 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(selectPhazeCamera)
             .AsTransient();
 
+        
         
     }
 }

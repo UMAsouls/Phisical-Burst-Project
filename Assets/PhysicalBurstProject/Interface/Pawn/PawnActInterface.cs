@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 
-public interface PawnActInterface
+public interface PawnActInterface: AttackAble
 {
-    public UniTask EmergencyBattle();
 
     public void MoveAnimation(Vector2 dir);
 

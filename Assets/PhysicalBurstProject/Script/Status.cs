@@ -36,6 +36,8 @@ public class Status : IStatus
     [SerializeField]
     private float attackRangeBase;
 
+    private int priority = 0;
+
     //ゲッター
     public string Name => name;
 
@@ -57,6 +59,13 @@ public class Status : IStatus
     public float AttackRange => attackRange;
     public float AttackRangeBase => attackRangeBase;
 
+    public int Priority { get => priority; set => priority = value; }
+
+    public void InitPriority()
+    {
+        priority = 3;
+    }
+
     public void init()
     {
         hp = maxhp;
@@ -65,6 +74,7 @@ public class Status : IStatus
         defence = defenceBase;
         range = rangeBase;
         attackRange = attackRangeBase;
+        InitPriority();
     }
     //ゲッター 最後
 }

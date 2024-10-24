@@ -3,6 +3,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 [RequireComponent(typeof(SelectablePawn))]
@@ -89,6 +90,10 @@ public abstract class BattlePawn : MonoBehaviour,
     public bool IsMove => throw new System.NotImplementedException();
 
     public IBattleCommand[] EmergencyCmds => emergencyCmds;
+
+    public int Priority { get => status.Priority; set => status.Priority = value; }
+
+    public bool Burst => throw new System.NotImplementedException();
 
     public virtual void ActionAdd(IAction action)
     {
@@ -206,5 +211,10 @@ public abstract class BattlePawn : MonoBehaviour,
     public async UniTask DoAction()
     {
         foreach (var action in actions) await action.DoAct(this);
+    }
+
+    public void PhysicalBurst()
+    {
+        throw new System.NotImplementedException();
     }
 }
