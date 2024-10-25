@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.InputSystem;
 using Zenject;
+using UnityEngine.Windows;
 
 public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSystem
 {
@@ -119,14 +120,18 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
             if (selectCount == 3)
             {
-                if (! await lastConfirmSystem.ConfirmWait()) CancelCmd(ans);
+                if (! await lastConfirmSystem.ConfirmWait())
+                {
+                    CancelCmd(ans);
+                    input.SwitchCurrentActionMap("BattleCmdSelect");
+                } 
             }
  
         }
 
         selectUIPrinter.DestroyCmdSelector();
         slotUIPrinter.DestroyUI();
-        input.SwitchCurrentActionMap("BattleCmdSelect");
+        input.SwitchCurrentActionMap("None");
 
         return ans;
     }
