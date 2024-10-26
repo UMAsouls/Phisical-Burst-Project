@@ -8,7 +8,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public Vector2 Position { get; }
 
-    public void Attack(int attack);
+    public float attack {  get; }
 
     public bool IsMove { get; }
 
@@ -20,4 +20,12 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public void PhysicalBurst();
     public bool Burst { get; }
+
+    public bool Avoid { get; set; }
+
+    public float Guard { get; set; }
+
+    public bool DamageAble { get; set; }
+
+    public UniTask Damage(float damage, DamageType type);
 }

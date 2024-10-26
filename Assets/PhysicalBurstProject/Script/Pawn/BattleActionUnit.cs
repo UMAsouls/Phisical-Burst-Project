@@ -18,7 +18,7 @@ public class BattleActionUnit : MonoBehaviour
 
     private bool isBurst;
 
-    private bool countComplete;
+    private bool countComplete = true;
 
 
     public void OnBurst(InputAction.CallbackContext context)
@@ -54,8 +54,6 @@ public class BattleActionUnit : MonoBehaviour
 
         for (int i = 0; i < cmds.Length; i++)
         {
-            
-
             var cmd1 = cmds[i];
             var cmd2 = enemyCmds[i];
 
@@ -68,30 +66,35 @@ public class BattleActionUnit : MonoBehaviour
             if (!j2) targetUIController.YellowFocusAnim(i);
             else targetUIController.BlueFocusAnim(i);
 
+
+            CancellationTokenSource cts = new CancellationTokenSource();
             do
             {
                 isBurst = false;
-                CancellationTokenSource cts = new CancellationTokenSource();
-                Count(1, cts.Token).Forget();
-
+                if (countComplete)
+                {
+                    cts = new CancellationTokenSource();
+                    Count(1, cts.Token).Forget();
+                }
+                
                 await UniTask.WaitUntil(() => isBurst || countComplete, cancellationToken: destroyCancellationToken);
 
-                cts.Cancel();
-                
                 if (battlePawn.Type == PawnType.Enemy)
                 {
                     var enBurst = BurstJudge(j2);
-                    if (isBurst && !pawn.Burst) pawn.PhysicalBurst();
-                    else if(enBurst && !battlePawn.Burst) battlePawn.PhysicalBurst();
-                    else isBurst = false;
+                    if (isBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); }
+                    else if (enBurst && !battlePawn.Burst) { battlePawn.PhysicalBurst(); cts.Cancel(); }
+                    else  isBurst = false; 
                 }else
                 {
                     var enBurst = BurstJudge(j1);
-                    if (isBurst && !battlePawn.Burst) battlePawn.PhysicalBurst();
-                    else if (enBurst && !pawn.Burst) pawn.PhysicalBurst();
+                    if (isBurst && !battlePawn.Burst) { battlePawn.PhysicalBurst(); cts.Cancel(); }
+                    else if (enBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); }
                     else isBurst = false;
                 }
-            } while (isBurst);
+            } while (isBurst || !countComplete);
+
+
             
         }
     }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class DefenceCommand : BattleCommand
 {
@@ -14,4 +15,9 @@ public class DefenceCommand : BattleCommand
 
     [SerializeField]
     private bool Breakable;
+
+    public override UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
+    {
+        throw new System.NotImplementedException();
+    }
 }

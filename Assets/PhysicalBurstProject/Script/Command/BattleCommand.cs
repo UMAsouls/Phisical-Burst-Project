@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,4 +15,6 @@ public abstract class BattleCommand : IBattleCommand
     public float UseMana => mana;
 
     public abstract BattleCommandType Type { get; }
+
+    public abstract UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType);
 }

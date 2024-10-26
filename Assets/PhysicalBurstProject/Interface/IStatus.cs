@@ -60,4 +60,8 @@ public interface IStatus
 
     public void init();
 
+    public void Burst();
+
+    public int Damage(float damage);
+
 }

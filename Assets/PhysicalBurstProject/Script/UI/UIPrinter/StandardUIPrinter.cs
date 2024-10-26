@@ -5,7 +5,7 @@ public class StandardUIPrinter : UIPrinter, IStandardUIPritner
 {
 
     [SerializeField]
-    SerializedDictionary<string, GameObject> ui;
+    SerializedDictionary<GameObject> ui;
 
     private Dictionary<string, GameObject> printedUI = new Dictionary<string, GameObject>();
 
@@ -23,5 +23,14 @@ public class StandardUIPrinter : UIPrinter, IStandardUIPritner
         if (printedUI.ContainsKey(name)) DestroyUI(name);
 
         printedUI[name] = PrintUIAsChild(ui[name]);
+    }
+
+    public void PrintUIWorldPoint(string name, Vector3 point)
+    {
+        var p = Camera.main.WorldToScreenPoint(point);
+
+        if (printedUI.ContainsKey(name)) DestroyUI(name);
+
+        printedUI[name] = PrintUIAsChildAt(ui[name], p);
     }
 }

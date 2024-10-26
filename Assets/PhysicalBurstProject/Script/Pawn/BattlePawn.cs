@@ -4,10 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(SelectablePawn))]
 [RequireComponent(typeof(IPawnAnimator))]
+[RequireComponent(typeof(EffectUnit))]
 public abstract class BattlePawn : MonoBehaviour, 
     IPawn, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
     CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble, PawnActInterface
@@ -22,6 +25,8 @@ public abstract class BattlePawn : MonoBehaviour,
     private IPawnAnimator animator;
 
     private MoveActionUnit moveUnit;
+
+    private EffectUnit effectUnit;
 
     [SerializeField]
     private GameObject virtualObjBase;
@@ -44,6 +49,11 @@ public abstract class BattlePawn : MonoBehaviour,
     private IBattleCommand[] emergencyCmds;
 
     private List<IAction> actions;
+
+    private CancellationToken token;
+
+    [Inject]
+    IStandardUIPritner standardUIPritner;
 
     public float attack => status.Attack;
 
@@ -93,16 +103,16 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public int Priority { get => status.Priority; set => status.Priority = value; }
 
-    public bool Burst => throw new System.NotImplementedException();
+    public bool Burst { get; set; }
+
+    public bool Avoid { get; set; }
+
+    public float Guard { get; set; }
+    public bool DamageAble { get; set; } = false;
 
     public virtual void ActionAdd(IAction action)
     {
        actions.Add(action);
-    }
-
-    public ICommand[] GetCommands()
-    {
-        throw new System.NotImplementedException();
     }
 
     public virtual IActionCommand[] GetActionCommands()
@@ -166,11 +176,6 @@ public abstract class BattlePawn : MonoBehaviour,
         selectable.OnUnFocus();
     }
 
-    public void Attack(int attack)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public UniTask Battle(IBattleCommand[] cmds, AttackAble pawn)
     {
         throw new System.NotImplementedException();
@@ -191,11 +196,13 @@ public abstract class BattlePawn : MonoBehaviour,
         moveUnit = GetComponent<MoveActionUnit>();
         animator = GetComponent<IPawnAnimator>();
         selectable = GetComponent<SelectablePawn>();
+        effectUnit = GetComponent<EffectUnit>();
         mana = 0;
         virtualPos = transform.position;
         actMax = 2;
         actPoint = actMax;
         actions = new List<IAction>();
+        token = this.GetCancellationTokenOnDestroy();
     }
 
     // Update is called once per frame
@@ -213,8 +220,25 @@ public abstract class BattlePawn : MonoBehaviour,
         foreach (var action in actions) await action.DoAct(this);
     }
 
+    public void BattleInit()
+    {
+        Avoid = false;
+        Guard = 0;
+        DamageAble = false;
+    }
+
     public void PhysicalBurst()
     {
-        throw new System.NotImplementedException();
+        status.Burst();
+        IsBurst = true;
+        effectUnit.Burst();
+    }
+
+    public async UniTask Damage(float damage, DamageType type)
+    {
+        await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
+        if(Avoid) return;
+        int d =status.Damage(damage*(1 - Guard));
+        standardUIPritner.PrintUIWorldPoint("Damage", transform.position); 
     }
 }

@@ -128,6 +128,11 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(selectPhazeCamera)
             .AsTransient();
 
+        Container
+            .BindInterfacesAndSelfTo<BattleSceneInstaller>()
+            .FromComponentSibling()
+            .AsTransient();
+
         
         
     }
