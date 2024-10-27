@@ -111,6 +111,7 @@ public class BattleSystem : MonoBehaviour
 
                 if (p.Type == PawnType.Enemy)
                 {
+                    p.SelectEnd();
                     continue;
                 }
 
@@ -136,6 +137,7 @@ public class BattleSystem : MonoBehaviour
 
                 } while(isCancel);
 
+                p.SelectEnd();
                 await p.DoAction();
             }
 

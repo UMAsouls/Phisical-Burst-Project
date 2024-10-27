@@ -31,10 +31,16 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public bool AttackEnd {  get; set; }
 
+    public bool IsStun {  get; set; }
+
     public UniTask<bool> Damage(float damage);
 
     public void Stun();
 
     public void FightStart();
     public void FightEnd();
+
+    public void AttackEmote(Vector2 dir);
+
+    public void DodgeEffect(Vector2 dis);
 }

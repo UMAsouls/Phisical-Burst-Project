@@ -20,6 +20,8 @@ public class BattleActionUnit : MonoBehaviour
 
     private bool countComplete = true;
 
+    private PlayerInput input;
+
 
     public void OnBurst(InputAction.CallbackContext context)
     {
@@ -42,8 +44,12 @@ public class BattleActionUnit : MonoBehaviour
 
         await target.EmergencyBattle();
 
-        selfUIController = uiPrinter.PrintUILeft();
-        targetUIController = uiPrinter.PrintUIRight();
+        var dir1 = (target.Position - pawn.Position);
+        dir1 = new Vector2(-1 * dir1.x, dir1.y);
+        var dir2 = (pawn.Position - target.Position);
+        dir2 = new Vector2(-1 * dir2.x, dir2.y);
+        selfUIController = uiPrinter.PrintUIAtWorld(pawn.Position, dir1);
+        targetUIController = uiPrinter.PrintUIAtWorld(target.Position, dir2);
 
         var enemyCmds = target.EmergencyCmds;
 
@@ -55,6 +61,7 @@ public class BattleActionUnit : MonoBehaviour
 
         for (int i = 0; i < cmds.Length; i++)
         {
+            
             pawn.FightStart();
             target.FightStart();
 
@@ -72,39 +79,51 @@ public class BattleActionUnit : MonoBehaviour
 
 
             CancellationTokenSource cts = new CancellationTokenSource();
+            bool enBurst;
             do
             {
                 isBurst = false;
+                enBurst = false;
                 if (countComplete)
                 {
                     cts = new CancellationTokenSource();
-                    Count(1, cts.Token).Forget();
+                    Count(1f, cts.Token).Forget();
                 }
-                
+
+                input.SwitchCurrentActionMap("Fight");
                 await UniTask.WaitUntil(() => isBurst || countComplete, cancellationToken: destroyCancellationToken);
+                input.SwitchCurrentActionMap("None");
 
                 if (target.Type == PawnType.Enemy)
                 {
-                    var enBurst = BurstJudge(j2);
-                    if (isBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); }
-                    else if (enBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); }
-                    else  isBurst = false; 
+                    enBurst = BurstJudge(j2);
+                    if (isBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); countComplete = true; }
+                    else if (enBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); countComplete = true; }
+                    else  { isBurst = false; enBurst = false; }
                 }else
                 {
-                    var enBurst = BurstJudge(j1);
-                    if (isBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); }
-                    else if (enBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); }
-                    else isBurst = false;
+                    enBurst = BurstJudge(j1);
+                    if (isBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); countComplete = true; }
+                    else if (enBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); countComplete = true; }
+                    else { isBurst = false; enBurst = false; }
                 }
-            } while (isBurst || !countComplete);
 
-            cmd1.Do(pawn, target, cmd2.Type).Forget();
-            cmd2.Do(target, pawn, cmd1.Type).Forget();
+            } while (isBurst  || enBurst || !countComplete);
+
+            if (pawn.IsStun) pawn.FightEnd();
+            else cmd1.Do(pawn, target, cmd2.Type).Forget();
+            if (target.IsStun) target.FightEnd();
+            else cmd2.Do(target, pawn, cmd1.Type).Forget();
 
             await UniTask.WaitUntil(() => pawn.AttackEnd && target.AttackEnd, cancellationToken: destroyCancellationToken);
 
             pawn.FightEnd();
             target.FightEnd();
+
+            selfUIController.AnimEnd(i);
+            targetUIController.AnimEnd(i);
+
+            await UniTask.Delay(500);
         }
 
         uiPrinter.DestroyUI();
@@ -121,6 +140,7 @@ public class BattleActionUnit : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        input = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame

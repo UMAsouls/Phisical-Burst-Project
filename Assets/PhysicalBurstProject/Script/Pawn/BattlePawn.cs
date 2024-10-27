@@ -141,13 +141,19 @@ public abstract class BattlePawn : MonoBehaviour,
         actPoint = actMax;
     }
 
+    public void SelectEnd()
+    {
+        virtualPawn = null;
+        Destroy(virtualObj);
+    }
+
     public virtual async UniTask TurnEnd()
     {
         actions = new List<IAction>();
-        VirtualPos = transform.position;
-        virtualPawn = null;
-        Destroy(virtualObj);
         IsStun = false;
+        status.Priority = 3;
+        ClearBurst();
+        ClearStun();
     }
 
     public bool UseActPoint(int point)
@@ -197,7 +203,9 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public abstract UniTask EmergencyBattle();
 
+    public void AttackEmote(Vector2 dir) => animator.AttackEmote(dir);
 
+    public void DodgeEffect(Vector2 dis) => animator.DodgeEffect(dis);
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -247,9 +255,15 @@ public abstract class BattlePawn : MonoBehaviour,
     public void PhysicalBurst()
     {
         status.Burst();
-        IsBurst = true;
+        Burst = true;
         effectUnit.Burst();
         animator.ChangeBurst();
+    }
+
+    public void ClearBurst()
+    {
+        Burst = false;
+        animator.ChangeNormal();
     }
 
     public void Stun()
@@ -257,6 +271,12 @@ public abstract class BattlePawn : MonoBehaviour,
         IsStun = true;
         effectUnit.Stun();
         animator.ChangeStun();
+    }
+
+    public void ClearStun()
+    {
+        IsStun = false;
+        animator.ChangeNormal();
     }
 
     public async UniTask<bool> Damage(float damage)

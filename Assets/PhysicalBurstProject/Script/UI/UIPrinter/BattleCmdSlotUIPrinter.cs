@@ -42,6 +42,16 @@ public class BattleCmdSlotUIPrinter : UIPrinter, IBattleCmdSlotUIPrinter
         return obj.GetComponent<SlotWindowControlable>();
     }
 
+    public SlotWindowControlable PrintUIAtWorld(Vector2 worldPoint, Vector2 dir)
+    {
+        Vector2 pos = WorldToUIPoint(worldPoint);
+        pos.y += 150;
+        pos.x -= 170;
+
+        pos += (dir.normalized) * 350;
+        return PrintUIAt(pos);
+    }
+
     public SlotWindowControlable PrintUILeft()
     {
         return PrintUIAt(LeftPos);

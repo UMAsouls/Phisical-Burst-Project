@@ -4416,6 +4416,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9e8ac1c6-e95a-4a56-b3c1-cc30c2d4bbc6
     m_ActionName: LastConfirm/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571163}
+        m_TargetAssemblyTypeName: BattleActionUnit, Assembly-CSharp
+        m_MethodName: OnBurst
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c9de73ea-0cfe-47bc-97a6-d09d580c5141
+    m_ActionName: Fight/Burst[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: FirstSelect
@@ -4868,8 +4884,8 @@ MonoBehaviour:
         attackBase: 52
         defenceBase: 72
         speedBase: 5
-        rangeBase: 12
-        attackRangeBase: 12
+        rangeBase: 5
+        attackRangeBase: 5
     - rid: 6372080610147565569
       type: {class: RangeAttackCommand, ns: , asm: Assembly-CSharp}
       data:

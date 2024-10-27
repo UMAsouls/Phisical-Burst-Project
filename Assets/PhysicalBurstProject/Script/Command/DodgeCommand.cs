@@ -21,11 +21,13 @@ public class DodgeCommand : BattleCommand
 
         var priority = pawn.Priority-target.Priority;
 
-        if (targetType == BattleCommandType.Strong) p = 100;
+        if (targetType == BattleCommandType.Strong || pawn.Burst) p = 100;
         else if (priority <= -2) p *= 0.3f;
         else if (priority <= -1) p *= 0.6f;
+
+        if (target.Burst && !pawn.Burst) p = 0;
         
-        bool avoid = Random.Range(0, 100) <= possibility;
+        bool avoid = Random.Range(1, 100) <= possibility;
         pawn.Avoid = avoid;
 
         pawn.DamageAble = true;
@@ -36,6 +38,7 @@ public class DodgeCommand : BattleCommand
         await UniTask.WaitUntil(() => target.AttackEnd);
 
         if (!avoid) pawn.Priority -= 1;
+        else pawn.DodgeEffect(target.Position - pawn.Position);
 
     }
 }

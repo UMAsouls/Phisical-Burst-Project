@@ -2150,9 +2150,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 3450.000244140625,
-            "y": 274.0,
-            "width": 207.999755859375,
+            "x": 3405.0,
+            "y": 295.0,
+            "width": 208.0,
             "height": 435.0
         }
     },
@@ -3105,8 +3105,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 3265.0,
-            "y": 315.9999694824219,
+            "x": 3216.0,
+            "y": 344.0,
             "width": 139.0,
             "height": 34.000030517578128
         }
@@ -8200,7 +8200,7 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "cc9dc64403d648a2bf27d84089c90294",
-    "m_Title": "Purple",
+    "m_Title": "Yellow",
     "m_Position": {
         "x": 2745.0,
         "y": 1201.0

@@ -11,4 +11,8 @@ public interface IPawnAnimator
     public void ChangeStun();
 
     public void ChangeBurst();
+
+    public void AttackEmote(Vector2 dir);
+
+    public void DodgeEffect(Vector2 dis);
 }

@@ -10,9 +10,18 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
 
     private Animator animator;
 
+    private EmoteUnit emoteUnit;
+
     private Material mat;
 
     string[] dirs = new string[] { "RIGHT", "LEFT", "UP", "DOWN" };
+
+    public void AttackEmote(Vector2 dir)
+    {
+        emoteUnit.AttackEmote(dir);
+    }
+
+    public void DodgeEffect(Vector2 dis) => emoteUnit.DodgeEffect(dis);
 
     public void MoveAnimation(Vector2 dir)
     {
@@ -76,6 +85,7 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
 
         animator = obj.GetComponent<Animator>();
         mat = obj.GetComponent<SpriteRenderer>().material;
+        emoteUnit = obj.GetComponent<EmoteUnit>();
     }
 
     // Use this for initialization

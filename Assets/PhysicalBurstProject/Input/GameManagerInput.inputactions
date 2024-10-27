@@ -416,6 +416,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Fight",
+            "id": "aaca3e30-c6ea-44f7-9119-52e562fb39b2",
+            "actions": [
+                {
+                    "name": "Burst",
+                    "type": "Button",
+                    "id": "c9de73ea-0cfe-47bc-97a6-d09d580c5141",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fa8e7286-d0ef-43e5-b1f3-7f979ef2bc81",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Burst",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

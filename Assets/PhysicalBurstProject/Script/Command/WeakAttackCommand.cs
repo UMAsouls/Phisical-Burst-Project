@@ -28,6 +28,7 @@ public class WeakAttackCommand : BattleCommand
         {
             if (priority >= 0)
             {
+                if(priority >= 1) pawn.AttackEmote(target.Position - pawn.Position);
                 pawn.AttackEnd = true;
                 return;
             }
@@ -39,8 +40,17 @@ public class WeakAttackCommand : BattleCommand
                 return;
             }
         }
-        if (targetType == BattleCommandType.Weak) return;
+        if (targetType == BattleCommandType.Weak)
+        {
+            if (priority <= 0)
+            {
+                if (priority == 0) pawn.AttackEmote(target.Position - pawn.Position);
+                pawn.AttackEnd = true;
+                return;
+            }
+        }
 
+        pawn.AttackEmote(target.Position - pawn.Position);
         bool avoid = !await target.Damage(dmg);
         if (avoid) pawn.Priority -= 1;
         pawn.AttackEnd = true;
