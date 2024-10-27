@@ -37,14 +37,15 @@ public class BattleActionUnit : MonoBehaviour
         countComplete = true;
     }
 
-    public async UniTask Battle(IBattleCommand[] cmds, AttackAble battlePawn, PawnActInterface pawn)
+    public async UniTask Battle(IBattleCommand[] cmds, AttackAble target, PawnActInterface pawn)
     {
-        await battlePawn.EmergencyBattle();
+
+        await target.EmergencyBattle();
 
         selfUIController = uiPrinter.PrintUILeft();
         targetUIController = uiPrinter.PrintUIRight();
 
-        var enemyCmds = battlePawn.EmergencyCmds;
+        var enemyCmds = target.EmergencyCmds;
 
         for (int i = 0; i < cmds.Length; i++)
         {
@@ -54,11 +55,14 @@ public class BattleActionUnit : MonoBehaviour
 
         for (int i = 0; i < cmds.Length; i++)
         {
+            pawn.FightStart();
+            target.FightStart();
+
             var cmd1 = cmds[i];
             var cmd2 = enemyCmds[i];
 
-            var j1 = judge.Judge(cmd1.Type, cmd2.Type, pawn.Priority - battlePawn.Priority);
-            var j2 = judge.Judge(cmd2.Type, cmd1.Type, battlePawn.Priority - pawn.Priority);
+            var j1 = judge.Judge(cmd1.Type, cmd2.Type, pawn.Priority - target.Priority);
+            var j2 = judge.Judge(cmd2.Type, cmd1.Type, target.Priority - pawn.Priority);
 
             if (!j1) selfUIController.YellowFocusAnim(i);
             else selfUIController.BlueFocusAnim(i);
@@ -79,29 +83,37 @@ public class BattleActionUnit : MonoBehaviour
                 
                 await UniTask.WaitUntil(() => isBurst || countComplete, cancellationToken: destroyCancellationToken);
 
-                if (battlePawn.Type == PawnType.Enemy)
+                if (target.Type == PawnType.Enemy)
                 {
                     var enBurst = BurstJudge(j2);
                     if (isBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); }
-                    else if (enBurst && !battlePawn.Burst) { battlePawn.PhysicalBurst(); cts.Cancel(); }
+                    else if (enBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); }
                     else  isBurst = false; 
                 }else
                 {
                     var enBurst = BurstJudge(j1);
-                    if (isBurst && !battlePawn.Burst) { battlePawn.PhysicalBurst(); cts.Cancel(); }
+                    if (isBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); }
                     else if (enBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); }
                     else isBurst = false;
                 }
             } while (isBurst || !countComplete);
 
+            cmd1.Do(pawn, target, cmd2.Type).Forget();
+            cmd2.Do(target, pawn, cmd1.Type).Forget();
 
-            
+            await UniTask.WaitUntil(() => pawn.AttackEnd && target.AttackEnd, cancellationToken: destroyCancellationToken);
+
+            pawn.FightEnd();
+            target.FightEnd();
         }
+
+        uiPrinter.DestroyUI();
+        uiPrinter.DestroyUI();
     }
 
     private bool BurstJudge(bool judge)
     {
-        if (judge) return Random.Range(1, 100) <= 90;
+        if (!judge) return Random.Range(1, 100) <= 90;
         else return Random.Range(1, 100) <= 10;
     }
 

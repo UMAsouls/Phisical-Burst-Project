@@ -59,7 +59,7 @@ public class Status : IStatus
     public float AttackRange => attackRange;
     public float AttackRangeBase => attackRangeBase;
 
-    public int Priority { get => priority; set => priority = value; }
+    public int Priority { get => priority; set => priority = Mathf.Clamp(value, 0, 5); }
 
     public void InitPriority()
     {

@@ -6,6 +6,8 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 {
     public int HP { get; }
 
+    public string name { get; }
+
     public Vector2 Position { get; }
 
     public float attack {  get; }
@@ -27,5 +29,12 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public bool DamageAble { get; set; }
 
-    public UniTask Damage(float damage, DamageType type);
+    public bool AttackEnd {  get; set; }
+
+    public UniTask<bool> Damage(float damage);
+
+    public void Stun();
+
+    public void FightStart();
+    public void FightEnd();
 }

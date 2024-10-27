@@ -5,7 +5,7 @@ public abstract class AttackAction : IAction
 {
     private IBattleCommand[] cmds;
 
-    private AttackAble battlePawn;
+    private AttackAble target;
 
     public ActionType Type => ActionType.Attack;
 
@@ -15,10 +15,10 @@ public abstract class AttackAction : IAction
 
     protected abstract string actName {  get; }
 
-    public  AttackAction(IBattleCommand[] cmds, AttackAble battlePawn)
+    public  AttackAction(IBattleCommand[] cmds, AttackAble target)
     {
         this.cmds = cmds;
-        this.battlePawn = battlePawn;
+        this.target = target;
     }
 
     public bool CancelAct(ActionSettable pawn)
@@ -28,9 +28,9 @@ public abstract class AttackAction : IAction
         return true;
     }
 
-    public UniTask DoAct(ActablePawn pawn)
+    public async UniTask DoAct(ActablePawn pawn)
     {
-        throw new System.NotImplementedException();
+        await pawn.Battle(cmds, target);
     }
 
     public string GetActionName()

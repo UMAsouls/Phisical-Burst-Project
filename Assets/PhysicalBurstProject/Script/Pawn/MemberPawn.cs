@@ -4,21 +4,18 @@ using System.Threading;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class MemberPawn : BattlePawn
 {
     public override PawnType Type => PawnType.Member;
 
-    public override UniTask EmergencyBattle()
-    {
-        throw new System.NotImplementedException();
-    }
+    [Inject]
+    IBattleCmdSelectSystem battleCmdSelectSystem;
 
-    private bool isBurst;
-
-    public void OnBurst(InputAction.CallbackContext context)
+    public override async UniTask EmergencyBattle()
     {
-        if (context.performed) isBurst = true;
+        emergencyCmds = await battleCmdSelectSystem.Select(ID);
     }
 
     // Use this for initialization

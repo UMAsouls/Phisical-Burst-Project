@@ -10,7 +10,7 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
 
     private Animator animator;
 
-    private SpriteRenderer mat;
+    private Material mat;
 
     string[] dirs = new string[] { "RIGHT", "LEFT", "UP", "DOWN" };
 
@@ -50,6 +50,24 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
         foreach (string dir in dirs) animator.SetFloat(dir, 0);
     }
 
+    public void ChangeNormal()
+    {
+        mat.SetFloat("_Stun", 0);
+        mat.SetFloat("_Burst", 0);
+    }
+
+    public void ChangeBurst()
+    {
+        ChangeNormal();
+        mat.SetFloat("_Burst", 1);
+    }
+
+    public void ChangeStun()
+    {
+        ChangeNormal();
+        mat.SetFloat("_Stun", 1);
+    }
+
     private void Awake()
     {
         var obj = Instantiate(CharaObj);
@@ -57,7 +75,7 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
         obj.transform.transform.localPosition = Vector3.zero;
 
         animator = obj.GetComponent<Animator>();
-        mat = obj.GetComponent<SpriteRenderer>();
+        mat = obj.GetComponent<SpriteRenderer>().material;
     }
 
     // Use this for initialization

@@ -26,7 +26,7 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
 
         if(select == -1) return false;
 
-        AttackAble battlePawn = strage.GetPawnByID<AttackAble>(pawnID);
+        AttackAble target = strage.GetPawnByID<AttackAble>(select);
 
         IBattleCommand[] cmds = await battleCmdSelectSystem.Select(pawnID);
 
@@ -34,10 +34,10 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
 
         if(pawn.ActPoint >= 2)
         {
-            actionMaker.MakeHasteAction(cmds, battlePawn).setAct(pawn);
+            actionMaker.MakeHasteAction(cmds, target).setAct(pawn);
         }else
         {
-            actionMaker.MakeNormalAttackAction(cmds, battlePawn).setAct(pawn);
+            actionMaker.MakeNormalAttackAction(cmds, target).setAct(pawn);
         }
 
         return true;

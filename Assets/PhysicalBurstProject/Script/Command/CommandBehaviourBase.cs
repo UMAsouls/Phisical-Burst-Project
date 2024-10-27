@@ -14,6 +14,8 @@ public abstract class CommandBehaviourBase<T> : MonoBehaviour, IActionCommandBeh
 
     public float UseMana => cmd.UseMana;
 
+    public float SelectPriority => cmd.SelectPriority;
+
     public abstract UniTask DoAction(int pawnID);
 
     // Use this for initialization

@@ -20,6 +20,11 @@ public abstract class ActionCommand<V> : IActionCommand
     protected float burstRatio;
     public float BurstRatio => burstRatio;
 
+    [SerializeField]
+    [Range(0, 100f)]
+    private float selectPriority;
+    public float SelectPriority => selectPriority;
+
     public T GetMySelf<T>()
     {
         if (typeof(T) == typeof(V)) return (T)(object)this;

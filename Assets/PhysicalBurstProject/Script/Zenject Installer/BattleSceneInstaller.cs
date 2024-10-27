@@ -49,6 +49,11 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(battleUI)
             .AsTransient();
 
+        Container
+            .BindInterfacesAndSelfTo<DamageHealUIPrinter>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
+
 
         Container
             .BindInterfacesTo<BattlePawnStrage>()
@@ -91,6 +96,17 @@ public class BattleSceneInstaller : MonoInstaller
             .BindInterfacesAndSelfTo<LastConfirmSystem>()
             .FromComponentOn(gameManager)
             .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<BattleActionUnit>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<MoveActionUnit>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
 
         Container
             .BindInterfacesTo<PawnSelector>()

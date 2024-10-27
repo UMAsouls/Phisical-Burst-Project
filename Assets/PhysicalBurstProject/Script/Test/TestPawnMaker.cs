@@ -6,51 +6,75 @@ using Zenject;
 
 public class TestPawnMaker : MonoBehaviour
 {
-    [SerializeField]
-    GameObject pawn;
+    [Serializable]
+    class AllPawn
+    {
+        [SerializeField]
+        GameObject pawn;
+
+        [SerializeField]
+        Vector2 position;
+
+        [SerializeReference, SubclassSelector]
+        IStatus status;
+
+        [SerializeReference, SubclassSelector]
+        IActionCommand[] actionCommands;
+
+        [SerializeReference, SubclassSelector]
+        IBattleCommand[] battleCommands;
+
+        public void Init()
+        {
+            status.init();
+        }
+
+        private void OptionSet(PawnOptionSettable statusSettable, int id)
+        {
+            statusSettable.Status = status;
+            statusSettable.ID = id;
+            statusSettable.ActionCommands = actionCommands;
+            statusSettable.BattleCommands = battleCommands;
+        }
+
+        public GameObject MakePawn(DiContainer container, int id)
+        {
+            var obj = container.InstantiatePrefab(pawn);
+            obj.transform.position = position;
+            OptionSet(obj.GetComponent<PawnOptionSettable>(), id);
+            return obj;
+        }
+    }
 
     [SerializeField]
-    GameObject EnemyPawn;
+    AllPawn[] pawns;
 
     [Inject]
     IPawnStrageable pawnStrageable;
 
-    [SerializeReference, SubclassSelector]
-    IStatus status;
-
-    [SerializeReference, SubclassSelector]
-    IActionCommand[] commands;
-
-    [SerializeReference, SubclassSelector]
-    IBattleCommand[] battleCommands;
+    [Inject]
+    DiContainer container;
 
     int id = 0;
 
     private void Awake()
     {
-        status.init();
-    }
-
-    private void OptionSet(PawnOptionSettable statusSettable)
-    {
-        statusSettable.Status = status;
-        statusSettable.ID = id;
-        statusSettable.ActionCommands = commands;
-        statusSettable.BattleCommands = battleCommands;
+        foreach(var p in pawns)
+        {
+            p.Init();
+        }
     }
 
     private void Start()
     {
-        var obj = Instantiate(pawn, new Vector2(1,1), Quaternion.identity);
-        OptionSet(obj.GetComponent<PawnOptionSettable>());
-
-        id++;
-        var obj2 = Instantiate(EnemyPawn, new Vector2(-2, -2), Quaternion.identity);
-        OptionSet(obj2.GetComponent<PawnOptionSettable>());
+        for (int i = 0; i < pawns.Length; i++)
+        {
+            var pawn = pawns[i];
+            var obj = pawn.MakePawn(container, id);
+            id++;
+            pawnStrageable.AddPawnObj(obj);
+        }
         
-
-        pawnStrageable.AddPawnObj(obj);
-        pawnStrageable.AddPawnObj(obj2);
         pawnStrageable.IsSetComplete = true;
     }
 }

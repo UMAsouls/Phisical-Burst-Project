@@ -211,10 +211,9 @@ GameObject:
   - component: {fileID: 126908633780279500}
   - component: {fileID: 4075842707317630981}
   - component: {fileID: 2767502249837352807}
-  - component: {fileID: 2109071478550295756}
   - component: {fileID: 4131433636973828781}
   m_Layer: 0
-  m_Name: MainPawn
+  m_Name: Warrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f683a621886bf49a3671a43b062963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  virtualObjBase: {fileID: 8646123376930983589, guid: 5cd07c80b9ea5fe439c029109a3d575a, type: 3}
+  virtualObjBase: {fileID: 8646123376930983589, guid: 079a6f64c0997794985894d9cab8c2de, type: 3}
 --- !u!114 &4075842707317630981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,20 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03152145df38ea48ba81b4c9b1f24a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharaObj: {fileID: 1860200403245150662, guid: b5b4ab0b7b5dfeb469ed675e01f25cda, type: 3}
---- !u!114 &2109071478550295756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9110315097187147631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd19e833d669b864d85a3c0a297313f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 5
+  CharaObj: {fileID: 1860200403245150662, guid: 69f5731998b5b5e49b8505c5271f57b4, type: 3}
 --- !u!114 &4131433636973828781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,3 +290,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BurstEffect: {fileID: 2708598583397607911, guid: 20a34a9a094991146a1ce7bb3eef21b6, type: 3}
+  StunEffect: {fileID: 5880797563127281583, guid: 462eba5cbaf9e914f841b9083aa6ce0a, type: 3}

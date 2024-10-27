@@ -27,12 +27,12 @@ public class MoveActionUnit : MonoBehaviour, IMoveActionUnit
         Vector2 dir = delta.normalized;
         Debug.Log(dir);
 
-        destination = (Vector2)transform.position + delta;
+        destination = (Vector2)pawn.Position + delta;
 
         pawn.MoveAnimation(dir);
 
         CancellationTokenSource tokenSource = new CancellationTokenSource();
-        DoMove(dir, tokenSource.Token).Forget();
+        DoMove(dir, tokenSource.Token ,pawn).Forget();
 
         await UniTask.WaitUntil(() => isBattle || isComplete, cancellationToken: ct);
 
@@ -42,20 +42,20 @@ public class MoveActionUnit : MonoBehaviour, IMoveActionUnit
         if (isBattle) await pawn.EmergencyBattle();
     }
 
-    public async UniTask DoMove(Vector2 dir, CancellationToken token)
+    public async UniTask DoMove(Vector2 dir, CancellationToken token, PawnActInterface pawn)
     {
         while (!isBattle && !isComplete && !token.IsCancellationRequested)
         {
 
             float dt = Time.deltaTime;
-            float dis = dt*MoveSpeed;
+            float dis = dt * MoveSpeed;
 
-            if (Vector2.Distance(transform.position, destination) < dis)
+            if (Vector2.Distance(pawn.Position, destination) < dis)
             {
-                transform.position = destination;
+                pawn.Position = destination;
                 isComplete = true;
             }
-            else transform.position += (Vector3)(dis * dir);
+            else pawn.Position += (dis * dir);
 
             await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
         }

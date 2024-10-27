@@ -14,6 +14,11 @@ public abstract class BattleCommand : IBattleCommand
     protected float mana;
     public float UseMana => mana;
 
+    [SerializeField]
+    [Range(0, 100f)]
+    private float selectPriority;
+    public float SelectPriority => selectPriority;
+
     public abstract BattleCommandType Type { get; }
 
     public abstract UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType);

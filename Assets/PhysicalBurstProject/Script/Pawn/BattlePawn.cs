@@ -24,9 +24,13 @@ public abstract class BattlePawn : MonoBehaviour,
 
     private IPawnAnimator animator;
 
+    [Inject]
     private MoveActionUnit moveUnit;
 
     private EffectUnit effectUnit;
+
+    [Inject]
+    BattleActionUnit battleActionUnit;
 
     [SerializeField]
     private GameObject virtualObjBase;
@@ -46,7 +50,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     private IBattleCommand[] battleCmds;
 
-    private IBattleCommand[] emergencyCmds;
+    protected IBattleCommand[] emergencyCmds;
 
     private List<IAction> actions;
 
@@ -75,7 +79,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public IStatus Status { set => status = value; }
 
-    public Vector2 Position => transform.position;
+    public Vector2 Position { get => transform.position; set => transform.position = value; }
 
     public int Mana => mana;
 
@@ -108,7 +112,11 @@ public abstract class BattlePawn : MonoBehaviour,
     public bool Avoid { get; set; }
 
     public float Guard { get; set; }
+
     public bool DamageAble { get; set; } = false;
+
+    public bool IsStun { get; set; } = false;
+    public bool AttackEnd { get; set; } = false;
 
     public virtual void ActionAdd(IAction action)
     {
@@ -139,6 +147,7 @@ public abstract class BattlePawn : MonoBehaviour,
         VirtualPos = transform.position;
         virtualPawn = null;
         Destroy(virtualObj);
+        IsStun = false;
     }
 
     public bool UseActPoint(int point)
@@ -176,9 +185,9 @@ public abstract class BattlePawn : MonoBehaviour,
         selectable.OnUnFocus();
     }
 
-    public UniTask Battle(IBattleCommand[] cmds, AttackAble pawn)
+    public async UniTask Battle(IBattleCommand[] cmds, AttackAble target)
     {
-        throw new System.NotImplementedException();
+        await battleActionUnit.Battle(cmds, target, this);
     }
 
     public UniTask Action(IActionCommandBehaviour action)
@@ -193,7 +202,6 @@ public abstract class BattlePawn : MonoBehaviour,
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        moveUnit = GetComponent<MoveActionUnit>();
         animator = GetComponent<IPawnAnimator>();
         selectable = GetComponent<SelectablePawn>();
         effectUnit = GetComponent<EffectUnit>();
@@ -220,11 +228,20 @@ public abstract class BattlePawn : MonoBehaviour,
         foreach (var action in actions) await action.DoAct(this);
     }
 
-    public void BattleInit()
+    public void FightStart()
     {
         Avoid = false;
         Guard = 0;
         DamageAble = false;
+        AttackEnd = false;
+    }
+
+    public void FightEnd()
+    {
+        DamageAble = true;
+        Avoid = false;
+        Guard = 0;
+        AttackEnd = true;
     }
 
     public void PhysicalBurst()
@@ -232,13 +249,22 @@ public abstract class BattlePawn : MonoBehaviour,
         status.Burst();
         IsBurst = true;
         effectUnit.Burst();
+        animator.ChangeBurst();
     }
 
-    public async UniTask Damage(float damage, DamageType type)
+    public void Stun()
+    {
+        IsStun = true;
+        effectUnit.Stun();
+        animator.ChangeStun();
+    }
+
+    public async UniTask<bool> Damage(float damage)
     {
         await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
-        if(Avoid) return;
+        if(Avoid) return false;
         int d =status.Damage(damage*(1 - Guard));
-        standardUIPritner.PrintUIWorldPoint("Damage", transform.position); 
+        effectUnit.Damage(d);
+        return true;
     }
 }

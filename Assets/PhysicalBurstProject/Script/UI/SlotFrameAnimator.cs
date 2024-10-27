@@ -8,6 +8,14 @@ public class SlotFrameAnimator : MonoBehaviour
 
     private Material mat;
 
+    public void SetIdle()
+    {
+        mat.SetInt("_Selected", 0);
+        mat.SetInt("_Burst", 0);
+        mat.SetFloat("_Blue", 0);
+        mat.SetFloat("_Yellow", 0);
+    }
+
     public void SetBurst(bool v)
     {
         if (v) mat.SetInt("_Burst", 1);
@@ -41,4 +49,5 @@ public class SlotFrameAnimator : MonoBehaviour
     {
 
     }
+
 }

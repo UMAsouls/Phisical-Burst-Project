@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3961312101626996576}
   - component: {fileID: 7690572161590940366}
   - component: {fileID: 2446032216809433924}
+  - component: {fileID: 2283577295323870916}
   m_Layer: 5
   m_Name: BattleUI
   m_TagString: Untagged
@@ -163,6 +164,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui: {fileID: 6374969048871704070, guid: 3a86bdfb15ec17f43afd3538f3cd70cc, type: 3}
   pos: {x: 300, y: -900}
+  LeftPos: {x: 0, y: 0}
+  RightPos: {x: 0, y: 0}
 --- !u!114 &2446032216809433924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,3 +182,17 @@ MonoBehaviour:
     m_list:
     - Key: Confirm
       Value: {fileID: 5392655064149362811, guid: 2239c56f62cc1ce4b8e5e56e510cfe4c, type: 3}
+--- !u!114 &2283577295323870916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354556076871745779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c957f479c6b80c345924b322f7f96fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 2251660624370257636, guid: 7d865ece8b5ee004caa97e372a1f0cd0, type: 3}
+  HealText: {fileID: 2251660624370257636, guid: 618d954f327131e41b8b4401d4e5c348, type: 3}

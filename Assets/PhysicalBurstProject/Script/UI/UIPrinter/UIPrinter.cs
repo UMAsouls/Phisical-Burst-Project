@@ -25,8 +25,16 @@ public class UIPrinter : MonoBehaviour
         return obj1;
     }
 
+    protected Vector2 WorldToUIPoint(Vector2 pos)
+    {
+        Vector2 uiPos = Camera.main.WorldToScreenPoint(pos);
+        uiPos.x = uiPos.x  / Screen.width * 2560;
+        uiPos.y = -1 * (1440 -  uiPos.y  / Screen.height * 1440);
+        return uiPos;
+    }
+
         // Use this for initialization
-        void Start()
+    void Start()
     {
 
     }

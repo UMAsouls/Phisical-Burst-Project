@@ -6,5 +6,7 @@ public interface ICommand
 {
     string Name { get; }
 
+    public float SelectPriority { get; }
+
     public float UseMana { get; }
 }

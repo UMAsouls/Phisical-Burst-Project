@@ -7,9 +7,34 @@ public class EnemyPawn : BattlePawn
 {
     public override PawnType Type => PawnType.Enemy;
 
-    public override UniTask EmergencyBattle()
+    public override async UniTask EmergencyBattle()
     {
-        throw new System.NotImplementedException();
+        float pSum = GetBattleCmdPrioritySum();
+
+        emergencyCmds = new IBattleCommand[3];
+
+        for(int i = 0; i < emergencyCmds.Length; i++)
+        {
+            IBattleCommand selectCmd = default(IBattleCommand);
+            float p = 0;
+            float r = Random.Range(0, pSum);
+            foreach(var cmd in BattleCommands)
+            {
+                if(r <= p+cmd.SelectPriority) { selectCmd = cmd; break; }
+                else p += cmd.SelectPriority;
+            }
+            emergencyCmds[i] = selectCmd;
+        }
+    }
+
+    private float GetBattleCmdPrioritySum()
+    {
+        float sum = 0;
+        foreach(var cmd in BattleCommands)
+        {
+            sum += cmd.SelectPriority;
+        }
+        return sum;
     }
 
 

@@ -8,8 +8,7 @@ public class SlotUIAnimation : MonoBehaviour
 
     public void SetIdle()
     {
-        m_SlotFrameAnimator.SetBurst(false);
-        m_SlotFrameAnimator.SetFocus(false);
+        m_SlotFrameAnimator.SetIdle();
     }
 
     public void SetBurst()

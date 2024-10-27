@@ -47,13 +47,13 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         if (moveInput.y > 0)
         {
             selectorController.Move(-1);
-            cmdIndex = (int)Mathf.Repeat(cmdIndex - 1, cmdLength - 1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex - 1, cmdLength);
         }
 
         if (moveInput.y < 0)
         {
             selectorController.Move(1);
-            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength - 1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
     }
 
