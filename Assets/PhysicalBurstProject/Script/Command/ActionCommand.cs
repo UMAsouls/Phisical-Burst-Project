@@ -1,10 +1,11 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class ActionCommand<V> : IActionCommand
+public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
 {
     [SerializeField]
     protected string name;
@@ -25,9 +26,34 @@ public abstract class ActionCommand<V> : IActionCommand
     private float selectPriority;
     public float SelectPriority => selectPriority;
 
+    private bool EffectEnd;
+
+    public abstract float EffectScale { get; }
+
     public T GetMySelf<T>()
     {
         if (typeof(T) == typeof(V)) return (T)(object)this;
         else return default(T);
+    }
+
+    protected async UniTask WaitEffect(Vector2 pos, GameObject effect, float scale = 1)
+    {
+        EffectEnd = false;
+        var obj = MonoBehaviour.Instantiate(effect, pos, Quaternion.identity);
+        obj.transform.localScale = Vector3.one * scale;
+
+        IObservable<EffectTiming> comp = obj.GetComponent<IObservable<EffectTiming>>();
+        comp.Subscribe(this);
+
+        await UniTask.WaitUntil(() => (EffectEnd));
+    }
+
+    public void OnComplete()
+    {
+    }
+
+    public void OnNext(EffectTiming value)
+    {
+        if (value == EffectTiming.EffectEnd) EffectEnd = true;
     }
 }

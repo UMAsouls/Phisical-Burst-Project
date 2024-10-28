@@ -28,7 +28,6 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
 
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(ILongRangeAttackCommand cmd, int pawnID)
     {
-        Debug.Log(input.currentActionMap);
         var vpawn = strage.GetPawnByID<IVirtualPawn>(pawnID);
         area = Instantiate(AreaViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
         var obj = Instantiate(RangeCircle, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
@@ -49,7 +48,9 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
         pos = area.transform.position;
         Destroy(area);
         Destroy(obj);
-        if (isConfirm) { return new LongRangeBehaviour(cmd, isBurst, pos); }
+        var behaviour = new LongRangeBehaviour(cmd, isBurst, pos, PawnType.Enemy);
+        container.Inject(behaviour);
+        if (isConfirm) { return behaviour; }
         else { return null; }
     }
 

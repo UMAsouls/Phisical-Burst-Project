@@ -15,7 +15,10 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
     protected CameraChangeAble cameraChanger;
 
     [Inject]
-    protected SelectPhazeCameraControllable cameraController;
+    protected CameraControllable cameraController;
+
+    [Inject]
+    protected DiContainer container;
 
     protected bool isBurst = false;
 
@@ -37,7 +40,7 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
         isCancel = false;
         isBurst = false;
 
-        cameraChanger.ChangeToSelectPhazeCamera();
+        cameraChanger.ChangeToMovableCamera();
         cameraController.Position = p.VirtualPos;
 
         cameraZoomController = cameraChanger.GetZoomController();

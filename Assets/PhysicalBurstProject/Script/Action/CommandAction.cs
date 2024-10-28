@@ -14,9 +14,9 @@ public class CommandAction : IAction
         this.behaviour = behaviour;
     }
 
-    public UniTask DoAct(ActablePawn pawn)
+    public async UniTask DoAct(ActablePawn pawn)
     {
-        throw new NotImplementedException();
+        await pawn.Action(behaviour);
     }
 
     public bool CancelAct(ActionSettable pawn)

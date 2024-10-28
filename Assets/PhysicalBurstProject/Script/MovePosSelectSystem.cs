@@ -61,7 +61,7 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         input.SwitchCurrentActionMap("Move");
         uiPrinter.PrintPosSelectorUI();
 
-        cameraChanger.ChangeToSelectPhazeCamera();
+        cameraChanger.ChangeToMovableCamera();
         cameraZoomController = cameraChanger.GetZoomController();
     }
 

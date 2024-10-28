@@ -90,4 +90,12 @@ public class Status : IStatus
         hp -= (int)damage;
         return (int)damage;
     }
+
+    public int Heal(float heal)
+    {
+        int bef = hp;
+        hp = Mathf.Clamp(hp +  (int)heal, 0, maxhp);
+
+        return hp - bef;
+    }
 }

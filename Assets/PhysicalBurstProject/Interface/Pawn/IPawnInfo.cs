@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPawn
+public interface IPawnInfo
 {
     public string Name { get; }
 

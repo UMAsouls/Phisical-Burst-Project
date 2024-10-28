@@ -1,7 +1,7 @@
 ﻿using Cinemachine;
 using UnityEngine;
 
-public interface SelectPhazeCameraControllable: RangeMovable
+public interface CameraControllable: RangeMovable
 {
     public Vector2 Position { get;  set; }
 

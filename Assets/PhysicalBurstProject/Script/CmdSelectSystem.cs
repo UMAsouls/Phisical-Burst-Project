@@ -43,13 +43,13 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
         if (moveInput.y > 0)
         {
             controller.Move(-1);
-            cmdIndex = (int)Mathf.Repeat(cmdIndex - 1, cmdLength - 1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex - 1, cmdLength);
         }
 
         if (moveInput.y < 0)
         {
             controller.Move(1);
-            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength - 1);
+            cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
 
     }
@@ -87,10 +87,16 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
 
         controller = uiPrinter.PrintCmdSelecter(names);
 
-        await UniTask.WaitUntil(() => isConfirm | isCancel, PlayerLoopTiming.Update, cts);
+        do
+        {
+            isConfirm = false;
+            isCancel = false;
+            await UniTask.WaitUntil(() => isConfirm | isCancel, PlayerLoopTiming.Update, cts);
+            if (isCancel) return false;
+            if(pawn.VirtualMana >= commands[cmdIndex].UseMana) break;
 
-        if (isCancel) return false;
-
+        } while (true);
+        
         uiPrinter.DestroyCmdSelector();
         input.SwitchCurrentActionMap("None");
 

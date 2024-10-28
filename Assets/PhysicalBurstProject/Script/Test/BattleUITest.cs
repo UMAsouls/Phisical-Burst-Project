@@ -8,7 +8,7 @@ public class BattleUITest : MonoBehaviour
     [Inject]
     private ICmdSelectUIPrinter battleUIPrinter;
 
-    class TestPawn : IPawn
+    class TestPawn : IPawnInfo
     {
         public string Name => "ƒ|[ƒ“‘¾˜Y";
 

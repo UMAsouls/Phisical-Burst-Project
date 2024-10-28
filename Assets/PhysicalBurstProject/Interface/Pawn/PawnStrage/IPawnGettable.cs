@@ -12,4 +12,6 @@ public interface IPawnGettable
     public CinemachineVirtualCamera GetPawnCameraByID(int id);
 
     public bool IsSetComplete { get; }
+
+    public List<T> GetPawnsInArea<T>(Vector2 point, float range);
 }

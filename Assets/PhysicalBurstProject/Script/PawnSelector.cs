@@ -17,7 +17,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
     private CameraChangeAble cameraChanger;
 
     [Inject]
-    private SelectPhazeCameraControllable cameraController;
+    private CameraControllable cameraController;
 
     private OrthoCameraZoomAble zoomController;
 
@@ -62,7 +62,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         selectType = type;
         posSelectorUIPrinter.PrintPosSelectorUI();
 
-        cameraChanger.ChangeToSelectPhazeCamera();
+        cameraChanger.ChangeToMovableCamera();
         zoomController = cameraChanger.GetZoomController();
 
         zoomController.OrthoSize = zoom;

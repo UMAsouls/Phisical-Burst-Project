@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.PlayerSettings;
 
 public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
 {
@@ -14,6 +15,8 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
 
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IRangeAttackCommand cmd, int pawnID)
     {
+        cameraZoomController.OrthoSize = cmd.Range;
+
         var vpawn = strage.GetPawnByID<IVirtualPawn>(pawnID);
         var obj = Instantiate(RangeViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
 
@@ -23,7 +26,9 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
         await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
         Destroy(obj);
-        if (isConfirm) { return new RangeAttackBehaviour(cmd, isBurst);  }
+        var behaviour = new RangeAttackBehaviour(cmd, isBurst, PawnType.Enemy);
+        container.Inject(behaviour);
+        if (isConfirm) { return behaviour; }
         else { return null; }
     }
 

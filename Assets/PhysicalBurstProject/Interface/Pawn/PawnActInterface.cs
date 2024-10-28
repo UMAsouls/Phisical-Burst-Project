@@ -8,4 +8,5 @@ public interface PawnActInterface: AttackAble
     public void MoveAnimation(Vector2 dir);
 
     public void EndMove();
+    public float Size { get; }
 }

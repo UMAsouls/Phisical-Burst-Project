@@ -6,8 +6,12 @@ using UnityEngine;
 public class OrthoCameraZoom : CinemachineExtension, OrthoCameraZoomAble
 {
     [SerializeField]
-    [Range(1f, 5f)]
+    [Range(0.1f, 10f)]
     private float zoomSpeed;
+
+    private float firstSpeed;
+
+    public float ZoomSpeed { get => zoomSpeed; set => zoomSpeed = value; }
 
     [SerializeField]
     private float minOrthoSize = 2.0f;
@@ -21,7 +25,20 @@ public class OrthoCameraZoom : CinemachineExtension, OrthoCameraZoomAble
 
     private float t;
 
-    public float OrthoSize { get => targetOrthoSize; set => targetOrthoSize = value; }
+    public float OrthoSize { get => targetOrthoSize; set => SetZoom(value); }
+
+    private float firstOrthoSize;
+
+    public void ZoomSpeedInit()
+    {
+        zoomSpeed = firstSpeed;
+    }
+
+    public void ZoomInit()
+    {
+        GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = firstOrthoSize;
+        SetZoom(firstOrthoSize);
+    }
 
     private void SetZoom(float orthoSize)
     {
@@ -35,6 +52,8 @@ public class OrthoCameraZoom : CinemachineExtension, OrthoCameraZoomAble
         base.Awake();
         // CinemachineVirtualCameraの現在のOrthoSizeを取得
         targetOrthoSize = GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize;
+        firstSpeed = zoomSpeed;
+        firstOrthoSize = targetOrthoSize;
     }
 
     protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, CinemachineCore.Stage stage, ref CameraState state, float deltaTime)

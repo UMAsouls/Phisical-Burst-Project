@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class SelectPhazeCamera : RangeMover, SelectPhazeCameraControllable
+public class ControlableCamera : RangeMover, CameraControllable
 {
     public Vector2 Position { get => transform.position; set => SetPosition(value); }
     public bool RangeMode { get => rangeMode; set => rangeMode = value; }

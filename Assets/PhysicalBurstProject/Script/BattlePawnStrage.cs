@@ -37,6 +37,22 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
         return pawnDict[id].GetComponentInChildren<CinemachineVirtualCamera>();
     }
 
+    public List<T> GetPawnsInArea<T>(Vector2 point, float range)
+    {
+        List<T> list = new List<T>();
+
+        foreach (var pair in pawnDict)
+        {
+            PosGetPawn p = pair.Value.GetComponent<PosGetPawn>();
+            if((p.Position - point).magnitude <= range)
+            {
+                list.Add(pair.Value.GetComponent<T>());
+            }
+        }
+
+        return list;
+    }
+
     public T[] GetPawnList<T>()
     {
         T[] values = new T[pawnDict.Count];

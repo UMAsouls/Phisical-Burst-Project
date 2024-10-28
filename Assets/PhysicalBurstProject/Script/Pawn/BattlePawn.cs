@@ -12,8 +12,9 @@ using Zenject;
 [RequireComponent(typeof(IPawnAnimator))]
 [RequireComponent(typeof(EffectUnit))]
 public abstract class BattlePawn : MonoBehaviour, 
-    IPawn, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn, AttackAble, PawnActInterface
+    IPawnInfo, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
+    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn,
+    AttackAble, PawnActInterface, PosGetPawn
 {
 
     protected IStatus status;
@@ -80,6 +81,8 @@ public abstract class BattlePawn : MonoBehaviour,
     public IStatus Status { set => status = value; }
 
     public Vector2 Position { get => transform.position; set => transform.position = value; }
+
+    public float Size => selectable.Size;
 
     public int Mana => mana;
 
@@ -196,9 +199,9 @@ public abstract class BattlePawn : MonoBehaviour,
         await battleActionUnit.Battle(cmds, target, this);
     }
 
-    public UniTask Action(IActionCommandBehaviour action)
+    public async UniTask Action(IActionCommandBehaviour action)
     {
-        throw new System.NotImplementedException();
+        await action.DoAction(ID);
     }
 
     public abstract UniTask EmergencyBattle();
@@ -219,6 +222,7 @@ public abstract class BattlePawn : MonoBehaviour,
         actPoint = actMax;
         actions = new List<IAction>();
         token = this.GetCancellationTokenOnDestroy();
+        FightEnd();
     }
 
     // Update is called once per frame
@@ -286,5 +290,22 @@ public abstract class BattlePawn : MonoBehaviour,
         int d =status.Damage(damage*(1 - Guard));
         effectUnit.Damage(d);
         return true;
+    }
+
+    public async UniTask<bool> Heal(float heal)
+    {
+        int h = status.Heal(heal);
+        effectUnit.Heal(h);
+        return true;
+    }
+
+    public void Spell(int m)
+    {
+        mana = Mathf.Clamp(mana + m, 0, 9999);
+    }
+
+    public void UseMana(int m)
+    {
+        mana = Mathf.Clamp(mana - m, 0, 9999);
     }
 }

@@ -20,20 +20,24 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
 
     private float firstCameraSize;
 
+    private float firstOrthoSize;
+
     private bool isSetComplete;
 
     public bool IsSetComplete => isSetComplete;
 
     private void ChangeCameraTo(CinemachineVirtualCamera camera)
     {
-        if(main != null)
+        if (main != null)
         {
             main.Priority = -1;
             main.m_Lens.OrthographicSize = firstCameraSize;
+            var zoom = main.gameObject.GetComponent<OrthoCameraZoomAble>();
+            zoom.ZoomSpeedInit();
         }
         main = camera;
         main.Priority = 5;
-        firstCameraSize = main.m_Lens.OrthographicSize;
+        main.gameObject.GetComponent<OrthoCameraZoomAble>().ZoomInit();
     }
 
     public void ChangeToPawnCamera(int pawnID)
@@ -41,7 +45,7 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
         ChangeCameraTo(pawnCameras[pawnID]);
     }
 
-    public void ChangeToSelectPhazeCamera()
+    public void ChangeToMovableCamera()
     {
         ChangeCameraTo(selectPhazeCamera);
     }

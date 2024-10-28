@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ICmdSelectablePawn : IPawn
+public interface ICmdSelectablePawn : IPawnInfo
 {
     ICommand[] GetCommands();
 

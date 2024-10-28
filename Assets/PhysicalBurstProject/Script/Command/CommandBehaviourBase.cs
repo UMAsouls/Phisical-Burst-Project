@@ -2,13 +2,16 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
-public abstract class CommandBehaviourBase<T> : MonoBehaviour, IActionCommandBehaviour where T: IActionCommand
+public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T: IActionCommand
 {
     protected T cmd;
 
     protected bool burst;
     public bool IsBurst => burst;
+
+    protected PawnType target;
 
     public string Name => cmd.Name;
 
@@ -16,17 +19,18 @@ public abstract class CommandBehaviourBase<T> : MonoBehaviour, IActionCommandBeh
 
     public float SelectPriority => cmd.SelectPriority;
 
+    [Inject]
+    protected IPawnGettable strage;
+
+    [Inject]
+    protected CameraControllable cameraController;
+
+    [Inject]
+    protected CameraChangeAble camerChanger;
+
+    private bool EffectEnd;
+
     public abstract UniTask DoAction(int pawnID);
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    
 }

@@ -16,7 +16,7 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
     RangeAttackMaker rangeAttackMaker;
     [Inject]
     LongRangeMaker longRangeMaker;
-
+    
     public async UniTask<IActionCommandBehaviour> MakeCommandBehaviour(IActionCommand cmd, int pawnID)
     {
         ActionCmdType type  = cmd.Type;

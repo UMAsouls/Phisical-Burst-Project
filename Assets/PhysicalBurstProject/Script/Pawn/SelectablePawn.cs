@@ -10,6 +10,7 @@ public class SelectablePawn : MonoBehaviour
 
     [SerializeField]
     float SelectableSize;
+    public float Size => SelectableSize;
 
     [SerializeField]
     GameObject colliderObj;

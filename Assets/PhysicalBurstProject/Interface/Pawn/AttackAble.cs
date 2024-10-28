@@ -34,6 +34,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
     public bool IsStun {  get; set; }
 
     public UniTask<bool> Damage(float damage);
+    public UniTask<bool> Heal(float heal);
 
     public void Stun();
 
@@ -43,4 +44,6 @@ public interface AttackAble: IDGettable, PawnTypeGettable
     public void AttackEmote(Vector2 dir);
 
     public void DodgeEffect(Vector2 dis);
+
+    
 }

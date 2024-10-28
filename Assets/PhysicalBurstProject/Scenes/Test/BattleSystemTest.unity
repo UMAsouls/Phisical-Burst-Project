@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 633999173}
   - component: {fileID: 633999174}
   m_Layer: 0
-  m_Name: SelecPhazeCamera
+  m_Name: ControlableCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -540,6 +540,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1750713654}
+  - {fileID: 2088272283}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &633999173
@@ -567,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405c79fab55eb034e9985002b906f5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 5
+  zoomSpeed: 3
   minOrthoSize: 2
   maxOrthoSize: 12
 --- !u!1 &863402875
@@ -604,7 +605,7 @@ MonoBehaviour:
   battleUI: {fileID: 33893491}
   commandMaker: {fileID: 2088272282}
   cameraManager: {fileID: 1859753151}
-  selectPhazeCamera: {fileID: 633999170}
+  controlableCamera: {fileID: 633999170}
   pawnSelector: {fileID: 397776697}
 --- !u!114 &863402877
 MonoBehaviour:
@@ -4856,6 +4857,8 @@ MonoBehaviour:
       rid: 6372080610147565568
     actionCommands:
     - rid: 6372080610147565569
+    - rid: 6372080644636803072
+    - rid: 6372080644636803073
     battleCommands:
     - rid: 6372080610147565570
     - rid: 6372080610147565571
@@ -4885,16 +4888,19 @@ MonoBehaviour:
         defenceBase: 72
         speedBase: 5
         rangeBase: 5
-        attackRangeBase: 5
+        attackRangeBase: 2
     - rid: 6372080610147565569
       type: {class: RangeAttackCommand, ns: , asm: Assembly-CSharp}
       data:
         name: "\u7BC4\u56F2\u653B\u6483"
-        mana: 12
+        mana: 0
         burstRatio: 1.2
         selectPriority: 32.6
-        range: 5
-        damage: 300
+        range: 3.5
+        damage: 70
+        MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
+        ExplodeEffect: {fileID: 2433282508537954060, guid: a1a855ba560289544a574d4b2aac3343, type: 3}
+        ExplodeSize: 0.5
     - rid: 6372080610147565570
       type: {class: StrongAttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -4950,6 +4956,34 @@ MonoBehaviour:
         selectPriority: 0
         range: 0
         damage: 0
+        MagicCircleEffect: {fileID: 0}
+        ExplodeEffect: {fileID: 0}
+        ExplodeSize: 0
+    - rid: 6372080644636803072
+      type: {class: HealCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u56DE\u5FA9"
+        mana: 0
+        burstRatio: 1.2
+        selectPriority: 25.6
+        range: 3
+        heal: 30
+        MagicCircleEffect: {fileID: 6623057508184839328, guid: bb44a83c1c0dcd14abaf1dc1e3ada737, type: 3}
+        HealEffect: {fileID: 8771972552311404799, guid: 84c4cd15ec2dc3243bdfbdcbedb49a9b, type: 3}
+        HealEffectSize: 0.5
+    - rid: 6372080644636803073
+      type: {class: LongRangeAttackCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u9060\u8DDD\u96E2\u653B\u6483"
+        mana: 0
+        burstRatio: 1.2
+        selectPriority: 22.7
+        attackArea: 2
+        range: 5
+        damage: 20
+        MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
+        ExplodeEffect: {fileID: 2433282508537954060, guid: a1a855ba560289544a574d4b2aac3343, type: 3}
+        ExplodeSize: 0.5
 --- !u!1 &1750713653
 GameObject:
   m_ObjectHideFlags: 3
@@ -5068,12 +5102,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088272282}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.90910745, y: 0.48488677, z: 1.0933914}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.0132806, y: 0.16394755, z: 2.0933914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 633999172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2088272284
 MonoBehaviour:
@@ -5454,7 +5488,6 @@ SceneRoots:
   - {fileID: 863402878}
   - {fileID: 1143571154}
   - {fileID: 1354478887}
-  - {fileID: 2088272283}
   - {fileID: 633999172}
   - {fileID: 1859753153}
   - {fileID: 397776698}

@@ -64,4 +64,6 @@ public interface IStatus
 
     public int Damage(float damage);
 
+    public int Heal(float heal);
+
 }

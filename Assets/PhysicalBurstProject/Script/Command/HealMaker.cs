@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
+using System.ComponentModel;
 using System.Threading;
 using UnityEngine;
 
@@ -22,7 +23,10 @@ public class HealMaker : CommandMakerBase<IHealCommand>
         await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
         Destroy(obj);
-        if (isConfirm) { return new HealBehaviour(cmd, isBurst); }
+
+        var behaviour = new HealBehaviour(cmd, isBurst, PawnType.Member);
+        container.Inject(behaviour);
+        if (isConfirm) { return behaviour; }
         else { return null; }
     }
 

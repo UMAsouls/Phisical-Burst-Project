@@ -5,7 +5,7 @@ public interface CameraChangeAble
 {
     public void ChangeToPawnCamera(int pawnID);
 
-    public void ChangeToSelectPhazeCamera();
+    public void ChangeToMovableCamera();
 
     public OrthoCameraZoomAble GetZoomController();
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public interface IHealCommand: IActionCommand
+public interface IHealCommand: IEasyEffectCommand
 {
     public float Range { get; }
 

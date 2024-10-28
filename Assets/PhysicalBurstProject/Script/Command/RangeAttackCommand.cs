@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,4 +15,25 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
     [SerializeField]
     private float damage;
     public float Damage => damage;
+
+    [SerializeField]
+    protected GameObject MagicCircleEffect;
+
+    [SerializeField]
+    protected GameObject ExplodeEffect;
+
+    [SerializeField]
+    protected float ExplodeSize;
+
+    public override float EffectScale => range;
+
+    public async UniTask PawnEffect(Vector2 pawnPos, float size)
+    {
+        await WaitEffect(pawnPos, MagicCircleEffect, size);
+    }
+
+    public async UniTask AttackEffect(Vector2 pos)
+    {
+        await WaitEffect(pos, ExplodeEffect, ExplodeSize * range);
+    }
 }

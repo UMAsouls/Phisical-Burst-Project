@@ -17,7 +17,7 @@ public class BattleSceneInstaller : MonoInstaller
     GameObject cameraManager;
 
     [SerializeField]
-    GameObject selectPhazeCamera;
+    GameObject controlableCamera;
 
     [SerializeField]
     GameObject pawnSelector;
@@ -140,8 +140,8 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
-            .BindInterfacesTo<SelectPhazeCamera>()
-            .FromComponentOn(selectPhazeCamera)
+            .BindInterfacesTo<ControlableCamera>()
+            .FromComponentOn(controlableCamera)
             .AsTransient();
 
         Container

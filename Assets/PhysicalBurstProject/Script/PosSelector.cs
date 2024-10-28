@@ -8,7 +8,7 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 {
 
     [Inject]
-    SelectPhazeCameraControllable cameraController;
+    CameraControllable cameraController;
 
     [Inject]
     private PosConfirmAble posConfirmAble;
