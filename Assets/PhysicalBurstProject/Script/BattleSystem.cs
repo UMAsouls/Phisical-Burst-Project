@@ -44,6 +44,9 @@ public class BattleSystem : MonoBehaviour
     private IBattleCmdActionSelectSystem battleCmdActionSelectSystem;
 
     [Inject]
+    private AmbushSelectSystem ambushSelectSystem;
+
+    [Inject]
     private IStandardUIPritner standardUIPritner;
 
     [Inject]
@@ -105,9 +108,7 @@ public class BattleSystem : MonoBehaviour
             foreach (var p in pawns)
             {
                 cameraChanger.ChangeToPawnCamera(p.ID);
-
-                await UniTask.Delay(100);
-                Debug.Log($"Turn {p.ID}");
+                p.SelectStart();
 
                 if (p.Type == PawnType.Enemy)
                 {
@@ -197,6 +198,9 @@ public class BattleSystem : MonoBehaviour
                     break;
                 case 1:
                     isConfirm = await battleCmdActionSelectSystem.Select(pawn.ID);
+                    break;
+                case 2:
+                    isConfirm = await ambushSelectSystem.AmbushSelect(pawn.ID);
                     break;
                 case 3:
                     isConfirm = await cmdSelectSystem.CmdSelect(pawn.ID);

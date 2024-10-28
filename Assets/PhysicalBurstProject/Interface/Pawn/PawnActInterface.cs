@@ -2,7 +2,7 @@
 using System.Threading;
 using UnityEngine;
 
-public interface PawnActInterface: AttackAble
+public interface PawnActInterface : AttackAble
 {
     public new Vector2 Position { get; set; }
     public void MoveAnimation(Vector2 dir);
@@ -10,4 +10,7 @@ public interface PawnActInterface: AttackAble
     public void EndMove();
     public float Size { get; }
     public void Spell(int m);
+
+    public UniTask AmbushEffect();
+
 }

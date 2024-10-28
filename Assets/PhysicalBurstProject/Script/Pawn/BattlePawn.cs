@@ -14,7 +14,7 @@ using Zenject;
 public abstract class BattlePawn : MonoBehaviour, 
     IPawnInfo, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
     CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn,
-    AttackAble, PawnActInterface, PosGetPawn
+    AttackAble, PawnActInterface, PosGetPawn, AmbushPawn
 {
 
     protected IStatus status;
@@ -32,6 +32,9 @@ public abstract class BattlePawn : MonoBehaviour,
 
     [Inject]
     BattleActionUnit battleActionUnit;
+
+    [Inject]
+    AmbushUnit ambushUnit;
 
     [SerializeField]
     private GameObject virtualObjBase;
@@ -56,6 +59,8 @@ public abstract class BattlePawn : MonoBehaviour,
     private List<IAction> actions;
 
     private CancellationToken token;
+
+    private CancellationTokenSource ambushTokenSource;
 
     [Inject]
     IStandardUIPritner standardUIPritner;
@@ -104,7 +109,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public abstract PawnType Type { get; }
 
-    public bool IsMove => throw new System.NotImplementedException();
+    public bool IsMove { get; set; }
 
     public IBattleCommand[] EmergencyCmds => emergencyCmds;
 
@@ -121,8 +126,12 @@ public abstract class BattlePawn : MonoBehaviour,
     public bool IsStun { get; set; } = false;
     public bool AttackEnd { get; set; } = false;
 
+    public bool GetAmbushed { get; set; }
+
+    public bool ActionStop { get; set; }
+
     public virtual void ActionAdd(IAction action)
-    {
+    { 
        actions.Add(action);
     }
 
@@ -138,13 +147,19 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public virtual async UniTask TurnStart()
     {
+        actPoint = actMax;
+    }
+
+    public void SelectStart()
+    {
         virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
         virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
         virtualPawn.VirtualPos = transform.position;
         virtualPawn.VirtualMana = mana;
         virtualPawn.VirtualHP = HP;
         virtualPawn.VirtualRange = range;
-        actPoint = actMax;
+
+        ambushTokenSource?.Cancel();
     }
 
     public void SelectEnd()
@@ -197,6 +212,8 @@ public abstract class BattlePawn : MonoBehaviour,
         selectable.OnUnFocus();
     }
 
+    public async UniTask AmbushEffect() => await effectUnit.Ambush();
+
     public async UniTask Battle(IBattleCommand[] cmds, AttackAble target)
     {
         await battleActionUnit.Battle(cmds, target, this);
@@ -206,6 +223,12 @@ public abstract class BattlePawn : MonoBehaviour,
     {
         await action.DoAction(ID);
         UseMana((int)action.UseMana);
+    }
+
+    public async UniTask Ambush(float range)
+    {
+        ambushTokenSource = new CancellationTokenSource();
+        ambushUnit.Ambush(this, range, ambushTokenSource.Token).Forget();
     }
 
     public abstract UniTask EmergencyBattle();
@@ -235,13 +258,22 @@ public abstract class BattlePawn : MonoBehaviour,
         
     }
 
+    private void OnDestroy()
+    {
+        ambushTokenSource?.Cancel();
+    }
+
     public void MoveAnimation(Vector2 dir) => animator.MoveAnimation(dir);
 
     public void EndMove() => animator.EndMove();
 
     public async UniTask DoAction()
     {
-        foreach (var action in actions) await action.DoAct(this);
+        ActionStop = false;
+        foreach (var action in actions)
+        {
+            if(!ActionStop) await action.DoAct(this);
+        }
     }
 
     public void FightStart()
@@ -312,4 +344,6 @@ public abstract class BattlePawn : MonoBehaviour,
     {
         mana = Mathf.Clamp(mana - m, 0, 9999);
     }
+
+    
 }

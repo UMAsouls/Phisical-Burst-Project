@@ -17,7 +17,7 @@ public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T:
 
     public float UseMana => cmd.UseMana;
 
-    public float SelectPriority => cmd.SelectPriority;
+    public float SelectPriority { get => cmd.SelectPriority; set => cmd.SelectPriority = value; }
 
     [Inject]
     protected IPawnGettable strage;

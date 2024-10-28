@@ -93,6 +93,11 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
+            .BindInterfacesAndSelfTo<AmbushSelectSystem>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
             .BindInterfacesAndSelfTo<LastConfirmSystem>()
             .FromComponentOn(gameManager)
             .AsTransient();
@@ -104,6 +109,11 @@ public class BattleSceneInstaller : MonoInstaller
 
         Container
             .BindInterfacesAndSelfTo<MoveActionUnit>()
+            .FromComponentOn(gameManager)
+            .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<AmbushUnit>()
             .FromComponentOn(gameManager)
             .AsTransient();
 

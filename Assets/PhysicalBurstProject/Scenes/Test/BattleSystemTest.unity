@@ -4200,6 +4200,8 @@ GameObject:
   - component: {fileID: 1143571162}
   - component: {fileID: 1143571164}
   - component: {fileID: 1143571163}
+  - component: {fileID: 1143571166}
+  - component: {fileID: 1143571165}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4432,6 +4434,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c9de73ea-0cfe-47bc-97a6-d09d580c5141
     m_ActionName: Fight/Burst[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571166}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4bb1bb90-8664-4ee8-bc42-c4eb0102c17c
+    m_ActionName: Ambush/Confirm[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1143571166}
+        m_TargetAssemblyTypeName: ConfirmCancelCatchAble, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ea5142cb-6d2b-4f8f-a6c9-dbb407c4081c
+    m_ActionName: Ambush/Cancel[/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: FirstSelect
@@ -4563,6 +4597,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 10
+--- !u!114 &1143571165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f92283ed596777a4c991d225125e6899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SencerObj: {fileID: 6646461952075524100, guid: 041e29da9fa1db34db44abc0918c840d, type: 3}
+--- !u!114 &1143571166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 818794cef81b9c64488cb60ab0d88444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeViewer: {fileID: 1559190507143676218, guid: c0d12735d7049cc448f15ebdf9a57a2f, type: 3}
 --- !u!1 &1257356882
 GameObject:
   m_ObjectHideFlags: 3
@@ -4858,6 +4918,7 @@ MonoBehaviour:
     - rid: 6372080610147565569
     - rid: 6372080644636803072
     - rid: 6372080644636803073
+    - rid: 6372080644636803074
     battleCommands:
     - rid: 6372080610147565570
     - rid: 6372080610147565571
@@ -4892,7 +4953,7 @@ MonoBehaviour:
       type: {class: RangeAttackCommand, ns: , asm: Assembly-CSharp}
       data:
         name: "\u7BC4\u56F2\u653B\u6483"
-        mana: 0
+        mana: 12
         burstRatio: 1.2
         selectPriority: 32.6
         range: 3.5
@@ -4983,6 +5044,15 @@ MonoBehaviour:
         MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
         ExplodeEffect: {fileID: 2433282508537954060, guid: a1a855ba560289544a574d4b2aac3343, type: 3}
         ExplodeSize: 0.5
+    - rid: 6372080644636803074
+      type: {class: SpellCommand, ns: , asm: Assembly-CSharp}
+      data:
+        name: "\u8A60\u5531"
+        mana: 0
+        burstRatio: 0
+        selectPriority: 26.5
+        getMana: 30
+        MagicCircleEffect: {fileID: 6623057508184839328, guid: 276bf727ca051f4418b00a4bb1b18beb, type: 3}
 --- !u!1 &1750713653
 GameObject:
   m_ObjectHideFlags: 3

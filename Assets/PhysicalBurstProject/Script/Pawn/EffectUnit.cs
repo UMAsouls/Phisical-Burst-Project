@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
-public class EffectUnit : MonoBehaviour
+public class EffectUnit : MonoBehaviour, IObserver<EffectTiming>
 {
 
     [SerializeField]
@@ -11,8 +12,25 @@ public class EffectUnit : MonoBehaviour
     [SerializeField]
     private GameObject StunEffect;
 
+    [SerializeField]
+    private GameObject AmbushEffect;
+
+    [SerializeField]
+    private Vector2 AmbushPos;
+
     [Inject]
     private IDamageHealUIPrinter DamageHealUIPrinter;
+
+    private bool EffectEnd;
+
+    public async UniTask Ambush()
+    {
+        EffectEnd = false;
+        var obj = Instantiate(AmbushEffect);
+        obj.GetComponent<IObservable<EffectTiming>>().Subscribe(this);
+
+        await UniTask.WaitUntil(() => EffectEnd, cancellationToken: destroyCancellationToken);
+    }
 
     public void Burst()
     {
@@ -44,5 +62,15 @@ public class EffectUnit : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void OnComplete()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnNext(EffectTiming value)
+    {
+        if(value == EffectTiming.EffectEnd) EffectEnd = true;
     }
 }

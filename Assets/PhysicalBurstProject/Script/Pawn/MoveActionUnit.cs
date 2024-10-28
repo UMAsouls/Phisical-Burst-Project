@@ -21,7 +21,7 @@ public class MoveActionUnit : MonoBehaviour, IMoveActionUnit
 
     public async UniTask Move(Vector2 delta, PawnActInterface pawn)
     {
-        isBattle = false;
+        pawn.GetAmbushed = false;
         isComplete = false;
 
         Vector2 dir = delta.normalized;
@@ -34,17 +34,20 @@ public class MoveActionUnit : MonoBehaviour, IMoveActionUnit
         CancellationTokenSource tokenSource = new CancellationTokenSource();
         DoMove(dir, tokenSource.Token ,pawn).Forget();
 
-        await UniTask.WaitUntil(() => isBattle || isComplete, cancellationToken: ct);
+        await UniTask.WaitUntil(() => pawn.GetAmbushed || isComplete, cancellationToken: ct);
 
         pawn.EndMove();
         tokenSource.Cancel();
 
-        if (isBattle) await pawn.EmergencyBattle();
+        if (pawn.GetAmbushed) pawn.IsMove = false;
     }
 
     public async UniTask DoMove(Vector2 dir, CancellationToken token, PawnActInterface pawn)
     {
-        while (!isBattle && !isComplete && !token.IsCancellationRequested)
+        if(!pawn.Burst) pawn.IsMove = true;
+        else pawn.IsMove = false;
+
+        while (!pawn.GetAmbushed && !isComplete && !token.IsCancellationRequested)
         {
 
             float dt = Time.deltaTime;
@@ -59,6 +62,7 @@ public class MoveActionUnit : MonoBehaviour, IMoveActionUnit
 
             await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: ct);
         }
+        pawn.IsMove = false;
     }
 
     // Use this for initialization

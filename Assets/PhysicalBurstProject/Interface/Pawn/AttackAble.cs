@@ -12,7 +12,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public float attack {  get; }
 
-    public bool IsMove { get; }
+    public bool IsMove { get; set; }
 
     public UniTask EmergencyBattle();
 
@@ -32,6 +32,10 @@ public interface AttackAble: IDGettable, PawnTypeGettable
     public bool AttackEnd {  get; set; }
 
     public bool IsStun {  get; set; }
+
+    public bool GetAmbushed { get; set; }
+
+    public bool ActionStop { get; set; }
 
     public UniTask<bool> Damage(float damage);
     public UniTask<bool> Heal(float heal);

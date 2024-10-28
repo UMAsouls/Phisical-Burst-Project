@@ -17,7 +17,7 @@ public abstract class BattleCommand : IBattleCommand
     [SerializeField]
     [Range(0, 100f)]
     private float selectPriority;
-    public float SelectPriority => selectPriority;
+    public float SelectPriority { get => selectPriority; set => selectPriority = value; }
 
     public abstract BattleCommandType Type { get; }
 

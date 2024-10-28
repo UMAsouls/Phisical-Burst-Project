@@ -291,3 +291,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BurstEffect: {fileID: 2708598583397607911, guid: 20a34a9a094991146a1ce7bb3eef21b6, type: 3}
   StunEffect: {fileID: 5880797563127281583, guid: 462eba5cbaf9e914f841b9083aa6ce0a, type: 3}
+  AmbushEffect: {fileID: 1027828038572240073, guid: 6f95b2a301d2f1c47a10708e30ec8d5b, type: 3}
+  AmbushPos: {x: 0, y: 2}

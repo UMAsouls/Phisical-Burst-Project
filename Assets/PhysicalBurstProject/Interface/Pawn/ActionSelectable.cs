@@ -12,11 +12,13 @@ public interface ActionSelectable: PawnTypeGettable, IDGettable
 
     public UniTask TurnEnd();
 
+    public void SelectStart();
+
+    public void SelectEnd();
+
     public bool CancelSelect();
 
     public string[] GetActionNames();
 
     public UniTask DoAction();
-
-    public void SelectEnd();
 }
