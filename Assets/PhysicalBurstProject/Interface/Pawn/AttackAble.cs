@@ -49,5 +49,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public void DodgeEffect(Vector2 dis);
 
+    public void UseMana(int m);
+
     
 }

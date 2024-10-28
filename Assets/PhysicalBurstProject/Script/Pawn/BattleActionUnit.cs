@@ -111,9 +111,18 @@ public class BattleActionUnit : MonoBehaviour
             } while (isBurst  || enBurst || !countComplete);
 
             if (pawn.IsStun) pawn.FightEnd();
-            else cmd1.Do(pawn, target, cmd2.Type).Forget();
+            else
+            {
+                cmd1.Do(pawn, target, cmd2.Type).Forget();
+                pawn.UseMana((int)cmd1.UseMana);
+            }
+
             if (target.IsStun) target.FightEnd();
-            else cmd2.Do(target, pawn, cmd1.Type).Forget();
+            else
+            {
+                cmd2.Do(target, pawn, cmd1.Type).Forget();
+                target.UseMana((int)cmd2.UseMana);
+            }
 
             await UniTask.WaitUntil(() => pawn.AttackEnd && target.AttackEnd, cancellationToken: destroyCancellationToken);
 

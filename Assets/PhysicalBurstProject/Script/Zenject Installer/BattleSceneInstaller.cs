@@ -22,6 +22,9 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject pawnSelector;
 
+    [SerializeField]
+    GameObject commandStrage;
+
     public override void InstallBindings()
     {
         Container
@@ -164,7 +167,11 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentSibling()
             .AsTransient();
 
-        
+        Container
+            .Bind<ICommandStrage>()
+            .To<CommandStrage>()
+            .FromComponentOn(commandStrage)
+            .AsTransient();
         
     }
 }
