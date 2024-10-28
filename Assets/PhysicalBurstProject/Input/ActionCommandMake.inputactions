@@ -284,6 +284,74 @@
                 }
             ],
             "bindings": []
+        },
+        {
+            "name": "Spell",
+            "id": "2690c797-3d86-424a-be0c-b3ec1b5af054",
+            "actions": [
+                {
+                    "name": "Burst",
+                    "type": "Button",
+                    "id": "5900ad59-5c7f-4be7-9e18-87b8d2fb9df1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "53ab6df3-59b8-45e5-a2e4-27940aad896b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "b24e62eb-6b9c-46c1-9fdc-1d34b76666eb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6e93d517-0a2e-4e1b-b422-a231a8ed2c0b",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31037d12-082d-4c1e-a54f-b5be2c78067b",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "14d87956-82ac-4c21-8af2-979998b8fadd",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Burst",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

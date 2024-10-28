@@ -9,4 +9,5 @@ public interface PawnActInterface: AttackAble
 
     public void EndMove();
     public float Size { get; }
+    public void Spell(int m);
 }

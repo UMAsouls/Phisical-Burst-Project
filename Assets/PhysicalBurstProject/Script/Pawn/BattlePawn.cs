@@ -141,6 +141,9 @@ public abstract class BattlePawn : MonoBehaviour,
         virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
         virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
         virtualPawn.VirtualPos = transform.position;
+        virtualPawn.VirtualMana = mana;
+        virtualPawn.VirtualHP = HP;
+        virtualPawn.VirtualRange = range;
         actPoint = actMax;
     }
 
@@ -202,6 +205,7 @@ public abstract class BattlePawn : MonoBehaviour,
     public async UniTask Action(IActionCommandBehaviour action)
     {
         await action.DoAction(ID);
+        UseMana((int)action.UseMana);
     }
 
     public abstract UniTask EmergencyBattle();

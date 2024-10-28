@@ -16,6 +16,8 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
     RangeAttackMaker rangeAttackMaker;
     [Inject]
     LongRangeMaker longRangeMaker;
+    [Inject]
+    SpellBehaviourMaker spellMaker;
     
     public async UniTask<IActionCommandBehaviour> MakeCommandBehaviour(IActionCommand cmd, int pawnID)
     {
@@ -28,7 +30,9 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
             case ActionCmdType.RangeAttack:
                 return await rangeAttackMaker.GetBehaviour(cmd.GetMySelf<IRangeAttackCommand>(), pawnID);
             case ActionCmdType.LongRangeAttack:
-                return await longRangeMaker.GetBehaviour(cmd.GetMySelf<ILongRangeAttackCommand>(), pawnID); 
+                return await longRangeMaker.GetBehaviour(cmd.GetMySelf<ILongRangeAttackCommand>(), pawnID);
+            case ActionCmdType.Spell:
+                return await spellMaker.GetBehaviour(cmd.GetMySelf<ISpellCommand>(), pawnID);
         }
 
         return null;

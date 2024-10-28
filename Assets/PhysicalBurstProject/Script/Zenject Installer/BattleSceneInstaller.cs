@@ -135,6 +135,11 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
+            .BindInterfacesAndSelfTo<SpellBehaviourMaker>()
+            .FromComponentOn(commandMaker)
+            .AsTransient();
+
+        Container
             .BindInterfacesTo<CameraManager>()
             .FromComponentOn(cameraManager)
             .AsTransient();

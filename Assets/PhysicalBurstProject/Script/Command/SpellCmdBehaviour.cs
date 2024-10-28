@@ -1,0 +1,21 @@
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
+
+public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>
+{
+    public SpellCmdBehaviour(ISpellCommand cmd, bool burst, PawnType target)
+    {
+        this.cmd = cmd;
+        this.burst = burst;
+        this.target = target;
+    }
+
+    public override async UniTask DoAction(int pawnID)
+    {
+        PawnActInterface pawn = strage.GetPawnByID<PawnActInterface>(pawnID);
+
+        await PawnEffect(pawn);
+
+        pawn.Spell(cmd.GetMana);
+    }
+}
