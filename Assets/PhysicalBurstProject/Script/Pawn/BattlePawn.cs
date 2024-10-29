@@ -323,7 +323,7 @@ public abstract class BattlePawn : MonoBehaviour,
     {
         await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
         if(Avoid) return false;
-        int d =status.Damage(damage*(1 - Guard));
+        int d = status.Damage(damage*(1f - Guard * 0.01f));
         effectUnit.Damage(d);
         return true;
     }

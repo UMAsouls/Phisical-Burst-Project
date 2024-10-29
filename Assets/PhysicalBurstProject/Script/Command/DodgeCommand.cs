@@ -26,8 +26,8 @@ public class DodgeCommand : BattleCommand
         else if (priority <= -1) p *= 0.6f;
 
         if (target.Burst && !pawn.Burst) p = 0;
-        
-        bool avoid = Random.Range(1, 100) <= possibility;
+
+        bool avoid = Random.Range(1, 100) <= p;
         pawn.Avoid = avoid;
 
         pawn.DamageAble = true;

@@ -17,6 +17,11 @@ public class ActionMaker: MoveActionMakeable, CommandActionMakeable, AttackActio
         return new HasteAction(cmds, pawn);
     }
 
+    public IAction MakeAmbushAction(float range, int actPoint)
+    {
+        return new AmbushAction(range, actPoint);
+    }
+
     public IAction MakeNormalAttackAction(IBattleCommand[] cmds, AttackAble pawn)
     {
         return new NormalAttackAction(cmds, pawn);

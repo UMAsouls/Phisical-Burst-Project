@@ -39,6 +39,7 @@ public class DefenceCommand : BattleCommand
 
         if (pawn.Burst) { guard = burstRatio; }
 
+        pawn.Guard = guard;
         pawn.DamageAble = true;
         pawn.AttackEnd = true;
 

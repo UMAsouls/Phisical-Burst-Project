@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Zenject;
 
 public class PawnSencer : MonoBehaviour, IPawnSencer
 {
@@ -17,6 +19,9 @@ public class PawnSencer : MonoBehaviour, IPawnSencer
     private float range;
     public float Range { get => range; set => SetRange(value); }
 
+    [Inject]
+    IPawnGettable strage;
+
     private void SetRange(float r)
     {
         transform.localScale = new Vector3(r, r, 1);
@@ -27,18 +32,6 @@ public class PawnSencer : MonoBehaviour, IPawnSencer
     {
         senced = false;
         sencedTarget = default;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        AttackAble target = collision.transform.root.GetComponent<AttackAble>();
-        if (target == null) return;
-
-        if(target.IsMove && target.Type == senceType)
-        {
-            senced = true;
-            sencedTarget = target;
-        }
     }
 
     public void Delete() => Destroy(gameObject);
@@ -52,6 +45,17 @@ public class PawnSencer : MonoBehaviour, IPawnSencer
     // Update is called once per frame
     void Update()
     {
+        List<AttackAble> list = strage.GetPawnsInArea<AttackAble>(transform.position, Range);
 
+        foreach (AttackAble target in list)
+        {
+            if (target == null) continue;
+
+            if (target.IsMove && target.Type == senceType)
+            {
+                senced = true;
+                sencedTarget = target;
+            }
+        }
     }
 }

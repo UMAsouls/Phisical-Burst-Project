@@ -63,7 +63,7 @@ public class BattleSceneInstaller : MonoInstaller
             .AsSingle();
 
         Container
-            .BindInterfacesTo<ActionMaker>()
+            .BindInterfacesAndSelfTo<ActionMaker>()
             .AsSingle();
 
         Container
@@ -160,11 +160,6 @@ public class BattleSceneInstaller : MonoInstaller
         Container
             .BindInterfacesTo<ControlableCamera>()
             .FromComponentOn(controlableCamera)
-            .AsTransient();
-
-        Container
-            .BindInterfacesAndSelfTo<BattleSceneInstaller>()
-            .FromComponentSibling()
             .AsTransient();
 
         Container
