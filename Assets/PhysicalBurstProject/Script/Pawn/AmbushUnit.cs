@@ -16,12 +16,16 @@ public class AmbushUnit : MonoBehaviour
     [Inject]
     CameraChangeAble cameraChanger;
 
+    [Inject]
+    DiContainer container;
+
     [SerializeField]
     GameObject SencerObj;
 
     public async UniTask Ambush(PawnActInterface pawn, float range, CancellationToken token)
     {
-        var obj = Instantiate(SencerObj, pawn.Position, Quaternion.identity);
+        var obj = container.InstantiatePrefab(SencerObj);
+        obj.transform.position = pawn.Position;
         var pawnSencer = obj.GetComponent<IPawnSencer>();
         pawnSencer.Range = range;
         

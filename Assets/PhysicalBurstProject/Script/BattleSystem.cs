@@ -26,7 +26,7 @@ public class BattleSystem : MonoBehaviour
     private SlotWindowControlable slotController;
 
     [Inject]
-    private IPawnGettable pawnGettable;
+    private IPawnGettable strage;
 
     [Inject]
     private MovePosSelectable MovePosSelectable;
@@ -110,9 +110,14 @@ public class BattleSystem : MonoBehaviour
                 cameraChanger.ChangeToPawnCamera(p.ID);
                 p.SelectStart();
 
+                Debug.Log("pawnID: " + p.ID);
                 if (p.Type == PawnType.Enemy)
                 {
+                    IEnemyPawn enemy = strage.GetPawnByID<IEnemyPawn>(p.ID);
+                    enemy.EnemySelect();
+                    
                     p.SelectEnd();
+                    await p.DoAction();
                     continue;
                 }
 
@@ -120,7 +125,6 @@ public class BattleSystem : MonoBehaviour
                 {
                     while (p.ActPoint > 0)
                     {
-
                         Debug.Log("Select phaze");
                         do
                         {
@@ -149,9 +153,9 @@ public class BattleSystem : MonoBehaviour
 
     private async UniTask BattleStart()
     {
-        await UniTask.WaitUntil(() => pawnGettable.IsSetComplete, PlayerLoopTiming.Update, cts);
+        await UniTask.WaitUntil(() => strage.IsSetComplete, PlayerLoopTiming.Update, cts);
 
-        pawns = pawnGettable.GetPawnList<ActionSelectable>();
+        pawns = strage.GetPawnList<ActionSelectable>();
         Debug.Log("pawn get:" + pawns.Length);
 
         isBattleEnd = false;
@@ -170,6 +174,7 @@ public class BattleSystem : MonoBehaviour
         {
             await p.TurnStart();
         }
+        Debug.Log("Turn Start");
         return;
     }
 

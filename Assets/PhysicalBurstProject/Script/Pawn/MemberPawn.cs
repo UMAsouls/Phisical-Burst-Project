@@ -15,7 +15,9 @@ public class MemberPawn : BattlePawn
 
     public override async UniTask EmergencyBattle()
     {
+        SelectStart();
         emergencyCmds = await battleCmdSelectSystem.Select(ID);
+        SelectEnd();
     }
 
     // Use this for initialization

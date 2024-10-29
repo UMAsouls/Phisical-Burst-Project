@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 4075842707317630981}
   - component: {fileID: 2767502249837352807}
   - component: {fileID: 4131433636973828781}
+  - component: {fileID: 4178378357242113208}
   m_Layer: 0
   m_Name: SkeltonPawn
   m_TagString: Untagged
@@ -293,3 +294,17 @@ MonoBehaviour:
   StunEffect: {fileID: 5880797563127281583, guid: 462eba5cbaf9e914f841b9083aa6ce0a, type: 3}
   AmbushEffect: {fileID: 1027828038572240073, guid: 6f95b2a301d2f1c47a10708e30ec8d5b, type: 3}
   AmbushPos: {x: 0, y: 3}
+--- !u!114 &4178378357242113208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110315097187147631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f07bed3932f5f04fa4df66b9a2bde15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeAttackAble: 0
+  RangeAttackArea: 0

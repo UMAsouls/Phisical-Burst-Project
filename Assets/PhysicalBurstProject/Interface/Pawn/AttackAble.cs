@@ -37,6 +37,8 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public bool ActionStop { get; set; }
 
+    public float Size { get; }
+
     public UniTask<bool> Damage(float damage);
     public UniTask<bool> Heal(float heal);
 

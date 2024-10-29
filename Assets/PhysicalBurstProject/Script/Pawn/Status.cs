@@ -85,7 +85,7 @@ public class Status : IStatus
 
     public int Damage(float damage)
     {
-        damage = Mathf.Clamp(damage - defence/2, 0, 99999);
+        damage = Mathf.Clamp(damage - defence*1.5f, 0, 99999);
 
         hp -= (int)damage;
         return (int)damage;

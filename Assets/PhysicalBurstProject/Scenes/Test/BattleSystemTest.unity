@@ -5066,10 +5066,10 @@ MonoBehaviour:
         hp: 1000
         name: "\u9AB8\u9AA8"
         attackBase: 52
-        defenceBase: 0
+        defenceBase: 40
         speedBase: 0
-        rangeBase: 0
-        attackRangeBase: 0
+        rangeBase: 5
+        attackRangeBase: 2
     - rid: 6372080610147565576
       type: {class: RangeAttackCommand, ns: , asm: Assembly-CSharp}
       data:

@@ -150,7 +150,7 @@ public abstract class BattlePawn : MonoBehaviour,
         actPoint = actMax;
     }
 
-    public void SelectStart()
+    protected void VirtualPawnSet()
     {
         virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
         virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
@@ -158,6 +158,11 @@ public abstract class BattlePawn : MonoBehaviour,
         virtualPawn.VirtualMana = mana;
         virtualPawn.VirtualHP = HP;
         virtualPawn.VirtualRange = range;
+    }
+
+    public void SelectStart()
+    {
+        VirtualPawnSet();
 
         ambushTokenSource?.Cancel();
     }
@@ -272,6 +277,7 @@ public abstract class BattlePawn : MonoBehaviour,
         ActionStop = false;
         foreach (var action in actions)
         {
+            Debug.Log($"{status.Name}: {action.GetActionName()}");
             if(!ActionStop) await action.DoAct(this);
         }
     }

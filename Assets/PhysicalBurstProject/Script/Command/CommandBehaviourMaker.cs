@@ -38,6 +38,12 @@ public class CommandBehaviourMaker : MonoBehaviour, CommandBehaviourMakeable
         return null;
     }
 
+    public IActionCommandBehaviour MakeRangeBehaviour(IActionCommand cmd, bool burst, PawnType target)
+    {
+        if (cmd.Type == ActionCmdType.RangeAttack) return new RangeAttackBehaviour(cmd.GetMySelf<IRangeAttackCommand>(), burst, target);
+        else return null;
+    }
+
 
     // Use this for initialization
     void Start()
