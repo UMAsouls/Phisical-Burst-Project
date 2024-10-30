@@ -5484,7 +5484,7 @@ MonoBehaviour:
         name: "\u5F37\u653B\u6483"
         mana: 0
         selectPriority: 63.4
-        description: 
+        description: "\u529B\u3092\u8FBC\u3081\u305F\u653B\u6483\u3002\n\u6709\u5229\u306A\u3089\u3070\u9632\u5FA1\u3059\u3089\u3082\u6253\u3061\u7834\u308B\u3002\n\u3057\u304B\u3057\u56DE\u907F\u3055\u308C\u3084\u3059\u304F\u3001\u4E0D\u5229\u306A\u3068\u304D\u306B\u306F\u76F8\u624B\u306E\u5F37\u653B\u6483\u306B\u6F70\u3055\u308C\u308B\u3002"
         damage: 40
         burstRatio: 2
     - rid: 6372080610147565571

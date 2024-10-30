@@ -26,7 +26,7 @@ public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
     private float selectPriority;
     public float SelectPriority { get => selectPriority; set => selectPriority = value; }
 
-    [SerializeField, TextArea(18, 4)]
+    [SerializeField, Multiline(3)]
     private string description;
     public string Description => description;
 
