@@ -41,6 +41,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public UniTask<bool> Damage(float damage);
     public UniTask<bool> Heal(float heal);
+    public UniTask<bool> Crash();
 
     public void Stun();
 

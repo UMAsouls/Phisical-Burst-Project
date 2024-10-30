@@ -343,6 +343,16 @@ public abstract class BattlePawn : MonoBehaviour,
         return true;
     }
 
+    public async UniTask<bool> Crash()
+    {
+        await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
+        effectUnit.Damage(0);
+
+        sePlayer.DamageSE();
+
+        return true;
+    }
+
     public async UniTask<bool> Heal(float heal)
     {
         int h = status.Heal(heal);

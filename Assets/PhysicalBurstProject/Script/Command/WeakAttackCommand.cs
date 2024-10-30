@@ -28,7 +28,11 @@ public class WeakAttackCommand : BattleCommand
         {
             if (priority >= 0)
             {
-                if(priority >= 1) pawn.AttackEmote(target.Position - pawn.Position);
+                if(priority >= 1)
+                {
+                    pawn.AttackEmote(target.Position - pawn.Position);
+                    await pawn.Crash();
+                }
                 pawn.AttackEnd = true;
                 return;
             }
@@ -44,7 +48,11 @@ public class WeakAttackCommand : BattleCommand
         {
             if (priority <= 0)
             {
-                if (priority == 0) pawn.AttackEmote(target.Position - pawn.Position);
+                if (priority == 0)
+                {
+                    pawn.AttackEmote(target.Position - pawn.Position);
+                    await pawn.Crash();
+                }
                 pawn.AttackEnd = true;
                 return;
             }
