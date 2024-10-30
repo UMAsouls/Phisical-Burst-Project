@@ -32,6 +32,14 @@ public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, IL
 
     public override ActionCmdType Type => ActionCmdType.LongRangeAttack;
 
+    [SerializeField]
+    protected AudioClip pawnEffectSound;
+    public AudioClip PawnEffectSound => pawnEffectSound;
+
+    [SerializeField]
+    protected AudioClip attackEffectSound;
+    public AudioClip AttackEffectSound => attackEffectSound;
+
     public async UniTask PawnEffect(Vector2 pawnPos, float size)
     {
         await WaitEffect(pawnPos, MagicCircleEffect, size);

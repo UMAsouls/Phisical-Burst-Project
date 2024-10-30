@@ -25,6 +25,12 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject commandStrage;
 
+    [SerializeField]
+    GameObject soundManager;
+
+    [SerializeField]
+    GameObject sePlayer;
+
     public override void InstallBindings()
     {
         Container
@@ -167,6 +173,23 @@ public class BattleSceneInstaller : MonoInstaller
             .To<CommandStrage>()
             .FromComponentOn(commandStrage)
             .AsTransient();
-        
+
+        Container
+            .Bind<SystemSEPlayable>()
+            .To<SoundManager>()
+            .FromComponentOn(soundManager)
+            .AsTransient();
+
+        Container
+            .Bind<SEPlayable>()
+            .To<SEPlayer>()
+            .FromComponentOn(sePlayer)
+            .AsTransient();
+
+        Container
+            .Bind<BGMPlayable>()
+            .To<SoundManager>()
+            .FromComponentOn(soundManager)
+            .AsTransient();
     }
 }

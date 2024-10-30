@@ -13,6 +13,9 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
     [Inject]
     private PosConfirmAble posConfirmAble;
 
+    [Inject]
+    private SystemSEPlayable systemSEPlayer;
+
     private Vector2 movedir;
 
     [SerializeField]
@@ -32,11 +35,13 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
     public void OnConfirm(InputValue value)
     {
         posConfirmAble.PosConfirm(transform.position);
+        systemSEPlayer.ConfirmSE();
     }
 
     public void OnCancel(InputValue value)
     {
         posConfirmAble.Cancel();
+        systemSEPlayer.CancelSE();
     }
 
     // Start is called before the first frame update

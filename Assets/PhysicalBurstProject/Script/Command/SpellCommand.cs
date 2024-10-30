@@ -19,6 +19,14 @@ public class SpellCommand : ActionCommand<ISpellCommand>, ISpellCommand
 
     public int GetMana => getMana;
 
+    [SerializeField]
+    protected AudioClip pawnEffectSound;
+    public AudioClip PawnEffectSound => pawnEffectSound;
+
+    [SerializeField]
+    protected AudioClip attackEffectSound;
+    public AudioClip AttackEffectSound => attackEffectSound;
+
     public UniTask AttackEffect(Vector2 pos)
     {
         throw new System.NotImplementedException();

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
+public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
 {
     [Inject]
     IPawnGettable strage;
@@ -27,10 +27,6 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
     private int cmdIndex = 0;
     private int cmdLength = 0;
 
-    private bool isConfirm = false;
-
-    private bool isCancel = false;
-
     private CancellationToken cts;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
@@ -38,6 +34,8 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
         Vector2 moveInput = context.ReadValue<Vector2>();
 
         if (!context.performed) return;
+
+        systemSEPlayer.SelectorMoveSE();
 
         //input上ではup > 0 down < 0
         if (moveInput.y > 0)
@@ -52,16 +50,6 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
             cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
 
-    }
-
-    public void OnConfirm(InputAction.CallbackContext context)
-    {
-        if (context.performed) isConfirm = true;
-    }
-
-    public void OnCancel(InputAction.CallbackContext context)
-    {
-        if (context.performed) isCancel = true;
     }
 
     private void Init()
@@ -94,7 +82,7 @@ public class CmdSelectSystem : MonoBehaviour,ICmdSelectSystem
             await UniTask.WaitUntil(() => isConfirm | isCancel, PlayerLoopTiming.Update, cts);
             if (isCancel) return false;
             if(pawn.VirtualMana >= commands[cmdIndex].UseMana) break;
-
+            systemSEPlayer.BlockSE();
         } while (true);
         
         uiPrinter.DestroyCmdSelector();

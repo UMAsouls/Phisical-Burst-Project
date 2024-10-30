@@ -28,6 +28,9 @@ public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T:
     [Inject]
     protected CameraChangeAble camerChanger;
 
+    [Inject]
+    protected SEPlayable sePlayer;
+
     private bool EffectEnd;
 
     public abstract UniTask DoAction(int pawnID);

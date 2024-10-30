@@ -13,6 +13,9 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
     [Inject]
     private ICmdSelectUIPrinter uiPrinter;
 
+    [Inject]
+    private SystemSEPlayable sePlayer;
+
     private string[] defaultActions =
     {
         "移動", "襲撃", "待ち伏せ", "行動"
@@ -36,6 +39,8 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
         if (!context.performed) return;
 
+        sePlayer.SelectorMoveSE();
+
         //input上ではup > 0 down < 0
         if (moveInput.y > 0)
         {
@@ -54,12 +59,12 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
     public void OnConfirm(InputAction.CallbackContext context)
     {
-        if (context.performed) isConfirm = true;
+        if (context.performed) { isConfirm = true;  sePlayer.ConfirmSE(); }
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        if (context.performed) isCancel = true;
+        if (context.performed) { isCancel = true; sePlayer.CancelSE(); }
     }
 
     public async UniTask<int> BattleActionSelect(int id)

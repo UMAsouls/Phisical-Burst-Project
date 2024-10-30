@@ -52,7 +52,7 @@ public class WeakAttackCommand : BattleCommand
 
         pawn.AttackEmote(target.Position - pawn.Position);
         bool avoid = !await target.Damage(dmg);
-        if (avoid) pawn.Priority -= 1;
+        if (avoid) pawn.Priority -= 0;
         pawn.AttackEnd = true;
 
         Debug.Log("AttackEnd");

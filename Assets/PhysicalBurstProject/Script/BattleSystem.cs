@@ -52,6 +52,9 @@ public class BattleSystem : MonoBehaviour
     [Inject]
     private LastConfirmSystem lastConfirmSystem;
 
+    [Inject]
+    private BGMPlayable bgmPlayer;
+
     private CancellationToken cts;
 
     private bool isConfirm;
@@ -148,12 +151,15 @@ public class BattleSystem : MonoBehaviour
 
             await TurnEnd();
         }
+        bgmPlayer.StopBGM();
         return;
     }
 
     private async UniTask BattleStart()
     {
         await UniTask.WaitUntil(() => strage.IsSetComplete, PlayerLoopTiming.Update, cts);
+
+        bgmPlayer.PlayBGM();
 
         pawns = strage.GetPawnList<ActionSelectable>();
         Debug.Log("pawn get:" + pawns.Length);

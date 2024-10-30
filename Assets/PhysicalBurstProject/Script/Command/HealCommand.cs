@@ -28,6 +28,14 @@ public class HealCommand : ActionCommand<IHealCommand>, IHealCommand
 
     public override ActionCmdType Type => ActionCmdType.Heal;
 
+    [SerializeField]
+    protected AudioClip pawnEffectSound;
+    public AudioClip PawnEffectSound => pawnEffectSound;
+
+    [SerializeField]
+    protected AudioClip healEffectSound;
+    public AudioClip AttackEffectSound => healEffectSound;
+
     public async UniTask PawnEffect(Vector2 pawnPos, float size)
     {
         await WaitEffect(pawnPos, MagicCircleEffect, size);

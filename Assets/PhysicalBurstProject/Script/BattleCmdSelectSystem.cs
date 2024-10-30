@@ -43,6 +43,8 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
         if (!context.performed) return;
 
+        systemSEPlayer.SelectorMoveSE();
+
         //input上ではup > 0 down < 0
         if (moveInput.y > 0)
         {
@@ -110,6 +112,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
             IBattleCommand cmd = pawn.BattleCommands[cmdIndex];
             if(pawn.VirtualMana < cmd.UseMana)
             {
+                systemSEPlayer.BlockSE();
                 continue;
             }
 

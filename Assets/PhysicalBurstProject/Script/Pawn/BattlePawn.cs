@@ -65,6 +65,9 @@ public abstract class BattlePawn : MonoBehaviour,
     [Inject]
     IStandardUIPritner standardUIPritner;
 
+    [Inject]
+    SystemSEPlayable sePlayer;
+
     public float attack => status.Attack;
 
     public float defence => status.Defence;
@@ -304,6 +307,7 @@ public abstract class BattlePawn : MonoBehaviour,
         Burst = true;
         effectUnit.Burst();
         animator.ChangeBurst();
+        sePlayer.BurstSE();
     }
 
     public void ClearBurst()
@@ -317,6 +321,7 @@ public abstract class BattlePawn : MonoBehaviour,
         IsStun = true;
         effectUnit.Stun();
         animator.ChangeStun();
+        sePlayer.StunSE();
     }
 
     public void ClearStun()
@@ -328,9 +333,13 @@ public abstract class BattlePawn : MonoBehaviour,
     public async UniTask<bool> Damage(float damage)
     {
         await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
-        if(Avoid) return false;
+        if (Avoid) { sePlayer.DodgeSE(); return false; }
         int d = status.Damage(damage*(1f - Guard * 0.01f));
         effectUnit.Damage(d);
+
+        if(d >= MaxHP/3) sePlayer.BigDamageSE();
+        else sePlayer.DamageSE();
+
         return true;
     }
 

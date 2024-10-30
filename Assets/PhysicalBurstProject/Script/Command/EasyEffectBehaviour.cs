@@ -10,6 +10,7 @@ public abstract class EasyEffectBehaviour<T> : CommandBehaviourBase<T> where T :
         camerChanger.ChangeToPawnCamera(pawn.ID);
         var zoomController = camerChanger.GetZoomController();
         zoomController.OrthoSize = pawn.Size;
+        sePlayer.PlaySE(cmd.PawnEffectSound);
         await cmd.PawnEffect(pawn.Position, pawn.Size-1);
     }
 
@@ -21,6 +22,7 @@ public abstract class EasyEffectBehaviour<T> : CommandBehaviourBase<T> where T :
         zoomController.ZoomSpeed = Mathf.Max(3f, cmd.EffectScale*0.7f) ;
         zoomController.OrthoSize = cmd.EffectScale + 0.5f;
         await UniTask.Delay(300);
+        sePlayer.PlaySE(cmd.AttackEffectSound);
         await cmd.AttackEffect(pos);
     }
 }

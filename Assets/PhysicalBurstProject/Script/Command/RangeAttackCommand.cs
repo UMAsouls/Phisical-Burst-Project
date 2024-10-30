@@ -27,6 +27,14 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
 
     public override float EffectScale => range;
 
+    [SerializeField]
+    protected AudioClip pawnEffectSound;
+    public AudioClip PawnEffectSound => pawnEffectSound;
+
+    [SerializeField]
+    protected AudioClip attackEffectSound;
+    public AudioClip AttackEffectSound => attackEffectSound;
+
     public async UniTask PawnEffect(Vector2 pawnPos, float size)
     {
         await WaitEffect(pawnPos, MagicCircleEffect, size);
