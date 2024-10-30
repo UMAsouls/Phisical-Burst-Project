@@ -53,4 +53,9 @@ public class StrongAttackCommand : BattleCommand
         Debug.Log("SAttackEnd");
 
     }
+
+    public override string GetTypeText()
+    {
+        return "強攻撃";
+    }
 }

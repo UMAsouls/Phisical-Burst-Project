@@ -19,6 +19,12 @@ public abstract class BattleCommand : IBattleCommand
     private float selectPriority;
     public float SelectPriority { get => selectPriority; set => selectPriority = value; }
 
+    [SerializeField, TextArea(18, 4)]
+    private string description;
+    public string Description => description;
+
+    public abstract string GetTypeText();
+
     public abstract BattleCommandType Type { get; }
 
     public abstract UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType);

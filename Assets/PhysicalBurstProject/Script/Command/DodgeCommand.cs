@@ -41,4 +41,9 @@ public class DodgeCommand : BattleCommand
         else pawn.DodgeEffect(target.Position - pawn.Position);
 
     }
+
+    public override string GetTypeText()
+    {
+        return "回避";
+    }
 }

@@ -44,4 +44,9 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
     {
         await WaitEffect(pos, ExplodeEffect, ExplodeSize * range);
     }
+
+    public override string GetTypeText()
+    {
+        return "範囲攻撃";
+    }
 }

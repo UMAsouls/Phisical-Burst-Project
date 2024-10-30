@@ -17,6 +17,8 @@ public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T:
 
     public float UseMana => cmd.UseMana;
 
+    public string Description => cmd.Description;
+
     public float SelectPriority { get => cmd.SelectPriority; set => cmd.SelectPriority = value; }
 
     [Inject]
@@ -34,6 +36,8 @@ public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T:
     private bool EffectEnd;
 
     public abstract UniTask DoAction(int pawnID);
+
+    public string GetTypeText() => cmd.GetTypeText();
 
     
 }

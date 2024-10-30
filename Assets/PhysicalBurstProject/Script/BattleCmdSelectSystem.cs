@@ -29,6 +29,9 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     private BattleCmdSelectable pawn;
 
+    [Inject]
+    private ICmdInfoUIPrinter cmdInfoPrinter;
+
     private PlayerInput input;
 
     [Inject]
@@ -57,6 +60,8 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
             selectorController.Move(1);
             cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
+
+        cmdInfoPrinter.PrintUI(pawn.BattleCommands[cmdIndex]);
     }
 
     private string[] MakeCmdList(ICommand[]cmds)
@@ -93,6 +98,8 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
         cmdIndex = 0;
         cmdLength = pawn.BattleCommands.Length;
+
+        cmdInfoPrinter.PrintUI(pawn.BattleCommands[cmdIndex]);
 
         IBattleCommand[] ans = new IBattleCommand[3];
         while(selectCount < 3)
@@ -134,6 +141,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
         selectUIPrinter.DestroyCmdSelector();
         slotUIPrinter.DestroyUI();
+        cmdInfoPrinter.DestroyUI();
         input.SwitchCurrentActionMap("None");
 
         return ans;

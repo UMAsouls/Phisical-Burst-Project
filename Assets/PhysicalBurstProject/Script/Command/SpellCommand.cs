@@ -37,5 +37,8 @@ public class SpellCommand : ActionCommand<ISpellCommand>, ISpellCommand
         await WaitEffect(pawnPos, MagicCircleEffect, size);
     }
 
-    
+    public override string GetTypeText()
+    {
+        return "詠唱";
+    }
 }

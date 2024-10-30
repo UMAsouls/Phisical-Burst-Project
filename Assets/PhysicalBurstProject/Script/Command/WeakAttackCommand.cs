@@ -65,4 +65,9 @@ public class WeakAttackCommand : BattleCommand
 
         Debug.Log("AttackEnd");
     }
+
+    public override string GetTypeText()
+    {
+        return "弱攻撃";
+    }
 }

@@ -50,4 +50,9 @@ public class DefenceCommand : BattleCommand
         if(guard == 0) { pawn.Stun(); }
 
     }
+
+    public override string GetTypeText()
+    {
+        return "防御";
+    }
 }

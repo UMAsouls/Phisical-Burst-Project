@@ -255,6 +255,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
   m_PrefabInstance: {fileID: 9005786755792606385}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &33893502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33893491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 177107b351a05cc4b923b0377853172d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 7114743994086454130, guid: 9a15f48ec009c394780db6b3ce728e68, type: 3}
+  pos: {x: 300, y: -200}
 --- !u!1 &133972490
 GameObject:
   m_ObjectHideFlags: 0
@@ -5456,6 +5470,7 @@ MonoBehaviour:
         mana: 12
         burstRatio: 1.2
         selectPriority: 32.6
+        description: 
         range: 3.5
         damage: 70
         MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
@@ -5469,6 +5484,7 @@ MonoBehaviour:
         name: "\u5F37\u653B\u6483"
         mana: 0
         selectPriority: 63.4
+        description: 
         damage: 40
         burstRatio: 2
     - rid: 6372080610147565571
@@ -5477,6 +5493,7 @@ MonoBehaviour:
         name: "\u5F31\u653B\u6483"
         mana: 0
         selectPriority: 58.4
+        description: 
         damage: 40
         burstRatio: 0
     - rid: 6372080610147565572
@@ -5485,6 +5502,7 @@ MonoBehaviour:
         name: "\u9632\u5FA1"
         mana: 0
         selectPriority: 28.6
+        description: 
         ratio: 80.7
         secondRatio: 70.6
         thirdRatio: 51.3
@@ -5496,6 +5514,7 @@ MonoBehaviour:
         name: "\u56DE\u907F"
         mana: 0
         selectPriority: 30.7
+        description: 
         possibility: 70.7
         Bonus: 1
     - rid: 6372080610147565575
@@ -5516,6 +5535,7 @@ MonoBehaviour:
         mana: 0
         burstRatio: 0
         selectPriority: 0
+        description: 
         range: 0
         damage: 0
         MagicCircleEffect: {fileID: 0}
@@ -5530,6 +5550,7 @@ MonoBehaviour:
         mana: 0
         burstRatio: 1.2
         selectPriority: 25.6
+        description: 
         range: 3
         heal: 30
         MagicCircleEffect: {fileID: 6623057508184839328, guid: bb44a83c1c0dcd14abaf1dc1e3ada737, type: 3}
@@ -5544,6 +5565,7 @@ MonoBehaviour:
         mana: 0
         burstRatio: 1.2
         selectPriority: 22.7
+        description: 
         attackArea: 2
         range: 5
         damage: 20
@@ -5559,6 +5581,7 @@ MonoBehaviour:
         mana: 0
         burstRatio: 0
         selectPriority: 26.5
+        description: 
         getMana: 30
         MagicCircleEffect: {fileID: 6623057508184839328, guid: 276bf727ca051f4418b00a4bb1b18beb, type: 3}
         pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
@@ -6377,7 +6400,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 33893502}
   m_SourcePrefab: {fileID: 100100000, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -45,4 +45,9 @@ public class HealCommand : ActionCommand<IHealCommand>, IHealCommand
     {
         await WaitEffect(pos, HealEffect, HealEffectSize*range);
     }
+
+    public override string GetTypeText()
+    {
+       return "回復";
+    }
 }

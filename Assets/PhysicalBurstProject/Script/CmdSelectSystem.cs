@@ -22,6 +22,11 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
 
     ICmdSelectorController controller;
 
+    [Inject]
+    private ICmdInfoUIPrinter cmdInfoPrinter;
+
+    CommandActionSettable pawn;
+
     private PlayerInput input;
 
     private int cmdIndex = 0;
@@ -50,6 +55,8 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
             cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
 
+        cmdInfoPrinter.PrintUI(pawn.GetActionCommands()[cmdIndex]);
+
     }
 
     private void Init()
@@ -65,7 +72,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
     {
         Init();
 
-        CommandActionSettable pawn = strage.GetPawnByID<CommandActionSettable>(id);
+        pawn = strage.GetPawnByID<CommandActionSettable>(id);
 
         IActionCommand[] commands = pawn.GetActionCommands();
         cmdLength = commands.Length;
@@ -75,16 +82,24 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
 
         controller = uiPrinter.PrintCmdSelecter(names);
 
+        cmdInfoPrinter.PrintUI(pawn.GetActionCommands()[cmdIndex]);
+
         do
         {
             isConfirm = false;
             isCancel = false;
             await UniTask.WaitUntil(() => isConfirm | isCancel, PlayerLoopTiming.Update, cts);
-            if (isCancel) return false;
+            if (isCancel)
+            {
+                cmdInfoPrinter.DestroyUI();
+                uiPrinter.DestroyCmdSelector();
+                return false;
+            }
             if(pawn.VirtualMana >= commands[cmdIndex].UseMana) break;
             systemSEPlayer.BlockSE();
         } while (true);
-        
+
+        cmdInfoPrinter.DestroyUI();
         uiPrinter.DestroyCmdSelector();
         input.SwitchCurrentActionMap("None");
 

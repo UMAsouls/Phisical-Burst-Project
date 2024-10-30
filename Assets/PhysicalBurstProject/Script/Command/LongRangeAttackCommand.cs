@@ -49,4 +49,9 @@ public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, IL
     {
         await WaitEffect(pos, ExplodeEffect, ExplodeSize * attackArea);
     }
+
+    public override string GetTypeText()
+    {
+        return "遠距離攻撃";
+    }
 }

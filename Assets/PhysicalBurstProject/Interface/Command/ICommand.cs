@@ -9,4 +9,8 @@ public interface ICommand
     public float SelectPriority { get; set; }
 
     public float UseMana { get; }
+
+    public string Description { get; }
+
+    public string GetTypeText();
 }
