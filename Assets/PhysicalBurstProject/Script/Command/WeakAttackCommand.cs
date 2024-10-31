@@ -25,7 +25,7 @@ public class WeakAttackCommand : BattleCommand
 
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
-        var dmg = damage * (pawn.attack / 7);
+        var dmg = damage * (pawn.attack / 5.5f);
         if (pawn.Burst) dmg *= burstRatio;
 
         var priority = pawn.Priority - target.Priority;

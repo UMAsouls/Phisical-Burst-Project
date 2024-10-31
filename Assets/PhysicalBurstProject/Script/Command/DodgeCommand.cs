@@ -29,7 +29,7 @@ public class DodgeCommand : BattleCommand
 
         var priority = pawn.Priority-target.Priority;
 
-        if (targetType == BattleCommandType.Strong || pawn.Burst) p = 100;
+        if (targetType == BattleCommandType.Strong || (pawn.Burst && targetType != BattleCommandType.Weak)) p = 100;
         else if (priority <= -2) p *= 0.3f;
         else if (priority <= -1) p *= 0.6f;
 
