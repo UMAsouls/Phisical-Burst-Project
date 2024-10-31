@@ -27,6 +27,18 @@ public class SpellCommand : ActionCommand<ISpellCommand>, ISpellCommand
     protected AudioClip attackEffectSound;
     public AudioClip AttackEffectSound => attackEffectSound;
 
+    public SpellCommand(ActionCommand<ISpellCommand> cmd, int getMana, GameObject magicCircleEffect, AudioClip pawnEffectSound, AudioClip attackEffectSound)
+        : base(cmd)
+    {
+        this.getMana = getMana;
+        MagicCircleEffect = magicCircleEffect;
+        this.pawnEffectSound = pawnEffectSound;
+        this.attackEffectSound = attackEffectSound;
+    }
+
+    public SpellCommand(SpellCommand cmd)
+        : this(cmd, cmd.getMana, cmd.MagicCircleEffect, cmd.pawnEffectSound, cmd.attackEffectSound) { }
+
     public UniTask AttackEffect(Vector2 pos)
     {
         throw new System.NotImplementedException();
@@ -41,4 +53,6 @@ public class SpellCommand : ActionCommand<ISpellCommand>, ISpellCommand
     {
         return "詠唱";
     }
+
+    public override IActionCommand Copy() => new SpellCommand(this);
 }

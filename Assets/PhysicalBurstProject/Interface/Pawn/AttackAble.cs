@@ -14,7 +14,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public bool IsMove { get; set; }
 
-    public UniTask EmergencyBattle();
+    public UniTask EmergencyBattle(AttackAble target);
 
     public IBattleCommand[] EmergencyCmds { get; }
 
@@ -54,5 +54,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public void UseMana(int m);
 
+    public void MiniStatusPrint();
+    public void MiniStatusDestroy();
     
 }

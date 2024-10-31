@@ -47,8 +47,6 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
 
         animator.SetBool("Move", true);
         animator.SetTrigger("MoveStart");
-
-        foreach (var d in dirs) Debug.Log($"{d} : {animator.GetFloat(d)}");
     }
 
     public void EndMove()

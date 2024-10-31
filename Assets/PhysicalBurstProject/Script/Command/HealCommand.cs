@@ -36,6 +36,28 @@ public class HealCommand : ActionCommand<IHealCommand>, IHealCommand
     protected AudioClip healEffectSound;
     public AudioClip AttackEffectSound => healEffectSound;
 
+    public HealCommand(
+        ActionCommand<IHealCommand> cmd, float range, float heal, 
+        GameObject magicCircleEffect, GameObject healEffect, float healEffectSize, 
+        AudioClip pawnEffectSound, AudioClip healEffectSound
+        ) : base(cmd)
+    {
+        this.range = range;
+        this.heal = heal;
+        MagicCircleEffect = magicCircleEffect;
+        HealEffect = healEffect;
+        HealEffectSize = healEffectSize;
+        this.pawnEffectSound = pawnEffectSound;
+        this.healEffectSound = healEffectSound;
+    }
+
+    public HealCommand(HealCommand cmd) : 
+        this(
+        cmd, cmd.range, cmd.heal,
+        cmd.MagicCircleEffect, cmd.HealEffect, cmd.HealEffectSize,
+        cmd.pawnEffectSound, cmd.healEffectSound
+        ) { }
+
     public async UniTask PawnEffect(Vector2 pawnPos, float size)
     {
         await WaitEffect(pawnPos, MagicCircleEffect, size);
@@ -50,4 +72,6 @@ public class HealCommand : ActionCommand<IHealCommand>, IHealCommand
     {
        return "回復";
     }
+
+    public override IActionCommand Copy() => new HealCommand(this);
 }

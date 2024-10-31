@@ -15,6 +15,14 @@ public class DodgeCommand : BattleCommand
     [Range(0, 5)]
     private int Bonus;
 
+    public DodgeCommand(BattleCommand cmd, float possibility, int bonus): base(cmd)
+    {
+        this.possibility = possibility;
+        Bonus = bonus;
+    }
+
+    public DodgeCommand(DodgeCommand cmd) : this(cmd, cmd.possibility, cmd.Bonus) { }
+
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
         var p = possibility;
@@ -46,4 +54,6 @@ public class DodgeCommand : BattleCommand
     {
         return "回避";
     }
+
+    public override IBattleCommand Copy() => new DodgeCommand(this);
 }

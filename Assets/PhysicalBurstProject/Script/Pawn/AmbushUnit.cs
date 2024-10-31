@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -37,17 +38,19 @@ public class AmbushUnit : MonoBehaviour
                 pawnSencer.SenceType = PawnType.Enemy; break;
         }
 
-        cameraChanger.ChangeToPawnCamera(pawn.ID);
-        await pawn.AmbushEffect();
-
         await UniTask.WaitUntil(() => pawnSencer.Senced, cancellationToken: token);
         pawnSencer.SencedTarget.ActionStop = true;
         pawnSencer.SencedTarget.GetAmbushed = true;
 
-        IBattleCommand[] cmds = await selectSystem.Select(pawn.ID);
+        cameraChanger.ChangeToPawnCamera(pawn.ID);
+        await pawn.AmbushEffect();
+
+        IBattleCommand[] cmds = await pawn.AmbushSelect(pawnSencer.SencedTarget);
 
         await battleActionUnit.Battle(cmds, pawnSencer.SencedTarget, pawn);
         cameraChanger.ChangeToPawnCamera(pawnSencer.SencedTarget.ID);
+
+        pawnSencer.SencedTarget.GetAmbushed = false;
 
         Destroy(obj);
     }

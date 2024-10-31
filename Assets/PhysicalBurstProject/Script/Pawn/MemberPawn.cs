@@ -13,12 +13,26 @@ public class MemberPawn : BattlePawn
     [Inject]
     IBattleCmdSelectSystem battleCmdSelectSystem;
 
-    public override async UniTask EmergencyBattle()
+    private async UniTask<IBattleCommand[]> EmergencySelect(AttackAble target)
     {
         SelectStart();
-        emergencyCmds = await battleCmdSelectSystem.Select(ID);
+        IBattleCommand[] cmds;
+        while (true)
+        {
+            cmds = await battleCmdSelectSystem.Select(ID);
+            if(cmds != null)  break;
+        }
+        
         SelectEnd();
+        return cmds;
     }
+
+    public override async UniTask EmergencyBattle(AttackAble target)
+    {
+        emergencyCmds = await EmergencySelect(target);
+    }
+
+    public override async UniTask<IBattleCommand[]> AmbushSelect(AttackAble target) => await EmergencySelect(target);
 
     // Use this for initialization
     protected override void Start()
@@ -31,4 +45,6 @@ public class MemberPawn : BattlePawn
     {
 
     }
+
+    
 }

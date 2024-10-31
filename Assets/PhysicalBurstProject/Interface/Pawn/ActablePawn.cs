@@ -11,4 +11,6 @@ public interface ActablePawn
     public UniTask Action(IActionCommandBehaviour action);
 
     public UniTask Ambush(float range);
+
+    public int Priority { get; set; }
 }

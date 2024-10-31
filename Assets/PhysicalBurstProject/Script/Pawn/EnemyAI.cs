@@ -92,7 +92,7 @@ public class EnemyAI : MonoBehaviour
     private IAction MakeAttackAction(AttackAble target, IEnemyPawn enemy)
     {
         IAction act;
-        IBattleCommand[] cmds = enemy.EnemyBattleSelect();
+        IBattleCommand[] cmds = enemy.EnemyBattleSelect(target);
         if (enemy.ActPoint >= 2) act = actionMaker.MakeHasteAction(cmds, target);
         else act = actionMaker.MakeNormalAttackAction(cmds, target);
         return act;

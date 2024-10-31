@@ -9,7 +9,7 @@ public interface IEnemyPawn: IDGettable, PosGetPawn
     public float AttackRange { get; }
     public int ActPoint { get; }
 
-    public IBattleCommand[] EnemyBattleSelect();
+    public IBattleCommand[] EnemyBattleSelect(AttackAble target);
     public IActionCommand EnemyActCmdSelect();
 
     public void EnemySelect();

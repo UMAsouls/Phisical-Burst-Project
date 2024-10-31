@@ -19,4 +19,6 @@ public interface IPawnInfo
     public Vector2 Position {  get; }
 
     public int Mana { get; }
+
+    public int Priority { get; }
 }

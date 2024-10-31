@@ -11,4 +11,5 @@ public interface SystemSEPlayable
     public void DodgeSE();
     public void BurstSE();
     public void StunSE();
+    public void BattleAlarmSE();
 }

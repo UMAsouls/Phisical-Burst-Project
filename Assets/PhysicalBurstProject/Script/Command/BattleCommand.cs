@@ -23,9 +23,21 @@ public abstract class BattleCommand : IBattleCommand
     private string description;
     public string Description => description;
 
+    public BattleCommand(string name, float mana, float selectPriority, string description)
+    {
+        this.name = name;
+        this.mana = mana;
+        this.selectPriority = selectPriority;
+        this.description = description;
+    }
+
+    public BattleCommand(BattleCommand cmd): this(cmd.name, cmd.mana, cmd.selectPriority, cmd.description) { }
+
     public abstract string GetTypeText();
 
     public abstract BattleCommandType Type { get; }
+
+    public abstract IBattleCommand Copy();
 
     public abstract UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType);
 }

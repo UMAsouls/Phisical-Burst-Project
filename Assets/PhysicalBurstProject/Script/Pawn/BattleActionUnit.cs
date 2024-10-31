@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using Zenject;
 
 public class BattleActionUnit : MonoBehaviour
@@ -16,11 +17,17 @@ public class BattleActionUnit : MonoBehaviour
     [Inject]
     BattleJudge judge;
 
+    [Inject]
+    SystemSEPlayable sePlayer;
+
     private bool isBurst;
 
     private bool countComplete = true;
 
     private PlayerInput input;
+
+    [SerializeField]
+    GameObject BattleArrow;
 
 
     public void OnBurst(InputAction.CallbackContext context)
@@ -41,15 +48,32 @@ public class BattleActionUnit : MonoBehaviour
 
     public async UniTask Battle(IBattleCommand[] cmds, AttackAble target, PawnActInterface pawn)
     {
+        Vector2 arrowDir  = (target.Position - pawn.Position);
 
-        await target.EmergencyBattle();
+        Vector2 arrowPos = (target.Position + pawn.Position) / 2;
+        float arrowRot = Mathf.Atan2(arrowDir.y, arrowDir.x)* Mathf.Rad2Deg;
 
+        var arrow = Instantiate(BattleArrow, arrowPos, Quaternion.identity);
+        arrow.transform.Rotate(0, 0, arrowRot);
+        sePlayer.BattleAlarmSE();
+
+        await UniTask.Delay(1000, cancellationToken: destroyCancellationToken);
+
+        pawn.MiniStatusPrint();
+        target.MiniStatusPrint();
+        Debug.Log($"対戦:{target.name}");
+        await target.EmergencyBattle(pawn);
+
+        Destroy(arrow);
         var dir1 = (target.Position - pawn.Position);
         dir1 = new Vector2(-1 * dir1.x, dir1.y);
         var dir2 = (pawn.Position - target.Position);
         dir2 = new Vector2(-1 * dir2.x, dir2.y);
-        selfUIController = uiPrinter.PrintUIAtWorld(pawn.Position, dir1);
-        targetUIController = uiPrinter.PrintUIAtWorld(target.Position, dir2);
+        selfUIController = uiPrinter.PrintUIInBattle(pawn.Position, dir1);
+        targetUIController = uiPrinter.PrintUIInBattle(target.Position, dir2);
+
+        pawn.MiniStatusPrint();
+        target.MiniStatusPrint();
 
         var enemyCmds = target.EmergencyCmds;
 
@@ -96,13 +120,13 @@ public class BattleActionUnit : MonoBehaviour
 
                 if (target.Type == PawnType.Enemy)
                 {
-                    enBurst = BurstJudge(j2);
+                    enBurst = BurstJudge(j2, pawn.Burst);
                     if (isBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); countComplete = true; }
                     else if (enBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); countComplete = true; }
                     else  { isBurst = false; enBurst = false; }
                 }else
                 {
-                    enBurst = BurstJudge(j1);
+                    enBurst = BurstJudge(j1, target.Burst);
                     if (isBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); countComplete = true; }
                     else if (enBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); countComplete = true; }
                     else { isBurst = false; enBurst = false; }
@@ -137,11 +161,13 @@ public class BattleActionUnit : MonoBehaviour
 
         uiPrinter.DestroyUI();
         uiPrinter.DestroyUI();
+        pawn.MiniStatusDestroy();
+        target.MiniStatusDestroy();
     }
 
-    private bool BurstJudge(bool judge)
+    private bool BurstJudge(bool judge, bool isBurst)
     {
-        if (!judge) return Random.Range(1, 100) <= 90;
+        if (!judge || isBurst) return Random.Range(1, 100) <= 90;
         else return Random.Range(1, 100) <= 10;
     }
 

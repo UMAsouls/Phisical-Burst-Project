@@ -64,6 +64,11 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
+            .BindInterfacesAndSelfTo<MiniStatusPrinter>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
+
+        Container
             .BindInterfacesAndSelfTo<CmdInfoUIPrinter>()
             .FromComponentOn(battleUI)
             .AsTransient();

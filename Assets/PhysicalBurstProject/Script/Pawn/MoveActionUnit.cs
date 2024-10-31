@@ -39,7 +39,11 @@ public class MoveActionUnit : MonoBehaviour, IMoveActionUnit
         pawn.EndMove();
         tokenSource.Cancel();
 
-        if (pawn.GetAmbushed) pawn.IsMove = false;
+        if (pawn.GetAmbushed)
+        {
+            pawn.IsMove = false;
+            await UniTask.WaitUntil(() => !pawn.GetAmbushed, cancellationToken: destroyCancellationToken);
+        }
     }
 
     public async UniTask DoMove(Vector2 dir, CancellationToken token, PawnActInterface pawn)

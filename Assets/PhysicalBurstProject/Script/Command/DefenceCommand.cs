@@ -24,6 +24,17 @@ public class DefenceCommand : BattleCommand
     [SerializeField]
     private bool Breakable = true;
 
+    public DefenceCommand(BattleCommand cmd, float ratio, float secondRatio, float thirdRatio, float burstRatio, bool breakable): base(cmd)
+    {
+        this.ratio = ratio;
+        this.secondRatio = secondRatio;
+        this.thirdRatio = thirdRatio;
+        this.burstRatio = burstRatio;
+        Breakable = breakable;
+    }
+
+    public DefenceCommand(DefenceCommand cmd) : this(cmd, cmd.ratio, cmd.secondRatio, cmd.thirdRatio, cmd.burstRatio, cmd.Breakable) { }
+
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
         var guard = ratio;
@@ -55,4 +66,6 @@ public class DefenceCommand : BattleCommand
     {
         return "防御";
     }
+
+    public override IBattleCommand Copy() => new DefenceCommand(this);
 }

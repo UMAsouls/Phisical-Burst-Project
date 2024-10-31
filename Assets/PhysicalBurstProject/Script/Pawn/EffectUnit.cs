@@ -26,7 +26,8 @@ public class EffectUnit : MonoBehaviour, IObserver<EffectTiming>
     public async UniTask Ambush()
     {
         EffectEnd = false;
-        var obj = Instantiate(AmbushEffect);
+        var obj = Instantiate(AmbushEffect, transform.position, Quaternion.identity);
+        obj.transform.position += (Vector3)AmbushPos;
         obj.GetComponent<IObservable<EffectTiming>>().Subscribe(this);
 
         await UniTask.WaitUntil(() => EffectEnd, cancellationToken: destroyCancellationToken);

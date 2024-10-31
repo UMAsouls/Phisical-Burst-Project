@@ -35,6 +35,29 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
     protected AudioClip attackEffectSound;
     public AudioClip AttackEffectSound => attackEffectSound;
 
+    public RangeAttackCommand(
+        ActionCommand<IRangeAttackCommand> cmd,
+        float range, float damage,
+        GameObject magicCircleEffect, GameObject explodeEffect, float explodeSize,
+        AudioClip pawnEffectSound, AudioClip attackEffectSound
+        ) : base(cmd)
+    {
+        this.range = range;
+        this.damage = damage;
+        MagicCircleEffect = magicCircleEffect;
+        ExplodeEffect = explodeEffect;
+        ExplodeSize = explodeSize;
+        this.pawnEffectSound = pawnEffectSound;
+        this.attackEffectSound = attackEffectSound;
+    }
+
+    public RangeAttackCommand(RangeAttackCommand cmd) :
+        this(
+            cmd, cmd.range, cmd.damage,
+            cmd.MagicCircleEffect, cmd.ExplodeEffect, cmd.ExplodeSize,
+            cmd.pawnEffectSound, cmd.attackEffectSound
+            ) { }
+
     public async UniTask PawnEffect(Vector2 pawnPos, float size)
     {
         await WaitEffect(pawnPos, MagicCircleEffect, size);
@@ -49,4 +72,6 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
     {
         return "範囲攻撃";
     }
+
+    public override IActionCommand Copy() => new RangeAttackCommand(this);
 }

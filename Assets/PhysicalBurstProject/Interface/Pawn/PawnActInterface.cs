@@ -8,9 +8,13 @@ public interface PawnActInterface : AttackAble
     public void MoveAnimation(Vector2 dir);
 
     public void EndMove();
-    public float Size { get; }
     public void Spell(int m);
 
     public UniTask AmbushEffect();
+
+    public void SelectStart();
+    public void SelectEnd();
+
+    public UniTask<IBattleCommand[]> AmbushSelect(AttackAble target);
 
 }

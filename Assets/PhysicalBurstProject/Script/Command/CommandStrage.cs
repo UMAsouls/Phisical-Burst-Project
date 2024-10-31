@@ -26,9 +26,49 @@ public class CommandStrage : MonoBehaviour, ICommandStrage
 
     Dictionary<string, IBattleCommand> battleDict;
 
-    public IActionCommand GetActionCommand(string key) => actionDict[key];
+    public IActionCommand GetActionCommand(string key) => actionDict[key].Copy();
+    public IActionCommand GetActionCommand(CommandPackage key)
+    {
+        var cmd = actionDict[key.cmdName];
+        cmd.SelectPriority = key.priority;
+        return cmd;
+    }
 
-    public IBattleCommand GetBattleCommand(string key) => battleDict[key];
+    public IActionCommand[] GetActCmds(string[] keys)
+    {
+        IActionCommand[] actCmds = new IActionCommand[keys.Length];
+        for(int i = 0; i < keys.Length; i++) actCmds[i] = GetActionCommand(keys[i]);
+        return actCmds;
+    }
+    public IActionCommand[] GetActCmds(CommandPackage[] keys)
+    {
+        IActionCommand[] actCmds = new IActionCommand[keys.Length];
+        for (int i = 0; i < keys.Length; i++) actCmds[i] = GetActionCommand(keys[i]);
+        return actCmds;
+    }
+
+    public IBattleCommand GetBattleCommand(string key) => battleDict[key].Copy();
+    public IBattleCommand GetBattleCommand(CommandPackage key)
+    {
+        var cmd = battleDict[key.cmdName];
+        cmd.SelectPriority = key.priority;
+        Debug.Log($"{key.cmdName} : {key.priority}");
+        return cmd;
+    }
+
+    public IBattleCommand[] GetBattleCmds(string[] keys)
+    {
+        IBattleCommand[] battleCmds = new IBattleCommand[keys.Length];
+        for (int i = 0;i < keys.Length; i++) battleCmds[i] = GetBattleCommand(keys[i]);
+        return battleCmds;
+    }
+
+    public IBattleCommand[] GetBattleCmds(CommandPackage[] keys)
+    {
+        IBattleCommand[] battleCmds = new IBattleCommand[keys.Length];
+        for (int i = 0; i < keys.Length; i++) battleCmds[i] = GetBattleCommand(keys[i]);
+        return battleCmds;
+    }
 
     private void Awake()
     {

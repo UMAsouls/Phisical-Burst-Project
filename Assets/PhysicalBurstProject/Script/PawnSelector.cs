@@ -88,7 +88,6 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
     private void RayHit(Collider2D collider)
     {
-        Debug.Log(collider.gameObject.name);
         var obj = collider.gameObject.transform.root;
         var p2 = obj.GetComponent<SelectedPawn>();
         if (p2 == null || p2.Type != selectType) return;

@@ -7,5 +7,7 @@ public interface IBattleCommand: ICommand
 {
     public BattleCommandType Type { get; }
 
+    public IBattleCommand Copy();
+
     public UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType);
 }

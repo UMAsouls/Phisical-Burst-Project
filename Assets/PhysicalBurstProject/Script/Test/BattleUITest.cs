@@ -29,6 +29,8 @@ public class BattleUITest : MonoBehaviour
         public Vector2 Position => throw new System.NotImplementedException();
 
         public int Mana => throw new System.NotImplementedException();
+
+        public int Priority => throw new System.NotImplementedException();
     }
 
     private TestPawn test;

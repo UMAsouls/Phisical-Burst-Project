@@ -11,4 +11,5 @@ public class HasteAction : AttackAction
     protected override string actName => "速攻";
 
     public HasteAction(IBattleCommand[] cmds, AttackAble battlePawn) : base(cmds, battlePawn) { }
+
 }

@@ -68,6 +68,9 @@ public abstract class BattlePawn : MonoBehaviour,
     [Inject]
     SystemSEPlayable sePlayer;
 
+    [Inject]
+    MiniStatusPrinter miniStatusPrinter;
+
     public float attack => status.Attack;
 
     public float defence => status.Defence;
@@ -239,7 +242,7 @@ public abstract class BattlePawn : MonoBehaviour,
         ambushUnit.Ambush(this, range, ambushTokenSource.Token).Forget();
     }
 
-    public abstract UniTask EmergencyBattle();
+    public abstract UniTask EmergencyBattle(AttackAble target);
 
     public void AttackEmote(Vector2 dir) => animator.AttackEmote(dir);
 
@@ -370,5 +373,8 @@ public abstract class BattlePawn : MonoBehaviour,
         mana = Mathf.Clamp(mana - m, 0, 9999);
     }
 
-    
+    public void MiniStatusPrint() => miniStatusPrinter.PrintUI(id);
+    public void MiniStatusDestroy() => miniStatusPrinter.DestroyUI(id);
+
+    public abstract UniTask<IBattleCommand[]> AmbushSelect(AttackAble target);
 }

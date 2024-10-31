@@ -40,6 +40,30 @@ public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, IL
     protected AudioClip attackEffectSound;
     public AudioClip AttackEffectSound => attackEffectSound;
 
+    public LongRangeAttackCommand(
+        ActionCommand<ILongRangeAttackCommand> cmd,
+        float attackArea, float range, float damage,
+        GameObject magicCircleEffect, GameObject explodeEffect, float explodeSize,
+        AudioClip pawnEffectSound, AudioClip attackEffectSound
+        ): base( cmd )
+    {
+        this.attackArea = attackArea;
+        this.range = range;
+        this.damage = damage;
+        MagicCircleEffect = magicCircleEffect;
+        ExplodeEffect = explodeEffect;
+        ExplodeSize = explodeSize;
+        this.pawnEffectSound = pawnEffectSound;
+        this.attackEffectSound = attackEffectSound;
+    }
+
+    public LongRangeAttackCommand(LongRangeAttackCommand cmd) :
+        this(
+            cmd, cmd.AttackArea, cmd.range, cmd.damage,
+            cmd.MagicCircleEffect, cmd.ExplodeEffect, cmd.ExplodeSize,
+            cmd.pawnEffectSound, cmd.attackEffectSound
+            ) { }
+
     public async UniTask PawnEffect(Vector2 pawnPos, float size)
     {
         await WaitEffect(pawnPos, MagicCircleEffect, size);
@@ -54,4 +78,6 @@ public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, IL
     {
         return "遠距離攻撃";
     }
+
+    public override IActionCommand Copy() => new LongRangeAttackCommand(this);
 }

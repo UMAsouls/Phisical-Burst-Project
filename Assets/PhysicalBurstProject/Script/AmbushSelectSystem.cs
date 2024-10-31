@@ -33,10 +33,10 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
         var obj = Instantiate(RangeViewer, pawn.VirtualPos, Quaternion.identity);
         float attackRange = pawn.AttackRange;
 
-        if (pawn.ActPoint >= 2) attackRange *= 3f;
-        else attackRange *= 2f;
+        if (pawn.ActPoint >= 2) attackRange *= 1.2f;
+        else attackRange *= 0.8f;
 
-        Vector3 scale = Vector2.one * attackRange;
+        Vector3 scale = Vector2.one * attackRange*2;
         scale.z = 1;
         obj.transform.localScale = scale;
 

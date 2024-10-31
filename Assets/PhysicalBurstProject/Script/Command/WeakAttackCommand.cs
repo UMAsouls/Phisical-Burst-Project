@@ -15,6 +15,14 @@ public class WeakAttackCommand : BattleCommand
     [Range(0f, 10f)]
     private float burstRatio;
 
+    public WeakAttackCommand(BattleCommand cmd, float damage, float burstRatio) : base(cmd)
+    {
+        this.damage = damage;
+        this.burstRatio = burstRatio;
+    }
+
+    public WeakAttackCommand(WeakAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio) { }
+
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
         var dmg = damage * (pawn.attack / 7);
@@ -70,4 +78,6 @@ public class WeakAttackCommand : BattleCommand
     {
         return "弱攻撃";
     }
+
+    public override IBattleCommand Copy() => new WeakAttackCommand(this);
 }

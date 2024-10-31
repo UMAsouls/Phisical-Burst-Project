@@ -14,7 +14,6 @@ public class DamageHealUIPrinter : UIPrinter, IDamageHealUIPrinter
     private void PrintText(Vector2 pos, int val, GameObject text)
     {
         var realPos = WorldToUIPoint(pos);
-        Debug.Log("PoinTextPos: " + realPos);
         var obj = PrintUIAsChildAt(text, realPos);
         var tmp = obj.GetComponent<TextMeshProUGUI>();
         tmp.text = val.ToString();

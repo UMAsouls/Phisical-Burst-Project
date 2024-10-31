@@ -32,9 +32,24 @@ public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
 
     private bool EffectEnd;
 
+    public ActionCommand(string name, float mana, float burstRatio, float selectPriority, string description)
+    {
+        this.name = name;
+        this.mana = mana;
+        this.burstRatio = burstRatio;
+        this.selectPriority = selectPriority;
+        this.description = description;
+    }
+
+    public ActionCommand(ActionCommand<V> cmd) : this(cmd.name, cmd.mana, cmd.burstRatio, cmd.selectPriority, cmd.description) { }
+
+
+
     public abstract float EffectScale { get; }
 
     public abstract string GetTypeText();
+
+    public abstract IActionCommand Copy();
 
     public T GetMySelf<T>()
     {

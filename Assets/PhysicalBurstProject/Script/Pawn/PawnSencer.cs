@@ -24,7 +24,7 @@ public class PawnSencer : MonoBehaviour, IPawnSencer
 
     private void SetRange(float r)
     {
-        transform.localScale = new Vector3(r, r, 1);
+        transform.localScale = new Vector3(r*2, r*2, 1);
         range = r;
     }
          
