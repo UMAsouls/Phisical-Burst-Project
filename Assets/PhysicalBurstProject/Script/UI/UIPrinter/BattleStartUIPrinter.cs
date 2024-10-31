@@ -10,9 +10,14 @@ public class BattleStartUIPrinter : UIPrinter, IObserver<EffectTiming>
 
     private GameObject printedUI;
 
+    private bool EffectEnd;
+
     public async UniTask PrintUIAndWait()
     {
+        printedUI = PrintUIAsChild(ui);
+        printedUI.GetComponent<IObservable<EffectTiming>>().Subscribe(this);
 
+        await UniTask.WaitUntil(() => EffectEnd, cancellationToken: destroyCancellationToken);
     }
 
     // Use this for initialization
@@ -34,6 +39,6 @@ public class BattleStartUIPrinter : UIPrinter, IObserver<EffectTiming>
 
     public void OnNext(EffectTiming value)
     {
-        throw new System.NotImplementedException();
+        if(value == EffectTiming.EffectEnd) EffectEnd = true;
     }
 }

@@ -50,6 +50,9 @@ public class BattleSystem : MonoBehaviour
     private IStandardUIPritner standardUIPritner;
 
     [Inject]
+    private BattleStartUIPrinter battleStartUIPrinter;
+
+    [Inject]
     private LastConfirmSystem lastConfirmSystem;
 
     [Inject]
@@ -157,6 +160,8 @@ public class BattleSystem : MonoBehaviour
 
     private async UniTask BattleStart()
     {
+        await battleStartUIPrinter.PrintUIAndWait();
+
         await UniTask.WaitUntil(() => strage.IsSetComplete, PlayerLoopTiming.Update, cts);
 
         bgmPlayer.PlayBGM();
@@ -175,7 +180,6 @@ public class BattleSystem : MonoBehaviour
     private async UniTask TurnStart()
     {
         System.Array.Sort(pawns, new SpeedComparer());
-        int i = 0;
         foreach (var p in pawns)
         {
             await p.TurnStart();

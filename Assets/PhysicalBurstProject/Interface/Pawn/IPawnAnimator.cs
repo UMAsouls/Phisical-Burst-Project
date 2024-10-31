@@ -14,5 +14,5 @@ public interface IPawnAnimator
 
     public void AttackEmote(Vector2 dir);
 
-    public void DodgeEffect(Vector2 dis);
+    public void DodgeEmote(Vector2 dis);
 }

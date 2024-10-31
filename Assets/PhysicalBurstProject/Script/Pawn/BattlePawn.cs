@@ -71,6 +71,9 @@ public abstract class BattlePawn : MonoBehaviour,
     [Inject]
     MiniStatusPrinter miniStatusPrinter;
 
+    [Inject]
+    protected IPawnGettable strage;
+
     public float attack => status.Attack;
 
     public float defence => status.Defence;
@@ -246,7 +249,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public void AttackEmote(Vector2 dir) => animator.AttackEmote(dir);
 
-    public void DodgeEffect(Vector2 dis) => animator.DodgeEffect(dis);
+    public void DodgeEmote(Vector2 dis) => animator.DodgeEmote(dis);
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -333,10 +336,14 @@ public abstract class BattlePawn : MonoBehaviour,
         animator.ChangeNormal();
     }
 
-    public async UniTask<bool> Damage(float damage)
+    public virtual async UniTask<bool> Damage(float damage, int fromID)
     {
+        AttackAble from = strage.GetPawnByID<AttackAble>(fromID);
         await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
-        if (Avoid) { sePlayer.DodgeSE(); return false; }
+
+        var dis = from.Position - Position;
+        if (Avoid) { sePlayer.DodgeSE(); DodgeEmote(dis); return false; }
+
         int d = status.Damage(damage*(1f - Guard * 0.01f));
         effectUnit.Damage(d);
 

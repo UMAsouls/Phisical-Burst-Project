@@ -308,6 +308,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
   m_PrefabInstance: {fileID: 9005786755792606385}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &33893504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33893491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80effaba1f9944d4fbf4432d3cc62524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ui: {fileID: 2504916606903566303, guid: 810c19a1bdf46ee4a9dbc724a4f1cc47, type: 3}
 --- !u!1 &69147286
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +480,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 0
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -492,7 +505,7 @@ Transform:
   m_GameObject: {fileID: 136652224}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1041732, y: 0.3209392, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -626,45 +639,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: battleCmds.Array.data[6].key
-      value: "\u7D76\u547D\u6483(\u5F37)"
+      propertyPath: managedReferences[6372080644636803081].ratio
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803079].damage
-      value: 40
+      propertyPath: managedReferences[6372080644636803081].burstRatio
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803080].damage
-      value: 40
+      propertyPath: managedReferences[6372080644636803086].burstRatio
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803079].selectPriority
-      value: 34.1
+      propertyPath: managedReferences[6372080644636803087].burstRatio
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803080].selectPriority
-      value: 29.1
+      propertyPath: managedReferences[6372080644636803079].DefencedBonus
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803075].pawnEffectSound
-      value: 
-      objectReference: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
+      propertyPath: managedReferences[6372080644636803086].DefencedBonus
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803076].pawnEffectSound
-      value: 
-      objectReference: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
-    - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803077].pawnEffectSound
-      value: 
-      objectReference: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
-    - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803075].attackEffectSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}
-    - target: {fileID: 5093969678872153773, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
-      propertyPath: managedReferences[6372080644636803076].attackEffectSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}
+      propertyPath: managedReferences[6372080644636803088].DefencedBonus
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8779932603386240344, guid: 383715d1bd798e04789f697caa6c3de4, type: 3}
       propertyPath: m_Name
       value: CommandStrage
@@ -5952,6 +5953,7 @@ MonoBehaviour:
         description: "\u529B\u3092\u8FBC\u3081\u305F\u653B\u6483\u3002\n\u6709\u5229\u306A\u3089\u3070\u9632\u5FA1\u3059\u3089\u3082\u6253\u3061\u7834\u308B\u3002\n\u3057\u304B\u3057\u56DE\u907F\u3055\u308C\u3084\u3059\u304F\u3001\u4E0D\u5229\u306A\u3068\u304D\u306B\u306F\u76F8\u624B\u306E\u5F37\u653B\u6483\u306B\u6F70\u3055\u308C\u308B\u3002"
         damage: 40
         burstRatio: 2
+        DefencedBonus: 0
     - rid: 6372080610147565571
       type: {class: WeakAttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -6974,7 +6976,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6354556076871745779, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 33893504}
   m_SourcePrefab: {fileID: 100100000, guid: 5c4e49b73483b4a4e876c0d0466c34a5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

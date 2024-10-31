@@ -109,6 +109,12 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
         ai.EnemySelect(this);
     }
 
+    public override async UniTask<bool> Damage(float damage, int fromID)
+    {
+        bool ans = await base.Damage(damage, fromID);
+        ai.HateAdd(fromID, damage*0.6f);
+        return ans;
+    }
 
     // Use this for initialization
     protected override void Start()

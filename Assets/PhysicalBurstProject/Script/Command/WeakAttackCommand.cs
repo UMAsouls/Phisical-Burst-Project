@@ -34,9 +34,9 @@ public class WeakAttackCommand : BattleCommand
 
         if (targetType == BattleCommandType.Strong)
         {
-            if (priority >= 0)
+            if (priority >= -1)
             {
-                if(priority >= 1)
+                if(priority >= 0)
                 {
                     pawn.AttackEmote(target.Position - pawn.Position);
                     await pawn.Crash();
@@ -67,7 +67,7 @@ public class WeakAttackCommand : BattleCommand
         }
 
         pawn.AttackEmote(target.Position - pawn.Position);
-        bool avoid = !await target.Damage(dmg);
+        bool avoid = !await target.Damage(dmg, pawn.ID);
         if (avoid) pawn.Priority -= 0;
         pawn.AttackEnd = true;
 

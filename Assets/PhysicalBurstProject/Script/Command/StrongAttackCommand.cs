@@ -15,13 +15,18 @@ public class StrongAttackCommand : BattleCommand
     [Range(0f, 10f)]
     public float burstRatio;
 
-    public StrongAttackCommand(BattleCommand cmd, float damage, float burstRatio) : base(cmd)
+    [SerializeField]
+    [Range(1f, 20f)]
+    public float DefencedBonus;
+
+    public StrongAttackCommand(BattleCommand cmd, float damage, float burstRatio, float defencedBonus) : base(cmd)
     {
         this.damage = damage;
         this.burstRatio = burstRatio;
+        DefencedBonus = defencedBonus;
     }
 
-    public StrongAttackCommand(StrongAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio) { }
+    public StrongAttackCommand(StrongAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio, cmd.DefencedBonus) { }
 
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
@@ -45,7 +50,7 @@ public class StrongAttackCommand : BattleCommand
                 return;
             }
         }
-        if (targetType == BattleCommandType.Weak && priority <= -1)
+        if (targetType == BattleCommandType.Weak && priority <= 0)
         {
             pawn.AttackEmote(target.Position - pawn.Position);
             await pawn.Crash();
@@ -53,8 +58,13 @@ public class StrongAttackCommand : BattleCommand
             return;
         }
 
+        if(targetType == BattleCommandType.Defence)
+        {
+            dmg *= DefencedBonus;
+        }
+
         pawn.AttackEmote(target.Position - pawn.Position);
-        bool avoid = !await target.Damage(dmg);
+        bool avoid = !await target.Damage(dmg, pawn.ID);
         if (avoid) pawn.Priority -= 1;
         pawn.AttackEnd = true;
 

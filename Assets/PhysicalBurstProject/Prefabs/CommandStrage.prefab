@@ -82,7 +82,7 @@ MonoBehaviour:
   - key: "\u9244\u58C1"
     value:
       rid: 6372080644636803085
-  - key: "\u7D76\u547D\u6483(\u5F31)"
+  - key: "\u7D76\u547D\u6483(\u5F37)"
     value:
       rid: 6372080644636803086
   - key: "\u7D76\u547D\u6483(\u5F31)"
@@ -107,11 +107,14 @@ MonoBehaviour:
         mana: 45
         burstRatio: 1.2
         selectPriority: 25.3
+        description: 
         range: 5
         damage: 50
         MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
         ExplodeEffect: {fileID: 2433282508537954060, guid: a1a855ba560289544a574d4b2aac3343, type: 3}
         ExplodeSize: 0.5
+        pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
+        attackEffectSound: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}
     - rid: 6372080644636803076
       type: {class: LongRangeAttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -119,12 +122,15 @@ MonoBehaviour:
         mana: 30
         burstRatio: 0
         selectPriority: 0
+        description: 
         attackArea: 2
         range: 7
         damage: 30
         MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
         ExplodeEffect: {fileID: 8194992990867289339, guid: ee2baf7d913867745b4901139380a6a8, type: 3}
         ExplodeSize: 1
+        pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
+        attackEffectSound: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}
     - rid: 6372080644636803077
       type: {class: SpellCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -132,8 +138,11 @@ MonoBehaviour:
         mana: 0
         burstRatio: 1.2
         selectPriority: 34.3
+        description: 
         getMana: 30
         MagicCircleEffect: {fileID: 6623057508184839328, guid: 276bf727ca051f4418b00a4bb1b18beb, type: 3}
+        pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
+        attackEffectSound: {fileID: 0}
     - rid: 6372080644636803078
       type: {class: HealCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -141,26 +150,31 @@ MonoBehaviour:
         mana: 45
         burstRatio: 1.2
         selectPriority: 28.4
+        description: 
         range: 5
         heal: 50
         MagicCircleEffect: {fileID: 6623057508184839328, guid: bb44a83c1c0dcd14abaf1dc1e3ada737, type: 3}
         HealEffect: {fileID: 8771972552311404799, guid: 84c4cd15ec2dc3243bdfbdcbedb49a9b, type: 3}
         HealEffectSize: 0.5
+        pawnEffectSound: {fileID: 0}
+        healEffectSound: {fileID: 0}
     - rid: 6372080644636803079
       type: {class: StrongAttackCommand, ns: , asm: Assembly-CSharp}
       data:
         name: "\u5F37\u653B\u6483"
         mana: 0
-        selectPriority: 0
-        damage: 30
+        selectPriority: 34.1
+        description: 
+        damage: 40
         burstRatio: 1.2
     - rid: 6372080644636803080
       type: {class: WeakAttackCommand, ns: , asm: Assembly-CSharp}
       data:
         name: "\u5F31\u653B\u6483"
         mana: 0
-        selectPriority: 0
-        damage: 30
+        selectPriority: 29.1
+        description: 
+        damage: 40
         burstRatio: 1.2
     - rid: 6372080644636803081
       type: {class: DefenceCommand, ns: , asm: Assembly-CSharp}
@@ -168,6 +182,7 @@ MonoBehaviour:
         name: "\u9632\u5FA1"
         mana: 0
         selectPriority: 28.7
+        description: 
         ratio: 80.3
         secondRatio: 70.5
         thirdRatio: 61
@@ -179,7 +194,8 @@ MonoBehaviour:
         name: "\u56DE\u907F"
         mana: 0
         selectPriority: 29.1
-        possibility: 75
+        description: 
+        possibility: 40
         Bonus: 1
     - rid: 6372080644636803083
       type: {class: DefenceCommand, ns: , asm: Assembly-CSharp}
@@ -187,6 +203,7 @@ MonoBehaviour:
         name: "\u7D76\u5BFE\u9632\u5FA1"
         mana: 30
         selectPriority: 31.2
+        description: 
         ratio: 100
         secondRatio: 100
         thirdRatio: 100
@@ -198,6 +215,7 @@ MonoBehaviour:
         name: "\u9244\u58C1"
         mana: 0
         selectPriority: 43.6
+        description: 
         ratio: 70
         secondRatio: 70
         thirdRatio: 70
@@ -209,6 +227,7 @@ MonoBehaviour:
         name: "\u7D76\u547D\u6483(\u5F37)"
         mana: 0
         selectPriority: 0
+        description: 
         damage: 20
         burstRatio: 2
     - rid: 6372080644636803087
@@ -217,6 +236,7 @@ MonoBehaviour:
         name: "\u7D76\u547D\u6483(\u5F31)"
         mana: 0
         selectPriority: 0
+        description: 
         damage: 20
         burstRatio: 2
     - rid: 6372080644636803088
@@ -225,6 +245,7 @@ MonoBehaviour:
         name: "\u708E\u6483"
         mana: 25
         selectPriority: 0
+        description: 
         damage: 40
         burstRatio: 1.2
     - rid: 6372080644636803089
@@ -233,6 +254,7 @@ MonoBehaviour:
         name: "\u6C37\u6483"
         mana: 15
         selectPriority: 0
+        description: 
         damage: 36
         burstRatio: 1.2
     - rid: 6372080644636803090
@@ -241,6 +263,7 @@ MonoBehaviour:
         name: "\u898B\u5207\u308A\u56DE\u907F"
         mana: 0
         selectPriority: 0
+        description: 
         possibility: 30
         Bonus: 2
     - rid: 6372080644636803092
@@ -250,11 +273,14 @@ MonoBehaviour:
         mana: 70
         burstRatio: 1.5
         selectPriority: 35.3
+        description: 
         range: 9
         heal: 100
         MagicCircleEffect: {fileID: 6623057508184839328, guid: bb44a83c1c0dcd14abaf1dc1e3ada737, type: 3}
         HealEffect: {fileID: 8771972552311404799, guid: 84c4cd15ec2dc3243bdfbdcbedb49a9b, type: 3}
         HealEffectSize: 0.5
+        pawnEffectSound: {fileID: 0}
+        healEffectSound: {fileID: 0}
     - rid: 6372080644636803093
       type: {class: LongRangeAttackCommand, ns: , asm: Assembly-CSharp}
       data:
@@ -262,9 +288,12 @@ MonoBehaviour:
         mana: 40
         burstRatio: 1.2
         selectPriority: 0
+        description: 
         attackArea: 1.8
         range: 10
         damage: 35
         MagicCircleEffect: {fileID: 6623057508184839328, guid: 6a34666c538dd964faffc9454441cd47, type: 3}
         ExplodeEffect: {fileID: 1141330259687333427, guid: e24be393a7f6a3744a54d4ca076a594e, type: 3}
         ExplodeSize: 0.5
+        pawnEffectSound: {fileID: 0}
+        attackEffectSound: {fileID: 0}

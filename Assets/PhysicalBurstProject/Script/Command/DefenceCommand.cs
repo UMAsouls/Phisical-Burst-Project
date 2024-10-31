@@ -43,7 +43,7 @@ public class DefenceCommand : BattleCommand
 
         if(targetType == BattleCommandType.Strong)
         {
-            if (priority <= -2 && !Breakable) guard = 0;
+            if (priority <= -2 && Breakable) guard = 0;
             else if (priority <= -1) guard = secondRatio;
             else if (priority <= 0) guard = thirdRatio;
         }

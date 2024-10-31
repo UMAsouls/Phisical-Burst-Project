@@ -21,7 +21,7 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
         emoteUnit.AttackEmote(dir);
     }
 
-    public void DodgeEffect(Vector2 dis) => emoteUnit.DodgeEffect(dis);
+    public void DodgeEmote(Vector2 dis) => emoteUnit.DodgeEffect(dis);
 
     public void MoveAnimation(Vector2 dir)
     {

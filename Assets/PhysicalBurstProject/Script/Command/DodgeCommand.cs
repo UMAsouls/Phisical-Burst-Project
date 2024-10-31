@@ -34,6 +34,12 @@ public class DodgeCommand : BattleCommand
         else if (priority <= -1) p *= 0.6f;
 
         if (target.Burst && !pawn.Burst) p = 0;
+        else if (target.Burst && pawn.Burst && targetType == BattleCommandType.Strong)
+        {
+            p = Mathf.Clamp(possibility*2f, 0, 100);
+            if (priority <= -2) p *= 0.3f;
+            else if (priority <= -1) p *= 0.6f;
+        }
 
         bool avoid = Random.Range(1, 100) <= p;
         pawn.Avoid = avoid;
@@ -43,10 +49,11 @@ public class DodgeCommand : BattleCommand
 
         Debug.Log("DodgeEnd");
 
+        bool attacked = targetType == BattleCommandType.Strong || targetType == BattleCommandType.Weak;
+
         await UniTask.WaitUntil(() => target.AttackEnd);
 
         if (!avoid) pawn.Priority -= 1;
-        else pawn.DodgeEffect(target.Position - pawn.Position);
 
     }
 

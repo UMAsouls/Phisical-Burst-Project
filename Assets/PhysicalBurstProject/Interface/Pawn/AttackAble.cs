@@ -39,7 +39,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public float Size { get; }
 
-    public UniTask<bool> Damage(float damage);
+    public UniTask<bool> Damage(float damage, int fromID);
     public UniTask<bool> Heal(float heal);
     public UniTask<bool> Crash();
 
@@ -50,7 +50,7 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public void AttackEmote(Vector2 dir);
 
-    public void DodgeEffect(Vector2 dis);
+    public void DodgeEmote(Vector2 dis);
 
     public void UseMana(int m);
 
