@@ -2,7 +2,6 @@
 using UnityEditor;
 using System;
 using Cysharp.Threading.Tasks;
-using static UnityEditor.PlayerSettings;
 
 [Serializable]
 public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, ILongRangeAttackCommand
@@ -39,6 +38,18 @@ public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, IL
     [SerializeField]
     protected AudioClip attackEffectSound;
     public AudioClip AttackEffectSound => attackEffectSound;
+
+    public LongRangeAttackCommand()
+    {
+        attackArea = 0f;
+        range = 0f;
+        damage = 0f;
+        MagicCircleEffect = null;
+        ExplodeEffect = null;
+        ExplodeSize = 0f;
+        pawnEffectSound = null;
+        attackEffectSound = null;
+    }
 
     public LongRangeAttackCommand(
         ActionCommand<ILongRangeAttackCommand> cmd,

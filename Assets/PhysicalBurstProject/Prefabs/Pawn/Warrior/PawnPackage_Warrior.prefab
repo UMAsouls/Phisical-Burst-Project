@@ -45,30 +45,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    rid: 6372080691419545600
+    rid: 4657338864833396756
   StrongAttackPriority: 0
   WeekAttackPriority: 0
   DefencePriority: 0
   DodgePriority: 0
-  battleCommands: []
+  battleCommands:
+  - cmdName: "\u9244\u58C1"
+    priority: 0
+  - cmdName: "\u7D76\u5BFE\u9632\u5FA1"
+    priority: 0
   actionCommands:
   - cmdName: "\u8A60\u5531"
     priority: 0
   addActCmds: []
   addBattleCmds: []
   pawn: {fileID: 9110315097187147631, guid: 66a01f915c689b644bc0406fe663ca27, type: 3}
-  position: {x: 1, y: -1}
   references:
     version: 2
     RefIds:
-    - rid: 6372080691419545600
-      type: {class: Status, ns: , asm: Assembly-CSharp}
+    - rid: 4657338864833396756
+      type: {class: Status, ns: , asm: PBP}
       data:
-        maxhp: 1000
-        hp: 1000
+        maxhp: 1200
+        hp: 0
         name: "\u6226\u58EB"
-        attackBase: 52
-        defenceBase: 40
-        speedBase: 12
+        attackBase: 50
+        defenceBase: 50
+        speedBase: 11
         rangeBase: 5
-        attackRangeBase: 2.5
+        attackRangeBase: 2

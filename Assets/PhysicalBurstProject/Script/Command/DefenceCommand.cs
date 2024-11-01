@@ -24,6 +24,15 @@ public class DefenceCommand : BattleCommand
     [SerializeField]
     private bool Breakable = true;
 
+    public DefenceCommand()
+    {
+        ratio = 0f;
+        secondRatio = 0f;
+        thirdRatio = 0f;
+        burstRatio = 0f;
+        Breakable = true;
+    }
+
     public DefenceCommand(BattleCommand cmd, float ratio, float secondRatio, float thirdRatio, float burstRatio, bool breakable): base(cmd)
     {
         this.ratio = ratio;

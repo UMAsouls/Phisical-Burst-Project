@@ -15,6 +15,12 @@ public class DodgeCommand : BattleCommand
     [Range(0, 5)]
     private int Bonus;
 
+    public DodgeCommand()
+    {
+        possibility = 0f;
+        Bonus = 0;
+    }
+
     public DodgeCommand(BattleCommand cmd, float possibility, int bonus): base(cmd)
     {
         this.possibility = possibility;

@@ -92,7 +92,10 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         var p2 = obj.GetComponent<SelectedPawn>();
         if (p2 == null || p2.Type != selectType) return;
 
-        if(pawn != p2) p2.SelectedFocus();
+        if (pawn != p2) {
+            if(pawn != null) pawn.SelectedUnFocus();
+            p2.SelectedFocus();
+        }
         pawn = p2; 
     }
 

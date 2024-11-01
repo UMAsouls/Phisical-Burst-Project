@@ -2,8 +2,6 @@
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEditor.PlayerSettings;
 
 public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
 {

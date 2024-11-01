@@ -25,11 +25,13 @@ public class LongRangeBehaviour : EasyEffectBehaviour<ILongRangeAttackCommand>
 
         await MainEffect(pos);
 
-        List<AttackAble> pawns = strage.GetPawnsInArea<AttackAble>(pos, cmd.Range);
+        List<AttackAble> pawns = strage.GetPawnsInArea<AttackAble>(pos, cmd.Range/2);
         foreach(AttackAble p in pawns)
         {
             if (p.Type == target) await p.Damage(cmd.Damage*pawn.attack/10, pawnID);
         }
+
+        strage.HateBroadCast(cmd.Damage * pawn.attack / 10 / 10, pawnID);
 
         await UniTask.Delay(500);
         camerChanger.ChangeToPawnCamera(pawnID);

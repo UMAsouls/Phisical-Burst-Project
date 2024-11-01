@@ -31,6 +31,14 @@ public class EnemyAI : MonoBehaviour
     {
         AttackAble target = strage.GetPawnByID<AttackAble>(targetID);
 
+        while (target == null)
+        {
+            HateList.Remove(targetID);
+            HateUpdate();
+            target = strage.GetPawnByID<AttackAble>(targetID);
+            Debug.Log("search");
+        }
+
         float dis = (target.Position - enemy.VirtualPos).magnitude;
 
         bool attack = dis <= enemy.range + enemy.AttackRange + target.Size / 2;
@@ -135,6 +143,20 @@ public class EnemyAI : MonoBehaviour
 
         if (behaviour != null) return actionMaker.MakeCommandAction(behaviour);
         else return null;
+    }
+
+    public void HateUpdate()
+    {
+        float max = 0;
+        foreach(var pair in HateList)
+        {
+            if(pair.Value >= max)
+            {
+                targetID = pair.Key;
+                max = pair.Value;
+                targetHate = pair.Value;
+            }
+        }
     }
 
     public void HateAdd(int targetID, float Hate)

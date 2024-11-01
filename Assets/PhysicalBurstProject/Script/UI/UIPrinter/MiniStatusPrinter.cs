@@ -22,7 +22,7 @@ public class MiniStatusPrinter : UIPrinter
 
     public void DestroyUI(int id)
     {
-        if(printedUI != null)
+        if(printedUI.ContainsKey(id))
         {
             Destroy(printedUI[id]);
             printedUI.Remove(id);

@@ -16,6 +16,9 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
     [SerializeField]
     private CinemachineVirtualCamera selectPhazeCamera;
 
+    [SerializeField]
+    private CinemachineVirtualCamera CenterCamera;
+
     private CinemachineVirtualCamera main;
 
     private float firstCameraSize;
@@ -48,6 +51,11 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
     public void ChangeToMovableCamera()
     {
         ChangeCameraTo(selectPhazeCamera);
+    }
+
+    public void ChangeToCenterCamera()
+    {
+        ChangeCameraTo(CenterCamera);
     }
 
     public OrthoCameraZoomAble GetZoomController()

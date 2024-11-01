@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEditor.Animations;
+﻿
 using UnityEngine;
 
 public class PawnAnimator : MonoBehaviour, IPawnAnimator
@@ -55,6 +54,11 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
         animator.SetTrigger("MoveEnd");
 
         foreach (string dir in dirs) animator.SetFloat(dir, 0);
+    }
+
+    public void Death()
+    {
+        animator.SetTrigger("DEATH");
     }
 
     public void ChangeNormal()

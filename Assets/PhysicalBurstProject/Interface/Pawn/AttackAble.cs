@@ -12,6 +12,8 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public float attack {  get; }
 
+    public bool Death { get; }
+
     public bool IsMove { get; set; }
 
     public UniTask EmergencyBattle(AttackAble target);
@@ -56,5 +58,6 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public void MiniStatusPrint();
     public void MiniStatusDestroy();
-    
+
+    public UniTask DeathPawn();
 }

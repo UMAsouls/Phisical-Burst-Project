@@ -50,6 +50,8 @@ public abstract class BattlePawn : MonoBehaviour,
 
     private int actMax = 2;
 
+    private bool death = false;
+
     private IActionCommand[] actCmds;
 
     private IBattleCommand[] battleCmds;
@@ -82,7 +84,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public float range => status.Range;
 
-    public bool death => false;
+    public bool Death => death;
 
     public string Name => status.Name;
 
@@ -163,6 +165,7 @@ public abstract class BattlePawn : MonoBehaviour,
     {
         virtualObj = Instantiate(virtualObjBase, transform.position, Quaternion.identity);
         virtualPawn = virtualObj.GetComponent<IVirtualPawn>();
+        Debug.Log($"vp: {virtualPawn}");
         virtualPawn.VirtualPos = transform.position;
         virtualPawn.VirtualMana = mana;
         virtualPawn.VirtualHP = HP;
@@ -336,6 +339,18 @@ public abstract class BattlePawn : MonoBehaviour,
         animator.ChangeNormal();
     }
 
+    public async UniTask DeathPawn()
+    {
+        death = true;
+        animator.ChangeNormal();
+        animator.Death();
+        sePlayer.DeathSE();
+        await UniTask.Delay(1000, cancellationToken: destroyCancellationToken);
+        MiniStatusDestroy();
+        Destroy(gameObject);
+        strage.RemovePawn(ID);
+    }
+
     public virtual async UniTask<bool> Damage(float damage, int fromID)
     {
         AttackAble from = strage.GetPawnByID<AttackAble>(fromID);
@@ -344,11 +359,19 @@ public abstract class BattlePawn : MonoBehaviour,
         var dis = from.Position - Position;
         if (Avoid) { sePlayer.DodgeSE(); DodgeEmote(dis); return false; }
 
+        if (Burst) Guard = Mathf.Max(Guard, 50f);
         int d = status.Damage(damage*(1f - Guard * 0.01f));
         effectUnit.Damage(d);
 
         if(d >= MaxHP/3) sePlayer.BigDamageSE();
         else sePlayer.DamageSE();
+
+        if(HP <= 0)
+        {
+            await UniTask.Delay(1000, cancellationToken: destroyCancellationToken);
+            await DeathPawn();
+            
+        }
 
         return true;
     }
@@ -384,4 +407,6 @@ public abstract class BattlePawn : MonoBehaviour,
     public void MiniStatusDestroy() => miniStatusPrinter.DestroyUI(id);
 
     public abstract UniTask<IBattleCommand[]> AmbushSelect(AttackAble target);
+
+    
 }

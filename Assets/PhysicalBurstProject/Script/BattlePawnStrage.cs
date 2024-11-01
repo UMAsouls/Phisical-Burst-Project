@@ -8,6 +8,8 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
 {
     private Dictionary<int, GameObject> pawnDict;
 
+    private List<EnemyAI> enemyAIs;
+
     private bool isSetComplete;
 
     public BattlePawnStrage()
@@ -18,7 +20,28 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
 
     public bool IsSetComplete => isSetComplete;
 
-    bool IPawnStrageable.IsSetComplete { set => isSetComplete = value; }
+    bool IPawnStrageable.IsSetComplete { set => SetComplete(value); }
+
+    public void SetComplete(bool value)
+    {
+        isSetComplete = value;
+        if (!isSetComplete) return;
+
+        enemyAIs = new List<EnemyAI>();
+        foreach (var item in pawnDict.Values)
+        {
+            if (item.GetComponent<PawnTypeGettable>().Type == PawnType.Enemy)
+            {
+                enemyAIs.Add(item.GetComponent<EnemyAI>());
+            }
+        }
+    }
+    
+
+    public void HateBroadCast(float hate, int from)
+    {
+        foreach (var e in enemyAIs) e.HateAdd(from, hate);
+    }
 
     public void AddPawnObj(GameObject obj)
     {
@@ -29,7 +52,13 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
 
     public T GetPawnByID<T>(int id)
     {
-        return pawnDict[id].GetComponent<T>();
+        if (pawnDict.ContainsKey(id)) return pawnDict[id].GetComponent<T>();
+        else return default;
+    }
+
+    public void RemovePawn(int id)
+    {
+        pawnDict.Remove(id);
     }
 
     public CinemachineVirtualCamera GetPawnCameraByID(int id)

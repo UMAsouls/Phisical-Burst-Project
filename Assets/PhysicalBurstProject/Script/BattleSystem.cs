@@ -1,8 +1,5 @@
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
-using ModestTree;
 using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -50,7 +47,10 @@ public class BattleSystem : MonoBehaviour
     private IStandardUIPritner standardUIPritner;
 
     [Inject]
-    private BattleStartUIPrinter battleStartUIPrinter;
+    private BattleStartEndUIPrinter battleStartUIPrinter;
+
+    [Inject]
+    private ResultUIPrinter resultUIPrinter;
 
     [Inject]
     private LastConfirmSystem lastConfirmSystem;
@@ -60,6 +60,9 @@ public class BattleSystem : MonoBehaviour
 
     private CancellationToken cts;
 
+    [SerializeField]
+    string nextScene;
+
     private bool isConfirm;
     private bool isCancel;
 
@@ -68,6 +71,11 @@ public class BattleSystem : MonoBehaviour
     private bool isBattleEnd;
 
     private PlayerInput input;
+
+    private bool EnemyWin = false;
+    private bool PlayerWin = false;
+
+    private int turn = 0;
 
     /// <summary>
     /// SpeedGettable[]‚ÌCoparer
@@ -109,11 +117,16 @@ public class BattleSystem : MonoBehaviour
 
         while (!isBattleEnd)
         {
+            turn++;
             await TurnStart();
 
             foreach (var p in pawns)
             {
+                if(p == null || p.Death) continue;
+
                 cameraChanger.ChangeToPawnCamera(p.ID);
+                if (p.IsStun) continue;
+
                 p.SelectStart();
 
                 Debug.Log("pawnID: " + p.ID);
@@ -123,6 +136,7 @@ public class BattleSystem : MonoBehaviour
                     enemy.EnemySelect();
                     
                     p.SelectEnd();
+                    Debug.Log("selectEnd");
                     await p.DoAction();
                     continue;
                 }
@@ -150,17 +164,34 @@ public class BattleSystem : MonoBehaviour
 
                 p.SelectEnd();
                 await p.DoAction();
+
+                isBattleEnd = IsBattleEnd();
+                if(isBattleEnd) break;
             }
 
             await TurnEnd();
         }
         bgmPlayer.StopBGM();
+        cameraChanger.ChangeToCenterCamera();
+        await UniTask.Delay(300, cancellationToken:destroyCancellationToken);
+        if(PlayerWin)
+        {
+            await battleStartUIPrinter.PrintWinUIAndWait();
+            resultUIPrinter.PrintWinResult(turn, nextScene);
+        }else
+        {
+            await battleStartUIPrinter.PrintLoseUIAndWait();
+            resultUIPrinter.PrintLoseResult(pawns.Length, nextScene);
+        }
         return;
     }
 
     private async UniTask BattleStart()
     {
-        await battleStartUIPrinter.PrintUIAndWait();
+        cameraChanger.ChangeToCenterCamera();
+
+        await UniTask.Delay(300);
+        await battleStartUIPrinter.PrintStartUIAndWait();
 
         await UniTask.WaitUntil(() => strage.IsSetComplete, PlayerLoopTiming.Update, cts);
 
@@ -237,8 +268,42 @@ public class BattleSystem : MonoBehaviour
 
     private async UniTask TurnEnd()
     {
-        foreach (var p in pawns) await p.TurnEnd();
+        int count = 0;
+        foreach (var p in pawns) if(!p.Death) count++;
+
+        ActionSelectable[] newList = new ActionSelectable[count];
+        int idx = 0;
+        for(int i = 0; i < pawns.Length; i++)
+        {
+            if (!pawns[i].Death) newList[idx++] = pawns[i];
+        }
+        pawns = newList;
+
+        foreach (var p in pawns)
+        {     
+            await p.TurnEnd();
+        }
+
+        isBattleEnd = IsBattleEnd();
         return;
+    }
+
+    public bool IsBattleEnd()
+    {
+        EnemyWin = true;
+        PlayerWin = true;
+
+        foreach (var p in pawns)
+        {
+            if(p.Death) continue;
+
+            if(p.Type == PawnType.Member) EnemyWin = false;
+            else if(p.Type == PawnType.Enemy) PlayerWin = false;
+
+            Debug.Log(p.name);
+        }
+
+        return PlayerWin || EnemyWin;
     }
 
     private void Awake()
@@ -250,6 +315,7 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        turn = 0;
         cts = this.GetCancellationTokenOnDestroy();
         Battle().Forget();
     }

@@ -22,6 +22,18 @@ public class CmdUIController : MonoBehaviour, ICmdSelectorController
         cmdTextRects = getter.CmdTextRects;
         selectorIndex = (int)Mathf.Repeat(selectorIndex+dir, cmdTextRects.Count);
 
+        if(cmdTextRects.Count <= 0 ) return;
+        var rectTransform = cmdTextRects[selectorIndex];
+        Vector2 pos = new Vector2(rectTransform.rect.xMax, rectTransform.rect.yMax);
+        pos += (Vector2)rectTransform.localPosition;
+
+        selector.Move(pos);
+    }
+
+    public void Set(int p)
+    {
+        selectorIndex = (int)Mathf.Repeat(p, cmdTextRects.Count);
+
         var rectTransform = cmdTextRects[selectorIndex];
         Vector2 pos = new Vector2(rectTransform.rect.xMax, rectTransform.rect.yMax);
         pos += (Vector2)rectTransform.localPosition;

@@ -16,6 +16,8 @@ public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>
 
         await PawnEffect(pawn);
 
+        strage.HateBroadCast(cmd.GetMana/2, pawnID);
+
         pawn.Spell(cmd.GetMana);
     }
 }

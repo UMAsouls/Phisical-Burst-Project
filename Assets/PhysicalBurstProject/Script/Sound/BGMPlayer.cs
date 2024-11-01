@@ -18,39 +18,46 @@ public class BGMPlayer : MonoBehaviour
     [SerializeField]
     private AudioSource bgmSource;
 
-    private CancellationTokenSource cts;
+
+    private bool bgmStop;
+
+    public void MakeCts()
+    {
+    }
 
     public async UniTask PlayBGM()
     {
-        cts = new CancellationTokenSource();
+        
+
+        bgmStop = false;
 
         bgmSource.clip = bgm;
         bgmSource.Play();
 
-        await UniTask.WaitUntil(() => (bgmSource.time >= loopEnd), cancellationToken: cts.Token);
+        await UniTask.WaitUntil(() => bgmSource.time >= loopEnd || bgmStop, cancellationToken: destroyCancellationToken);
         bgmSource.Stop();
 
-        while(!cts.Token.IsCancellationRequested)
+        while(!bgmStop)
         {
             bgmSource.time = loopStart;
             bgmSource.Play();
 
-            await UniTask.WaitUntil(() => (bgmSource.time >= loopEnd), cancellationToken: cts.Token);
+            await UniTask.WaitUntil(() => bgmSource.time >= loopEnd || bgmStop, cancellationToken: destroyCancellationToken);
             bgmSource.Stop();
         }
+
 
     }
 
     //BGMループテスト用
     private async UniTask LoopTest()
     {
-        cts = new CancellationTokenSource();
 
         bgmSource.clip = bgm;
         bgmSource.time = loopEnd - 5f;
         bgmSource.Play();
 
-        await UniTask.WaitUntil(() => (bgmSource.time >= loopEnd), cancellationToken: cts.Token);
+        await UniTask.WaitUntil(() => (bgmSource.time >= loopEnd || bgmStop), cancellationToken: destroyCancellationToken);
         bgmSource.Stop();
 
         bgmSource.time = loopStart;
@@ -59,12 +66,11 @@ public class BGMPlayer : MonoBehaviour
 
     public void StopBGM()
     {
-        cts?.Cancel();
+        bgmStop = true;
     }
 
     private void OnDestroy()
     {
-        cts?.Cancel();
     }
 
     // Use this for initialization

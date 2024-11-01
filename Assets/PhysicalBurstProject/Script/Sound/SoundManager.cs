@@ -41,6 +41,9 @@ public class SoundManager : MonoBehaviour, SystemSEPlayable, BGMPlayable
     [SerializeField]
     AudioClip BattleAlarm;
 
+    [SerializeField]
+    AudioClip Death;
+
     public void PlayBGM()
     {
         bgmPlayer.PlayBGM().Forget();
@@ -63,6 +66,7 @@ public class SoundManager : MonoBehaviour, SystemSEPlayable, BGMPlayable
     public void BurstSE() => PlaySE(Burst);
     public void StunSE() => PlaySE(Stun);
     public void BattleAlarmSE() => PlaySE(BattleAlarm);
+    public void DeathSE() => PlaySE(Death);
 
     // Use this for initialization
     void Start()

@@ -36,6 +36,17 @@ public class HealCommand : ActionCommand<IHealCommand>, IHealCommand
     protected AudioClip healEffectSound;
     public AudioClip AttackEffectSound => healEffectSound;
 
+    public HealCommand()
+    {
+        range = 0f;
+        heal = 0f;
+        MagicCircleEffect = null;
+        HealEffect = null;
+        HealEffectSize = 0f;
+        pawnEffectSound = null;
+        healEffectSound = null;
+    }
+
     public HealCommand(
         ActionCommand<IHealCommand> cmd, float range, float heal, 
         GameObject magicCircleEffect, GameObject healEffect, float healEffectSize, 

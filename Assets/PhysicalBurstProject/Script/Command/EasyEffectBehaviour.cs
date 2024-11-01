@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public abstract class EasyEffectBehaviour<T> : CommandBehaviourBase<T> where T : IEasyEffectCommand
 {
@@ -11,7 +10,7 @@ public abstract class EasyEffectBehaviour<T> : CommandBehaviourBase<T> where T :
         var zoomController = camerChanger.GetZoomController();
         zoomController.OrthoSize = pawn.Size;
         sePlayer.PlaySE(cmd.PawnEffectSound);
-        await cmd.PawnEffect(pawn.Position, pawn.Size-1);
+        await cmd.PawnEffect(pawn.Position, pawn.Size);
     }
 
     public async UniTask MainEffect(Vector2 pos)

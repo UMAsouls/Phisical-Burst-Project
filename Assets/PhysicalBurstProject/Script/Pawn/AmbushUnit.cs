@@ -48,9 +48,14 @@ public class AmbushUnit : MonoBehaviour
         IBattleCommand[] cmds = await pawn.AmbushSelect(pawnSencer.SencedTarget);
 
         await battleActionUnit.Battle(cmds, pawnSencer.SencedTarget, pawn);
-        cameraChanger.ChangeToPawnCamera(pawnSencer.SencedTarget.ID);
+
+        if(!pawnSencer.SencedTarget.Death)
+        {
+            cameraChanger.ChangeToPawnCamera(pawnSencer.SencedTarget.ID);
+        }
 
         pawnSencer.SencedTarget.GetAmbushed = false;
+
 
         Destroy(obj);
     }

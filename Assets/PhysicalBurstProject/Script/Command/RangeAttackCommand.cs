@@ -35,6 +35,17 @@ public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAtta
     protected AudioClip attackEffectSound;
     public AudioClip AttackEffectSound => attackEffectSound;
 
+    public RangeAttackCommand()
+    {
+        range = 0f;
+        damage = 0f;
+        MagicCircleEffect = null;
+        ExplodeEffect = null;
+        ExplodeSize = 0f;
+        pawnEffectSound = null;
+        attackEffectSound = null;
+    }
+
     public RangeAttackCommand(
         ActionCommand<IRangeAttackCommand> cmd,
         float range, float damage,

@@ -14,7 +14,7 @@ public interface IPawnInfo
     public float speed { get; }
     public float range { get; }
 
-    public bool death { get; }
+    public bool Death { get; }
 
     public Vector2 Position {  get; }
 

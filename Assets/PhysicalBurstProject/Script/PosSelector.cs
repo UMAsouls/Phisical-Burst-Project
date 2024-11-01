@@ -59,6 +59,10 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
         {
             transform.position = firstPos + ((Vector2)transform.position - firstPos).normalized*range;
         }
+        float x = transform.position.x;
+        float y = transform.position.y;
+
+        transform.position = new Vector3(Mathf.Clamp(x, -20f, 20f), Mathf.Clamp(y, -15f, 15f), -1);
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         cameraController.Position = transform.position;

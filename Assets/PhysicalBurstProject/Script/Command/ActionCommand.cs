@@ -32,6 +32,15 @@ public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
 
     private bool EffectEnd;
 
+    public ActionCommand()
+    {
+        name = "";
+        mana = 0f;
+        burstRatio = 0f;
+        selectPriority = 0f;
+        description = "";
+    }
+
     public ActionCommand(string name, float mana, float burstRatio, float selectPriority, string description)
     {
         this.name = name;

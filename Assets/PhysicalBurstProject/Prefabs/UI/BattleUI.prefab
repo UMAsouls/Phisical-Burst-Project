@@ -20,6 +20,9 @@ GameObject:
   - component: {fileID: 921454636827988677}
   - component: {fileID: 2283577295323870916}
   - component: {fileID: 1781117470186163141}
+  - component: {fileID: 7009526307506084456}
+  - component: {fileID: 4302114728164655443}
+  - component: {fileID: 1320646846808263033}
   m_Layer: 5
   m_Name: BattleUI
   m_TagString: Untagged
@@ -225,3 +228,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui: {fileID: 7114743994086454130, guid: 9a15f48ec009c394780db6b3ce728e68, type: 3}
   pos: {x: 300, y: -200}
+--- !u!114 &7009526307506084456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354556076871745779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba71140ad5be85488201705b9e75017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startUI: {fileID: 2504916606903566303, guid: 810c19a1bdf46ee4a9dbc724a4f1cc47, type: 3}
+  winUI: {fileID: 2504916606903566303, guid: aab779ba08dc3d6429eeab02079852c7, type: 3}
+--- !u!114 &4302114728164655443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354556076871745779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba71140ad5be85488201705b9e75017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startUI: {fileID: 2504916606903566303, guid: 810c19a1bdf46ee4a9dbc724a4f1cc47, type: 3}
+  winUI: {fileID: 2504916606903566303, guid: aab779ba08dc3d6429eeab02079852c7, type: 3}
+--- !u!114 &1320646846808263033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6354556076871745779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb4f7df8dfe3a647a14d102a26e5dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WinUI: {fileID: 6862807378113119424, guid: af669f23d1de5744185c4af16a9cfdc1, type: 3}
+  LoseUI: {fileID: 0}

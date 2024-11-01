@@ -7,6 +7,8 @@ public interface CameraChangeAble
 
     public void ChangeToMovableCamera();
 
+    public void ChangeToCenterCamera();
+
     public OrthoCameraZoomAble GetZoomController();
 
     public bool IsSetComplete { get; }

@@ -12,4 +12,5 @@ public interface SystemSEPlayable
     public void BurstSE();
     public void StunSE();
     public void BattleAlarmSE();
+    public void DeathSE();
 }

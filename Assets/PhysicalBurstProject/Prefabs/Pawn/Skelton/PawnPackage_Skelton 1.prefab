@@ -50,20 +50,21 @@ MonoBehaviour:
   WeekAttackPriority: 30
   DefencePriority: 30
   DodgePriority: 30
-  battleCommands: []
+  battleCommands:
+  - cmdName: "\u898B\u5207\u308A\u56DE\u907F"
+    priority: 30
   actionCommands: []
   addActCmds: []
   addBattleCmds: []
   pawn: {fileID: 9110315097187147631, guid: 1e871966b19ee4544abb339c3c222e93, type: 3}
-  position: {x: -2, y: 2}
   references:
     version: 2
     RefIds:
     - rid: 6372080691419545600
       type: {class: Status, ns: , asm: Assembly-CSharp}
       data:
-        maxhp: 1000
-        hp: 1000
+        maxhp: 100
+        hp: 100
         name: "\u9AB8\u9AA8"
         attackBase: 52
         defenceBase: 40

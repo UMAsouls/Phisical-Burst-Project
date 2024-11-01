@@ -23,6 +23,14 @@ public abstract class BattleCommand : IBattleCommand
     private string description;
     public string Description => description;
 
+    public BattleCommand()
+    {
+        name = "";
+        mana = 0;
+        selectPriority = 0;
+        description = "";
+    }
+
     public BattleCommand(string name, float mana, float selectPriority, string description)
     {
         this.name = name;

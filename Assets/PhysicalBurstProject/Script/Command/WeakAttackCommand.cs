@@ -15,6 +15,12 @@ public class WeakAttackCommand : BattleCommand
     [Range(0f, 10f)]
     private float burstRatio;
 
+    public WeakAttackCommand()
+    {
+        damage = 0f;
+        burstRatio = 0f;
+    }
+
     public WeakAttackCommand(BattleCommand cmd, float damage, float burstRatio) : base(cmd)
     {
         this.damage = damage;

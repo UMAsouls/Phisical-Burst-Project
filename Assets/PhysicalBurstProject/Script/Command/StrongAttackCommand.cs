@@ -19,6 +19,13 @@ public class StrongAttackCommand : BattleCommand
     [Range(1f, 20f)]
     public float DefencedBonus;
 
+    public StrongAttackCommand()
+    {
+        this.damage = 0f;
+        this.burstRatio = 0f;
+        DefencedBonus = 0;
+    }
+
     public StrongAttackCommand(BattleCommand cmd, float damage, float burstRatio, float defencedBonus) : base(cmd)
     {
         this.damage = damage;
@@ -58,7 +65,7 @@ public class StrongAttackCommand : BattleCommand
             return;
         }
 
-        if(targetType == BattleCommandType.Defence)
+        if(targetType == BattleCommandType.Defence && priority >= 0)
         {
             dmg *= DefencedBonus;
         }

@@ -24,8 +24,10 @@ public class HealBehaviour : EasyEffectBehaviour<IHealCommand>
         List<AttackAble> pawns = strage.GetPawnsInArea<AttackAble>(pawn.Position, cmd.Range);
         foreach (AttackAble p in pawns)
         {
-            if (p.Type == target) await p.Heal(cmd.Heal * pawn.attack / 10);
+            if (p.Type == target) await p.Heal(cmd.Heal * pawn.attack / 20);
         }
+
+        strage.HateBroadCast(cmd.Heal / 5, pawnID);
 
         await UniTask.Delay(500);
         camerChanger.ChangeToPawnCamera(pawnID);

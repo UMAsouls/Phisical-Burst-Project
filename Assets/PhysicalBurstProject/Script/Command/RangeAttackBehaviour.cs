@@ -28,6 +28,8 @@ public class RangeAttackBehaviour : EasyEffectBehaviour<IRangeAttackCommand>
             if (p.Type == target) await p.Damage(cmd.Damage * pawn.attack / 10, pawnID);
         }
 
+        strage.HateBroadCast(cmd.Damage * pawn.attack / 10 / 10, pawnID);
+
         await UniTask.Delay(500);
         camerChanger.ChangeToPawnCamera(pawnID);
     }

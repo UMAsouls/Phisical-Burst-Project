@@ -85,6 +85,25 @@ public class BattleActionUnit : MonoBehaviour
 
         for (int i = 0; i < cmds.Length; i++)
         {
+            if(target == null || target.Death)
+            {
+                pawn?.FightEnd(); 
+                uiPrinter.DestroyUI();
+                uiPrinter.DestroyUI();
+                pawn.MiniStatusDestroy();
+
+                return;
+            }
+            if(pawn == null || pawn.Death)
+            {
+                target?.FightEnd();
+                uiPrinter.DestroyUI();
+                uiPrinter.DestroyUI();
+                target.MiniStatusDestroy();
+
+                return;
+            }
+
             
             pawn.FightStart();
             target.FightStart();
@@ -153,6 +172,11 @@ public class BattleActionUnit : MonoBehaviour
             pawn.FightEnd();
             target.FightEnd();
 
+            if(pawn.HP <= 0 && !pawn.Death) await pawn.DeathPawn();
+            if(target.HP <= 0 && !target.Death) await target.DeathPawn();
+
+            Debug.Log("FightEnd");
+
             selfUIController.AnimEnd(i);
             targetUIController.AnimEnd(i);
 
@@ -161,8 +185,8 @@ public class BattleActionUnit : MonoBehaviour
 
         uiPrinter.DestroyUI();
         uiPrinter.DestroyUI();
-        pawn.MiniStatusDestroy();
-        target.MiniStatusDestroy();
+        if (!pawn.Death) pawn.MiniStatusDestroy();
+        if(!target.Death) target?.MiniStatusDestroy();
     }
 
     private bool BurstJudge(bool judge, bool isBurst)

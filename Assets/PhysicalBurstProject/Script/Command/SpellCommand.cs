@@ -27,6 +27,14 @@ public class SpellCommand : ActionCommand<ISpellCommand>, ISpellCommand
     protected AudioClip attackEffectSound;
     public AudioClip AttackEffectSound => attackEffectSound;
 
+    public SpellCommand()
+    {
+        getMana = 0;
+        MagicCircleEffect = null;
+        pawnEffectSound = null;
+        attackEffectSound = null;
+    }
+
     public SpellCommand(ActionCommand<ISpellCommand> cmd, int getMana, GameObject magicCircleEffect, AudioClip pawnEffectSound, AudioClip attackEffectSound)
         : base(cmd)
     {

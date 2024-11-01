@@ -22,7 +22,7 @@ public class BattleJudge
 
         if(self == BattleCommandType.Weak)
         {
-            if(target == BattleCommandType.Strong && priority <= 0) return false;
+            if(target == BattleCommandType.Strong && priority <= -1) return false;
         }
 
         return true;

@@ -88,7 +88,6 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
             float r = Random.Range(0, pSum);
             foreach (var pair in pDict)
             {
-                Debug.Log($"{pair.Key.Name}: 優先度{pair.Value}");
                 if (r <= p + pair.Value) { selectCmd = pair.Key; break; }
                 else p += pair.Value;
             }
