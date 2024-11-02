@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
+[ExecuteAlways]
 public class CmdWindowSetter : MonoBehaviour, ICmdUI,ICmdTextRectGetter
 {
+
     private List<RectTransform> cmdTextRects = new List<RectTransform>();
 
     [SerializeField]
@@ -72,6 +74,7 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI,ICmdTextRectGetter
     void Start()
     {
         selectorController.Scale = fontSize;
+        ScaleUpdate();
     }
 
     // Update is called once per frame

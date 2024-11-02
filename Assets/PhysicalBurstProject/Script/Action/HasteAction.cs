@@ -6,7 +6,7 @@ public class HasteAction : AttackAction
 {
     protected override int ActPoint => 2;
 
-    protected override int PriorityBonus => 1;
+    protected override int PriorityBonus => 2;
 
     protected override string actName => "速攻";
 

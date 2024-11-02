@@ -24,7 +24,9 @@ public class AmbushAction : IAction
 
     public async UniTask DoAct(ActablePawn pawn)
     {
+        pawn.Priority += 1;
         await pawn.Ambush(range);
+        pawn.Priority -= 1;
     }
 
     public string GetActionName()

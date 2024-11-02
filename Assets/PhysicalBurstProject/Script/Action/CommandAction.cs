@@ -34,6 +34,7 @@ public class CommandAction : IAction
 
         pawn.VirtualMana -= behaviour.UseMana;
         if (behaviour.IsBurst) pawn.VirtualHP -= pawn.MaxHP / 5;
+        behaviour.SetCommand(pawn.ID);
         pawn.ActionAdd(this);
 
         return true;

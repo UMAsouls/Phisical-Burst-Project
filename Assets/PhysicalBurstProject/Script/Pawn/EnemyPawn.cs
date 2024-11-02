@@ -29,7 +29,7 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
         {
             T selectCmd = default(T);
             float p = 0;
-            float r = Random.Range(0, pSum);
+            float r = Random.Range(0, pSum+1);
             foreach (var cmd in cmdList)
             {
                 if (r <= p + cmd.SelectPriority) { selectCmd = cmd; break; }
@@ -63,7 +63,7 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
             switch(cmd.Type)
             {
                 case (BattleCommandType.Strong):
-                    p += 30f * (Priority - target.Priority);
+                    p += 25f * (Priority - target.Priority);
                     break;
                 case (BattleCommandType.Weak):
                     p += 20f * (Priority - target.Priority);
@@ -72,9 +72,10 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
                     p += 20f * (target.Priority - Priority);
                     break;
                 case (BattleCommandType.Defence):
-                    p +=  10f * (target.Priority - Priority);
+                    p +=  15f * (target.Priority - Priority);
                     break;
             }
+            Debug.Log($"{cmd.Name} : {p}");
             pDict[cmd] = p;
             pSum += p;
         }
@@ -84,12 +85,12 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
         for (int i = 0; i < outCmds.Length; i++)
         {
             IBattleCommand selectCmd = null;
-            float p = 0;
-            float r = Random.Range(0, pSum);
+            float s = 0;
+            float r = Random.Range(0, pSum+1);
             foreach (var pair in pDict)
             {
-                if (r <= p + pair.Value) { selectCmd = pair.Key; break; }
-                else p += pair.Value;
+                if (r <= s + pair.Value) { selectCmd = pair.Key; break; }
+                else s += pair.Value;
             }
             if (selectCmd == null) selectCmd = BattleCommands[0];
             outCmds[i] = selectCmd;

@@ -36,4 +36,8 @@ public class LongRangeBehaviour : EasyEffectBehaviour<ILongRangeAttackCommand>
         await UniTask.Delay(500);
         camerChanger.ChangeToPawnCamera(pawnID);
     }
+
+    public override void SetCommand(int pawnID)
+    {
+    }
 }

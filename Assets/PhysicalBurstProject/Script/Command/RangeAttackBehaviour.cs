@@ -33,4 +33,8 @@ public class RangeAttackBehaviour : EasyEffectBehaviour<IRangeAttackCommand>
         await UniTask.Delay(500);
         camerChanger.ChangeToPawnCamera(pawnID);
     }
+
+    public override void SetCommand(int pawnID)
+    {
+    }
 }

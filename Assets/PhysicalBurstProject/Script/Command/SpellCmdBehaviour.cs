@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 
 public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>
@@ -19,5 +20,12 @@ public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>
         strage.HateBroadCast(cmd.GetMana/2, pawnID);
 
         pawn.Spell(cmd.GetMana);
+    }
+
+    public override void SetCommand(int pawnID)
+    {
+        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(pawnID);
+
+        pawn.VirtualMana += cmd.GetMana;
     }
 }

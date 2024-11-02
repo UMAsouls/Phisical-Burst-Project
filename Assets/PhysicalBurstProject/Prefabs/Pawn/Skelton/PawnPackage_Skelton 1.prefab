@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status:
-    rid: 6372080691419545600
-  StrongAttackPriority: 30
-  WeekAttackPriority: 30
-  DefencePriority: 30
-  DodgePriority: 30
+    rid: 4657338882708733952
+  StrongAttackPriority: 40
+  WeekAttackPriority: 25
+  DefencePriority: 25
+  DodgePriority: 40
   battleCommands:
   - cmdName: "\u898B\u5207\u308A\u56DE\u907F"
-    priority: 30
+    priority: 40
   actionCommands: []
   addActCmds: []
   addBattleCmds: []
@@ -60,14 +60,14 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6372080691419545600
-      type: {class: Status, ns: , asm: Assembly-CSharp}
+    - rid: 4657338882708733952
+      type: {class: Status, ns: , asm: PBP}
       data:
-        maxhp: 100
-        hp: 100
-        name: "\u9AB8\u9AA8"
-        attackBase: 52
-        defenceBase: 40
-        speedBase: 12
-        rangeBase: 5
-        attackRangeBase: 2.5
+        maxhp: 0
+        hp: 0
+        name: 
+        attackBase: 0
+        defenceBase: 0
+        speedBase: 0
+        rangeBase: 0
+        attackRangeBase: 0

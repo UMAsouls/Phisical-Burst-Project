@@ -37,6 +37,8 @@ public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T:
 
     public abstract UniTask DoAction(int pawnID);
 
+    public abstract void SetCommand(int pawnID);
+
     public string GetTypeText() => cmd.GetTypeText();
 
     

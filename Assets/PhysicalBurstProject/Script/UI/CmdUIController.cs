@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(ICmdTextRectGetter))]
+[ExecuteAlways]
 public class CmdUIController : MonoBehaviour, ICmdSelectorController
 {
 

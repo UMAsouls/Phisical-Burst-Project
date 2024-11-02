@@ -32,4 +32,10 @@ public class HealBehaviour : EasyEffectBehaviour<IHealCommand>
         await UniTask.Delay(500);
         camerChanger.ChangeToPawnCamera(pawnID);
     }
+
+    public override void SetCommand(int pawnID)
+    {
+        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(pawnID);
+        pawn.VirtualHP += cmd.Heal * pawn.attack / 20;
+    }
 }

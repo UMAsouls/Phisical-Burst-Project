@@ -10,7 +10,7 @@ public struct CommandPackage
     [SerializeField]
     public string cmdName;
     [SerializeField]
-    [Range(1f, 100f)]
+    [Range(1f, 50f)]
     public float priority;
 }
 
@@ -24,18 +24,22 @@ public class PawnPackage : MonoBehaviour
 
     CommandPackage sattack = new CommandPackage();
     [SerializeField]
+    [Range(1f, 50f)]
     float StrongAttackPriority;
 
     CommandPackage wattack = new CommandPackage();
     [SerializeField]
+    [Range(1f, 50f)]
     float WeekAttackPriority;
 
     CommandPackage defence = new CommandPackage();
     [SerializeField]
+    [Range(1f, 50f)]
     float DefencePriority;
 
     CommandPackage dodge = new CommandPackage();
     [SerializeField]
+    [Range(1f, 50f)]
     float DodgePriority;
 
     [SerializeField]
