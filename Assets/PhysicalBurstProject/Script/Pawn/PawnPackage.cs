@@ -87,6 +87,11 @@ public class PawnPackage : MonoBehaviour
 
         statusSettable.ActionCommands = cmdStrage.GetActCmds(actionCommands);
         statusSettable.BattleCommands = cmdStrage.GetBattleCmds(battleCmds);
+
+        foreach(var cmd in statusSettable.BattleCommands)
+        {
+            Debug.Log($"{status.Name} : {cmd.Name} : 優先度{cmd.SelectPriority} ");
+        }
     }
 
     public GameObject MakePawn(DiContainer container, int id)

@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -82,6 +83,8 @@ public class EnemyPawn : BattlePawn, IEnemyPawn
 
         IBattleCommand[] outCmds = new IBattleCommand[3];
 
+
+        Random.InitState(System.DateTime.Now.Millisecond);
         for (int i = 0; i < outCmds.Length; i++)
         {
             IBattleCommand selectCmd = null;

@@ -13,16 +13,25 @@ public class MemberPawn : BattlePawn
     [Inject]
     IBattleCmdSelectSystem battleCmdSelectSystem;
 
+    [Inject]
+    CameraChangeAble cameraChanger;
+
+    [Inject]
+    CameraControllable controller;
+
     private async UniTask<IBattleCommand[]> EmergencySelect(AttackAble target)
     {
         SelectStart();
+        cameraChanger.ChangeToPawnCamera(ID);
         IBattleCommand[] cmds;
         while (true)
         {
             cmds = await battleCmdSelectSystem.Select(ID);
             if(cmds != null)  break;
         }
-        
+
+        cameraChanger.ChangeToPawnCamera(target.ID);
+
         SelectEnd();
         return cmds;
     }

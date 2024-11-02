@@ -63,6 +63,7 @@ public class BattleActionUnit : MonoBehaviour
         target.MiniStatusPrint();
         Debug.Log($"対戦:{target.name}");
         await target.EmergencyBattle(pawn);
+        
 
         Destroy(arrow);
         var dir1 = (target.Position - pawn.Position);
@@ -185,7 +186,7 @@ public class BattleActionUnit : MonoBehaviour
 
         uiPrinter.DestroyUI();
         uiPrinter.DestroyUI();
-        if (!pawn.Death) pawn.MiniStatusDestroy();
+        if (!pawn.Death) pawn?.MiniStatusDestroy();
         if(!target.Death) target?.MiniStatusDestroy();
     }
 

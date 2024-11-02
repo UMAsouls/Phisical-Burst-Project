@@ -60,7 +60,7 @@ public class DodgeCommand : BattleCommand
         await UniTask.WaitUntil(() => target.AttackEnd);
 
         if (!avoid && attacked) pawn.Priority -= 1;
-        else pawn.Priority += Bonus;
+        else if(attacked) pawn.Priority += Bonus;
 
     }
 

@@ -1,5 +1,4 @@
 ﻿using Cysharp.Threading.Tasks;
-using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 
 public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>

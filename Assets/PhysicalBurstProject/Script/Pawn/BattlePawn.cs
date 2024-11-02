@@ -327,6 +327,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public void Stun()
     {
+        if (Death) return;
         IsStun = true;
         effectUnit.Stun();
         animator.ChangeStun();

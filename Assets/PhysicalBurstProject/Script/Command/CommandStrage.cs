@@ -50,7 +50,7 @@ public class CommandStrage : MonoBehaviour, ICommandStrage
     public IBattleCommand GetBattleCommand(string key) => battleDict[key].Copy();
     public IBattleCommand GetBattleCommand(CommandPackage key)
     {
-        var cmd = battleDict[key.cmdName];
+        var cmd = battleDict[key.cmdName].Copy();
         cmd.SelectPriority = key.priority;
         Debug.Log($"{key.cmdName} : {key.priority}");
         return cmd;

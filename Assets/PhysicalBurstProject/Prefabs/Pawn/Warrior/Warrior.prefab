@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FocusArrow: {fileID: 8682954292589991786, guid: 8ef7b99838c123a45b7eb67460e5af08, type: 3}
-  SelectableSize: 2
+  SelectableSize: 1
   colliderObj: {fileID: 8121136847040734232}
 --- !u!114 &2767502249837352807
 MonoBehaviour:

@@ -46,10 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   status:
     rid: 4657338864833396756
-  StrongAttackPriority: 0
-  WeekAttackPriority: 0
-  DefencePriority: 0
-  DodgePriority: 0
+  StrongAttackPriority: 1
+  WeekAttackPriority: 1
+  DefencePriority: 1
+  DodgePriority: 1
   battleCommands:
   - cmdName: "\u9244\u58C1"
     priority: 0

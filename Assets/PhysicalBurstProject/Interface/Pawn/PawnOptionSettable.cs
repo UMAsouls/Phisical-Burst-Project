@@ -8,7 +8,7 @@ public interface PawnOptionSettable
 
     public IActionCommand[] ActionCommands { set; }
 
-    public IBattleCommand[] BattleCommands { set; }
+    public IBattleCommand[] BattleCommands { get; set; }
 
     public int ID { set; }
 }
