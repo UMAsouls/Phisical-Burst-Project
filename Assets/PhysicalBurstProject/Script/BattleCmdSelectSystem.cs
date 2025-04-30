@@ -64,7 +64,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         cmdInfoPrinter.PrintUI(pawn.BattleCommands[cmdIndex]);
     }
 
-    private string[] MakeCmdList(ICommand[]cmds)
+    private string[] MakeCmdList(ICommand[] cmds)
     {
         string[] ans = new string[cmds.Length];
         for (int i = 0; i < cmds.Length; i++)
