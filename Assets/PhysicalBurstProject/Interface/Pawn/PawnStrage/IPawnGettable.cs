@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,14 @@ public interface IPawnGettable
 {
     public T[] GetPawnList<T>();
 
-    public T GetPawnById<T>(int id);
+    public T GetPawnByID<T>(int id);
+
+    public CinemachineVirtualCamera GetPawnCameraByID(int id);
+
+    public void RemovePawn(int id);
 
     public bool IsSetComplete { get; }
+
+    public List<T> GetPawnsInArea<T>(Vector2 point, float range);
+    public void HateBroadCast(float hate, int from);
 }

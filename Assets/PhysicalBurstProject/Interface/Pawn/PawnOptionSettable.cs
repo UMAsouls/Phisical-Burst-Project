@@ -6,5 +6,9 @@ public interface PawnOptionSettable
 {
     public IStatus Status { set; }
 
+    public IActionCommand[] ActionCommands { set; }
+
+    public IBattleCommand[] BattleCommands { get; set; }
+
     public int ID { set; }
 }

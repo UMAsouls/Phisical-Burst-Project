@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Battle_PosSelectorRange
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Water
   - UI
   - Stage
-  - 
+  - Effect
   - 
   - 
   - 
@@ -48,9 +49,12 @@ TagManager:
   - name: Effect2
     uniqueID: 2927105533
     locked: 0
-  - name: Porn
+  - name: Pawn
     uniqueID: 2448914065
     locked: 0
   - name: Effect1
     uniqueID: 1763907461
+    locked: 0
+  - name: UI
+    uniqueID: 2941361735
     locked: 0

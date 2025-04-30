@@ -15,7 +15,8 @@ public class MoveAction : IAction
 
     public async UniTask DoAct(ActablePawn pawn)
     {
-        await pawn.movePos(delta);
+        Debug.Log("actstart");
+        await pawn.MovePos(delta);
     }
 
     public bool setAct(ActionSettable pawn)
@@ -34,5 +35,10 @@ public class MoveAction : IAction
         pawn.UseActPoint(-1);
 
         return true;
+    }
+
+    public string GetActionName()
+    {
+        return "移動";
     }
 }

@@ -6,9 +6,9 @@ using Zenject;
 public class BattleUITest : MonoBehaviour
 {
     [Inject]
-    private IBattleUIPrinter battleUIPrinter;
+    private ICmdSelectUIPrinter battleUIPrinter;
 
-    class TestPawn : IPawn
+    class TestPawn : IPawnInfo
     {
         public string Name => "ƒ|[ƒ“‘¾˜Y";
 
@@ -24,11 +24,13 @@ public class BattleUITest : MonoBehaviour
 
         public float range => 10;
 
-        public bool death => true;
+        public bool Death => true;
 
         public Vector2 Position => throw new System.NotImplementedException();
 
         public int Mana => throw new System.NotImplementedException();
+
+        public int Priority => throw new System.NotImplementedException();
     }
 
     private TestPawn test;

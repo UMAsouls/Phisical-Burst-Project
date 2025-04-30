@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
+[ExecuteAlways]
 public class SelectorController : MonoBehaviour, ISelectorController
 {
     private float spaceSize;

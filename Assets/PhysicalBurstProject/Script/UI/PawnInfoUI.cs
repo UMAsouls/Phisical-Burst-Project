@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PawnInfoUI : MonoBehaviour, IPawnInfoUI
 {
+
+    [SerializeField]
+    TextMeshProUGUI ManaText;
     
     public string Name { set => nameTag.Text = value; }
 
@@ -17,6 +21,11 @@ public class PawnInfoUI : MonoBehaviour, IPawnInfoUI
         {
             hp.Set(MaxHP, HP);
         }
+    }
+
+    public void SetMana(int mana)
+    {
+        ManaText.text = $"–‚—Í: {mana}";
     }
 
     private void Awake()

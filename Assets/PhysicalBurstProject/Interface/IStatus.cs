@@ -50,6 +50,20 @@ public interface IStatus
     /// </summary>
     public float RangeBase { get; }
 
+    public float AttackRange { get; }
+
+    public float AttackRangeBase { get; }
+
+    public int Priority { get; set; }
+
+    public void InitPriority();
+
     public void init();
+
+    public void Burst();
+
+    public int Damage(float damage);
+
+    public int Heal(float heal);
 
 }

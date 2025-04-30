@@ -5,5 +5,6 @@ using UnityEngine;
 public interface ICmdUI
 {
     public void CmdAdd(string text);
+
 }
 

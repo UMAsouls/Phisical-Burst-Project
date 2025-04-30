@@ -1,0 +1,47 @@
+﻿
+
+using Cysharp.Threading.Tasks;
+using System;
+
+public class CommandAction : IAction
+{
+    public ActionType Type => ActionType.Action;
+
+    private IActionCommandBehaviour behaviour;
+
+    public CommandAction(IActionCommandBehaviour behaviour)
+    {
+        this.behaviour = behaviour;
+    }
+
+    public async UniTask DoAct(ActablePawn pawn)
+    {
+        await pawn.Action(behaviour);
+    }
+
+    public bool CancelAct(ActionSettable pawn)
+    {
+        pawn.VirtualMana += behaviour.UseMana;
+        if (behaviour.IsBurst) pawn.VirtualHP += pawn.MaxHP / 5;
+
+        pawn.UseActPoint(-1);
+        return true;
+    }
+
+    public bool setAct(ActionSettable pawn)
+    {
+        if (!pawn.UseActPoint(1)) return false;
+
+        pawn.VirtualMana -= behaviour.UseMana;
+        if (behaviour.IsBurst) pawn.VirtualHP -= pawn.MaxHP / 5;
+        behaviour.SetCommand(pawn.ID);
+        pawn.ActionAdd(this);
+
+        return true;
+    }
+
+    public string GetActionName()
+    {
+        return "行動: " + behaviour.Name;
+    }
+}

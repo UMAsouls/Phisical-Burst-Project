@@ -8,8 +8,9 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class CmdTextSetter : MonoBehaviour, ICmdTextSetable
 {
-
+    [SerializeField]
     private TextMeshProUGUI tmp;
+    [SerializeField]
     private RectTransform rectTransform;
 
     void SetCommandText(string text)
@@ -21,12 +22,21 @@ public class CmdTextSetter : MonoBehaviour, ICmdTextSetable
     void fontSizeUpdate(float size)
     {
         tmp.fontSize = size;
-        rectTransform.sizeDelta = new Vector2(TextWidth, size);
+        rectTransform.sizeDelta = new Vector2(TextWidth, size+TextSpace);
     }
 
-    public string Text { set => SetCommandText(value); }
+    void SetTextSpace(float value)
+    {
+        textSpace = value;
+        rectTransform.sizeDelta = new Vector2(TextWidth, FontSize + TextSpace);
+    }
+
+    public string Text { get => tmp.text; set => SetCommandText(value); }
     public float FontSize { get => tmp.fontSize; set => fontSizeUpdate(value); }
     public float TextWidth { get => tmp.preferredWidth; }
+
+    private float textSpace = 0;
+    public float TextSpace { get => textSpace; set => SetTextSpace(value); }
 
     private void Awake()
     {

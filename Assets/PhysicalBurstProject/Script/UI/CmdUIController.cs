@@ -6,11 +6,9 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(ICmdTextRectGetter))]
-public class CmdUIController : MonoBehaviour
+[ExecuteAlways]
+public class CmdUIController : MonoBehaviour, ICmdSelectorController
 {
-
-    [Inject]
-    private CmdConfirmAble cmdConfirmAble;
 
     private ICmdTextRectGetter getter;
     private ISelectorController selector;
@@ -18,38 +16,24 @@ public class CmdUIController : MonoBehaviour
     private int selectorIndex;
     private List<RectTransform> cmdTextRects;
 
-    public void OnSelectorMove(InputAction.CallbackContext context)
-    {
-        Vector2 moveInput = context.ReadValue<Vector2>();
-
-        if (!context.performed) return;
-
-        if (moveInput.y > 0)
-        {
-            Move(-1);
-        }
-
-        if(moveInput.y < 0)
-        {
-            Move(1);
-        }
-        
-    }
-
-    public void OnConfirm(InputAction.CallbackContext context)
-    {
-        if (context.performed) cmdConfirmAble.CommandConfirm(selectorIndex);
-    }
-
-    public void OnCancel(InputAction.CallbackContext context)
-    {
-        if (context.performed) cmdConfirmAble.CmdCancel();
-    }
+    
 
     public void Move(int dir)
     {
         cmdTextRects = getter.CmdTextRects;
         selectorIndex = (int)Mathf.Repeat(selectorIndex+dir, cmdTextRects.Count);
+
+        if(cmdTextRects.Count <= 0 ) return;
+        var rectTransform = cmdTextRects[selectorIndex];
+        Vector2 pos = new Vector2(rectTransform.rect.xMax, rectTransform.rect.yMax);
+        pos += (Vector2)rectTransform.localPosition;
+
+        selector.Move(pos);
+    }
+
+    public void Set(int p)
+    {
+        selectorIndex = (int)Mathf.Repeat(p, cmdTextRects.Count);
 
         var rectTransform = cmdTextRects[selectorIndex];
         Vector2 pos = new Vector2(rectTransform.rect.xMax, rectTransform.rect.yMax);

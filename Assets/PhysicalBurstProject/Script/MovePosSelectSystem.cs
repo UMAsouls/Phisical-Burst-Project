@@ -1,7 +1,10 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 using Zenject;
 
 public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectable
@@ -30,6 +33,15 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     [Inject]
     MoveActionMakeable actMaker;
 
+    private PlayerInput input;
+
+    [Inject]
+    CameraChangeAble cameraChanger;
+
+    OrthoCameraZoomAble cameraZoomController;
+
+    private CancellationToken cts;
+
     public void Cancel()
     {
         isCancel = true;
@@ -41,27 +53,44 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         this.pos = pos;
     }
 
-    public async UniTask<bool> MovePosSelect(int id)
+    public void Init()
     {
-        ActionSettable pawn = strage.GetPawnById<ActionSettable>(id);
         isCancel = false;
         isConfirm = false;
 
+        input.SwitchCurrentActionMap("Move");
         uiPrinter.PrintPosSelectorUI();
+
+        cameraChanger.ChangeToMovableCamera();
+        cameraZoomController = cameraChanger.GetZoomController();
+    }
+
+    public async UniTask<bool> MovePosSelect(int id)
+    {
+        Init();
+
+        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(id);
 
         Vector3 cameraPos = pawn.VirtualPos;
         cameraPos.z = -1;
+
         var obj1 = container.InstantiatePrefab(posSelector);
         obj1.transform.position = cameraPos;
 
         var obj2 = container.InstantiatePrefab(posSelectorRangeCircle) ;
         obj2.transform.position = pawn.VirtualPos;
-        obj2.transform.localScale = new Vector3(pawn.range*2, pawn.range*2, 1);
 
         PosSelectorRangeSetter setter = obj1.GetComponent<PosSelectorRangeSetter>();
         setter.Range = pawn.range;
 
-        await UniTask.WaitUntil(() => (isCancel || isConfirm)); 
+        IRangeCircleScaler scaler = obj2.GetComponent<IRangeCircleScaler>();
+        scaler.SetRadius(pawn.range);
+
+        cameraZoomController.OrthoSize = pawn.range;
+
+        await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts); 
+
+        cameraChanger.ChangeToPawnCamera(id);
 
         if (isCancel)
         {
@@ -79,5 +108,11 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
 
         uiPrinter.DestroyPosSelectorUI(); 
         return true;
+    }
+
+    private void Awake()
+    {
+        cts = this.GetCancellationTokenOnDestroy();
+        input = GetComponent<PlayerInput>();
     }
 }

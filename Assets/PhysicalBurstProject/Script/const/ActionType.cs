@@ -5,7 +5,7 @@ using UnityEngine;
 public enum ActionType 
 {
     Attack,
-    Wait,
+    Ambush,
     Move,
     Action,
 }

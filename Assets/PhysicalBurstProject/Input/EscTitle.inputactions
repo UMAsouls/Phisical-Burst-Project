@@ -1,0 +1,34 @@
+{
+    "name": "EscTitle",
+    "maps": [
+        {
+            "name": "main",
+            "id": "1f316b92-3236-452f-ba56-1d01b5c3ac9a",
+            "actions": [
+                {
+                    "name": "Title",
+                    "type": "Button",
+                    "id": "b7d81037-c89f-4fb2-95ea-8032e017dc33",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3f22a089-196d-4d25-ab3b-407ddf5f8745",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Title",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
