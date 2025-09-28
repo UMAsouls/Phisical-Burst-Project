@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
+public abstract class ActionCommand<V> : ScriptableObject, IActionCommand, IObserver<EffectTiming>
 {
     [SerializeField]
-    protected string name;
-    public string Name => name;
+    protected string commandName;
+    public string Name => commandName;
 
     public abstract ActionCmdType Type { get; }
 
@@ -34,7 +34,7 @@ public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
 
     public ActionCommand()
     {
-        name = "";
+        commandName = "";
         mana = 0f;
         burstRatio = 0f;
         selectPriority = 0f;
@@ -43,14 +43,14 @@ public abstract class ActionCommand<V> : IActionCommand, IObserver<EffectTiming>
 
     public ActionCommand(string name, float mana, float burstRatio, float selectPriority, string description)
     {
-        this.name = name;
+        this.commandName = name;
         this.mana = mana;
         this.burstRatio = burstRatio;
         this.selectPriority = selectPriority;
         this.description = description;
     }
 
-    public ActionCommand(ActionCommand<V> cmd) : this(cmd.name, cmd.mana, cmd.burstRatio, cmd.selectPriority, cmd.description) { }
+    public ActionCommand(ActionCommand<V> cmd) : this(cmd.commandName, cmd.mana, cmd.burstRatio, cmd.selectPriority, cmd.description) { }
 
 
 

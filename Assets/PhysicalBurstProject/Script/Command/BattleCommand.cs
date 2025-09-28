@@ -4,11 +4,11 @@ using System.Collections;
 using UnityEngine;
 
 [Serializable]
-public abstract class BattleCommand : IBattleCommand
+public abstract class BattleCommand : ScriptableObject, IBattleCommand
 {
     [SerializeField]
-    protected string name;
-    public string Name => name;
+    protected string commandName;
+    public string Name => commandName;
 
     [SerializeField]
     protected float mana;
@@ -25,7 +25,7 @@ public abstract class BattleCommand : IBattleCommand
 
     public BattleCommand()
     {
-        name = "";
+        commandName = "";
         mana = 0;
         selectPriority = 0;
         description = "";
@@ -33,13 +33,13 @@ public abstract class BattleCommand : IBattleCommand
 
     public BattleCommand(string name, float mana, float selectPriority, string description)
     {
-        this.name = name;
+        this.commandName = name;
         this.mana = mana;
         this.selectPriority = selectPriority;
         this.description = description;
     }
 
-    public BattleCommand(BattleCommand cmd): this(cmd.name, cmd.mana, cmd.selectPriority, cmd.description) { }
+    public BattleCommand(BattleCommand cmd): this(cmd.commandName, cmd.mana, cmd.selectPriority, cmd.description) { }
 
     public abstract string GetTypeText();
 

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[Serializable]
+[CreateAssetMenu(fileName = "RangeAttackCommand", menuName = "PBP/Command/Action/RangeAttackCommand")]
 public class RangeAttackCommand : ActionCommand<IRangeAttackCommand>, IRangeAttackCommand
 {
     public override ActionCmdType Type => ActionCmdType.RangeAttack;

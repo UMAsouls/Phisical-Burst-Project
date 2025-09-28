@@ -12,7 +12,7 @@ public class CommandStrage : MonoBehaviour, ICommandStrage
     {
         [SerializeField]
         public string key;
-        [SerializeReference, SubclassSelector]
+        [SerializeField]
         public T value;
     }
 

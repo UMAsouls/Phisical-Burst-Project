@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "DefenceCommand", menuName = "PBP/Command/Battle/DefenceCommand")]
 public class DefenceCommand : BattleCommand
 {
     public override BattleCommandType Type => BattleCommandType.Defence;

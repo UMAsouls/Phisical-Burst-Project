@@ -2,8 +2,9 @@
 using System;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "HeavyAttackCommand", menuName = "PBP/Command/Battle/HeavyAttackCommand")]
 [Serializable]
-public class StrongAttackCommand : BattleCommand
+public class HevyAttackCommand : BattleCommand
 {
 
     public override BattleCommandType Type => BattleCommandType.Strong;
@@ -19,21 +20,21 @@ public class StrongAttackCommand : BattleCommand
     [Range(1f, 20f)]
     public float DefencedBonus;
 
-    public StrongAttackCommand()
+    public HevyAttackCommand()
     {
         this.damage = 0f;
         this.burstRatio = 0f;
         DefencedBonus = 0;
     }
 
-    public StrongAttackCommand(BattleCommand cmd, float damage, float burstRatio, float defencedBonus) : base(cmd)
+    public HevyAttackCommand(BattleCommand cmd, float damage, float burstRatio, float defencedBonus) : base(cmd)
     {
         this.damage = damage;
         this.burstRatio = burstRatio;
         DefencedBonus = defencedBonus;
     }
 
-    public StrongAttackCommand(StrongAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio, cmd.DefencedBonus) { }
+    public HevyAttackCommand(HevyAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio, cmd.DefencedBonus) { }
 
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
@@ -84,5 +85,5 @@ public class StrongAttackCommand : BattleCommand
         return "強攻撃";
     }
 
-    public override IBattleCommand Copy() => new StrongAttackCommand(this);
+    public override IBattleCommand Copy() => new HevyAttackCommand(this);
 }

@@ -3,8 +3,10 @@ using System;
 using System.Security.Cryptography;
 using UnityEngine;
 
+
+[CreateAssetMenu(fileName = "LightAttackCommand", menuName = "PBP/Command/Battle/LigthtAttackCommand")]
 [Serializable]
-public class WeakAttackCommand : BattleCommand
+public class LightAttackCommand : BattleCommand
 {
     public override BattleCommandType Type =>BattleCommandType.Weak;
 
@@ -15,19 +17,19 @@ public class WeakAttackCommand : BattleCommand
     [Range(0f, 10f)]
     private float burstRatio;
 
-    public WeakAttackCommand()
+    public LightAttackCommand()
     {
         damage = 0f;
         burstRatio = 0f;
     }
 
-    public WeakAttackCommand(BattleCommand cmd, float damage, float burstRatio) : base(cmd)
+    public LightAttackCommand(BattleCommand cmd, float damage, float burstRatio) : base(cmd)
     {
         this.damage = damage;
         this.burstRatio = burstRatio;
     }
 
-    public WeakAttackCommand(WeakAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio) { }
+    public LightAttackCommand(LightAttackCommand cmd) : this(cmd, cmd.damage, cmd.burstRatio) { }
 
     public override async UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType)
     {
@@ -85,5 +87,5 @@ public class WeakAttackCommand : BattleCommand
         return "弱攻撃";
     }
 
-    public override IBattleCommand Copy() => new WeakAttackCommand(this);
+    public override IBattleCommand Copy() => new LightAttackCommand(this);
 }
