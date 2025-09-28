@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac0970a3fa85c546b0907009252e958, type: 3}
   m_Name: NormalHeavyAttackCommand
   m_EditorClassIdentifier: 
-  commandName: 
+  commandName: "\u5F37\u653B\u6483"
   mana: 0
   selectPriority: 0
   description: 
