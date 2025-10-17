@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ac0970a3fa85c546b0907009252e958, type: 3}
-  m_Name: NormalHeavyAttackCommand
+  m_Script: {fileID: 11500000, guid: 24e46a995c02c4f4988d2b8a6a0b5448, type: 3}
+  m_Name: NormalDefenceCommand
   m_EditorClassIdentifier: 
-  commandName: "\u5F37\u653B\u6483"
+  commandName: "\u9632\u5FA1"
   mana: 0
   selectPriority: 0
   description: 
-  damage: 0
-  burstRatio: 0
-  DefencedBonus: 1
+  ratio: 70.1
+  secondRatio: 50.4
+  thirdRatio: 40.1
+  burstRatio: 79.9
+  Breakable: 1
