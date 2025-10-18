@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac0970a3fa85c546b0907009252e958, type: 3}
   m_Name: "\u708E\u6483"
   m_EditorClassIdentifier: 
-  commandName: "\u5F37\u653B\u6483"
+  commandName: "\u708E\u6483"
   mana: 15
   selectPriority: 0
   description: "\u9B54\u529B\u3092\u7528\u3044\u3066\u5A01\u529B\u306E\u9AD8\u3044\u4E00\u6483\u3092\u4E0E\u3048\u308B"
