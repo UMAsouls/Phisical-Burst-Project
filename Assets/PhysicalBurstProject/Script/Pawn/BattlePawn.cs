@@ -14,8 +14,10 @@ using Zenject;
 public abstract class BattlePawn : MonoBehaviour, 
     IPawnInfo, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
     CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn,
-    AttackAble, PawnActInterface, PosGetPawn, AmbushPawn
+    AttackAble, PawnActInterface, PosGetPawn, AmbushPawn, IBattlePawn
 {
+    [Inject]
+    protected IPawnActionManager pawnActionManager;
 
     protected IStatus status;
 
@@ -141,6 +143,12 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public bool ActionStop { get; set; }
 
+    public IPawnActionManager ActionManager => pawnActionManager;
+
+    IStatus IBattlePawn.Status => status;
+
+    public IVirtualPawn VirtualPawn => virtualPawn;
+
     public virtual void ActionAdd(IAction action)
     { 
        actions.Add(action);
@@ -206,7 +214,7 @@ public abstract class BattlePawn : MonoBehaviour,
     {
         if(actions.Count == 0) return false;
         var cAct = actions.Last();
-        cAct.CancelAct(this);
+        cAct.CancelAct(ActionManager, VirtualPawn, status);
 
         actions.Remove(cAct);
 
@@ -266,6 +274,7 @@ public abstract class BattlePawn : MonoBehaviour,
         actPoint = actMax;
         actions = new List<IAction>();
         token = this.GetCancellationTokenOnDestroy();
+        pawnActionManager.init(id, Type);
         FightEnd();
     }
 
@@ -354,7 +363,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public virtual async UniTask<bool> Damage(float damage, int fromID)
     {
-        AttackAble from = strage.GetPawnByID<AttackAble>(fromID);
+        AttackAble from = strage.GetPawnComponentByID<AttackAble>(fromID);
         await UniTask.WaitUntil(() => DamageAble, cancellationToken: token);
 
         var dis = from.Position - Position;

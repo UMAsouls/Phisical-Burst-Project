@@ -17,7 +17,7 @@ public class MiniStatusPrinter : UIPrinter
     {
         if(printedUI.ContainsKey(id)) DestroyUI(id);
         printedUI[id] = PrintUIAsChild(ui);
-        printedUI[id].GetComponent<MiniStatusBar>().Pawn = strage.GetPawnByID<IPawnInfo>(id);
+        printedUI[id].GetComponent<MiniStatusBar>().Pawn = strage.GetPawnComponentByID<IPawnInfo>(id);
     }
 
     public void DestroyUI(int id)

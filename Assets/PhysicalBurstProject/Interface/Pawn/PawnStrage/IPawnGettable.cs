@@ -7,7 +7,7 @@ public interface IPawnGettable
 {
     public T[] GetPawnList<T>();
 
-    public T GetPawnByID<T>(int id);
+    public T GetPawnComponentByID<T>(int id);
 
     public CinemachineVirtualCamera GetPawnCameraByID(int id);
 

@@ -29,13 +29,13 @@ public class EnemyAI : MonoBehaviour
     
     public void EnemySelect(IEnemyPawn enemy)
     {
-        AttackAble target = strage.GetPawnByID<AttackAble>(targetID);
+        AttackAble target = strage.GetPawnComponentByID<AttackAble>(targetID);
 
         while (target == null)
         {
             HateList.Remove(targetID);
             HateUpdate();
-            target = strage.GetPawnByID<AttackAble>(targetID);
+            target = strage.GetPawnComponentByID<AttackAble>(targetID);
             Debug.Log("search");
         }
 
@@ -66,7 +66,12 @@ public class EnemyAI : MonoBehaviour
                 else act = MakeMoveAct(target.Position, target.Size, enemy);
             }
 
-            act.setAct(strage.GetPawnByID<ActionSettable>(enemy.ID));
+            var pawn = strage.GetPawnComponentByID<IBattlePawn>(enemy.ID);
+            var actManager = pawn.ActionManager;
+            var status = pawn.Status;
+            var vpawn = pawn.VirtualPawn;
+
+            act.setAct(actManager, vpawn, status);
         }
     }
 
@@ -81,7 +86,12 @@ public class EnemyAI : MonoBehaviour
             if (attack) act = MakeAttackAction(target, enemy);
             else act = MakeMoveAct(target.Position, target.Size, enemy);
 
-            act.setAct(strage.GetPawnByID<ActionSettable>(enemy.ID));
+            var pawn = strage.GetPawnComponentByID<IBattlePawn>(enemy.ID);
+            var actManager = pawn.ActionManager;
+            var status = pawn.Status;
+            var vpawn = pawn.VirtualPawn;
+
+            act.setAct(actManager, vpawn, status);
         }
     }
 
@@ -93,7 +103,12 @@ public class EnemyAI : MonoBehaviour
             if (Random.Range(0, 2) == 0) act = MakeMoveAct(targetPos, targetSize, enemy);
             else act = MakeAmbushAct(enemy);
 
-            act.setAct(strage.GetPawnByID<ActionSettable>(enemy.ID));
+            var pawn = strage.GetPawnComponentByID<IBattlePawn>(enemy.ID);
+            var actManager = pawn.ActionManager;
+            var status = pawn.Status;
+            var vpawn = pawn.VirtualPawn;
+
+            act.setAct(actManager, vpawn, status);
         }
     }
 

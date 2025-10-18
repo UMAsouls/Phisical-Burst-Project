@@ -20,24 +20,27 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
     public async UniTask<bool> Select(int pawnID)
     {
 
-        BattleCmdSelectable pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(pawnID);
+        var actManager = pawn.ActionManager;
+        var status = pawn.Status;
+        var vpawn = pawn.VirtualPawn;
 
         int select = await pawnSelector.PawnSelect(pawnID, PawnType.Enemy);
 
         if(select == -1) return false;
 
-        AttackAble target = strage.GetPawnByID<AttackAble>(select);
+        AttackAble target = strage.GetPawnComponentByID<AttackAble>(select);
 
         IBattleCommand[] cmds = await battleCmdSelectSystem.Select(pawnID);
 
         if(cmds == null) return false;
 
-        if(pawn.ActPoint >= 2)
+        if(actManager.ActPoint >= 2)
         {
-            actionMaker.MakeHasteAction(cmds, target).setAct(pawn);
+            actionMaker.MakeHasteAction(cmds, target).setAct(actManager, vpawn, status);
         }else
         {
-            actionMaker.MakeNormalAttackAction(cmds, target).setAct(pawn);
+            actionMaker.MakeNormalAttackAction(cmds, target).setAct(actManager, vpawn, status);
         }
 
         return true;

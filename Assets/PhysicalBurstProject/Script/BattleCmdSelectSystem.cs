@@ -27,7 +27,9 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     private SlotWindowControlable slotController;
 
-    private BattleCmdSelectable pawn;
+    //private BattleCmdSelectable pawn;
+    private IPawnActionManager actManager;
+    private IVirtualPawn vpawn;
 
     [Inject]
     private ICmdInfoUIPrinter cmdInfoPrinter;
@@ -61,7 +63,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
             cmdIndex = (int)Mathf.Repeat(cmdIndex + 1, cmdLength);
         }
 
-        cmdInfoPrinter.PrintUI(pawn.BattleCommands[cmdIndex]);
+        cmdInfoPrinter.PrintUI(actManager.BattleCommands[cmdIndex]);
     }
 
     private string[] MakeCmdList(ICommand[] cmds)
@@ -79,7 +81,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         if(selectCount == 0) return;
 
         selectCount--;
-        pawn.VirtualMana += ans[selectCount].UseMana;
+        vpawn.VirtualMana += ans[selectCount].UseMana;
         
         ans[selectCount] = null;
         slotController.ActionSet("", selectCount);
@@ -89,17 +91,19 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
     {
         input.SwitchCurrentActionMap("BattleCmdSelect");
 
-        pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(pawnID);
+        actManager = pawn.ActionManager;
+        vpawn = pawn.VirtualPawn;
 
-        selectorController = selectUIPrinter.PrintCmdSelecter(MakeCmdList(pawn.BattleCommands));
+        selectorController = selectUIPrinter.PrintCmdSelecter(MakeCmdList(actManager.BattleCommands));
         slotController = slotUIPrinter.PrintUI();
 
         selectCount = 0;
 
         cmdIndex = 0;
-        cmdLength = pawn.BattleCommands.Length;
+        cmdLength = actManager.BattleCommands.Length;
 
-        cmdInfoPrinter.PrintUI(pawn.BattleCommands[cmdIndex]);
+        cmdInfoPrinter.PrintUI(actManager.BattleCommands[cmdIndex]);
 
         IBattleCommand[] ans = new IBattleCommand[3];
         while(selectCount < 3)
@@ -116,14 +120,14 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
                 continue;
             }
 
-            IBattleCommand cmd = pawn.BattleCommands[cmdIndex];
-            if(pawn.VirtualMana < cmd.UseMana)
+            IBattleCommand cmd = actManager.BattleCommands[cmdIndex];
+            if(vpawn.VirtualMana < cmd.UseMana)
             {
                 systemSEPlayer.BlockSE();
                 continue;
             }
 
-            pawn.VirtualMana -= cmd.UseMana;
+            vpawn.VirtualMana -= cmd.UseMana;
             ans[selectCount] = cmd;
             slotController.ActionSet(cmd.Name, selectCount);
             selectCount++;

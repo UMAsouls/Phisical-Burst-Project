@@ -183,6 +183,11 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
+            .Bind<IPawnActionManager>()
+            .To<PawnActionManger>()
+            .AsTransient();
+
+        Container
             .BindInterfacesTo<ControlableCamera>()
             .FromComponentOn(controlableCamera)
             .AsTransient();

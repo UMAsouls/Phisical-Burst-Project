@@ -132,7 +132,7 @@ public class BattleSystem : MonoBehaviour
                 Debug.Log("pawnID: " + p.ID);
                 if (p.Type == PawnType.Enemy)
                 {
-                    IEnemyPawn enemy = strage.GetPawnByID<IEnemyPawn>(p.ID);
+                    IEnemyPawn enemy = strage.GetPawnComponentByID<IEnemyPawn>(p.ID);
                     enemy.EnemySelect();
                     
                     p.SelectEnd();

@@ -21,10 +21,10 @@ public abstract class AttackAction : IAction
         this.target = target;
     }
 
-    public bool CancelAct(ActionSettable pawn)
+    public bool CancelAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        pawn.UseActPoint(-1*ActPoint);
-        foreach (var cmd in cmds) { pawn.VirtualMana += cmd.UseMana; }
+        manager.UseActPoint(-1*ActPoint);
+        foreach (var cmd in cmds) { vpawn.VirtualMana += cmd.UseMana; }
         return true;
     }
 
@@ -40,11 +40,11 @@ public abstract class AttackAction : IAction
         return actName;
     }
 
-    public bool setAct(ActionSettable pawn)
+    public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        pawn.UseActPoint(ActPoint);
+        manager.UseActPoint(ActPoint);
 
-        pawn.ActionAdd(this);
+        manager.ActionAdd(this);
 
         return true;
     }

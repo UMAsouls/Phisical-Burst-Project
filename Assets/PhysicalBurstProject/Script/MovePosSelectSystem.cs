@@ -69,24 +69,27 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     {
         Init();
 
-        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(id);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(id);
+        var actManager = pawn.ActionManager;
+        var status = pawn.Status;
+        var vpawn = pawn.VirtualPawn;
 
-        Vector3 cameraPos = pawn.VirtualPos;
+        Vector3 cameraPos = vpawn.VirtualPos;
         cameraPos.z = -1;
 
         var obj1 = container.InstantiatePrefab(posSelector);
         obj1.transform.position = cameraPos;
 
         var obj2 = container.InstantiatePrefab(posSelectorRangeCircle) ;
-        obj2.transform.position = pawn.VirtualPos;
+        obj2.transform.position = vpawn.VirtualPos;
 
         PosSelectorRangeSetter setter = obj1.GetComponent<PosSelectorRangeSetter>();
-        setter.Range = pawn.range;
+        setter.Range = status.Range;
 
         IRangeCircleScaler scaler = obj2.GetComponent<IRangeCircleScaler>();
-        scaler.SetRadius(pawn.range);
+        scaler.SetRadius(status.Range);
 
-        cameraZoomController.OrthoSize = pawn.range;
+        cameraZoomController.OrthoSize = status.Range;
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts); 
 
@@ -100,8 +103,8 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
             return false;
         }
 
-        Vector2 diff = pos - pawn.VirtualPos;
-        actMaker.MakeMoveAction(diff).setAct(pawn);
+        Vector2 diff = pos - vpawn.VirtualPos;
+        actMaker.MakeMoveAction(diff).setAct(actManager, vpawn, status);
 
         Destroy(obj1);
         Destroy(obj2);

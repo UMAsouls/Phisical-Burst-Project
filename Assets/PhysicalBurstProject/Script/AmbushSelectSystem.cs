@@ -25,15 +25,18 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
     {
         input.SwitchCurrentActionMap("Ambush");
 
-        AmbushPawn pawn = strage.GetPawnByID<AmbushPawn>(pawnID);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(pawnID);
+        var actManager = pawn.ActionManager;
+        var status = pawn.Status;
+        var vpawn = pawn.VirtualPawn;
 
         cameraChanger.ChangeToMovableCamera();
-        cameraControler.Position = pawn.VirtualPos;
+        cameraControler.Position = vpawn.VirtualPos;
 
-        var obj = Instantiate(RangeViewer, pawn.VirtualPos, Quaternion.identity);
-        float attackRange = pawn.AttackRange;
+        var obj = Instantiate(RangeViewer, vpawn.VirtualPos, Quaternion.identity);
+        float attackRange = status.AttackRange;
 
-        if (pawn.ActPoint >= 2) attackRange *= 1.2f;
+        if (actManager.ActPoint >= 2) attackRange *= 1.2f;
         else attackRange *= 0.8f;
 
         Vector3 scale = Vector2.one * attackRange*2;
@@ -50,7 +53,7 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
         Destroy(obj);
         if (isCancel) return false;
 
-        new AmbushAction(attackRange, pawn.ActPoint).setAct(strage.GetPawnByID<ActionSettable>(pawnID));
+        new AmbushAction(attackRange, actManager.ActPoint).setAct(actManager, vpawn, status);
         return true;
     }
 

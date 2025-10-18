@@ -12,7 +12,7 @@ public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>
 
     public override async UniTask DoAction(int pawnID)
     {
-        PawnActInterface pawn = strage.GetPawnByID<PawnActInterface>(pawnID);
+        PawnActInterface pawn = strage.GetPawnComponentByID<PawnActInterface>(pawnID);
 
         await PawnEffect(pawn);
 
@@ -23,8 +23,9 @@ public class SpellCmdBehaviour : EasyEffectBehaviour<ISpellCommand>
 
     public override void SetCommand(int pawnID)
     {
-        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(pawnID);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(pawnID);
+        var vpawn = pawn.VirtualPawn;
 
-        pawn.VirtualMana += cmd.GetMana;
+        vpawn.VirtualMana += cmd.GetMana;
     }
 }

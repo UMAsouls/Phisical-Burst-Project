@@ -5,7 +5,7 @@ public class SpellBehaviourMaker : CommandMakerBase<ISpellCommand>
 {
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(ISpellCommand cmd, int pawnID)
     {
-        SelectedPawn pawn = strage.GetPawnByID<SelectedPawn>(pawnID);
+        SelectedPawn pawn = strage.GetPawnComponentByID<SelectedPawn>(pawnID);
         pawn.SelectedFocus();
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, destroyCancellationToken);

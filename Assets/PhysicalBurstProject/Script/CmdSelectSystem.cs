@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -72,9 +73,12 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
     {
         Init();
 
-        pawn = strage.GetPawnByID<CommandActionSettable>(id);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(id);
+        var actManager = pawn.ActionManager;
+        var status = pawn.Status;
+        var vpawn = pawn.VirtualPawn;
 
-        IActionCommand[] commands = pawn.GetActionCommands();
+        IActionCommand[] commands = actManager.ActionCommands;
         cmdLength = commands.Length;
 
         string[] names  = new string[commands.Length];
@@ -82,7 +86,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
 
         controller = uiPrinter.PrintCmdSelecter(names);
 
-        cmdInfoPrinter.PrintUI(pawn.GetActionCommands()[cmdIndex]);
+        cmdInfoPrinter.PrintUI(commands[cmdIndex]);
 
         do
         {
@@ -95,7 +99,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
                 uiPrinter.DestroyCmdSelector();
                 return false;
             }
-            if(pawn.VirtualMana >= commands[cmdIndex].UseMana) break;
+            if(vpawn.VirtualMana >= commands[cmdIndex].UseMana) break;
             systemSEPlayer.BlockSE();
         } while (true);
 
@@ -107,7 +111,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
         if(action == null) return false;
 
         Debug.Log("setted comannd");
-        action.setAct(pawn);
+        action.setAct(actManager, vpawn, status);
         return true;
     }
 

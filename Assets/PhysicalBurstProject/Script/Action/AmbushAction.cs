@@ -16,9 +16,9 @@ public class AmbushAction : IAction
         this.actPoint = actPoint;
     }
 
-    public bool CancelAct(ActionSettable pawn)
+    public bool CancelAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        pawn.UseActPoint(-1*actPoint);
+        manager.UseActPoint(-1*actPoint);
         return true;
     }
 
@@ -34,11 +34,11 @@ public class AmbushAction : IAction
         return "待ち伏せ";
     }
 
-    public bool setAct(ActionSettable pawn)
+    public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        pawn.UseActPoint(actPoint);
+        manager.UseActPoint(actPoint);
 
-        pawn.ActionAdd(this);
+        manager.ActionAdd(this);
         return true;
     }
 }

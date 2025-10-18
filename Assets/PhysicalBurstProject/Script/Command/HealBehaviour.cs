@@ -15,7 +15,7 @@ public class HealBehaviour : EasyEffectBehaviour<IHealCommand>
     
     public override async UniTask DoAction(int pawnID)
     {
-        PawnActInterface pawn = strage.GetPawnByID<PawnActInterface>(pawnID);
+        PawnActInterface pawn = strage.GetPawnComponentByID<PawnActInterface>(pawnID);
 
         await PawnEffect(pawn);
 
@@ -35,7 +35,9 @@ public class HealBehaviour : EasyEffectBehaviour<IHealCommand>
 
     public override void SetCommand(int pawnID)
     {
-        ActionSettable pawn = strage.GetPawnByID<ActionSettable>(pawnID);
-        pawn.VirtualHP += cmd.Heal * pawn.attack / 20;
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(pawnID);
+        var status = pawn.Status;
+        var vpawn = pawn.VirtualPawn;
+        vpawn.VirtualHP += cmd.Heal * status.Attack / 20;
     }
 }

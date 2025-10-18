@@ -69,7 +69,7 @@ public class BattleUIPrinter : UIPrinter,ICmdSelectUIPrinter,IPlayerInformationU
 
     public void PrintPlayerInformation(int id)
     {
-        IPawnInfo pawn = pawnStrage.GetPawnByID<IPawnInfo>(id);
+        IPawnInfo pawn = pawnStrage.GetPawnComponentByID<IPawnInfo>(id);
 
         DestroyPlayerInformation();
 

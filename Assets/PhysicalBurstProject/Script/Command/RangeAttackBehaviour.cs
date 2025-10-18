@@ -16,7 +16,7 @@ public class RangeAttackBehaviour : EasyEffectBehaviour<IRangeAttackCommand>
 
     public override async UniTask DoAction(int pawnID)
     {
-        PawnActInterface pawn = strage.GetPawnByID<PawnActInterface>(pawnID);
+        PawnActInterface pawn = strage.GetPawnComponentByID<PawnActInterface>(pawnID);
 
         await PawnEffect(pawn);
 

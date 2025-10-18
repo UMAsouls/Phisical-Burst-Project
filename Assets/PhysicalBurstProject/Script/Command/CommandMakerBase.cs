@@ -35,7 +35,7 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
 
     public virtual void Init(int id)
     {
-        var p = strage.GetPawnByID<IVirtualPawn>(id);
+        var p = strage.GetPawnComponentByID<IVirtualPawn>(id);
         isConfirm = false;
         isCancel = false;
         isBurst = false;

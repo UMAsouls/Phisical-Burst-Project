@@ -10,9 +10,9 @@ public interface IAction
 
     public  UniTask DoAct(ActablePawn pawn);
 
-    public bool setAct(ActionSettable pawn);
+    public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status);
 
-    public bool CancelAct(ActionSettable pawn);
+    public bool CancelAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status);
 
     public string GetActionName();
 }

@@ -19,7 +19,7 @@ public class LongRangeBehaviour : EasyEffectBehaviour<ILongRangeAttackCommand>
 
     public override async UniTask DoAction(int pawnID)
     {
-        PawnActInterface pawn = strage.GetPawnByID<PawnActInterface>(pawnID);
+        PawnActInterface pawn = strage.GetPawnComponentByID<PawnActInterface>(pawnID);
 
         await PawnEffect(pawn);
 

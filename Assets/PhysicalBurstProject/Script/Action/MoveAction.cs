@@ -19,20 +19,20 @@ public class MoveAction : IAction
         await pawn.MovePos(delta);
     }
 
-    public bool setAct(ActionSettable pawn)
+    public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-       if (!pawn.UseActPoint(1)) return false;
+       if (!manager.UseActPoint(1)) return false;
 
-        pawn.VirtualPos += delta;
-        pawn.ActionAdd(this);
+        vpawn.VirtualPos += delta;
+        manager.ActionAdd(this);
 
        return true;
     }
 
-    public bool CancelAct(ActionSettable pawn)
+    public bool CancelAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        pawn.VirtualPos -= delta;
-        pawn.UseActPoint(-1);
+        vpawn.VirtualPos -= delta;
+        manager.UseActPoint(-1);
 
         return true;
     }

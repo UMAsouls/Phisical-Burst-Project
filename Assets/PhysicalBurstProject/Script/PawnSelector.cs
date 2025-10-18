@@ -1,9 +1,10 @@
 ﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
-using UnityEngine;
-using Zenject;
 using System.Threading;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 {
@@ -52,9 +53,12 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
     public async UniTask<int> PawnSelect(int pawnID, PawnType type)
     {
-        BattleCmdSelectable p1 = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
+        var pawn = strage.GetPawnComponentByID<IBattlePawn>(pawnID);
+        var actManager = pawn.ActionManager;
+        var status = pawn.Status;
+        var vpawn = pawn.VirtualPawn;
 
-        Vector2 startPos = p1.VirtualPos;
+        Vector2 startPos = vpawn.VirtualPos;
 
         isConfirm = false;
         isCancel = false;
@@ -68,7 +72,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         zoomController.OrthoSize = zoom;
 
         cameraController.SetFirstPos(startPos);
-        cameraController.Range = p1.AttackRange;
+        cameraController.Range = status.AttackRange;
         cameraController.RangeMode = true;
 
         onSelect = true;
@@ -80,7 +84,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
             await UniTask.WaitUntil(() => (isConfirm | isCancel), cancellationToken: token);
             if (isCancel) { End(pawnID); return -1; }
         }
-        int ans = pawn.ID;
+        int ans = actManager.ID;
         End(pawnID);
 
         return ans;

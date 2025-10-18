@@ -19,23 +19,23 @@ public class CommandAction : IAction
         await pawn.Action(behaviour);
     }
 
-    public bool CancelAct(ActionSettable pawn)
+    public bool CancelAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        pawn.VirtualMana += behaviour.UseMana;
-        if (behaviour.IsBurst) pawn.VirtualHP += pawn.MaxHP / 5;
+        vpawn.VirtualMana += behaviour.UseMana;
+        if (behaviour.IsBurst) vpawn.VirtualHP += status.MaxHP / 5;
 
-        pawn.UseActPoint(-1);
+        manager.UseActPoint(-1);
         return true;
     }
 
-    public bool setAct(ActionSettable pawn)
+    public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)
     {
-        if (!pawn.UseActPoint(1)) return false;
+        if (!manager.UseActPoint(1)) return false;
 
-        pawn.VirtualMana -= behaviour.UseMana;
-        if (behaviour.IsBurst) pawn.VirtualHP -= pawn.MaxHP / 5;
-        behaviour.SetCommand(pawn.ID);
-        pawn.ActionAdd(this);
+        vpawn.VirtualMana -= behaviour.UseMana;
+        if (behaviour.IsBurst) vpawn.VirtualHP -= status.MaxHP / 5;
+        behaviour.SetCommand(manager.ID);
+        manager.ActionAdd(this);
 
         return true;
     }

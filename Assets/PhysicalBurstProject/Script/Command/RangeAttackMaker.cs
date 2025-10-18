@@ -15,7 +15,7 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
     {
         cameraZoomController.OrthoSize = cmd.Range;
 
-        var vpawn = strage.GetPawnByID<IVirtualPawn>(pawnID);
+        var vpawn = strage.GetPawnComponentByID<IVirtualPawn>(pawnID);
         var obj = Instantiate(RangeViewer, (Vector3)(vpawn.VirtualPos), Quaternion.identity);
 
         var r_scaler = obj.GetComponent<IRangeCircleScaler>();

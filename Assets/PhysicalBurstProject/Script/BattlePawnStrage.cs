@@ -50,7 +50,7 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
         pawnDict[idgettable.ID] = obj;
     }
 
-    public T GetPawnByID<T>(int id)
+    public T GetPawnComponentByID<T>(int id)
     {
         if (pawnDict.ContainsKey(id)) return pawnDict[id].GetComponent<T>();
         else return default;
