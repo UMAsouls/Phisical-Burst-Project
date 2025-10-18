@@ -76,11 +76,13 @@ public class CommandStrage2 : MonoBehaviour, ICommandStrage
         foreach (IActionCommand cmd in actionCmds)
         {
             actionDict.Add(cmd.Name, cmd);
+            Debug.Log($"add Command {cmd.Name}");
         }
         Object[] battleCmds = Resources.LoadAll("Commands/BattleCommand", typeof(IBattleCommand));
         foreach (IBattleCommand cmd in battleCmds)
         {
             battleDict.Add(cmd.Name, cmd);
+            Debug.Log($"add Command {cmd.Name}");
         }
     }
 

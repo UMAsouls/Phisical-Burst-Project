@@ -189,7 +189,7 @@ public class BattleSceneInstaller : MonoInstaller
 
         Container
             .Bind<ICommandStrage>()
-            .To<CommandStrage>()
+            .To<CommandStrage2>()
             .FromComponentOn(commandStrage)
             .AsTransient();
 

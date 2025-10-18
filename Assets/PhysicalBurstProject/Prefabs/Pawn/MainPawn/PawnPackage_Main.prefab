@@ -52,13 +52,13 @@ MonoBehaviour:
   DodgePriority: 1
   battleCommands:
   - cmdName: "\u7D76\u547D\u6483(\u5F37)"
-    priority: 0
+    priority: 1
   - cmdName: "\u7D76\u547D\u6483(\u5F31)"
     priority: 0
   actionCommands:
   - cmdName: "\u8A60\u5531"
     priority: 0
-  - cmdName: "\u30D5\u30EC\u30A2\u30DC\u30E0"
+  - cmdName: "\u30D3\u30C3\u30B0\u30DC\u30E0"
     priority: 0
   addActCmds: []
   addBattleCmds: []
