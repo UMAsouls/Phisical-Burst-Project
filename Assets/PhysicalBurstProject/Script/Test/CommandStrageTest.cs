@@ -7,7 +7,7 @@ namespace Assets.PhysicalBurstProject.Script.Test
     {
 
         [SerializeField]
-        private CommandStrage2 CommandStrage2;
+        private CommandStrage CommandStrage2;
         ICommandStrage commandStrage;
 
         // Use this for initialization
