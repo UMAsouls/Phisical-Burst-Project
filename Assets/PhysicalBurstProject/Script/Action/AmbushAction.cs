@@ -22,11 +22,9 @@ public class AmbushAction : IAction
         return true;
     }
 
-    public async UniTask DoAct(ActablePawn pawn)
+    public async UniTask DoAct(IActionUnit actUnit)
     {
-        pawn.Priority += 1;
-        await pawn.Ambush(range);
-        pawn.Priority -= 1;
+        await actUnit.Ambush(range);
     }
 
     public string GetActionName()

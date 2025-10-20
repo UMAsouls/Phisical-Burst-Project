@@ -14,9 +14,9 @@ public class CommandAction : IAction
         this.behaviour = behaviour;
     }
 
-    public async UniTask DoAct(ActablePawn pawn)
+    public async UniTask DoAct(IActionUnit actUnit)
     {
-        await pawn.Action(behaviour);
+        await actUnit.Action(behaviour);
     }
 
     public bool CancelAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)

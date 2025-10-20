@@ -94,4 +94,22 @@ public class BattlePawnStrage : IPawnStrageable, IPawnGettable
         }
         return values;
     }
+
+    public GameObject[] GetPawnObjects()
+    {
+        GameObject[] values = new GameObject[pawnDict.Count];
+
+        int idx = 0;
+        foreach (var pair in pawnDict)
+        {
+            GameObject comp = pair.Value;
+            values[idx++] = comp;
+        }
+        return values;
+    }
+
+    public GameObject GetPawnObject(int id)
+    {
+        return pawnDict[id];
+    }
 }

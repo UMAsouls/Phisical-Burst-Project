@@ -28,11 +28,10 @@ public abstract class AttackAction : IAction
         return true;
     }
 
-    public virtual async UniTask DoAct(ActablePawn pawn)
+    public virtual async UniTask DoAct(IActionUnit actionUnit)
     {
-        pawn.Priority += PriorityBonus;
-        await pawn.Battle(cmds, target);
-        pawn.Priority -= PriorityBonus;
+        
+        await actionUnit.Battle(cmds, target, PriorityBonus);
     }
 
     public string GetActionName()

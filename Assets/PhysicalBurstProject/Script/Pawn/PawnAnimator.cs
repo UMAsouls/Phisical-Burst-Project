@@ -1,7 +1,8 @@
 ﻿
 using UnityEngine;
+using Zenject;
 
-public class PawnAnimator : MonoBehaviour, IPawnAnimator
+public class PawnAnimator : MonoBehaviour, IPawnAnimator, IObserver<StatusFrag>, IObserver<TurnPhaseFrag>
 {
 
     [SerializeField]
@@ -12,6 +13,9 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
     private EmoteUnit emoteUnit;
 
     private Material mat;
+
+    [Inject]
+    private IObservable<TurnPhaseFrag> turnPhaseObservable;
 
     string[] dirs = new string[] { "RIGHT", "LEFT", "UP", "DOWN" };
 
@@ -93,12 +97,44 @@ public class PawnAnimator : MonoBehaviour, IPawnAnimator
     // Use this for initialization
     void Start()
     {
-        
+        turnPhaseObservable.Subscribe(this);
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void OnComplete()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnNext(StatusFrag value)
+    {
+        switch(value)
+        {
+            case(StatusFrag.Burst):
+                ChangeBurst();
+                break;
+            case(StatusFrag.Stun):
+                ChangeStun(); 
+                break;
+            default:
+                ChangeNormal();
+                break;
+        }
+    }
+
+    public void OnNext(TurnPhaseFrag value)
+    {
+        switch (value)
+        {
+            case (TurnPhaseFrag.TurnEnd):
+                ChangeNormal();
+                break;
+        }
 
     }
 }

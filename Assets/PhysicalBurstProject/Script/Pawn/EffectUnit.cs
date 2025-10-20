@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-public class EffectUnit : MonoBehaviour, IObserver<EffectTiming>
+public class EffectUnit : MonoBehaviour, IObserver<EffectTiming>, IObserver<StatusFrag>
 {
 
     [SerializeField]
@@ -73,5 +73,20 @@ public class EffectUnit : MonoBehaviour, IObserver<EffectTiming>
     public void OnNext(EffectTiming value)
     {
         if(value == EffectTiming.EffectEnd) EffectEnd = true;
+    }
+
+    public void OnNext(StatusFrag value)
+    {
+        switch (value)
+        {
+            case StatusFrag.Burst:
+                Burst();
+                break;
+            case StatusFrag.Stun: 
+                Stun();
+                break;
+            default:
+                break;
+        }
     }
 }

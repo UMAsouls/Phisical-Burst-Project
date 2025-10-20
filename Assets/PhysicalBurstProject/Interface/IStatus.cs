@@ -6,7 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public interface IStatus
+public interface IStatus: 
+    IObservable<IStatus>, IObservable<StatusFrag>, IObserver<TurnPhaseFrag>,
+    IObservable<DamageEffectFrag>
 {
     public int HP { get; }
 
@@ -14,9 +16,9 @@ public interface IStatus
 
     public string Name { get; }
 
-   /// <summary>
-   /// Œ»İ‚ÌUŒ‚—Í
-   /// </summary>
+    /// <summary>
+    /// Œ»İ‚ÌUŒ‚—Í
+    /// </summary>
     public float Attack { get; }
     /// <summary>
     /// UŒ‚—Í‚ÌŒ³‚Ì”’l
@@ -56,11 +58,26 @@ public interface IStatus
 
     public int Priority { get; set; }
 
+    public int Mana { get; }
+
+    public bool IsDeath { get; }
+    public bool IsBurst { get; }
+    public bool IsStun {  get; }
+
+    public bool Avoid { get; set; }
+    public float Guard { get; set; }
+
+    public bool UseMana(int use);
+
+    public void TurnStart();
+
     public void InitPriority();
 
     public void init();
 
     public void Burst();
+
+    public void Stun();
 
     public int Damage(float damage);
 

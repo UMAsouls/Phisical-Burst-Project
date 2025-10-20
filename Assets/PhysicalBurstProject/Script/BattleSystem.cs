@@ -1,19 +1,20 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(PlayerInput))]
-public class BattleSystem : MonoBehaviour
+public class BattleSystem : MonoBehaviour, IObservable<TurnPhaseFrag>
 {
     private string[] defaultActions =
     {
         "à⁄ìÆ", "èPåÇ", "ë“ÇøïöÇπ", "çsìÆ"
     };
 
-    private ActionSelectable[] pawns;
+    private GameObject[] pawns;
 
     [Inject]
     private IPlayerInformationUIPrinter uiPrinter;
@@ -77,6 +78,8 @@ public class BattleSystem : MonoBehaviour
 
     private int turn = 0;
 
+    private List<IObserver<TurnPhaseFrag>> turnPhazeObserver;
+
     /// <summary>
     /// SpeedGettable[]ÇÃCoparer
     /// ç~èáÇ…É\Å[Ég
@@ -85,10 +88,10 @@ public class BattleSystem : MonoBehaviour
     {
         public int Compare(object x, object y)
         {
-            ActionSelectable sx = (ActionSelectable)x;
-            ActionSelectable sy = (ActionSelectable)y;
+            IBattlePawn bx = (IBattlePawn)x;
+            IBattlePawn by = (IBattlePawn)y;
 
-            return (new CaseInsensitiveComparer()).Compare(sy.speed, sx.speed);
+            return (new CaseInsensitiveComparer()).Compare(by.Status.Speed, bx.Status.Speed);
         }
     }
 
@@ -122,48 +125,54 @@ public class BattleSystem : MonoBehaviour
 
             foreach (var p in pawns)
             {
-                if(p == null || p.Death) continue;
+                var bpawn = p.GetComponent<IBattlePawn>();
+                var status = bpawn.Status;
+                var actManager = bpawn.ActionManager;
+                var info = p.GetComponent<IPawnBattleInfo>();
+                var selectUnit = p.GetComponent<SelectUnit>();
 
-                cameraChanger.ChangeToPawnCamera(p.ID);
-                if (p.IsStun) continue;
+                if(p == null || status.IsDeath) continue;
 
-                p.SelectStart();
+                cameraChanger.ChangeToPawnCamera(info.ID);
+                if (status.IsStun) continue;
 
-                Debug.Log("pawnID: " + p.ID);
-                if (p.Type == PawnType.Enemy)
+                selectUnit.SelectStart();
+
+                Debug.Log("pawnID: " + info.ID);
+                if (info.Type == PawnType.Enemy)
                 {
-                    IEnemyPawn enemy = strage.GetPawnComponentByID<IEnemyPawn>(p.ID);
+                    IEnemyPawn enemy = strage.GetPawnComponentByID<IEnemyPawn>(info.ID);
                     enemy.EnemySelect();
                     
-                    p.SelectEnd();
+                    selectUnit.SelectEnd();
                     Debug.Log("selectEnd");
-                    await p.DoAction();
+                    await actManager.DoAction();
                     continue;
                 }
 
                 do
                 {
-                    while (p.ActPoint > 0)
+                    while (actManager.ActPoint > 0)
                     {
                         Debug.Log("Select phaze");
                         do
                         {
                             isCancel = false;
-                            await Select(p);
+                            await Select(info.ID, actManager, selectUnit);
                         } while (isCancel);
                     }
-                    slotPrint(p.GetActionNames());
+                    slotPrint(actManager.GetActionNames());
                     if (! await lastConfirmSystem.ConfirmWait())
                     {
                         isCancel=true;
-                        p.CancelSelect();
+                        selectUnit.CancelSelect();
                     }
                     slotPrinter.DestroyActionSlot();
 
                 } while(isCancel);
 
-                p.SelectEnd();
-                await p.DoAction();
+                selectUnit.SelectEnd();
+                await actManager.DoAction();
 
                 isBattleEnd = IsBattleEnd();
                 if(isBattleEnd) break;
@@ -197,7 +206,7 @@ public class BattleSystem : MonoBehaviour
 
         bgmPlayer.PlayBGM();
 
-        pawns = strage.GetPawnList<ActionSelectable>();
+        pawns = strage.GetPawnObjects();
         Debug.Log("pawn get:" + pawns.Length);
 
         isBattleEnd = false;
@@ -211,26 +220,25 @@ public class BattleSystem : MonoBehaviour
     private async UniTask TurnStart()
     {
         System.Array.Sort(pawns, new SpeedComparer());
-        foreach (var p in pawns)
-        {
-            await p.TurnStart();
-        }
+        ObserverSupport.BroadCastMessage(
+            turnPhazeObserver, TurnPhaseFrag.TurnStart
+         );
         Debug.Log("Turn Start");
         return;
     }
 
-    private async UniTask Select(ActionSelectable pawn)
+    private async UniTask Select(int id, IPawnActionManager actManager, SelectUnit selectUnit)
     {
         do
         {
-            uiPrinter.PrintPlayerInformation(pawn.ID);
-            slotPrint(pawn.GetActionNames());
-            Debug.Log("len:" + pawn.GetActionNames().Length);
+            uiPrinter.PrintPlayerInformation(id);
+            slotPrint(actManager.GetActionNames());
+            Debug.Log("len:" + actManager.GetActionNames().Length);
 
             isConfirm = false;
             isCancel = false;
             bool actCancel = false;
-            cmdIndex = await battleCmdSelectSystem.BattleActionSelect(pawn.ID);
+            cmdIndex = await battleCmdSelectSystem.BattleActionSelect(id);
 
             slotPrinter.DestroyActionSlot();
             uiPrinter.DestroyPlayerInformation();
@@ -240,22 +248,22 @@ public class BattleSystem : MonoBehaviour
                     actCancel= true;
                     break;
                 case 0:
-                    isConfirm = await MovePosSelectable.MovePosSelect(pawn.ID);
+                    isConfirm = await MovePosSelectable.MovePosSelect(id);
                     break;
                 case 1:
-                    isConfirm = await battleCmdActionSelectSystem.Select(pawn.ID);
+                    isConfirm = await battleCmdActionSelectSystem.Select(id);
                     break;
                 case 2:
-                    isConfirm = await ambushSelectSystem.AmbushSelect(pawn.ID);
+                    isConfirm = await ambushSelectSystem.AmbushSelect(id);
                     break;
                 case 3:
-                    isConfirm = await cmdSelectSystem.CmdSelect(pawn.ID);
+                    isConfirm = await cmdSelectSystem.CmdSelect(id);
                     break;
             }
 
             if(actCancel)
             {
-                pawn.CancelSelect();
+                selectUnit.CancelSelect();
                 isCancel = true;
                 break;
             }
@@ -268,21 +276,10 @@ public class BattleSystem : MonoBehaviour
 
     private async UniTask TurnEnd()
     {
-        int count = 0;
-        foreach (var p in pawns) if(!p.Death) count++;
 
-        ActionSelectable[] newList = new ActionSelectable[count];
-        int idx = 0;
-        for(int i = 0; i < pawns.Length; i++)
-        {
-            if (!pawns[i].Death) newList[idx++] = pawns[i];
-        }
-        pawns = newList;
-
-        foreach (var p in pawns)
-        {     
-            await p.TurnEnd();
-        }
+        ObserverSupport.BroadCastMessage(
+            turnPhazeObserver, TurnPhaseFrag.TurnEnd
+         );
 
         isBattleEnd = IsBattleEnd();
         return;
@@ -309,6 +306,7 @@ public class BattleSystem : MonoBehaviour
     private void Awake()
     {
         input = GetComponent<PlayerInput>();
+        turnPhazeObserver = new List<IObserver<TurnPhaseFrag>>();
     }
 
 
@@ -322,6 +320,11 @@ public class BattleSystem : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void Subscribe(IObserver<TurnPhaseFrag> observer)
     {
         
     }

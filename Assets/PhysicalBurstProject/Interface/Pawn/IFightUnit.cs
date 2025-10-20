@@ -1,16 +1,19 @@
 ﻿using Cysharp.Threading.Tasks;
-using System.Threading;
-using UnityEngine;
 
-public interface AttackAble: IDGettable, PawnTypeGettable
+using UnityEngine
+
+public interface IFightUnit
 {
+    public void FightStart();
+    public void FightEnd();
+
     public int HP { get; }
 
     public string name { get; }
 
     public Vector2 Position { get; }
 
-    public float attack {  get; }
+    public float attack { get; }
 
     public bool Death { get; }
 
@@ -31,9 +34,9 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public bool DamageAble { get; set; }
 
-    public bool AttackEnd {  get; set; }
+    public bool AttackEnd { get; set; }
 
-    public bool IsStun {  get; }
+    public bool IsStun { get; }
 
     public bool GetAmbushed { get; set; }
 
@@ -41,14 +44,11 @@ public interface AttackAble: IDGettable, PawnTypeGettable
 
     public float Size { get; }
 
-    public UniTask<bool> Damage(float damage, int fromID);
+    public UniTask<bool> Damage(float damage, Vector2 from_pos);
     public UniTask<bool> Heal(float heal);
     public UniTask<bool> Crash();
 
     public void Stun();
-
-    public void FightStart();
-    public void FightEnd();
 
     public void AttackEmote(Vector2 dir);
 

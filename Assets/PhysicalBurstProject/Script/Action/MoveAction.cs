@@ -13,10 +13,10 @@ public class MoveAction : IAction
 
     private Vector2 delta;
 
-    public async UniTask DoAct(ActablePawn pawn)
+    public async UniTask DoAct(IActionUnit actUnit)
     {
         Debug.Log("actstart");
-        await pawn.MovePos(delta);
+        await actUnit.MovePos(delta);
     }
 
     public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status)

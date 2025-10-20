@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IPawnAnimator
+public interface IPawnAnimator: IObserver<StatusFrag>
 {
     public void MoveAnimation(Vector2 dir);
 

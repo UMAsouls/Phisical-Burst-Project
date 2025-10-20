@@ -13,11 +13,11 @@ public class MiniStatusPrinter : UIPrinter
 
     Dictionary<int, GameObject> printedUI;
 
-    public void PrintUI(int id)
+    public void PrintUI(int id, IStatus status)
     {
         if(printedUI.ContainsKey(id)) DestroyUI(id);
         printedUI[id] = PrintUIAsChild(ui);
-        printedUI[id].GetComponent<MiniStatusBar>().Pawn = strage.GetPawnComponentByID<IPawnInfo>(id);
+        status.Subscribe(printedUI[id].GetComponent<MiniStatusBar>());
     }
 
     public void DestroyUI(int id)

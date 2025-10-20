@@ -12,8 +12,8 @@ using Zenject;
 [RequireComponent(typeof(IPawnAnimator))]
 [RequireComponent(typeof(EffectUnit))]
 public abstract class BattlePawn : MonoBehaviour, 
-    IPawnInfo, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
-    CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn,
+    IPawnInfo, IDGettable, PawnOptionSettable,  
+    IVirtualPawn, PawnTypeGettable, SelectedPawn,
     AttackAble, PawnActInterface, PosGetPawn, AmbushPawn, IBattlePawn
 {
     [Inject]
@@ -77,6 +77,9 @@ public abstract class BattlePawn : MonoBehaviour,
 
     [Inject]
     protected IPawnGettable strage;
+
+    [Inject]
+    protected IObservable<TurnPhaseFrag> turnPhaseObservable;
 
     public float attack => status.Attack;
 
@@ -241,7 +244,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public async UniTask Battle(IBattleCommand[] cmds, AttackAble target)
     {
-        await battleActionUnit.Battle(cmds, target, this);
+        await battleActionUnit.Battle(cmds, target);
     }
 
     public async UniTask Action(IActionCommandBehaviour action)
@@ -253,7 +256,7 @@ public abstract class BattlePawn : MonoBehaviour,
     public async UniTask Ambush(float range)
     {
         ambushTokenSource = new CancellationTokenSource();
-        ambushUnit.Ambush(this, range, ambushTokenSource.Token).Forget();
+        ambushUnit.Ambush(this, range).Forget();
     }
 
     public abstract UniTask EmergencyBattle(AttackAble target);
@@ -266,8 +269,11 @@ public abstract class BattlePawn : MonoBehaviour,
     protected virtual void Start()
     {
         animator = GetComponent<IPawnAnimator>();
+        status.Subscribe(animator);
         selectable = GetComponent<SelectablePawn>();
         effectUnit = GetComponent<EffectUnit>();
+        status.Subscribe(effectUnit);
+        status.Subscribe(sePlayer);
         mana = 0;
         virtualPos = transform.position;
         actMax = 2;
@@ -276,6 +282,8 @@ public abstract class BattlePawn : MonoBehaviour,
         token = this.GetCancellationTokenOnDestroy();
         pawnActionManager.init(id, Type);
         FightEnd();
+
+        turnPhaseObservable.Subscribe(status);
     }
 
     // Update is called once per frame

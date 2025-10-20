@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour, SystemSEPlayable, BGMPlayable
+public class SoundManager : MonoBehaviour, 
+    SystemSEPlayable, BGMPlayable
 {
 
     [SerializeField]
@@ -78,5 +79,20 @@ public class SoundManager : MonoBehaviour, SystemSEPlayable, BGMPlayable
     void Update()
     {
 
+    }
+
+    public void OnComplete()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnNext(StatusFrag value)
+    {
+        switch(value)
+        {
+            case StatusFrag.Burst:
+                BurstSE();
+                break;
+        }
     }
 }

@@ -8,7 +8,7 @@ public interface IAction
 {
     public ActionType Type { get; }
 
-    public  UniTask DoAct(ActablePawn pawn);
+    public  UniTask DoAct(IActionUnit actUnit);
 
     public bool setAct(IPawnActionManager manager, IVirtualPawn vpawn, IStatus status);
 

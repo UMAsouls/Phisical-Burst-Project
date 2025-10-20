@@ -20,6 +20,10 @@ public class BattleActionUnit : MonoBehaviour
     [Inject]
     SystemSEPlayable sePlayer;
 
+    IBattlePawn self;
+    IPawnInfo pawnInfo;
+    MiniStatusController controller;
+
     private bool isBurst;
 
     private bool countComplete = true;
@@ -46,11 +50,13 @@ public class BattleActionUnit : MonoBehaviour
         countComplete = true;
     }
 
-    public async UniTask Battle(IBattleCommand[] cmds, AttackAble target, PawnActInterface pawn)
+    public async UniTask Battle(IBattleCommand[] cmds, AttackAble target)
     {
-        Vector2 arrowDir  = (target.Position - pawn.Position);
+        var status = self.Status;
 
-        Vector2 arrowPos = (target.Position + pawn.Position) / 2;
+        Vector2 arrowDir  = (target.Position - pawnInfo.Position);
+
+        Vector2 arrowPos = (target.Position + pawnInfo.Position) / 2;
         float arrowRot = Mathf.Atan2(arrowDir.y, arrowDir.x)* Mathf.Rad2Deg;
 
         var arrow = Instantiate(BattleArrow, arrowPos, Quaternion.identity);
@@ -59,21 +65,21 @@ public class BattleActionUnit : MonoBehaviour
 
         await UniTask.Delay(1000, cancellationToken: destroyCancellationToken);
 
-        pawn.MiniStatusPrint();
+        controller.MiniStatusPrint();
         target.MiniStatusPrint();
         Debug.Log($"対戦:{target.name}");
         await target.EmergencyBattle(pawn);
         
 
         Destroy(arrow);
-        var dir1 = (target.Position - pawn.Position);
+        var dir1 = (target.Position - pawnInfo.Position);
         dir1 = new Vector2(-1 * dir1.x, dir1.y);
-        var dir2 = (pawn.Position - target.Position);
+        var dir2 = (pawnInfo.Position - target.Position);
         dir2 = new Vector2(-1 * dir2.x, dir2.y);
-        selfUIController = uiPrinter.PrintUIInBattle(pawn.Position, dir1);
+        selfUIController = uiPrinter.PrintUIInBattle(pawnInfo.Position, dir1);
         targetUIController = uiPrinter.PrintUIInBattle(target.Position, dir2);
 
-        pawn.MiniStatusPrint();
+        controller.MiniStatusPrint();
         target.MiniStatusPrint();
 
         var enemyCmds = target.EmergencyCmds;
@@ -91,11 +97,11 @@ public class BattleActionUnit : MonoBehaviour
                 pawn?.FightEnd(); 
                 uiPrinter.DestroyUI();
                 uiPrinter.DestroyUI();
-                pawn.MiniStatusDestroy();
+                controller.MiniStatusDestroy();
 
                 return;
             }
-            if(pawn == null || pawn.Death)
+            if(self == null || self.Status.IsDeath)
             {
                 target?.FightEnd();
                 uiPrinter.DestroyUI();
@@ -112,8 +118,8 @@ public class BattleActionUnit : MonoBehaviour
             var cmd1 = cmds[i];
             var cmd2 = enemyCmds[i];
 
-            var j1 = judge.Judge(cmd1.Type, cmd2.Type, pawn.Priority - target.Priority);
-            var j2 = judge.Judge(cmd2.Type, cmd1.Type, target.Priority - pawn.Priority);
+            var j1 = judge.Judge(cmd1.Type, cmd2.Type, status.Priority - target.Priority);
+            var j2 = judge.Judge(cmd2.Type, cmd1.Type, target.Priority - status.Priority);
 
             if (!j1) selfUIController.YellowFocusAnim(i);
             else selfUIController.BlueFocusAnim(i);
@@ -140,25 +146,25 @@ public class BattleActionUnit : MonoBehaviour
 
                 if (target.Type == PawnType.Enemy)
                 {
-                    enBurst = BurstJudge(j2, pawn.Burst);
-                    if (isBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); countComplete = true; }
+                    enBurst = BurstJudge(j2, status.IsBurst);
+                    if (isBurst && !status.IsBurst) { status.Burst(); cts.Cancel(); countComplete = true; }
                     else if (enBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); countComplete = true; }
                     else  { isBurst = false; enBurst = false; }
                 }else
                 {
                     enBurst = BurstJudge(j1, target.Burst);
                     if (isBurst && !target.Burst) { target.PhysicalBurst(); cts.Cancel(); countComplete = true; }
-                    else if (enBurst && !pawn.Burst) { pawn.PhysicalBurst(); cts.Cancel(); countComplete = true; }
+                    else if (enBurst && !status.IsBurst) { status.Burst(); cts.Cancel(); countComplete = true; }
                     else { isBurst = false; enBurst = false; }
                 }
 
             } while (isBurst  || enBurst || !countComplete);
 
-            if (pawn.IsStun) pawn.FightEnd();
+            if (status.IsStun) pawn.FightEnd();
             else
             {
                 cmd1.Do(pawn, target, cmd2.Type).Forget();
-                pawn.UseMana((int)cmd1.UseMana);
+                status.UseMana((int)cmd1.UseMana);
             }
 
             if (target.IsStun) target.FightEnd();
@@ -172,9 +178,6 @@ public class BattleActionUnit : MonoBehaviour
 
             pawn.FightEnd();
             target.FightEnd();
-
-            if(pawn.HP <= 0 && !pawn.Death) await pawn.DeathPawn();
-            if(target.HP <= 0 && !target.Death) await target.DeathPawn();
 
             Debug.Log("FightEnd");
 
@@ -201,6 +204,9 @@ public class BattleActionUnit : MonoBehaviour
     void Start()
     {
         input = GetComponent<PlayerInput>();
+        self = GetComponent<IBattlePawn>();
+        pawnInfo = GetComponent<IPawnInfo>();
+        controller = GetComponent<MiniStatusController>();
     }
 
     // Update is called once per frame

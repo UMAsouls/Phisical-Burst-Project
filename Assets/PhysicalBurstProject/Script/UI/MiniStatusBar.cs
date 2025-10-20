@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MiniStatusBar : MonoBehaviour
+public class MiniStatusBar : MonoBehaviour, IObserver<IStatus>
 {
     [SerializeField]
     TextMeshProUGUI priorityUI;
@@ -18,9 +18,16 @@ public class MiniStatusBar : MonoBehaviour
 
     private GageSetable hpbar;
 
-    private IPawnInfo pawn;
+    public void OnComplete()
+    {
+        throw new System.NotImplementedException();
+    }
 
-    public IPawnInfo Pawn { set => pawn = value; }
+    public void OnNext(IStatus value)
+    {
+        hpbar.Set(value.MaxHP, value.HP);
+        priorityUI.text = value.Priority.ToString();
+    }
 
     private void Awake()
     {
@@ -45,9 +52,9 @@ public class MiniStatusBar : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(graphic.rectTransform, spos, camera, out pos);
         rectTransform.localPosition = pos;
         */
-        transform.position = pawn.Position + barPos;
+        //transform.position = pawn.Position + barPos;
 
-        hpbar.Set(pawn.MaxHP, pawn.HP);
-        priorityUI.text = pawn.Priority.ToString();
+        
+        
     }
 }

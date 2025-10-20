@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
-public class AmbushUnit : MonoBehaviour
+public class AmbushUnit : MonoBehaviour, IObserver<SelectPhaseFrag>
 {
 
     [Inject]
@@ -23,8 +23,13 @@ public class AmbushUnit : MonoBehaviour
     [SerializeField]
     GameObject SencerObj;
 
-    public async UniTask Ambush(PawnActInterface pawn, float range, CancellationToken token)
+    CancellationTokenSource tokenSource;
+
+    public async UniTask Ambush(PawnActInterface pawn, float range)
     {
+        tokenSource = new CancellationTokenSource();
+        CancellationToken token = tokenSource.Token; 
+
         var obj = container.InstantiatePrefab(SencerObj);
         obj.transform.position = pawn.Position;
         var pawnSencer = obj.GetComponent<IPawnSencer>();
@@ -47,7 +52,7 @@ public class AmbushUnit : MonoBehaviour
 
         IBattleCommand[] cmds = await pawn.AmbushSelect(pawnSencer.SencedTarget);
 
-        await battleActionUnit.Battle(cmds, pawnSencer.SencedTarget, pawn);
+        await battleActionUnit.Battle(cmds, pawnSencer.SencedTarget);
 
         if(!pawnSencer.SencedTarget.Death)
         {
@@ -60,12 +65,25 @@ public class AmbushUnit : MonoBehaviour
         Destroy(obj);
     }
 
+    public void OnComplete()
+    {
+        throw new System.NotImplementedException();
+    }
 
+    public void OnNext(SelectPhaseFrag value)
+    {
+        switch(value)
+        {
+            case SelectPhaseFrag.SelectStart:
+                tokenSource?.Cancel();
+                break;
+        }
+    }
 
     // Use this for initialization
     void Start()
     {
-
+        GetComponent<IObservable<SelectPhaseFrag>>().Subscribe(this);
     }
 
     // Update is called once per frame
