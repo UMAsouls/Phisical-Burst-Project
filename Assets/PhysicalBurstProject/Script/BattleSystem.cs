@@ -58,7 +58,7 @@ public class BattleSystem : MonoBehaviour
     [Inject]
     private BGMPlayable bgmPlayer;
 
-    private CancellationToken cts;
+    protected CancellationToken cts;
 
     [SerializeField]
     string nextScene;
@@ -75,7 +75,7 @@ public class BattleSystem : MonoBehaviour
     private bool EnemyWin = false;
     private bool PlayerWin = false;
 
-    private int turn = 0;
+    protected int turn = 0;
 
     /// <summary>
     /// SpeedGettable[]‚ÌCoparer
@@ -110,7 +110,7 @@ public class BattleSystem : MonoBehaviour
         for (int i = 0; i < actNames.Length; i++) slotController.ActionSet(actNames[i], i);
     }
 
-    private async UniTask Battle()
+    protected async UniTask Battle()
     {
         Debug.Log("BattleStart");
         await BattleStart();
@@ -186,7 +186,7 @@ public class BattleSystem : MonoBehaviour
         return;
     }
 
-    private async UniTask BattleStart()
+    protected virtual async UniTask BattleStart()
     {
         cameraChanger.ChangeToCenterCamera();
 
@@ -208,7 +208,7 @@ public class BattleSystem : MonoBehaviour
         return;
     }
 
-    private async UniTask TurnStart()
+    protected virtual async UniTask TurnStart()
     {
         System.Array.Sort(pawns, new SpeedComparer());
         foreach (var p in pawns)
@@ -266,7 +266,7 @@ public class BattleSystem : MonoBehaviour
         return;
     }
 
-    private async UniTask TurnEnd()
+    protected virtual async UniTask TurnEnd()
     {
         int count = 0;
         foreach (var p in pawns) if(!p.Death) count++;

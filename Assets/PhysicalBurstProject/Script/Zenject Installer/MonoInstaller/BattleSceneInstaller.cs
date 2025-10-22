@@ -210,5 +210,10 @@ public class BattleSceneInstaller : MonoInstaller
             .To<SoundManager>()
             .FromComponentOn(soundManager)
             .AsTransient();
+
+        Container
+            .Bind<IBroker<TutorialTopicFrag, TutorialTimingMessage>>()
+            .To<Broker<TutorialTopicFrag, TutorialTimingMessage>>()
+            .AsSingle();
     }
 }
