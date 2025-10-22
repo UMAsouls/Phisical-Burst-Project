@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 public interface ISubscriber<T>
 {
-    void Update(T message);
+    void CatchMessage(T message);
 }
