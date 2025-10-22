@@ -14,8 +14,8 @@ public struct CommandPackage
     public float priority;
 }
 
-
-public class PawnPackage : MonoBehaviour
+[CreateAssetMenu(fileName = "PawnPackage", menuName = "PBP/Pawn/PawnPackage")]
+public class PawnPackage : ScriptableObject
 {
     static CommandPackage[] defaultBattleCmds = new CommandPackage[4];
 

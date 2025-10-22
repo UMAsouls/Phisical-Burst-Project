@@ -8,7 +8,7 @@ using Zenject;
 class PackageAndPos
 {
     [SerializeField]
-    public string packageID;
+    public PawnPackage package;
 
     [SerializeField]
     public GameObject positioner;
@@ -38,10 +38,9 @@ public class PawnMaker : MonoBehaviour
 
         for(int i = 0; i < PawnAndPos.Length; i++)
         {
-            GameObject pawn;
-            pawn = container.InstantiatePrefab(PawnPackageStrage.instance.GetPawnPackage(PawnAndPos[i].packageID));
-
-            var package = pawn.GetComponent<PawnPackage>();
+            
+            var package = PawnAndPos[i].package;
+            container.Inject(package);
             package.Position = PawnAndPos[i].positioner.transform.position;
             package.Init();
             var obj = package.MakePawn(container, id);
