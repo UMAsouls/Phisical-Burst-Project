@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-public class ResultUI : MonoBehaviour
+public class ResultUI : ConfirmCancelCatchAble
 {
     [SerializeField]
     TextMeshProUGUI turn;
@@ -14,18 +14,18 @@ public class ResultUI : MonoBehaviour
     [Inject]
     SystemSEPlayable sePlayer;
 
-    PlayerInput input;
-
     public int TurnNum { set => turn.text += value.ToString(); }
 
     public string NextScene { get; set; }
 
+    protected override InputMode SelfMode => InputMode.Result;
+
     public void EnterAble()
     {
-        input.SwitchCurrentActionMap("Enter");
+        InputModeChangeToSelf();
     } 
 
-    public async void OnConfirm(InputAction.CallbackContext context)
+    public override async void OnConfirm(InputAction.CallbackContext context)
     {
         if(context.performed)
         {
@@ -33,14 +33,9 @@ public class ResultUI : MonoBehaviour
             await UniTask.Delay(100);
             SceneManager.LoadScene(NextScene);
         }
+        base.OnConfirm(context);
     }
     
-
-    // Use this for initialization
-    void Start()
-    {
-        input = GetComponent<PlayerInput>();
-    }
 
     // Update is called once per frame
     void Update()

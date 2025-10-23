@@ -22,8 +22,6 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
 
     protected bool isBurst = false;
 
-    protected PlayerInput input;
-
     protected string actionMap;
 
     protected OrthoCameraZoomAble cameraZoomController;
@@ -45,13 +43,12 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
 
         cameraZoomController = cameraChanger.GetZoomController();
 
-        input.SwitchCurrentActionMap(actionMap);
+        InputModeChangeToSelf();
     }
 
     public void End(int id)
     {
         cameraChanger.ChangeToPawnCamera(id);
-        input.SwitchCurrentActionMap("None");
     }
 
     public async UniTask<IActionCommandBehaviour> GetBehaviour(T cmd, int pawnID)
@@ -64,8 +61,10 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
 
     public abstract UniTask<IActionCommandBehaviour> MakeBehaviour(T cmd, int pawnID);
 
-    protected virtual void Awake()
+    public override void Start()
     {
-        input = GetComponent<PlayerInput>();
+        var burstAction = new ActionSetMessage(SelfMode, "Burst", OnBurst);
+        actionSetBroker.BroadCast(ActionSetTopic.SetAction, burstAction);
+        base.Start();
     }
 }

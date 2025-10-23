@@ -212,8 +212,18 @@ public class BattleSceneInstaller : MonoInstaller
             .AsTransient();
 
         Container
-            .Bind<IBroker<TutorialTopicFrag, TutorialTimingMessage>>()
+            .Bind(typeof(IBroker<TutorialTopicFrag, TutorialTimingMessage>))
             .To<Broker<TutorialTopicFrag, TutorialTimingMessage>>()
+            .AsSingle();
+
+        Container
+            .Bind(typeof(IBroker<InputModeTopic, InputMode>))
+            .To<Broker<InputModeTopic, InputMode>>()
+            .AsSingle();
+
+        Container
+            .Bind(typeof(IBroker<ActionSetTopic, ActionSetMessage>))
+            .To<Broker<ActionSetTopic, ActionSetMessage>>()
             .AsSingle();
     }
 }

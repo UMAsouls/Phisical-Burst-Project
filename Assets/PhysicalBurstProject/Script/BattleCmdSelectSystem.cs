@@ -32,13 +32,13 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
     [Inject]
     private ICmdInfoUIPrinter cmdInfoPrinter;
 
-    private PlayerInput input;
-
     [Inject]
     LastConfirmSystem lastConfirmSystem;
 
 
     private int selectCount;
+
+    protected override InputMode SelfMode => InputMode.BattleCmdSelect;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
@@ -87,7 +87,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     public async UniTask<IBattleCommand[]> Select(int pawnID)
     {
-        input.SwitchCurrentActionMap("BattleCmdSelect");
+        inputModeBroker.BroadCast(InputModeTopic.SwitchActionMap, SelfMode);
 
         pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
 
@@ -133,7 +133,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
                 if (! await lastConfirmSystem.ConfirmWait())
                 {
                     CancelCmd(ans);
-                    input.SwitchCurrentActionMap("BattleCmdSelect");
+                    inputModeBroker.BroadCast(InputModeTopic.SwitchActionMap, SelfMode);
                 } 
             }
  
@@ -142,16 +142,18 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         selectUIPrinter.DestroyCmdSelector();
         slotUIPrinter.DestroyUI();
         cmdInfoPrinter.DestroyUI();
-        input.SwitchCurrentActionMap("None");
 
         return ans;
     }
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         token = this.GetCancellationTokenOnDestroy();
-        input = GetComponent<PlayerInput>();
+
+        var selectorMove = new ActionSetMessage(SelfMode, "Move", OnSelectorMove);
+        actionSetBroker.BroadCast(ActionSetTopic.SetAction, selectorMove);
+        base.Start();
     }
 
     // Update is called once per frame

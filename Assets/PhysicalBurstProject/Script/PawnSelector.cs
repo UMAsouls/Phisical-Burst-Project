@@ -32,7 +32,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
     private bool onSelect;
 
-    private PlayerInput input;
+    protected override InputMode SelfMode => InputMode.PawnSelect;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -43,7 +43,6 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
     public void End(int pawnID)
     {
         onSelect = false;
-        input.SwitchCurrentActionMap("None");
         cameraChanger.ChangeToPawnCamera(pawnID);
         posSelectorUIPrinter.DestroyPosSelectorUI();
         cameraController.RangeMode = false;
@@ -73,7 +72,8 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
         onSelect = true;
 
-        input.SwitchCurrentActionMap("Battle");
+        InputModeChangeToSelf();
+        //input.SwitchCurrentActionMap("Battle");
 
         while (pawn == null)
         {
@@ -102,11 +102,14 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         onSelect = false;
         token = this.GetCancellationTokenOnDestroy();
-        input = GetComponent<PlayerInput>();
+
+       SetAction("Move", OnMove);
+
+        base.Start();
     }
 
     // Update is called once per frame

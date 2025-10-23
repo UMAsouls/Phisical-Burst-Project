@@ -33,8 +33,6 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     [Inject]
     MoveActionMakeable actMaker;
 
-    private PlayerInput input;
-
     [Inject]
     CameraChangeAble cameraChanger;
 
@@ -58,7 +56,6 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
         isCancel = false;
         isConfirm = false;
 
-        input.SwitchCurrentActionMap("Move");
         uiPrinter.PrintPosSelectorUI();
 
         cameraChanger.ChangeToMovableCamera();
@@ -113,6 +110,5 @@ public class MovePosSelectSystem :MonoBehaviour, PosConfirmAble, MovePosSelectab
     private void Awake()
     {
         cts = this.GetCancellationTokenOnDestroy();
-        input = GetComponent<PlayerInput>();
     }
 }

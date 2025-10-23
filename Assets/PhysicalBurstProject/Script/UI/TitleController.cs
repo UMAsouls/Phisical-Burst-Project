@@ -16,8 +16,7 @@ public class TitleController : ConfirmCancelCatchAble
 
     private int idx;
 
-    private PlayerInput input;
-
+    protected override InputMode SelfMode => InputMode.Title;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
@@ -43,7 +42,7 @@ public class TitleController : ConfirmCancelCatchAble
 
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         idx = 0;
         controller = GetComponentInChildren<ICmdSelectorController>();
@@ -54,10 +53,11 @@ public class TitleController : ConfirmCancelCatchAble
         isCancel = false;
         isConfirm = false;
 
-        input = GetComponent<PlayerInput>();
-        input.SwitchCurrentActionMap("main");
-
         controller.Set(0);
+
+        var selectorMove = new ActionSetMessage(SelfMode, "Move", OnSelectorMove);
+        base.Start();
+        InputModeChangeToSelf();
     }
 
     // Update is called once per frame

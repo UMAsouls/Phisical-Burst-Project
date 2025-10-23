@@ -8,7 +8,7 @@ using UnityEngine.Windows;
 using UnityEditor;
 using System.Threading;
 
-public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
+public class BattleActionSelectSystem : ConfirmCancelCatchAble, IBattleActionSelectSystem
 {
     [Inject]
     private ICmdSelectUIPrinter uiPrinter;
@@ -24,14 +24,11 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
     private int cmdIndex = 0;
     private int cmdLength = 4;
 
-    private bool isConfirm = false;
-    private bool isCancel = false;
-
     private ICmdSelectorController controller;
 
-    private PlayerInput input;
-
     private CancellationToken cts;
+
+    protected override InputMode SelfMode => InputMode.FirstSelect;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
@@ -57,16 +54,6 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
     }
 
-    public void OnConfirm(InputAction.CallbackContext context)
-    {
-        if (context.performed) { isConfirm = true;  sePlayer.ConfirmSE(); }
-    }
-
-    public void OnCancel(InputAction.CallbackContext context)
-    {
-        if (context.performed) { isCancel = true; sePlayer.CancelSE(); }
-    }
-
     public async UniTask<int> BattleActionSelect(int id)
     {
         isCancel = false;
@@ -76,7 +63,7 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
         controller = uiPrinter.PrintCmdSelecter(defaultActions);
 
-        input.SwitchCurrentActionMap("FirstSelect");
+        InputModeChangeToSelf();
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
@@ -85,19 +72,15 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
         uiPrinter.DestroyCmdSelector();
         controller = null;
 
-        input.SwitchCurrentActionMap("None");
         return cmdIndex;
     }
 
-    private void Awake()
-    {
-        input = gameObject.GetComponent<PlayerInput>();
-    }
-
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         cts = this.GetCancellationTokenOnDestroy();
+        SetAction("Move", OnSelectorMove);
+        base.Start();
     }
 
     // Update is called once per frame

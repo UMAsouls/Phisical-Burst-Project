@@ -13,11 +13,11 @@ public class LastConfirmSystem : ConfirmCancelCatchAble
 
     private CancellationToken token;
 
-    private PlayerInput input;
+    protected override InputMode SelfMode => InputMode.LastConfirm;
 
     public async UniTask<bool> ConfirmWait()
     {
-        input.SwitchCurrentActionMap("LastConfirm");
+        InputModeChangeToSelf();
         uiPritner.PrintUI("Confirm");
 
         isCancel = false;
@@ -26,16 +26,16 @@ public class LastConfirmSystem : ConfirmCancelCatchAble
         await UniTask.WaitUntil(() => isConfirm | isCancel, cancellationToken: token);
 
         uiPritner.DestroyUI("Confirm");
-        input.SwitchCurrentActionMap("None");
 
         if(isCancel) return false;
         
         return true;
     }
 
-    private void Start()
+    public override void Start()
     {
-        input = GetComponent<PlayerInput>();
         token = this.GetCancellationTokenOnDestroy();
+
+        base.Start();
     }
 }

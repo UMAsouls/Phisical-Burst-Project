@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
+public class PosSelector : ConfirmCancelCatchAble, PosSelectorRangeSetter
 {
 
     [Inject]
@@ -12,9 +12,6 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 
     [Inject]
     private PosConfirmAble posConfirmAble;
-
-    [Inject]
-    private SystemSEPlayable systemSEPlayer;
 
     private Vector2 movedir;
 
@@ -27,27 +24,34 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 
     public float Range { set => range = value; }
 
-    public void OnMove(InputValue value)
+    protected override InputMode SelfMode => InputMode.PosSelect;
+
+    public void OnMove(InputAction.CallbackContext context)
     {
-       movedir = value.Get<Vector2>();
+       movedir = context.ReadValue<Vector2>();
     }
 
-    public void OnConfirm(InputValue value)
+    public override void OnConfirm(InputAction.CallbackContext context)
     {
         posConfirmAble.PosConfirm(transform.position);
-        systemSEPlayer.ConfirmSE();
+        base.OnConfirm(context);
     }
 
-    public void OnCancel(InputValue value)
+    public override void OnCancel(InputAction.CallbackContext context)
     {
         posConfirmAble.Cancel();
-        systemSEPlayer.CancelSE();
+        base.OnCancel(context);
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         firstPos = transform.position;
+
+        SetAction("Move", OnMove);
+        base.Start();
+
+        InputModeChangeToSelf();
     }
 
     // Update is called once per frame

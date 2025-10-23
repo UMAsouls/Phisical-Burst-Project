@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-[RequireComponent(typeof(PlayerInput))]
 public class BattleSystem : MonoBehaviour
 {
     private string[] defaultActions =
@@ -69,8 +68,6 @@ public class BattleSystem : MonoBehaviour
     private int cmdIndex;
 
     private bool isBattleEnd;
-
-    private PlayerInput input;
 
     private bool EnemyWin = false;
     private bool PlayerWin = false;
@@ -308,7 +305,6 @@ public class BattleSystem : MonoBehaviour
 
     private void Awake()
     {
-        input = GetComponent<PlayerInput>();
     }
 
 

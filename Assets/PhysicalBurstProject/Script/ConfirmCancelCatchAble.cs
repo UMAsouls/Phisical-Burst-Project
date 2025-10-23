@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class ConfirmCancelCatchAble : MonoBehaviour
+public abstract class ConfirmCancelCatchAble : InputActionSetter
 {
 
     protected bool isConfirm;
@@ -13,20 +14,22 @@ public class ConfirmCancelCatchAble : MonoBehaviour
     [Inject]
     protected SystemSEPlayable systemSEPlayer;
 
-    public void OnConfirm(InputAction.CallbackContext context)
+    public virtual void OnConfirm(InputAction.CallbackContext context)
     {
         if (context.performed) { isConfirm = true; systemSEPlayer.ConfirmSE(); };
     }
 
-    public void OnCancel(InputAction.CallbackContext context)
+    public virtual void OnCancel(InputAction.CallbackContext context)
     {
         if (context.performed) { isCancel = true; systemSEPlayer.CancelSE(); }
     }
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
-
+        base.Start();
+        SetAction("Confirm", OnConfirm);
+        SetAction("Cancel", OnCancel);
     }
 
     // Update is called once per frame

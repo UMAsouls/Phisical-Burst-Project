@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using Zenject;
 
-public class BattleActionUnit : MonoBehaviour
+public class BattleActionUnit : InputActionSetter
 {
     [Inject]
     IBattleCmdSlotUIPrinter uiPrinter;
@@ -24,11 +24,10 @@ public class BattleActionUnit : MonoBehaviour
 
     private bool countComplete = true;
 
-    private PlayerInput input;
-
     [SerializeField]
     GameObject BattleArrow;
 
+    protected override InputMode SelfMode => InputMode.Fight;
 
     public void OnBurst(InputAction.CallbackContext context)
     {
@@ -134,9 +133,8 @@ public class BattleActionUnit : MonoBehaviour
                     Count(1f, cts.Token).Forget();
                 }
 
-                input.SwitchCurrentActionMap("Fight");
+                InputModeChangeToSelf();
                 await UniTask.WaitUntil(() => isBurst || countComplete, cancellationToken: destroyCancellationToken);
-                input.SwitchCurrentActionMap("None");
 
                 if (target.Type == PawnType.Enemy)
                 {
@@ -194,13 +192,6 @@ public class BattleActionUnit : MonoBehaviour
     {
         if (!judge || isBurst) return Random.Range(1, 100) <= 90;
         else return Random.Range(1, 100) <= 10;
-    }
-
-
-    // Use this for initialization
-    void Start()
-    {
-        input = GetComponent<PlayerInput>();
     }
 
     // Update is called once per frame

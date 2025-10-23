@@ -27,12 +27,12 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
 
     CommandActionSettable pawn;
 
-    private PlayerInput input;
-
     private int cmdIndex = 0;
     private int cmdLength = 0;
 
     private CancellationToken cts;
+
+    protected override InputMode SelfMode => InputMode.ActionCmdSelect;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
@@ -65,7 +65,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
         isConfirm = false;
         cmdIndex = 0;
 
-        input.SwitchCurrentActionMap("CmdSelect");
+        InputModeChangeToSelf();
     }
 
     public async UniTask<bool> CmdSelect(int id)
@@ -81,7 +81,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
         for (int i = 0; i < commands.Length; i++)  names[i] = commands[i].Name;
 
         controller = uiPrinter.PrintCmdSelecter(names);
-
+        Debug.Log($"cmdidx {cmdIndex}, cmdLength: {cmdLength}");
         cmdInfoPrinter.PrintUI(pawn.GetActionCommands()[cmdIndex]);
 
         do
@@ -101,7 +101,6 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
 
         cmdInfoPrinter.DestroyUI();
         uiPrinter.DestroyCmdSelector();
-        input.SwitchCurrentActionMap("None");
 
         var action = await MakeAction(commands[cmdIndex], id);
         if(action == null) return false;
@@ -119,10 +118,11 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
     }
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         cts = this.GetCancellationTokenOnDestroy();
-        input = GetComponent<PlayerInput>();
+        SetAction("Move", OnSelectorMove);
+        base.Start();
     }
 
     // Update is called once per frame
