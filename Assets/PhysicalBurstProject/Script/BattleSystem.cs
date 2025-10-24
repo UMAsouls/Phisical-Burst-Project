@@ -187,7 +187,7 @@ public class BattleSystem : MonoBehaviour
     {
         cameraChanger.ChangeToCenterCamera();
 
-        await UniTask.Delay(300);
+        await UniTask.Delay(300, cancellationToken: destroyCancellationToken);
         await battleStartUIPrinter.PrintStartUIAndWait();
 
         await UniTask.WaitUntil(() => strage.IsSetComplete, PlayerLoopTiming.Update, cts);
@@ -199,7 +199,7 @@ public class BattleSystem : MonoBehaviour
 
         isBattleEnd = false;
 
-        await UniTask.Delay(100);
+        await UniTask.Delay(100, cancellationToken: destroyCancellationToken);
 
         await UniTask.WaitUntil(() => cameraChanger.IsSetComplete, cancellationToken: cts);
         return;
@@ -222,7 +222,6 @@ public class BattleSystem : MonoBehaviour
         {
             uiPrinter.PrintPlayerInformation(pawn.ID);
             slotPrint(pawn.GetActionNames());
-            Debug.Log("len:" + pawn.GetActionNames().Length);
 
             isConfirm = false;
             isCancel = false;

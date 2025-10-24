@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(PlayerInput))]
+[DefaultExecutionOrder(-10)]
 public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<ActionSetMessage>
 {
     [Inject]
@@ -14,46 +15,119 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
     [Inject]
     private IBroker<ActionSetTopic, ActionSetMessage> actionBroker;
 
-    PlayerInput input;
+    private Dictionary<
+        InputMode,
+        Dictionary<string, Action<InputAction.CallbackContext>>
+        > settedAction;
+
+    private PlayerInput input;
 
     public void CatchMessage(InputMode message)
     {
-        Debug.Log(message);
         input.SwitchCurrentActionMap(Enum.GetName(typeof(InputMode), message));
-        Debug.Log(input.actions.ToString());
     }
 
     public void CatchMessage(ActionSetMessage message)
     {
-        SetAction(message);
+        SetActionMessage(message);
     }
 
-    protected void SetAction(ActionSetMessage message)
+    protected void RemoveAllAction()
     {
-        string type = Enum.GetName(typeof(InputMode), message.Type);
-        if (input == null) return;
+        foreach(var (mode, dict) in settedAction)
+        {
+            foreach (var (action, func) in dict)
+            {
+                RemoveAction(mode, action, func);
+            }
+        }
+    }
 
-        var currentMap = input.currentActionMap.name;
-        input.SwitchCurrentActionMap(type);
+    protected void RemoveAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)
+    {
+        string type = Enum.GetName(typeof(InputMode), mode);
+
+        var act = input.actions.FindActionMap(type).FindAction(action);
+
+        if (!settedAction.ContainsKey(mode)) return;
+        if (!settedAction[mode].ContainsKey(action)) return;
+
+        act.performed -= func;
+        act.canceled -= func;
+
+    }
+
+    protected void SetAction(InputMode mode,  string action, Action<InputAction.CallbackContext> func)
+    {
+        string type = Enum.GetName(typeof(InputMode), mode);
+        var act = input.actions.FindActionMap(type).FindAction(action);
+
+        if (!settedAction.ContainsKey(mode))
+        {
+            settedAction[mode] =
+                new Dictionary<string, Action<InputAction.CallbackContext>>();
+        }
+        if (settedAction[mode].ContainsKey(action))
+        {
+            var currentFunc = settedAction[mode][action];
+            act.canceled -= currentFunc;
+            act.performed -= currentFunc;
+        }
+
+        act.canceled += func;
+        act.performed += func;
+    }
+
+    protected void SetActionMessage(ActionSetMessage message)
+    {
+        if (input == null) return;
         if (message.Remove)
         {
-            input.actions[message.Action].performed -= message.Function;
-            input.actions[message.Action].canceled -= message.Function;
+            RemoveAction(message.Type, message.Action, message.Function);
+            settedAction[message.Type].Remove(message.Action);
         }
         else
         {
-            input.actions[message.Action].canceled += message.Function;
-            input.actions[message.Action].performed += message.Function;
+            SetAction(message.Type, message.Action, message.Function);
+            settedAction[message.Type][message.Action] = message.Function;
         }
-        input.SwitchCurrentActionMap(currentMap);
+    }
+
+    private void TestCall(InputAction.CallbackContext context)
+    {
+        Debug.Log($"Action call: {GetInstanceID()}, input id: {input.GetInstanceID()}");
+    } 
+
+    private void CheckEventBindings(Action<InputAction.CallbackContext> actionEvent, string actname)
+    {
+        Delegate[] ds = actionEvent.GetInvocationList();
+        string bind_m = "";
+        foreach (Delegate d in ds) bind_m += d.Method.Name + " ,";
+        Debug.Log($"set: {actname}: {bind_m}");
     }
 
     void Awake()
     {
         broker.Subscribe(InputModeTopic.SwitchActionMap, this);
         actionBroker.Subscribe(ActionSetTopic.SetAction, this);
-        Debug.Log("InputManager: Subscribe");
         input = GetComponent<PlayerInput>();
+        settedAction = new Dictionary<
+            InputMode,
+            Dictionary<string, Action<InputAction.CallbackContext>>
+            >();
+    }
+
+    void OnDisable()
+    {
+        RemoveAllAction();
+    }
+
+    void OnDestroy()
+    {
+        broker.UnSubscribe(InputModeTopic.SwitchActionMap, this);
+        actionBroker.UnSubscribe(ActionSetTopic.SetAction, this);
+        Debug.Log("Destroy Input Manager");
+        Destroy(gameObject);
     }
 
     // Use this for initialization
@@ -65,6 +139,5 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
     // Update is called once per frame
     void Update()
     {
-
     }
 }

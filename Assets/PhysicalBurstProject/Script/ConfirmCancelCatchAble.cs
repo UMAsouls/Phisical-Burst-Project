@@ -24,12 +24,16 @@ public abstract class ConfirmCancelCatchAble : InputActionSetter
         if (context.performed) { isCancel = true; systemSEPlayer.CancelSE(); }
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Confirm", OnConfirm);
+        SetAction("Cancel", OnCancel);
+    }
+
     // Use this for initialization
     public override void Start()
     {
         base.Start();
-        SetAction("Confirm", OnConfirm);
-        SetAction("Cancel", OnCancel);
     }
 
     // Update is called once per frame

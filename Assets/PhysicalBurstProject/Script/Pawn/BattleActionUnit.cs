@@ -194,9 +194,13 @@ public class BattleActionUnit : InputActionSetter
         else return Random.Range(1, 100) <= 10;
     }
 
-    public override void Start()
+    protected override void SetAllAction()
     {
         SetAction("Burst", OnBurst);
+    }
+
+    public override void Start()
+    {
         base.Start();
     }
 

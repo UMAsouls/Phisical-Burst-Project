@@ -64,10 +64,14 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
         cts = this.GetCancellationTokenOnDestroy();
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnMove);
+        base.SetAllAction();
+    }
+
     public override void Start()
     {
-        var moveAction = new ActionSetMessage(SelfMode, "Move", OnMove);
-        actionSetBroker.BroadCast(ActionSetTopic.SetAction, moveAction);
         base.Start();
     }
 }

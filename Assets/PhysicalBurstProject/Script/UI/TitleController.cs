@@ -12,7 +12,6 @@ public class TitleController : ConfirmCancelCatchAble
     SystemSEPlayable sePlayer;
 
     private ICmdSelectorController controller;
-    private ICmdUI setter;
 
     private int idx;
 
@@ -23,7 +22,6 @@ public class TitleController : ConfirmCancelCatchAble
         Vector2 moveInput = context.ReadValue<Vector2>();
 
         if (!context.performed) return;
-
         sePlayer.SelectorMoveSE();
 
         //input上ではup > 0 down < 0
@@ -40,22 +38,22 @@ public class TitleController : ConfirmCancelCatchAble
         }
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnSelectorMove);
+        base.SetAllAction();
+    }
+
 
     // Use this for initialization
     public override void Start()
     {
         idx = 0;
         controller = GetComponentInChildren<ICmdSelectorController>();
-        setter = GetComponentInChildren<ICmdUI>();
-
-        setter.CmdAdd("プレイ");
-        setter.CmdAdd("終了");
+        
         isCancel = false;
         isConfirm = false;
 
-        controller.Set(0);
-
-        SetAction("Move", OnSelectorMove);
         base.Start();
         InputModeChangeToSelf();
     }

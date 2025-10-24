@@ -61,10 +61,14 @@ public abstract class CommandMakerBase<T> : ConfirmCancelCatchAble
 
     public abstract UniTask<IActionCommandBehaviour> MakeBehaviour(T cmd, int pawnID);
 
+    protected override void SetAllAction()
+    {
+        SetAction("Burst", OnBurst);
+        base.SetAllAction();
+    }
+
     public override void Start()
     {
-        var burstAction = new ActionSetMessage(SelfMode, "Burst", OnBurst);
-        actionSetBroker.BroadCast(ActionSetTopic.SetAction, burstAction);
         base.Start();
     }
 }

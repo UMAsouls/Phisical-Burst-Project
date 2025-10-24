@@ -99,6 +99,11 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         pawn = p2; 
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnMove);
+        base.SetAllAction();
+    }
 
 
     // Use this for initialization
@@ -106,8 +111,6 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
     {
         onSelect = false;
         token = this.GetCancellationTokenOnDestroy();
-
-       SetAction("Move", OnMove);
 
         base.Start();
     }

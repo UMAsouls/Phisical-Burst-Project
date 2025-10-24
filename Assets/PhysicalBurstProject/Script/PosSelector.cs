@@ -43,12 +43,16 @@ public class PosSelector : ConfirmCancelCatchAble, PosSelectorRangeSetter
         base.OnCancel(context);
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnMove);
+        base.SetAllAction();
+    }
+
     // Start is called before the first frame update
     public override void Start()
     {
         firstPos = transform.position;
-
-        SetAction("Move", OnMove);
         base.Start();
 
         InputModeChangeToSelf();

@@ -146,13 +146,17 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         return ans;
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnSelectorMove);
+        base.SetAllAction();
+    }
+
     // Use this for initialization
     public override void Start()
     {
         token = this.GetCancellationTokenOnDestroy();
 
-        var selectorMove = new ActionSetMessage(SelfMode, "Move", OnSelectorMove);
-        actionSetBroker.BroadCast(ActionSetTopic.SetAction, selectorMove);
         base.Start();
     }
 

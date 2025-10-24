@@ -75,11 +75,16 @@ public class BattleActionSelectSystem : ConfirmCancelCatchAble, IBattleActionSel
         return cmdIndex;
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnSelectorMove);
+        base.SetAllAction();
+    }
+
     // Use this for initialization
     public override void Start()
     {
         cts = this.GetCancellationTokenOnDestroy();
-        SetAction("Move", OnSelectorMove);
         base.Start();
     }
 

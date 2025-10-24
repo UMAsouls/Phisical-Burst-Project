@@ -34,18 +34,35 @@ public abstract class InputActionSetter : MonoBehaviour
         settedAction = new Dictionary<string, Action<InputAction.CallbackContext>>();
     }
 
+    protected abstract void SetAllAction();
+
+    private void RemoveAllAction()
+    {
+        foreach (var (action, func) in settedAction)
+        {
+            var act = new ActionSetMessage(SelfMode, action, func, true);
+            actionSetBroker.BroadCast(ActionSetTopic.SetAction, act);
+        }
+    }
+
     // Use this for initialization
     public virtual void Start()
     {
     }
 
+    protected virtual void OnEnable()
+    {
+        SetAllAction();
+    }
+
+    protected virtual void OnDisable()
+    {
+        RemoveAllAction();
+    }
+
     protected virtual void OnDestroy()
     {
-        foreach(var (action, func) in settedAction)
-        {
-            var act = new ActionSetMessage(SelfMode, action, func, true);
-            actionSetBroker.BroadCast(ActionSetTopic.SetAction, act);
-        }
+        
     }
 
     // Update is called once per frame
