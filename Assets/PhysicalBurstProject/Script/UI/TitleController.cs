@@ -55,7 +55,7 @@ public class TitleController : ConfirmCancelCatchAble
 
         controller.Set(0);
 
-        var selectorMove = new ActionSetMessage(SelfMode, "Move", OnSelectorMove);
+        SetAction("Move", OnSelectorMove);
         base.Start();
         InputModeChangeToSelf();
     }

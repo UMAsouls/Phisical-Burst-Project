@@ -22,5 +22,15 @@ public class TitleInstaller : MonoInstaller
             .FromComponentOn(seplayer)
             .AsTransient();
 
+        Container
+            .Bind(typeof(IBroker<InputModeTopic, InputMode>))
+            .To<Broker<InputModeTopic, InputMode>>()
+            .AsSingle();
+
+        Container
+            .Bind(typeof(IBroker<ActionSetTopic, ActionSetMessage>))
+            .To<Broker<ActionSetTopic, ActionSetMessage>>()
+            .AsSingle();
+
     }
 }
