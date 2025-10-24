@@ -42,4 +42,4 @@ MonoBehaviour:
         defenceBase: 60
         speedBase: 10
         rangeBase: 5.5
-        attackRangeBase: 8
+        attackRangeBase: 3
