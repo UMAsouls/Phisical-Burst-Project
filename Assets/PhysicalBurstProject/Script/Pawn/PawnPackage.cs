@@ -68,7 +68,6 @@ public class PawnPackage : ScriptableObject
 
     public void Init()
     {
-        status.init();
         sattack.cmdName = "強攻撃"; sattack.priority = StrongAttackPriority; defaultBattleCmds[0] = sattack;
         wattack.cmdName = "弱攻撃"; wattack.priority = WeekAttackPriority; defaultBattleCmds[1] = wattack;
         defence.cmdName = "防御"; defence.priority = DefencePriority; defaultBattleCmds[2] = defence;
@@ -77,7 +76,9 @@ public class PawnPackage : ScriptableObject
 
     private void OptionSet(PawnOptionSettable statusSettable, int id)
     {
-        statusSettable.Status = status;
+        var c_status = status.Clone();
+        c_status.init();
+        statusSettable.Status = c_status;
         statusSettable.ID = id;
 
         CommandPackage[] battleCmds = new CommandPackage[4 + battleCommands.Length];

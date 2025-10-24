@@ -66,4 +66,6 @@ public interface IStatus
 
     public int Heal(float heal);
 
+    public IStatus Clone();
+
 }
