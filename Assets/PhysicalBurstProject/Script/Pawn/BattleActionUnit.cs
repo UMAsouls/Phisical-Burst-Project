@@ -194,6 +194,12 @@ public class BattleActionUnit : InputActionSetter
         else return Random.Range(1, 100) <= 10;
     }
 
+    public override void Start()
+    {
+        SetAction("Burst", OnBurst);
+        base.Start();
+    }
+
     // Update is called once per frame
     void Update()
     {
