@@ -31,6 +31,8 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
     protected void SetAction(ActionSetMessage message)
     {
         string type = Enum.GetName(typeof(InputMode), message.Type);
+        if (input == null) return;
+
         var currentMap = input.currentActionMap.name;
         input.SwitchCurrentActionMap(type);
         if (message.Remove)
