@@ -308,7 +308,7 @@ public class BattleSystem : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         turn = 0;
         cts = this.GetCancellationTokenOnDestroy();

@@ -1,6 +1,7 @@
 ﻿
 
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 public class TutorialBattleSystem : BattleSystem, ISubscriber<TutorialTimingMessage>
@@ -11,42 +12,35 @@ public class TutorialBattleSystem : BattleSystem, ISubscriber<TutorialTimingMess
 
     bool tutorialEnd = false;
 
-    void Start()
+    protected override void Start()
     {
         tutorialBroker.Subscribe(TutorialTopicFrag.TutorialEnd, this);
-        turn = 0;
-        cts = this.GetCancellationTokenOnDestroy();
-        Battle().Forget();
-    }
-
-    protected async UniTask TutorialWait()
-    {
-        tutorialEnd = false;
-        await UniTask.WaitUntil(() => tutorialEnd, cancellationToken: destroyCancellationToken);
+        base.Start();
     }
 
     protected async UniTask Tutorial(TutorialTimingMessage message)
     {
+        tutorialEnd = false;
         tutorialBroker.BroadCast(TutorialTopicFrag.TutorialStart, message);
-        await TutorialWait();
+        await UniTask.WaitUntil(() => tutorialEnd, cancellationToken: destroyCancellationToken);
     }
 
     protected override async UniTask TurnStart()
     {
-        await Tutorial(TutorialTimingMessage.TurnStart);
         await base.TurnStart();
+        await Tutorial(TutorialTimingMessage.TurnStart);
     }
 
     protected override async UniTask TurnEnd()
     {
-        await Tutorial(TutorialTimingMessage.TurnEnd);
         await base.TurnEnd();
+        await Tutorial(TutorialTimingMessage.TurnEnd);
     }
 
     protected override async UniTask BattleStart()
     {
-        await Tutorial(TutorialTimingMessage.BattleStart);
         await base.BattleStart();
+        await Tutorial(TutorialTimingMessage.BattleStart);
     }
 
     public void CatchMessage(TutorialTimingMessage message)

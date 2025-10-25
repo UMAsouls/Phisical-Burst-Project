@@ -67,12 +67,6 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
             settedAction[mode] =
                 new Dictionary<string, Action<InputAction.CallbackContext>>();
         }
-        if (settedAction[mode].ContainsKey(action))
-        {
-            var currentFunc = settedAction[mode][action];
-            act.canceled -= currentFunc;
-            act.performed -= currentFunc;
-        }
 
         act.canceled += func;
         act.performed += func;

@@ -866,7 +866,7 @@
             "id": "6aac745b-2653-4b75-8581-400fe45906f4",
             "actions": [
                 {
-                    "name": "Next",
+                    "name": "Confirm",
                     "type": "Button",
                     "id": "fbab81b3-0e8c-4bfa-b90e-8e01dde53a31",
                     "expectedControlType": "Button",
@@ -875,7 +875,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Previous",
+                    "name": "Cancel",
                     "type": "Button",
                     "id": "944f3f62-f47f-4557-a5da-aad2d6dc47d5",
                     "expectedControlType": "Button",
@@ -892,7 +892,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Next",
+                    "action": "Confirm",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -903,7 +903,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Previous",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

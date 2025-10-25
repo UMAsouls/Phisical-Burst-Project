@@ -8,4 +8,5 @@ public interface ITutorialUI
 {
     public bool NextUI();
     public bool PreviousUI();
+    public bool DestroyUI();
 }
