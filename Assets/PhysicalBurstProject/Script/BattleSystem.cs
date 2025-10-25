@@ -216,7 +216,7 @@ public class BattleSystem : MonoBehaviour
         return;
     }
 
-    private async UniTask Select(ActionSelectable pawn)
+    protected virtual async UniTask Select(ActionSelectable pawn)
     {
         do
         {

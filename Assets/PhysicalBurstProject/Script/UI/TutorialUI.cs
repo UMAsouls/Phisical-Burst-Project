@@ -50,6 +50,8 @@ public class TutorialUI : MonoBehaviour, ITutorialUI
             p_obj.transform.SetParent(gameObject.transform, false);
             printingobjects.Add(p_obj);
         }
+        idx = 0;
+        SetEnable();
     }
 
     // Update is called once per frame

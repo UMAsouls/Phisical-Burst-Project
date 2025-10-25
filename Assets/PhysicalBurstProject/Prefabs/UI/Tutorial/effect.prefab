@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8234839418932081125}
   - component: {fileID: 7949569067079180596}
   - component: {fileID: 1944671471712931141}
-  - component: {fileID: 258504991379058690}
+  - component: {fileID: 7021939214179207725}
   m_Layer: 5
-  m_Name: chara
+  m_Name: effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: -876546973899608171, guid: e83ef61d30794cd45bb7c84de8781a21, type: 3}
+  m_Material: {fileID: -876546973899608171, guid: 20f722aa56ec6684e878e2d45dc73ef7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc446ff1b3ab42e4b871aa260b436395, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 95100423c7ba23f4c8809a47dec54273, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &258504991379058690
+--- !u!114 &7021939214179207725
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,9 +85,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5056541809878037134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8740d29fc7e1fd34296812cf50cda8e3, type: 3}
+  m_Script: {fileID: 11500000, guid: a45069383653436449ddde5ad78016e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: {x: 0.34, y: 0.75}
-  Burst: 0
-  Stun: 0
+  AnimNum: 0

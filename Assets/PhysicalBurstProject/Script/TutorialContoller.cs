@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-[RequireComponent(typeof(Canvas))]
+[RequireComponent(typeof(Canvas), typeof(CanvasGroup))]
 public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTimingMessage>
 {
 
@@ -15,9 +17,14 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
     DiContainer container;
 
     [SerializeField]
+    private float FadeSpeed = 0.001f;
+
+    [SerializeField]
     private SerializedDictionary<TutorialTimingMessage, List<GameObject>> tutorialUI;
 
     private Dictionary<TutorialTimingMessage, int> ui_indices;
+
+    private CanvasGroup canvasGroup;
 
     private ITutorialUI printingUI;
     private TutorialTimingMessage printingUIKind;
@@ -38,12 +45,13 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         systemSEPlayer.ConfirmSE();
     }
 
-    public void OnNext()
+    public async void OnNext()
     {
         if (printingUI == null) return;
         var end = printingUI.NextUI();
         if(end)
         {
+            await FadeOut();
             printingUI.DestroyUI();
             printingUI = null;
             tutorialBroker.BroadCast(TutorialTopicFrag.TutorialEnd, printingUIKind);
@@ -56,6 +64,28 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         var start = printingUI.PreviousUI();
     }
 
+    private async UniTask FadeIn()
+    {
+        float alpha = 0f;
+        while(alpha < 1f)
+        {
+            alpha += FadeSpeed;
+            canvasGroup.alpha = alpha;
+            await UniTask.DelayFrame(1);
+        }
+    }
+
+    private async UniTask FadeOut()
+    {
+        float alpha = 1f;
+        while (alpha > 0f)
+        {
+            alpha -= FadeSpeed;
+            canvasGroup.alpha = alpha;
+            await UniTask.DelayFrame(1);
+        }
+    }
+
     protected override void Awake()
     {
         tutorialBroker.Subscribe(TutorialTopicFrag.TutorialStart, this);
@@ -65,13 +95,19 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         base.Awake();
     }
 
+    public override void Start()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+        base.Start();
+    }
+
     // Update is called once per frame
     void Update()
     {
 
     }
 
-    public void CatchMessage(TutorialTimingMessage message)
+    public async void CatchMessage(TutorialTimingMessage message)
     {
         printingUIKind = message;
 
@@ -96,6 +132,8 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
             tutorialBroker.BroadCast(TutorialTopicFrag.TutorialEnd, message);
             return;
         }
+
+        await FadeIn();
 
         InputModeChangeToSelf();
 

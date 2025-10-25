@@ -43,6 +43,12 @@ public class TutorialBattleSystem : BattleSystem, ISubscriber<TutorialTimingMess
         await Tutorial(TutorialTimingMessage.BattleStart);
     }
 
+    protected override async UniTask Select(ActionSelectable pawn)
+    {
+        await Tutorial(TutorialTimingMessage.Select);
+        await base.Select(pawn);
+    }
+
     public void CatchMessage(TutorialTimingMessage message)
     {
         tutorialEnd = true;

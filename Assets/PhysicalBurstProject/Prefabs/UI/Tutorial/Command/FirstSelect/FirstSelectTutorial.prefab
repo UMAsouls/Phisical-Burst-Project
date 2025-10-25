@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2138983268821466882}
   - component: {fileID: 9173731283875172105}
   m_Layer: 5
-  m_Name: TutorialBase
+  m_Name: FirstSelectTutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,4 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 652ec56387bf59245ae2faaf23420b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tutorials: []
+  Tutorials:
+  - {fileID: 2533765757669124183, guid: 47fcf504f2542d44d88ff2c1d34ff8fc, type: 3}
+  - {fileID: 2533765757669124183, guid: 28aa3ef39c09c424d8cba4ff80ec75af, type: 3}
