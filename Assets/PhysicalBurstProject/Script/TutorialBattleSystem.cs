@@ -45,7 +45,7 @@ public class TutorialBattleSystem : BattleSystem, ISubscriber<TutorialTimingMess
 
     protected override async UniTask Select(ActionSelectable pawn)
     {
-        await Tutorial(TutorialTimingMessage.Select);
+        if(pawn.Type == PawnType.Member) await Tutorial(TutorialTimingMessage.Select);
         await base.Select(pawn);
     }
 

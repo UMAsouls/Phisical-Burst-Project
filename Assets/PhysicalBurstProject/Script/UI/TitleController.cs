@@ -11,6 +11,9 @@ public class TitleController : ConfirmCancelCatchAble
     [Inject]
     SystemSEPlayable sePlayer;
 
+    [SerializeField]
+    string FirstScene = "Tutorial";
+
     private ICmdSelectorController controller;
 
     private int idx;
@@ -66,7 +69,7 @@ public class TitleController : ConfirmCancelCatchAble
             switch(idx)
             {
                 case 0:
-                    SceneManager.LoadScene("Battle");
+                    SceneManager.LoadScene(FirstScene);
                     break;
                 case 1:
                     #if UNITY_EDITOR

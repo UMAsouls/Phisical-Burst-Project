@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PhysicalBurstProject/Scenes/Battle.unity
     guid: 8a2b7cd924fbaba478bc6df713027b9b
+  - enabled: 1
+    path: Assets/PhysicalBurstProject/Scenes/Tutorial.unity
+    guid: e2788c23745b5da46adf875666389f84
   m_configObjects: {}

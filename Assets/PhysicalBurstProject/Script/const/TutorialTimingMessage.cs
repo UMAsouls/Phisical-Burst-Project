@@ -5,5 +5,9 @@ public enum TutorialTimingMessage
     TurnEnd,
     BattleStart,
     BattleEnd,
+    BattleCmdSelect,
+    ActionCmdSelect,
+    Ambush,
+    Move,
     Select
 }

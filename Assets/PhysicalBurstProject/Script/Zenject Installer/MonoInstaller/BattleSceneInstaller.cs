@@ -225,5 +225,10 @@ public class BattleSceneInstaller : MonoInstaller
             .Bind(typeof(IBroker<ActionSetTopic, ActionSetMessage>))
             .To<Broker<ActionSetTopic, ActionSetMessage>>()
             .AsSingle();
+
+        Container
+            .Bind<ITutorialSystem>()
+            .To<TutorialSystem>()
+            .AsSingle();
     }
 }

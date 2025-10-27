@@ -31,6 +31,8 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
 
     protected override InputMode SelfMode => InputMode.Tutorial;
 
+    private static float fadeWaitTime = 1000 / 60;
+
     public override void OnConfirm(InputAction.CallbackContext context)
     {
         if(context.canceled) return;
@@ -71,7 +73,7 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         {
             alpha += FadeSpeed;
             canvasGroup.alpha = alpha;
-            await UniTask.DelayFrame(1);
+            await UniTask.Delay((int)fadeWaitTime);
         }
     }
 
@@ -82,7 +84,7 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         {
             alpha -= FadeSpeed;
             canvasGroup.alpha = alpha;
-            await UniTask.DelayFrame(1);
+            await UniTask.Delay((int)fadeWaitTime);
         }
     }
 
@@ -112,6 +114,11 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         printingUIKind = message;
 
         if(!tutorialUI.ContainsKey(message))
+        {
+            tutorialBroker.BroadCast(TutorialTopicFrag.TutorialEnd, message);
+            return;
+        }
+        if (ui_indices[message] >= tutorialUI[message].Count)
         {
             tutorialBroker.BroadCast(TutorialTopicFrag.TutorialEnd, message);
             return;

@@ -13,6 +13,9 @@ public class TipsEffectAnimator: UIBehaviour, IMaterialModifier
     [SerializeField]
     int AnimNum;
 
+    [SerializeField]
+    Vector2 TileSize = new Vector2(240,240);
+
 
 
     [NonSerialized]
@@ -26,6 +29,7 @@ public class TipsEffectAnimator: UIBehaviour, IMaterialModifier
     private Material _slotMaterial;
 
     public readonly int AnimationNumID= Shader.PropertyToID("_AnimationNumber");
+    public readonly int TileSizeID = Shader.PropertyToID("_TileSize");
 
     protected override void OnEnable()
     {
@@ -62,7 +66,8 @@ public class TipsEffectAnimator: UIBehaviour, IMaterialModifier
 
     public Material GetModifiedMaterial(Material baseMaterial)
     {
-        bool block = !baseMaterial.HasProperty(AnimationNumID);
+        bool block = !baseMaterial.HasProperty(AnimationNumID) || 
+            !baseMaterial.HasProperty(TileSizeID);
 
         // 変更に対応していないマテリアルを弾く
         if (IsActive() == false || _graphic == null || block)
@@ -79,6 +84,7 @@ public class TipsEffectAnimator: UIBehaviour, IMaterialModifier
         _slotMaterial.CopyPropertiesFromMaterial(baseMaterial);
 
         _slotMaterial.SetFloat(AnimationNumID, AnimNum);
+        _slotMaterial.SetVector(TileSizeID, TileSize);
 
         return _slotMaterial;
     }
