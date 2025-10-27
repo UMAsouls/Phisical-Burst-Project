@@ -1875,7 +1875,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 645450545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9a6336a1cf931140b2d5646dd83e889, type: 3}
+  m_Script: {fileID: 11500000, guid: 329dba9ca32cb6c4eb1de6fc95f1ebff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   FadeSpeed: 0.06
@@ -1891,6 +1891,9 @@ MonoBehaviour:
       Value:
       - {fileID: 6296822691576336208, guid: 5058a1a800c7ed44eb814d49a0386fd0, type: 3}
       - {fileID: 6296822691576336208, guid: 35ac7b2d08dbda448b403989365de968, type: 3}
+    - Key: 6
+      Value:
+      - {fileID: 6296822691576336208, guid: 0b545a717ba09fc4b8fe30e49058f47d, type: 3}
 --- !u!114 &645450547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43955,10 +43958,10 @@ GameObject:
   - component: {fileID: 1143571162}
   - component: {fileID: 1143571164}
   - component: {fileID: 1143571163}
-  - component: {fileID: 1143571166}
   - component: {fileID: 1143571165}
   - component: {fileID: 1143571167}
   - component: {fileID: 1143571168}
+  - component: {fileID: 1143571169}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44082,19 +44085,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SencerObj: {fileID: 6646461952075524100, guid: 041e29da9fa1db34db44abc0918c840d, type: 3}
---- !u!114 &1143571166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1143571152}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 818794cef81b9c64488cb60ab0d88444, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RangeViewer: {fileID: 1559190507143676218, guid: c0d12735d7049cc448f15ebdf9a57a2f, type: 3}
 --- !u!114 &1143571167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44104,7 +44094,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143571152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa8cb0b1aefaa3741891821588e180c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 061fae69101e59f44ba4228ae9ffc7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: Battle
@@ -44117,9 +44107,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143571152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fab0bb3ca71f55a438a973e37bb30b22, type: 3}
+  m_Script: {fileID: 11500000, guid: ff54a29d0ad397445b21e9fd75c7769b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1143571169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143571152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796eb9859b97407469a74b94001edcd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RangeViewer: {fileID: 1559190507143676218, guid: c0d12735d7049cc448f15ebdf9a57a2f, type: 3}
 --- !u!1 &1210904753
 GameObject:
   m_ObjectHideFlags: 0
@@ -44846,7 +44849,7 @@ Transform:
   m_GameObject: {fileID: 1858915510}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.97, y: 3.39, z: 0}
+  m_LocalPosition: {x: -3, y: 3.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

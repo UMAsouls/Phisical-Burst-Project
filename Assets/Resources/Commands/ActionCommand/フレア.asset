@@ -23,5 +23,5 @@ MonoBehaviour:
   MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
   ExplodeEffect: {fileID: 8194992990867289339, guid: ee2baf7d913867745b4901139380a6a8, type: 3}
   ExplodeSize: 3
-  pawnEffectSound: {fileID: 0}
-  attackEffectSound: {fileID: 0}
+  pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
+  attackEffectSound: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}

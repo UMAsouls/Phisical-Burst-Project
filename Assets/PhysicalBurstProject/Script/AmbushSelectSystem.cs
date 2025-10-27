@@ -23,7 +23,7 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
 
     protected override InputMode SelfMode => InputMode.Ambush;
 
-    public async UniTask<bool> AmbushSelect(int pawnID)
+    public virtual async UniTask<bool> AmbushSelect(int pawnID)
     {
         inputModeBroker.BroadCast(InputModeTopic.SwitchActionMap, SelfMode);
 

@@ -111,6 +111,8 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
 
     public async void CatchMessage(TutorialTimingMessage message)
     {
+        Debug.Log(message);
+
         printingUIKind = message;
 
         if(!tutorialUI.ContainsKey(message))
