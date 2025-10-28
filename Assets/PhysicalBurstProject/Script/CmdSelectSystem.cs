@@ -68,7 +68,7 @@ public class CmdSelectSystem : ConfirmCancelCatchAble,ICmdSelectSystem
         InputModeChangeToSelf();
     }
 
-    public async UniTask<bool> CmdSelect(int id)
+    public virtual async UniTask<bool> CmdSelect(int id)
     {
         Init();
 

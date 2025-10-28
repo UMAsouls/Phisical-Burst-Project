@@ -15,7 +15,7 @@ MonoBehaviour:
   commandName: "\u7D76\u547D\u6483(\u5F37)"
   mana: 0
   selectPriority: 0
-  description: 
+  description: "\u30D0\u30FC\u30B9\u30C8\u6642\u306E\u653B\u6483\u529B\u304C\u5927\u304D\u3044\u4E00\u6483\u3002\u6B63\u3057\u3001\u901A\u5E38\u6642\u306E\u653B\u6483\u529B\u306F\u305D\u3093\u306A\u306B\u9AD8\u304F\u306A\u3044\u3002"
   damage: 50
   burstRatio: 8
-  DefencedBonus: 5
+  DefencedBonus: 3

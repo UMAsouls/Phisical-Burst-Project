@@ -16,6 +16,6 @@ MonoBehaviour:
   mana: 0
   selectPriority: 0
   description: 
-  damage: 100
+  damage: 80
   burstRatio: 2
-  DefencedBonus: 5
+  DefencedBonus: 2
