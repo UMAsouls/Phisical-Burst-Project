@@ -26,7 +26,7 @@ MonoBehaviour:
   actionCommands:
   - cmdName: "\u8A60\u5531"
     priority: 0
-  - cmdName: "\u30D5\u30EC\u30A2"
+  - cmdName: "\u30D3\u30C3\u30B0\u30DC\u30E0"
     priority: 0
   addActCmds: []
   addBattleCmds: []
@@ -45,3 +45,5 @@ MonoBehaviour:
         speedBase: 18
         rangeBase: 5
         attackRangeBase: 2.5
+        pawnSentence: 
+        pawnActionHabit: 

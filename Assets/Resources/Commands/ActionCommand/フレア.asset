@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: "\u30D5\u30EC\u30A2"
   m_EditorClassIdentifier: 
   commandName: "\u30D5\u30EC\u30A2"
-  mana: 25
+  mana: 40
   burstRatio: 3
   selectPriority: 0
   description: 
-  attackArea: 3
-  range: 10
+  attackArea: 2
+  range: 8
   damage: 70
   MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
   ExplodeEffect: {fileID: 8194992990867289339, guid: ee2baf7d913867745b4901139380a6a8, type: 3}
-  ExplodeSize: 3
+  ExplodeSize: 2
   pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
   attackEffectSound: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}

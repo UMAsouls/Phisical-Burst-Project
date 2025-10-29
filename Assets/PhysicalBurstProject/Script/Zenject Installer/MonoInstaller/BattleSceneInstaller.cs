@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Reflection;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +22,9 @@ public class BattleSceneInstaller : MonoInstaller
 
     [SerializeField]
     GameObject pawnSelector;
+
+    [SerializeField]
+    GameObject pawnCheckSystem;
 
     [SerializeField]
     GameObject commandStrage;
@@ -145,6 +149,10 @@ public class BattleSceneInstaller : MonoInstaller
             .FromComponentOn(gameManager)
             .AsTransient();
 
+        Container
+            .BindInterfacesAndSelfTo<PawnStatusCheckSystem>()
+            .FromComponentOn(pawnCheckSystem)
+            .AsTransient();
 
         Container
             .BindInterfacesTo<PawnSelector>()
@@ -230,5 +238,15 @@ public class BattleSceneInstaller : MonoInstaller
             .Bind<ITutorialSystem>()
             .To<TutorialSystem>()
             .AsSingle();
+
+        Container
+            .Bind<IBroker<UIControlTopic, StatusUIMessage>>()
+            .To<Broker<UIControlTopic, StatusUIMessage>>()
+            .AsSingle();
+
+        Container
+            .BindInterfacesAndSelfTo<Canvas>()
+            .FromComponentOn(battleUI)
+            .AsTransient();
     }
 }

@@ -36,6 +36,12 @@ public class Status : IStatus
     [SerializeField]
     private float attackRangeBase;
 
+    [SerializeField, Multiline(3)]
+    private string pawnSentence;
+
+    [SerializeField, Multiline(3)]
+    private string pawnActionHabit;
+
     private int priority = 0;
 
     //ƒQƒbƒ^[
@@ -60,6 +66,10 @@ public class Status : IStatus
     public float AttackRangeBase => attackRangeBase;
 
     public int Priority { get => priority; set => priority = Mathf.Clamp(value, 0, 5); }
+
+    public string PawnSentence => pawnSentence;
+
+    public string PawnActionHabit => pawnActionHabit;
 
     public Status()
     {

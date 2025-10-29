@@ -34,6 +34,9 @@ public class BattleSystem : MonoBehaviour
     private ICmdSelectSystem cmdSelectSystem;
 
     [Inject]
+    private IPawnStatusCheckSystem pawnStatusCheckSystem;
+
+    [Inject]
     private CameraChangeAble cameraChanger;
 
     [Inject]
@@ -246,6 +249,9 @@ public class BattleSystem : MonoBehaviour
                     break;
                 case 3:
                     isConfirm = await cmdSelectSystem.CmdSelect(pawn.ID);
+                    break;
+                case 4:
+                    await pawnStatusCheckSystem.PawnStatusCheck(pawn.ID);
                     break;
             }
 

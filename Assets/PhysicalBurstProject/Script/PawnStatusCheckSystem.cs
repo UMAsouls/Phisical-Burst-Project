@@ -1,14 +1,17 @@
 ﻿using Cysharp.Threading.Tasks;
 using System.Collections;
 using UnityEngine;
-using Zenject;
-using System.Threading;
 using UnityEngine.InputSystem;
+using Zenject;
 
-public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
+public class PawnStatusCheckSystem : ConfirmCancelCatchAble, 
+    IPawnStatusCheckSystem
 {
     [Inject]
     private IPawnGettable strage;
+
+    [Inject]
+    private IBroker<UIControlTopic, StatusUIMessage> broker;
 
     [Inject]
     private IPosSelectorUIPrinter posSelectorUIPrinter;
@@ -21,16 +24,15 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
 
     private OrthoCameraZoomAble zoomController;
 
-    SelectedPawn pawn;
-
-    private CancellationToken token;
-
-    private PawnType selectType;
-
     [SerializeField]
     private float zoom;
 
+    [SerializeField]
+    private float checkRange;
+
     private bool onSelect;
+
+    private SelectedPawn pawn;
 
     protected override InputMode SelfMode => InputMode.PawnSelect;
 
@@ -47,57 +49,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         cameraChanger.ChangeToPawnCamera(pawnID);
         posSelectorUIPrinter.DestroyPosSelectorUI();
         cameraController.RangeMode = false;
-        if (pawn != null) { pawn.SelectedUnFocus(); pawn = null; }
-    }
-
-    public async UniTask<int> PawnSelect(int pawnID, PawnType type)
-    {
-        BattleCmdSelectable p1 = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
-
-        Vector2 startPos = p1.VirtualPos;
-
-        isConfirm = false;
-        isCancel = false;
-
-        selectType = type;
-        posSelectorUIPrinter.PrintPosSelectorUI();
-
-        cameraChanger.ChangeToMovableCamera();
-        zoomController = cameraChanger.GetZoomController();
-
-        zoomController.OrthoSize = zoom;
-
-        cameraController.SetFirstPos(startPos);
-        cameraController.Range = p1.AttackRange;
-        cameraController.RangeMode = true;
-
-        onSelect = true;
-
-        InputModeChangeToSelf();
-        //input.SwitchCurrentActionMap("Battle");
-
-        while (pawn == null)
-        {
-            await UniTask.WaitUntil(() => (isConfirm | isCancel), cancellationToken: token);
-            if (isCancel) { End(pawnID); return -1; }
-        }
-        int ans = pawn.ID;
-        End(pawnID);
-
-        return ans;
-    }
-
-    private void RayHit(Collider2D collider)
-    {
-        var obj = collider.gameObject.transform.root;
-        var p2 = obj.GetComponent<SelectedPawn>();
-        if (p2 == null || p2.Type != selectType) return;
-
-        if (pawn != p2) {
-            if(pawn != null) pawn.SelectedUnFocus();
-            p2.SelectedFocus();
-        }
-        pawn = p2; 
+        if (pawn != null) { UnSelect(pawn); pawn = null; }
     }
 
     protected override void SetAllAction()
@@ -106,20 +58,80 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         base.SetAllAction();
     }
 
-
-    // Use this for initialization
-    public override void Start()
+    protected void Init(Vector2 startPos)
     {
-        onSelect = false;
-        token = this.GetCancellationTokenOnDestroy();
+        isConfirm = false;
+        isCancel = false;
 
-        base.Start();
+        posSelectorUIPrinter.PrintPosSelectorUI();
+
+        cameraChanger.ChangeToMovableCamera();
+        zoomController = cameraChanger.GetZoomController();
+
+        zoomController.OrthoSize = zoom;
+
+        cameraController.SetFirstPos(startPos);
+        cameraController.Range = checkRange;
+        cameraController.RangeMode = true;
+
+        onSelect = true;
+
+        InputModeChangeToSelf();
+    }
+
+    public async UniTask PawnStatusCheck(int id)
+    {
+        IPawnInfo p = strage.GetPawnByID<IPawnInfo>(id);
+        var startPos = p.Position;
+
+        Init(startPos);
+
+        await UniTask.WaitUntil(
+            () => isCancel, 
+            cancellationToken: destroyCancellationToken
+        );
+
+        End(id);
+    }
+
+    private void Select(SelectedPawn p)
+    {
+        p.SelectedFocus();
+
+        IStatus s = strage.GetPawnByID<IStatusGettable>(p.ID).Status;
+        StatusUIMessage message = new StatusUIMessage(false, s);
+        
+        broker.BroadCast(UIControlTopic.PawnStatus, message);
+    }
+
+    private void UnSelect(SelectedPawn p)
+    {
+        p.SelectedUnFocus();
+
+        IStatus s = strage.GetPawnByID<IStatusGettable>(p.ID).Status;
+        StatusUIMessage message = new StatusUIMessage(true, s);
+
+        broker.BroadCast(UIControlTopic.PawnStatus, message);
+    }
+
+    private void RayHit(Collider2D collider)
+    {
+        var obj = collider.gameObject.transform.root;
+        var p2 = obj.GetComponent<SelectedPawn>();
+        if (p2 == null) return;
+
+        if (pawn != p2)
+        {
+            if (pawn != null) UnSelect(pawn);
+            Select(p2);
+        }
+        pawn = p2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!onSelect) return;
+        if (!onSelect) return;
 
         Vector3 screenCenter = new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0.0f);
         Vector3 center = Camera.main.ScreenToWorldPoint(screenCenter);
@@ -130,7 +142,7 @@ public class PawnSelector : ConfirmCancelCatchAble, IPawnSelector
         if (hit.collider != null) RayHit(hit.collider);
         else if (pawn != null)
         {
-            pawn.SelectedUnFocus();
+            UnSelect(pawn);
             pawn = null;
         }
     }

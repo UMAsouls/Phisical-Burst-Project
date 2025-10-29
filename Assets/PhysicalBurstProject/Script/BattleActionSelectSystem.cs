@@ -18,7 +18,7 @@ public class BattleActionSelectSystem : ConfirmCancelCatchAble, IBattleActionSel
 
     private string[] defaultActions =
     {
-        "移動", "襲撃", "待ち伏せ", "行動"
+        "移動", "襲撃", "待ち伏せ", "行動", "観察"
     };
 
     private int cmdIndex = 0;
@@ -59,7 +59,7 @@ public class BattleActionSelectSystem : ConfirmCancelCatchAble, IBattleActionSel
         isCancel = false;
         isConfirm = false;
         cmdIndex = 0;
-        cmdLength = 4;
+        cmdLength = defaultActions.Length;
 
         controller = uiPrinter.PrintCmdSelecter(defaultActions);
 
