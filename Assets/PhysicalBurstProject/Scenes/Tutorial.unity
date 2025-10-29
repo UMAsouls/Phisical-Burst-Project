@@ -44151,7 +44151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061fae69101e59f44ba4228ae9ffc7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Battle
+  nextScene: 
 --- !u!114 &1143571168
 MonoBehaviour:
   m_ObjectHideFlags: 0

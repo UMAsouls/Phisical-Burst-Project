@@ -89,3 +89,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AnimNum: 0
+  TileSize: {x: 240, y: 240}

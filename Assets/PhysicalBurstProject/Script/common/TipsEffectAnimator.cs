@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(Graphic))]
 [ExecuteAlways]
 [DisallowMultipleComponent]
-[AddComponentMenu("UI/Effects/TipsCharaAnimator", 15)]
+[AddComponentMenu("UI/Effects/TipsEffectAnimator", 15)]
 public class TipsEffectAnimator: UIBehaviour, IMaterialModifier
 {
     [SerializeField]
