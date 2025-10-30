@@ -35,8 +35,19 @@ public class BattleSceneInstaller : MonoInstaller
     [SerializeField]
     GameObject sePlayer;
 
+    [SerializeField]
+    GameObject commandAdder;
+
+    private void Init()
+    {
+        var comp = commandAdder.GetComponent<CommandAdder>();
+        comp.MakeInstance();
+    }
+
     public override void InstallBindings()
     {
+        Init();
+
         Container
             .BindInterfacesTo<BattleUIPrinter>()
             .FromComponentOn(battleUI)
@@ -248,5 +259,10 @@ public class BattleSceneInstaller : MonoInstaller
             .BindInterfacesAndSelfTo<Canvas>()
             .FromComponentOn(battleUI)
             .AsTransient();
+
+        Container
+            .BindInterfacesAndSelfTo<CommandAdder>()
+            .FromMethod((ctx) => CommandAdder.Instance)
+            .AsSingle();
     }
 }

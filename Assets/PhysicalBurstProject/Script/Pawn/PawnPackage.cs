@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Codice.Client.BaseCommands;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -66,6 +69,9 @@ public class PawnPackage : ScriptableObject
     [Inject]
     DiContainer container;
 
+    [Inject]
+    ICommandAdder commandAdder;
+
     public void Init()
     {
         sattack.cmdName = "強攻撃"; sattack.priority = StrongAttackPriority; defaultBattleCmds[0] = sattack;
@@ -74,27 +80,61 @@ public class PawnPackage : ScriptableObject
         dodge.cmdName = "回避"; dodge.priority = DodgePriority; defaultBattleCmds[3] = dodge;
     }
 
-    private void OptionSet(PawnOptionSettable statusSettable, int id)
+    private void BattleCmdSet(PawnOptionSettable statusSettable, List<int> addBattleCmdindices)
+    {
+        CommandPackage[] battleCmds =
+            new CommandPackage[4 + battleCommands.Length + addBattleCmdindices.Count];
+
+        CommandPackage[] adds = new CommandPackage[addBattleCmdindices.Count];
+        for (int i = 0; i < addBattleCmdindices.Count; i++)
+        {
+            adds[i] = addBattleCmds[addBattleCmdindices[i]];
+        }
+
+        defaultBattleCmds.CopyTo(battleCmds, 0);
+        battleCommands.CopyTo(battleCmds, 4);
+        adds.CopyTo(battleCmds, 4 + battleCommands.Length);
+
+        statusSettable.BattleCommands = cmdStrage.GetBattleCmds(battleCmds);
+    }
+
+    private void ActionCmdSet(PawnOptionSettable statusSettable, List<int> addActionCmdindices)
+    {
+        CommandPackage[] actionCmds =
+            new CommandPackage[actionCommands.Length  + addActionCmdindices.Count];
+
+        CommandPackage[] adds = new CommandPackage[addActionCmdindices.Count];
+        for (int i = 0; i < addActionCmdindices.Count; i++)
+        {
+            adds[i] = addActCmds[addActionCmdindices[i]];
+        }
+
+        actionCommands.CopyTo(actionCmds, 0);
+        adds.CopyTo(actionCmds, actionCmds.Length);
+
+        statusSettable.ActionCommands = cmdStrage.GetActCmds(actionCmds);
+    }
+
+    private void OptionSet(PawnOptionSettable statusSettable, int id, AddCommand addCmds)
     {
         var c_status = status.Clone();
         c_status.init();
         statusSettable.Status = c_status;
         statusSettable.ID = id;
 
-        CommandPackage[] battleCmds = new CommandPackage[4 + battleCommands.Length];
-
-        defaultBattleCmds.CopyTo(battleCmds, 0);
-        battleCommands.CopyTo(battleCmds, 4);
-
-        statusSettable.ActionCommands = cmdStrage.GetActCmds(actionCommands);
-        statusSettable.BattleCommands = cmdStrage.GetBattleCmds(battleCmds);
+        var addBattleCmdindices = addCmds.AddBattleCmdList;
+        BattleCmdSet(statusSettable, addBattleCmdindices);
+        var addActionCmdIndices = addCmds.AddActionCmdList;
+        ActionCmdSet(statusSettable, addActionCmdIndices);
     }
 
     public GameObject MakePawn(DiContainer container, int id)
     {
         var obj = container.InstantiatePrefab(pawn);
         obj.transform.position = position;
-        OptionSet(obj.GetComponent<PawnOptionSettable>(), id);
+        AddCommand addCommand = commandAdder.GetCommandList(name);
+
+        OptionSet(obj.GetComponent<PawnOptionSettable>(), id, addCommand);
         return obj;
     }
 }
