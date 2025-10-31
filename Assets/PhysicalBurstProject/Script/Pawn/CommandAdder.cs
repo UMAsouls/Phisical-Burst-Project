@@ -84,7 +84,7 @@ public class CommandAdder : MonoBehaviour, ICommandAdder
 
     public void GoAddCommand(string nextScene)
     {
-        if (nextScene == "Title") SceneManager.LoadScene("Title");
+        if (string.Compare(nextScene, "Title") == 0) SceneManager.LoadScene("Title");
         this.nextScene = nextScene;
         SceneManager.LoadScene("AddCommand");
     }
