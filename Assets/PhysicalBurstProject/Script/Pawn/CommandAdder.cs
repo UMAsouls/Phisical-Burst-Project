@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class CommandAdder : MonoBehaviour, ICommandAdder
 {
@@ -11,6 +12,8 @@ public class CommandAdder : MonoBehaviour, ICommandAdder
     public bool Inited { get; private set; }
 
     public Dictionary<string, AddCommand> addCommands;
+
+    private string nextScene;
 
     public AddCommand GetCommandList(string name)
     {
@@ -77,5 +80,19 @@ public class CommandAdder : MonoBehaviour, ICommandAdder
     void Update()
     {
 
+    }
+
+    public void GoAddCommand(string nextScene)
+    {
+        if (nextScene == "Title") SceneManager.LoadScene("Title");
+        this.nextScene = nextScene;
+        SceneManager.LoadScene("AddCommand");
+    }
+
+    public void GoNextScene()
+    {
+        Debug.Log(nextScene);
+        if (nextScene == null || nextScene == "") SceneManager.LoadScene("Title");
+        else SceneManager.LoadScene(nextScene);
     }
 }

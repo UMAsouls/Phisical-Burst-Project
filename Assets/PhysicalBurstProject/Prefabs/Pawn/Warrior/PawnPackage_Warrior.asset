@@ -21,13 +21,15 @@ MonoBehaviour:
   battleCommands:
   - cmdName: "\u9244\u58C1"
     priority: 0
-  - cmdName: "\u7D76\u5BFE\u9632\u5FA1"
-    priority: 0
   actionCommands:
   - cmdName: "\u8A60\u5531"
     priority: 0
   addActCmds: []
-  addBattleCmds: []
+  addBattleCmds:
+  - cmdName: "\u7D76\u5BFE\u9632\u5FA1"
+    priority: 0
+  - cmdName: "\u898B\u5207\u308A\u56DE\u907F"
+    priority: 0
   pawn: {fileID: 9110315097187147631, guid: 66a01f915c689b644bc0406fe663ca27, type: 3}
   references:
     version: 2
@@ -35,11 +37,13 @@ MonoBehaviour:
     - rid: 8040898366875631616
       type: {class: Status, ns: , asm: PBP}
       data:
-        maxhp: 2000
-        hp: 2000
+        maxhp: 2500
+        hp: 2500
         name: "\u6226\u58EB"
         attackBase: 50
-        defenceBase: 60
+        defenceBase: 65
         speedBase: 10
         rangeBase: 5.5
         attackRangeBase: 3
+        pawnSentence: 
+        pawnActionHabit: 

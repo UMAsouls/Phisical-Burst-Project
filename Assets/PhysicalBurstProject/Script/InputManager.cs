@@ -38,9 +38,24 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
         {
             foreach (var (action, func) in dict)
             {
-                RemoveAction(mode, action, func);
+                ResetAction(mode, action, func);
             }
         }
+    }
+
+    protected void ResetAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)
+    {
+        string type = Enum.GetName(typeof(InputMode), mode);
+
+        var act = input.actions.FindActionMap(type).FindAction(action);
+
+        if (!settedAction.ContainsKey(mode)) return;
+        if (!settedAction[mode].ContainsKey(action)) return;
+
+        act.performed -= func;
+        act.canceled -= func;
+
+        act.Reset();
     }
 
     protected void RemoveAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)

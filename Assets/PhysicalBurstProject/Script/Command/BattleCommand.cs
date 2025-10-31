@@ -48,4 +48,9 @@ public abstract class BattleCommand : ScriptableObject, IBattleCommand
     public abstract IBattleCommand Copy();
 
     public abstract UniTask Do(AttackAble pawn, AttackAble target, BattleCommandType targetType);
+
+    ICommand ICommand.Copy()
+    {
+        return Copy();
+    }
 }

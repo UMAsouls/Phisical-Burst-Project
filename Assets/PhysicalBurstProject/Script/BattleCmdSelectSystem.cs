@@ -87,7 +87,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     public async UniTask<IBattleCommand[]> Select(int pawnID)
     {
-        inputModeBroker.BroadCast(InputModeTopic.SwitchActionMap, SelfMode);
+        InputModeChangeToSelf();
 
         pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
 

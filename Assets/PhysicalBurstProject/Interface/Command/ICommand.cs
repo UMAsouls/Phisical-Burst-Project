@@ -13,4 +13,6 @@ public interface ICommand
     public string Description { get; }
 
     public string GetTypeText();
+
+    public ICommand Copy();
 }

@@ -63,6 +63,11 @@ public class PawnPackage : ScriptableObject
     Vector2 position;
     public Vector2 Position { set => position = value; }
 
+    public CommandPackage[] AddBattleCmds => addBattleCmds;
+    public CommandPackage[] AddActionCmds => addActCmds;
+    public string Name => status.Name;
+    public IStatus Status => status;
+
     [Inject]
     ICommandStrage cmdStrage;
 

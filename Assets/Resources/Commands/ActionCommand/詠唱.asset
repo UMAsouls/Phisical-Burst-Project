@@ -16,7 +16,7 @@ MonoBehaviour:
   mana: 0
   burstRatio: 0
   selectPriority: 0
-  description: 
+  description: "\u7CBE\u795E\u3092\u7D71\u4E00\u3057\u3066\u9B54\u529B\u3092\u8CAF\u3081\u308B"
   getMana: 50
   MagicCircleEffect: {fileID: 6623057508184839328, guid: 276bf727ca051f4418b00a4bb1b18beb, type: 3}
   pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}

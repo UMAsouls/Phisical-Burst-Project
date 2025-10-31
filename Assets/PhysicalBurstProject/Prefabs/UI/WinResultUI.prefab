@@ -199,7 +199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30BF\u30A4\u30C8\u30EB\u306B\u623B\u308B"
+  m_text: "\u6B21\u3078\u9032\u3080"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a039cf5fa18b5e4b917cc0bcfa7e3f7, type: 2}
   m_sharedMaterial: {fileID: -516119113587184517, guid: 6a039cf5fa18b5e4b917cc0bcfa7e3f7, type: 2}
@@ -233,7 +233,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0

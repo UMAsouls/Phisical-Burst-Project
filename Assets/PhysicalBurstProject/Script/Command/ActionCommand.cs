@@ -86,4 +86,9 @@ public abstract class ActionCommand<V> : ScriptableObject, IActionCommand, IObse
     {
         if (value == EffectTiming.EffectEnd) EffectEnd = true;
     }
+
+    ICommand ICommand.Copy()
+    {
+        return Copy();
+    }
 }

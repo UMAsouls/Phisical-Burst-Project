@@ -18,6 +18,9 @@ public class PosSelector : ConfirmCancelCatchAble, PosSelectorRangeSetter
     [SerializeField]
     float moveSpeed = 0.05f;
 
+    [SerializeField]
+    Vector2 MoveLimit = new Vector2(40,30);
+
     private float range;
 
     private Vector2 firstPos;
@@ -56,6 +59,7 @@ public class PosSelector : ConfirmCancelCatchAble, PosSelectorRangeSetter
         base.Start();
 
         InputModeChangeToSelf();
+        MoveLimit = new Vector2(40, 30);
     }
 
     // Update is called once per frame
@@ -70,7 +74,15 @@ public class PosSelector : ConfirmCancelCatchAble, PosSelectorRangeSetter
         float x = transform.position.x;
         float y = transform.position.y;
 
-        transform.position = new Vector3(Mathf.Clamp(x, -20f, 20f), Mathf.Clamp(y, -15f, 15f), -1);
+        float min_limit_x = -MoveLimit.x / 2;
+        float max_limit_x = MoveLimit.x / 2;
+        float min_limit_y = -MoveLimit.y / 2;
+        float max_limit_y = MoveLimit.y /2;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(x, min_limit_x, max_limit_x),
+            Mathf.Clamp(y, min_limit_y, max_limit_y),
+            -1);
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         cameraController.Position = transform.position;

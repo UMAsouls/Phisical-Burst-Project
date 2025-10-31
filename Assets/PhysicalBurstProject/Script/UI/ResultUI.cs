@@ -14,6 +14,9 @@ public class ResultUI : ConfirmCancelCatchAble
     [Inject]
     SystemSEPlayable sePlayer;
 
+    [Inject]
+    ICommandAdder commandAdder;
+
     public int TurnNum { set => turn.text += value.ToString(); }
 
     public string NextScene { get; set; }
@@ -31,7 +34,7 @@ public class ResultUI : ConfirmCancelCatchAble
         {
             sePlayer.ConfirmSE();
             await UniTask.Delay(100);
-            SceneManager.LoadScene(NextScene);
+            commandAdder.GoAddCommand(NextScene);
         }
         base.OnConfirm(context);
     }

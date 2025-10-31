@@ -90,6 +90,8 @@ public class Status : IStatus
         speedBase = status.SpeedBase;
         rangeBase = status.RangeBase;
         attackRangeBase = status.AttackRangeBase;
+        pawnSentence = status.PawnSentence;
+        pawnActionHabit = status.PawnActionHabit;
         name = status.Name;
     }
 

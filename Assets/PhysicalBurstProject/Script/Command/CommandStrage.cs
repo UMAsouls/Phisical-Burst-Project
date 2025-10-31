@@ -18,6 +18,19 @@ public class CommandStrage : MonoBehaviour, ICommandStrage
         }
     }
 
+    private T GetCmd<T>(CommandPackage key, Dictionary<string, T> dict) where T : ICommand
+    {
+        if (!dict.TryGetValue(key.cmdName, out T cmd)) 
+        {
+            Debug.LogError($"Command with key '{key}' not found.");
+            return default;
+        }
+
+        var command = dict[key.cmdName].Copy();
+        command.SelectPriority = key.priority;
+        return (T)command;
+    }
+
     private T[] GetCmds<T>(string[] keys, Dictionary<string, T> dict) where T : ICommand
     {
         T[] cmds = new T[keys.Length];
@@ -30,12 +43,12 @@ public class CommandStrage : MonoBehaviour, ICommandStrage
 
     private T[] GetCmds<T>(CommandPackage[] keys, Dictionary<string, T> dict) where T : ICommand
     {
-        string[] cmdNames = new string[keys.Length];
+        T[] cmds = new T[keys.Length];
         for (int i = 0; i < keys.Length; i++)
         {
-            cmdNames[i] = keys[i].cmdName;
+            cmds[i] = GetCmd<T>(keys[i], dict);
         }
-        return GetCmds<T>(cmdNames, dict);
+        return cmds;
     }
 
 

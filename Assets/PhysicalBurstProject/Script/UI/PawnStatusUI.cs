@@ -26,6 +26,7 @@ public class PawnStatusUI : MonoBehaviour, IPawnStatusUISetter
         Priority.text = status.Priority.ToString();
         PawnSentence.text = status.PawnSentence;
         PawnActionHabit.text = status.PawnActionHabit;
+        Debug.Log(status.PawnSentence);
     }
 
     // Use this for initialization

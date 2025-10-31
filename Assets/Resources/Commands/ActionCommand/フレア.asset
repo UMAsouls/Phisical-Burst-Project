@@ -16,9 +16,9 @@ MonoBehaviour:
   mana: 40
   burstRatio: 3
   selectPriority: 0
-  description: 
-  attackArea: 2
-  range: 8
+  description: "\u708E\u306B\u3088\u308B\u9060\u8DDD\u96E2\u9B54\u6CD5"
+  attackArea: 1.5
+  range: 6
   damage: 70
   MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
   ExplodeEffect: {fileID: 8194992990867289339, guid: ee2baf7d913867745b4901139380a6a8, type: 3}

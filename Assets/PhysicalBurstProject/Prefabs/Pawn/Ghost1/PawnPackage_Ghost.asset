@@ -14,13 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   status:
     rid: 8040898367189680131
-  StrongAttackPriority: 20
-  WeekAttackPriority: 19.8
-  DefencePriority: 34.6
-  DodgePriority: 31.7
-  battleCommands:
-  - cmdName: "\u708E\u6483"
-    priority: 30.4
+  StrongAttackPriority: 28.2
+  WeekAttackPriority: 28.6
+  DefencePriority: 43.6
+  DodgePriority: 27.4
+  battleCommands: []
   actionCommands:
   - cmdName: "\u8A60\u5531"
     priority: 23.6
@@ -33,11 +31,13 @@ MonoBehaviour:
     - rid: 8040898367189680131
       type: {class: Status, ns: , asm: PBP}
       data:
-        maxhp: 1500
-        hp: 1500
+        maxhp: 2000
+        hp: 2000
         name: "\u4EA1\u970A"
-        attackBase: 30
-        defenceBase: 20
-        speedBase: 20
-        rangeBase: 7
-        attackRangeBase: 4
+        attackBase: 50
+        defenceBase: 50
+        speedBase: 13
+        rangeBase: 5
+        attackRangeBase: 3
+        pawnSentence: "\u8352\u5730\u306B\u4F4F\u3080\u4EA1\u970A\n\u3068\u3066\u3082\u5F37\u529B\u306A\u6028\u5FF5\u304C\u611F\u3058\u3089\u308C\u308B"
+        pawnActionHabit: "\u884C\u52D5\u50BE\u5411\u304C\u307E\u3063\u305F\u304F\u8AAD\u3081\u306A\u3044...\n\u6226\u3063\u3066\u3044\u304F\u306A\u304B\u3067\u8AAD\u307F\u53D6\u308B\u3057\u304B\u306A\u3044\uFF01"
