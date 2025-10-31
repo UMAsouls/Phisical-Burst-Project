@@ -36,11 +36,16 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
     {
         foreach(var (mode, dict) in settedAction)
         {
+            if(dict == null || dict.Count == 0) continue;
             foreach (var (action, func) in dict)
             {
                 ResetAction(mode, action, func);
             }
         }
+        settedAction = new Dictionary<
+            InputMode,
+            Dictionary<string, Action<InputAction.CallbackContext>>
+            >();
     }
 
     protected void ResetAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)
@@ -60,8 +65,6 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
             act.performed -= func;
             act.canceled -= func;
         }
-
-        settedAction[mode].Remove(action);
     }
 
     protected void RemoveAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)

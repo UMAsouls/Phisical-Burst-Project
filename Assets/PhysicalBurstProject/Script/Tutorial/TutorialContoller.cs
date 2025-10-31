@@ -35,14 +35,14 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
 
     public override void OnConfirm(InputAction.CallbackContext context)
     {
-        if(context.canceled) return;
+        if(!context.performed) return;
         OnNext();
         systemSEPlayer.ConfirmSE();
     }
 
     public override void OnCancel(InputAction.CallbackContext context)
     {
-        if (context.canceled) return;
+        if (!context.performed) return;
         OnPrevious();
         systemSEPlayer.ConfirmSE();
     }
