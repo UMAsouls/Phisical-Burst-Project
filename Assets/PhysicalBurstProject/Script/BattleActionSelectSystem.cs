@@ -34,7 +34,7 @@ public class BattleActionSelectSystem : ConfirmCancelCatchAble, IBattleActionSel
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        if (!context.performed) return;
+        if (!context.started) return;
 
         sePlayer.SelectorMoveSE();
 

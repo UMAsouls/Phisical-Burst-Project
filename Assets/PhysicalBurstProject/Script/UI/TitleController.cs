@@ -24,7 +24,7 @@ public class TitleController : ConfirmCancelCatchAble
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        if (!context.performed) return;
+        if (!context.started) return;
         sePlayer.SelectorMoveSE();
 
         //input上ではup > 0 down < 0

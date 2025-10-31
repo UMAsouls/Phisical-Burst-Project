@@ -56,10 +56,12 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
 
         if (func != null)
         {
+            act.started -= func;
             act.performed -= func;
             act.canceled -= func;
         }
 
+        settedAction[mode].Remove(action);
     }
 
     protected void RemoveAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)
@@ -73,6 +75,7 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
 
         if (func != null)
         {
+            act.started -= func;
             act.performed -= func;
             act.canceled -= func;
         }
@@ -100,12 +103,14 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
             }
             else
             {
-                // 既存が別インスタンスなら安全に解除してから新しく登録
+                // 既存が別インスタンスなら安全に解除してから新しく登録]
+                act.started -= existing;
                 act.performed -= existing;
                 act.canceled -= existing;
             }
         }
 
+        act.started += func;
         act.canceled += func;
         act.performed += func;
     }

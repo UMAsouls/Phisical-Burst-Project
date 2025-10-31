@@ -57,7 +57,7 @@ public class AddCommandSystem : ConfirmCancelCatchAble
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
-        if (!context.performed) return;
+        if (!context.started) return;
         Vector2 moveInput = context.ReadValue<Vector2>();
         systemSEPlayer.SelectorMoveSE();
 

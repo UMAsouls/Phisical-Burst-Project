@@ -44,7 +44,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        if (!context.performed) return;
+        if (!context.started) return;
 
         systemSEPlayer.SelectorMoveSE();
 
