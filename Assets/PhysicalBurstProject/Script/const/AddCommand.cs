@@ -1,9 +1,5 @@
-﻿using PlasticPipe.PlasticProtocol.Messages;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public struct AddCommand
 {
@@ -15,4 +11,14 @@ public struct AddCommand
 
     public List<int> AddBattleCmdList { get; }
     public List<int> AddActionCmdList { get; }
+
+    public override string ToString()
+    {
+        string ans = "BattleCmd: ";
+        foreach(var cmd in AddBattleCmdList) ans += cmd.ToString() + ", ";
+        ans += "\nActionCmd: ";
+        foreach (var cmd in AddActionCmdList) ans += cmd.ToString() + ", ";
+
+        return ans;
+    }
 }

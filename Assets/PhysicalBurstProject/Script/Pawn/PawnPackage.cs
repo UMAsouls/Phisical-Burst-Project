@@ -1,6 +1,4 @@
-﻿using Codice.Client.BaseCommands;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -115,7 +113,7 @@ public class PawnPackage : ScriptableObject
         }
 
         actionCommands.CopyTo(actionCmds, 0);
-        adds.CopyTo(actionCmds, actionCmds.Length);
+        adds.CopyTo(actionCmds, actionCommands.Length);
 
         statusSettable.ActionCommands = cmdStrage.GetActCmds(actionCmds);
     }
@@ -137,7 +135,9 @@ public class PawnPackage : ScriptableObject
     {
         var obj = container.InstantiatePrefab(pawn);
         obj.transform.position = position;
-        AddCommand addCommand = commandAdder.GetCommandList(name);
+        AddCommand addCommand = commandAdder.GetCommandList(status.Name);
+
+        Debug.Log(addCommand.ToString());
 
         OptionSet(obj.GetComponent<PawnOptionSettable>(), id, addCommand);
         return obj;

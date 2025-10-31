@@ -98,6 +98,9 @@ public class AddCommandSystem : ConfirmCancelCatchAble
         var addActionCmdBase = package.AddActionCmds;
         var addBattleCmdBase = package.AddBattleCmds;
 
+        Debug.Log($"rmActions: {rmActionCmds.Count}");
+        Debug.Log($"rmBattles: {rmBattleCmds.Count}");
+
        var addActionCmds = new CommandPackage[addActionCmdBase.Length - rmActionCmds.Count];
        var addBattleCmds = new CommandPackage[addBattleCmdBase.Length - rmBattleCmds.Count];
 

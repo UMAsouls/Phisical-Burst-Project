@@ -91,7 +91,6 @@ public class CommandAdder : MonoBehaviour, ICommandAdder
 
     public void GoNextScene()
     {
-        Debug.Log(nextScene);
         if (nextScene == null || nextScene == "") SceneManager.LoadScene("Title");
         else SceneManager.LoadScene(nextScene);
     }

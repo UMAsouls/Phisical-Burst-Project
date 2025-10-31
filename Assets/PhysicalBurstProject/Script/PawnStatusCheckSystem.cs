@@ -34,7 +34,7 @@ public class PawnStatusCheckSystem : ConfirmCancelCatchAble,
 
     private SelectedPawn pawn;
 
-    protected override InputMode SelfMode => InputMode.PawnSelect;
+    protected override InputMode SelfMode => InputMode.PawnStatusCheck;
 
     public void OnMove(InputAction.CallbackContext context)
     {

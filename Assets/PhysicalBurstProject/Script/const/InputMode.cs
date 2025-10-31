@@ -7,6 +7,7 @@ public enum InputMode
     BattleCmdSelect,
     PawnSelect,
     PosSelect,
+    PawnStatusCheck,
     LastConfirm,
     Fight,
     Ambush,

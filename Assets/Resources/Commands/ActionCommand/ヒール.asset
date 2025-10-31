@@ -21,6 +21,6 @@ MonoBehaviour:
   heal: 70
   MagicCircleEffect: {fileID: 6623057508184839328, guid: bb44a83c1c0dcd14abaf1dc1e3ada737, type: 3}
   HealEffect: {fileID: 8771972552311404799, guid: 84c4cd15ec2dc3243bdfbdcbedb49a9b, type: 3}
-  HealEffectSize: 3
+  HealEffectSize: 2
   pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
   healEffectSound: {fileID: 8300000, guid: 459eda4587209874894d35ca3305004c, type: 3}

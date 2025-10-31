@@ -49,13 +49,17 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
 
         var act = input.actions.FindActionMap(type).FindAction(action);
 
+        act.RemoveAllBindingOverrides();
+
         if (!settedAction.ContainsKey(mode)) return;
         if (!settedAction[mode].ContainsKey(action)) return;
 
-        act.performed -= func;
-        act.canceled -= func;
+        if (func != null)
+        {
+            act.performed -= func;
+            act.canceled -= func;
+        }
 
-        act.Reset();
     }
 
     protected void RemoveAction(InputMode mode, string action, Action<InputAction.CallbackContext> func)
@@ -67,9 +71,13 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
         if (!settedAction.ContainsKey(mode)) return;
         if (!settedAction[mode].ContainsKey(action)) return;
 
-        act.performed -= func;
-        act.canceled -= func;
+        if (func != null)
+        {
+            act.performed -= func;
+            act.canceled -= func;
+        }
 
+        settedAction[mode].Remove(action);
     }
 
     protected void SetAction(InputMode mode,  string action, Action<InputAction.CallbackContext> func)
@@ -81,6 +89,21 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
         {
             settedAction[mode] =
                 new Dictionary<string, Action<InputAction.CallbackContext>>();
+        }
+        if (settedAction[mode].ContainsKey(action))
+        {
+            // 既存のデリゲートと同一インスタンスなら登録しない
+            var existing = settedAction[mode][action];
+            if (existing == func)
+            {
+                return;
+            }
+            else
+            {
+                // 既存が別インスタンスなら安全に解除してから新しく登録
+                act.performed -= existing;
+                act.canceled -= existing;
+            }
         }
 
         act.canceled += func;
@@ -136,7 +159,6 @@ public class InputManager : MonoBehaviour, ISubscriber<InputMode>, ISubscriber<A
         broker.UnSubscribe(InputModeTopic.SwitchActionMap, this);
         actionBroker.UnSubscribe(ActionSetTopic.SetAction, this);
         Debug.Log("Destroy Input Manager");
-        Destroy(gameObject);
     }
 
     // Use this for initialization

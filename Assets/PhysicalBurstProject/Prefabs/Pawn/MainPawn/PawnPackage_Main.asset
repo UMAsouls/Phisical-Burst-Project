@@ -43,8 +43,8 @@ MonoBehaviour:
     - rid: 8040898367189680130
       type: {class: Status, ns: , asm: PBP}
       data:
-        maxhp: 1500
-        hp: 1500
+        maxhp: 2000
+        hp: 2000
         name: "\u9A0E\u58EB"
         attackBase: 55
         defenceBase: 45

@@ -32,7 +32,7 @@ MonoBehaviour:
       type: {class: Status, ns: , asm: PBP}
       data:
         maxhp: 1400
-        hp: 1400
+        hp: 0
         name: "\u9AB8\u9AA8"
         attackBase: 52
         defenceBase: 40
