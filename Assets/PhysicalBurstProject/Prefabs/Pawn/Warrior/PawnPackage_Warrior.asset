@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898f36c7142978f4d93dfab7a949b354, type: 3}
+  m_Name: PawnPackage_Warrior
+  m_EditorClassIdentifier: 
+  status:
+    rid: 8040898366875631616
+  StrongAttackPriority: 1
+  WeekAttackPriority: 1
+  DefencePriority: 1
+  DodgePriority: 1
+  battleCommands:
+  - cmdName: "\u9244\u58C1"
+    priority: 0
+  actionCommands:
+  - cmdName: "\u8A60\u5531"
+    priority: 0
+  addActCmds: []
+  addBattleCmds:
+  - cmdName: "\u7D76\u5BFE\u9632\u5FA1"
+    priority: 0
+  - cmdName: "\u898B\u5207\u308A\u56DE\u907F"
+    priority: 0
+  pawn: {fileID: 9110315097187147631, guid: 66a01f915c689b644bc0406fe663ca27, type: 3}
+  references:
+    version: 2
+    RefIds:
+    - rid: 8040898366875631616
+      type: {class: Status, ns: , asm: PBP}
+      data:
+        maxhp: 2500
+        hp: 2500
+        name: "\u6226\u58EB"
+        attackBase: 50
+        defenceBase: 65
+        speedBase: 10
+        rangeBase: 5.5
+        attackRangeBase: 3
+        pawnSentence: 
+        pawnActionHabit: 

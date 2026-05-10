@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a9a4aeb4f05fd4bb90aa7f82d45b95, type: 3}
+  m_Name: "\u30D3\u30C3\u30B0\u30DC\u30E0"
+  m_EditorClassIdentifier: 
+  commandName: "\u30D3\u30C3\u30B0\u30DC\u30E0"
+  mana: 60
+  burstRatio: 0
+  selectPriority: 0
+  description: "\u81EA\u5206\u4E2D\u5FC3\u306B\u5927\u7206\u767A\u3092\u8D77\u3053\u3059\u3002\u7BC4\u56F2\u304C\u5E83\u3044\u3002"
+  range: 8
+  damage: 70
+  MagicCircleEffect: {fileID: 6623057508184839328, guid: d1ade95ee6a52b04c99387fa7a1cb2c5, type: 3}
+  ExplodeEffect: {fileID: 2433282508537954060, guid: a1a855ba560289544a574d4b2aac3343, type: 3}
+  ExplodeSize: 3
+  pawnEffectSound: {fileID: 8300000, guid: cd0705ac4b953d340a197ca5ed50effb, type: 3}
+  attackEffectSound: {fileID: 8300000, guid: 4dee3958c2f461b4fb1d32cc132bb70e, type: 3}

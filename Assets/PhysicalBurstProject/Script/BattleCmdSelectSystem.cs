@@ -32,19 +32,19 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
     [Inject]
     private ICmdInfoUIPrinter cmdInfoPrinter;
 
-    private PlayerInput input;
-
     [Inject]
     LastConfirmSystem lastConfirmSystem;
 
 
     private int selectCount;
 
+    protected override InputMode SelfMode => InputMode.BattleCmdSelect;
+
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        if (!context.performed) return;
+        if (!context.started) return;
 
         systemSEPlayer.SelectorMoveSE();
 
@@ -87,7 +87,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
 
     public async UniTask<IBattleCommand[]> Select(int pawnID)
     {
-        input.SwitchCurrentActionMap("BattleCmdSelect");
+        InputModeChangeToSelf();
 
         pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
 
@@ -133,7 +133,7 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
                 if (! await lastConfirmSystem.ConfirmWait())
                 {
                     CancelCmd(ans);
-                    input.SwitchCurrentActionMap("BattleCmdSelect");
+                    inputModeBroker.BroadCast(InputModeTopic.SwitchActionMap, SelfMode);
                 } 
             }
  
@@ -142,16 +142,22 @@ public class BattleCmdSelectSystem : ConfirmCancelCatchAble, IBattleCmdSelectSys
         selectUIPrinter.DestroyCmdSelector();
         slotUIPrinter.DestroyUI();
         cmdInfoPrinter.DestroyUI();
-        input.SwitchCurrentActionMap("None");
 
         return ans;
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnSelectorMove);
+        base.SetAllAction();
+    }
+
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         token = this.GetCancellationTokenOnDestroy();
-        input = GetComponent<PlayerInput>();
+
+        base.Start();
     }
 
     // Update is called once per frame

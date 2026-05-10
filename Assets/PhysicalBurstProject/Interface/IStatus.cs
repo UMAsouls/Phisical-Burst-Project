@@ -14,9 +14,9 @@ public interface IStatus
 
     public string Name { get; }
 
-   /// <summary>
-   /// Œ»İ‚ÌUŒ‚—Í
-   /// </summary>
+    /// <summary>
+    /// Œ»İ‚ÌUŒ‚—Í
+    /// </summary>
     public float Attack { get; }
     /// <summary>
     /// UŒ‚—Í‚ÌŒ³‚Ì”’l
@@ -65,5 +65,11 @@ public interface IStatus
     public int Damage(float damage);
 
     public int Heal(float heal);
+
+    public IStatus Clone();
+
+    public string PawnSentence { get; }
+
+    public string PawnActionHabit {  get; }
 
 }

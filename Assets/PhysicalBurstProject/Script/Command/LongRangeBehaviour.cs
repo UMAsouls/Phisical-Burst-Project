@@ -28,7 +28,7 @@ public class LongRangeBehaviour : EasyEffectBehaviour<ILongRangeAttackCommand>
         List<AttackAble> pawns = strage.GetPawnsInArea<AttackAble>(pos, cmd.Range/2);
         foreach(AttackAble p in pawns)
         {
-            if (p.Type == target) await p.Damage(cmd.Damage*pawn.attack/10, pawnID);
+            if (p.Type == target) await p.Damage(cmd.Damage*pawn.attack/5, pawnID);
         }
 
         strage.HateBroadCast(cmd.Damage * pawn.attack / 10 / 10, pawnID);

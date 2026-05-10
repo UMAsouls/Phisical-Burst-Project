@@ -1,0 +1,54 @@
+{
+    "name": "TutorialControl",
+    "maps": [
+        {
+            "name": "InBattleTutorial",
+            "id": "1aabb4fd-5590-42af-bf2c-76f756ca4d75",
+            "actions": [
+                {
+                    "name": "Next",
+                    "type": "Button",
+                    "id": "8370f9e7-efc7-45fe-8d34-1a5d360e65bd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Previous",
+                    "type": "Button",
+                    "id": "120f5cf2-a4c4-4cd8-b6a4-e0c50d40d08f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3f3c6d72-8a7a-419b-85d9-1c5952f5d4d2",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8fd85263-f0d8-439b-8321-e57cc17cce20",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

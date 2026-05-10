@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using UnityEngine;
 
-[Serializable]
+[CreateAssetMenu(fileName = "HealCommand", menuName = "PBP/Command/Action/HealCommand")]
 public class HealCommand : ActionCommand<IHealCommand>, IHealCommand
 {
     [SerializeField]

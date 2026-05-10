@@ -3,7 +3,7 @@ using UnityEditor;
 using System;
 using Cysharp.Threading.Tasks;
 
-[Serializable]
+[CreateAssetMenu(fileName = "LongRangeAttackCommand", menuName = "PBP/Command/Action/LongRangeAttackCommand")]
 public class LongRangeAttackCommand : ActionCommand<ILongRangeAttackCommand>, ILongRangeAttackCommand
 {
     [SerializeField]

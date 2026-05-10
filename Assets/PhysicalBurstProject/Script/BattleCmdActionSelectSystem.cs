@@ -17,7 +17,7 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
     [Inject]
     private AttackActionMakeable actionMaker;
 
-    public async UniTask<bool> Select(int pawnID)
+    public virtual async UniTask<bool> Select(int pawnID)
     {
 
         BattleCmdSelectable pawn = strage.GetPawnByID<BattleCmdSelectable>(pawnID);
@@ -45,7 +45,7 @@ public class BattleCmdActionSelectSystem : MonoBehaviour, IBattleCmdActionSelect
 
 
     // Use this for initialization
-    void Start()
+    public virtual void Start()
     {
 
     }

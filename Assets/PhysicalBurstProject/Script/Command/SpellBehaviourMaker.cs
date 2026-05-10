@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class SpellBehaviourMaker : CommandMakerBase<ISpellCommand>
 {
+    protected override InputMode SelfMode => InputMode.Action_Spell;
+
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(ISpellCommand cmd, int pawnID)
     {
         SelectedPawn pawn = strage.GetPawnByID<SelectedPawn>(pawnID);

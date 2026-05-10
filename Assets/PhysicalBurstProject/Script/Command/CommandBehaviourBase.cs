@@ -41,5 +41,8 @@ public abstract class CommandBehaviourBase<T> : IActionCommandBehaviour where T:
 
     public string GetTypeText() => cmd.GetTypeText();
 
-    
+    public ICommand Copy()
+    {
+        throw new System.NotImplementedException();
+    }
 }

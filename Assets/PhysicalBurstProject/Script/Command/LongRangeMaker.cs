@@ -20,6 +20,8 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
 
     private CancellationToken cts;
 
+    protected override InputMode SelfMode => InputMode.Action_LongRange;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 dir = context.ReadValue<Vector2>();
@@ -60,5 +62,16 @@ public class LongRangeMaker : CommandMakerBase<ILongRangeAttackCommand>
         actionMap = "Long Range";
 
         cts = this.GetCancellationTokenOnDestroy();
+    }
+
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnMove);
+        base.SetAllAction();
+    }
+
+    public override void Start()
+    {
+        base.Start();
     }
 }

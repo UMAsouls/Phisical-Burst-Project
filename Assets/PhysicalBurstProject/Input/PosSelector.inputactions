@@ -2,7 +2,7 @@
     "name": "PosSelector",
     "maps": [
         {
-            "name": "Battle",
+            "name": "PosSelector",
             "id": "1711634b-44bf-4e77-a71c-742c294a41cb",
             "actions": [
                 {

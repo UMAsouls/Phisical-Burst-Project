@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
 [RequireComponent(typeof(ICmdTextRectGetter))]
-[ExecuteAlways]
 public class CmdUIController : MonoBehaviour, ICmdSelectorController
 {
 
@@ -33,6 +33,7 @@ public class CmdUIController : MonoBehaviour, ICmdSelectorController
 
     public void Set(int p)
     {
+        cmdTextRects = getter.CmdTextRects;
         selectorIndex = (int)Mathf.Repeat(p, cmdTextRects.Count);
 
         var rectTransform = cmdTextRects[selectorIndex];

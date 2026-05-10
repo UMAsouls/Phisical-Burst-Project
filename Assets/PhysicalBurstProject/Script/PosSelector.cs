@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
+public class PosSelector : ConfirmCancelCatchAble, PosSelectorRangeSetter
 {
 
     [Inject]
@@ -13,13 +13,13 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
     [Inject]
     private PosConfirmAble posConfirmAble;
 
-    [Inject]
-    private SystemSEPlayable systemSEPlayer;
-
     private Vector2 movedir;
 
     [SerializeField]
     float moveSpeed = 0.05f;
+
+    [SerializeField]
+    Vector2 MoveLimit = new Vector2(40,30);
 
     private float range;
 
@@ -27,27 +27,39 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
 
     public float Range { set => range = value; }
 
-    public void OnMove(InputValue value)
+    protected override InputMode SelfMode => InputMode.PosSelect;
+
+    public void OnMove(InputAction.CallbackContext context)
     {
-       movedir = value.Get<Vector2>();
+       movedir = context.ReadValue<Vector2>();
     }
 
-    public void OnConfirm(InputValue value)
+    public override void OnConfirm(InputAction.CallbackContext context)
     {
         posConfirmAble.PosConfirm(transform.position);
-        systemSEPlayer.ConfirmSE();
+        base.OnConfirm(context);
     }
 
-    public void OnCancel(InputValue value)
+    public override void OnCancel(InputAction.CallbackContext context)
     {
         posConfirmAble.Cancel();
-        systemSEPlayer.CancelSE();
+        base.OnCancel(context);
+    }
+
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnMove);
+        base.SetAllAction();
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         firstPos = transform.position;
+        base.Start();
+
+        InputModeChangeToSelf();
+        MoveLimit = new Vector2(40, 30);
     }
 
     // Update is called once per frame
@@ -62,7 +74,15 @@ public class PosSelector : MonoBehaviour, PosSelectorRangeSetter
         float x = transform.position.x;
         float y = transform.position.y;
 
-        transform.position = new Vector3(Mathf.Clamp(x, -20f, 20f), Mathf.Clamp(y, -15f, 15f), -1);
+        float min_limit_x = -MoveLimit.x / 2;
+        float max_limit_x = MoveLimit.x / 2;
+        float min_limit_y = -MoveLimit.y / 2;
+        float max_limit_y = MoveLimit.y /2;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(x, min_limit_x, max_limit_x),
+            Mathf.Clamp(y, min_limit_y, max_limit_y),
+            -1);
 
         transform.position = new Vector3(transform.position.x, transform.position.y, -1);
         cameraController.Position = transform.position;

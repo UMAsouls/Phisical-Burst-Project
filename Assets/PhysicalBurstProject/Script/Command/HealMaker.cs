@@ -12,6 +12,8 @@ public class HealMaker : CommandMakerBase<IHealCommand>
 
     private CancellationToken cts;
 
+    protected override InputMode SelfMode => InputMode.Action_Heal;
+
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IHealCommand cmd , int pawnID)
     {
         var vpawn = strage.GetPawnByID<IVirtualPawn>(pawnID);
@@ -39,10 +41,6 @@ public class HealMaker : CommandMakerBase<IHealCommand>
     }
 
     // Use this for initialization
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()

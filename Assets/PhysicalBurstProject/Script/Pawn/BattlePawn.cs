@@ -14,7 +14,7 @@ using Zenject;
 public abstract class BattlePawn : MonoBehaviour, 
     IPawnInfo, IDGettable, PawnOptionSettable, ActablePawn, ActionSelectable, ActionSettable,
     CommandActionSettable, IVirtualPawn, BattleCmdSelectable, PawnTypeGettable, SelectedPawn,
-    AttackAble, PawnActInterface, PosGetPawn, AmbushPawn
+    AttackAble, PawnActInterface, PosGetPawn, AmbushPawn, IStatusGettable
 {
 
     protected IStatus status;
@@ -94,7 +94,7 @@ public abstract class BattlePawn : MonoBehaviour,
 
     public int ID => id;
 
-    public IStatus Status { set => status = value; }
+    public IStatus Status { get => status; set => status = value; }
 
     public Vector2 Position { get => transform.position; set => transform.position = value; }
 

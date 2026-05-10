@@ -8,7 +8,7 @@ using UnityEngine.Windows;
 using UnityEditor;
 using System.Threading;
 
-public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
+public class BattleActionSelectSystem : ConfirmCancelCatchAble, IBattleActionSelectSystem
 {
     [Inject]
     private ICmdSelectUIPrinter uiPrinter;
@@ -18,26 +18,23 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
     private string[] defaultActions =
     {
-        "移動", "襲撃", "待ち伏せ", "行動"
+        "移動", "襲撃", "待ち伏せ", "行動", "観察"
     };
 
     private int cmdIndex = 0;
     private int cmdLength = 4;
 
-    private bool isConfirm = false;
-    private bool isCancel = false;
-
     private ICmdSelectorController controller;
 
-    private PlayerInput input;
-
     private CancellationToken cts;
+
+    protected override InputMode SelfMode => InputMode.FirstSelect;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        if (!context.performed) return;
+        if (!context.started) return;
 
         sePlayer.SelectorMoveSE();
 
@@ -57,26 +54,16 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
 
     }
 
-    public void OnConfirm(InputAction.CallbackContext context)
-    {
-        if (context.performed) { isConfirm = true;  sePlayer.ConfirmSE(); }
-    }
-
-    public void OnCancel(InputAction.CallbackContext context)
-    {
-        if (context.performed) { isCancel = true; sePlayer.CancelSE(); }
-    }
-
     public async UniTask<int> BattleActionSelect(int id)
     {
         isCancel = false;
         isConfirm = false;
         cmdIndex = 0;
-        cmdLength = 4;
+        cmdLength = defaultActions.Length;
 
         controller = uiPrinter.PrintCmdSelecter(defaultActions);
 
-        input.SwitchCurrentActionMap("FirstSelect");
+        InputModeChangeToSelf();
 
         await UniTask.WaitUntil(() => (isCancel || isConfirm), PlayerLoopTiming.Update, cts);
 
@@ -85,19 +72,20 @@ public class BattleActionSelectSystem : MonoBehaviour, IBattleActionSelectSystem
         uiPrinter.DestroyCmdSelector();
         controller = null;
 
-        input.SwitchCurrentActionMap("None");
         return cmdIndex;
     }
 
-    private void Awake()
+    protected override void SetAllAction()
     {
-        input = gameObject.GetComponent<PlayerInput>();
+        SetAction("Move", OnSelectorMove);
+        base.SetAllAction();
     }
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         cts = this.GetCancellationTokenOnDestroy();
+        base.Start();
     }
 
     // Update is called once per frame

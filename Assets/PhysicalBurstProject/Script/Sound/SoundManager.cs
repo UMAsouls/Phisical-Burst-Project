@@ -54,7 +54,10 @@ public class SoundManager : MonoBehaviour, SystemSEPlayable, BGMPlayable
         bgmPlayer.StopBGM();
     }
 
-    public void PlaySE(AudioClip clip) => sePlayer.PlaySE(clip);
+    public void PlaySE(AudioClip clip)
+    {
+        sePlayer.PlaySE(clip);
+    }
 
     public void ConfirmSE() => PlaySE(Confirm);
     public void CancelSE() => PlaySE(Cancel);

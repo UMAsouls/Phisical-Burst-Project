@@ -44,6 +44,9 @@ public class CmdWindowSetter : MonoBehaviour, ICmdUI,ICmdTextRectGetter
 
         ICmdTextSetable textSetter = obj.GetComponent<ICmdTextSetable>();
         textSetter.FontSize = fontSize;
+
+
+
         textSetter.Text = text;
         var width = textSetter.TextWidth;
 

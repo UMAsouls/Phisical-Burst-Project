@@ -73,11 +73,9 @@ public class CameraManager : MonoBehaviour,  CameraChangeAble
         IDGettable[] list = strage.GetPawnList<IDGettable>();
         foreach (IDGettable item in list)
         {
-            Debug.Log("camera add: " + item.ID);
             pawnCameras.Add(item.ID, strage.GetPawnCameraByID(item.ID));
         }
 
-        Debug.Log("camera set complete");
         isSetComplete = true;
     }
 

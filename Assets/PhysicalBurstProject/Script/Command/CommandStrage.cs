@@ -1,93 +1,111 @@
-Ôªøusing Cysharp.Threading.Tasks;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+//CommandStrageÇêVÇµÇ¢édólÇ…çÏÇËíºÇ∑
 public class CommandStrage : MonoBehaviour, ICommandStrage
 {
-    [Serializable]
-    public class MyPair<T> where T:  ICommand
+    Dictionary<string, IActionCommand> actionDict = new Dictionary<string, IActionCommand>();
+    Dictionary<string, IBattleCommand> battleDict = new Dictionary<string, IBattleCommand>();
+
+    private T GetCmd<T>(string key, Dictionary<string, T> dict) where T: ICommand
     {
-        [SerializeField]
-        public string key;
-        [SerializeReference, SubclassSelector]
-        public T value;
+        if(dict.TryGetValue(key, out T cmd)){ return cmd;  }
+        else
+        {
+            Debug.LogError($"Command with key '{key}' not found.");
+            return default;
+        }
     }
 
-    [SerializeField]
-    List<MyPair<IActionCommand>> actionCmds;
-
-    Dictionary<string, IActionCommand> actionDict;
-
-    [SerializeField]
-    List<MyPair<IBattleCommand>> battleCmds;
-
-    Dictionary<string, IBattleCommand> battleDict;
-
-    public IActionCommand GetActionCommand(string key) => actionDict[key].Copy();
-    public IActionCommand GetActionCommand(CommandPackage key)
+    private T GetCmd<T>(CommandPackage key, Dictionary<string, T> dict) where T : ICommand
     {
-        var cmd = actionDict[key.cmdName];
-        cmd.SelectPriority = key.priority;
-        return cmd;
+        if (!dict.TryGetValue(key.cmdName, out T cmd)) 
+        {
+            Debug.LogError($"Command with key '{key}' not found.");
+            return default;
+        }
+
+        var command = dict[key.cmdName].Copy();
+        command.SelectPriority = key.priority;
+        return (T)command;
     }
+
+    private T[] GetCmds<T>(string[] keys, Dictionary<string, T> dict) where T : ICommand
+    {
+        T[] cmds = new T[keys.Length];
+        for(int i = 0; i < keys.Length; i++)
+        {
+            cmds[i] = GetCmd<T>(keys[i], dict);
+        }
+        return cmds;
+    }
+
+    private T[] GetCmds<T>(CommandPackage[] keys, Dictionary<string, T> dict) where T : ICommand
+    {
+        T[] cmds = new T[keys.Length];
+        for (int i = 0; i < keys.Length; i++)
+        {
+            cmds[i] = GetCmd<T>(keys[i], dict);
+        }
+        return cmds;
+    }
+
+
 
     public IActionCommand[] GetActCmds(string[] keys)
     {
-        IActionCommand[] actCmds = new IActionCommand[keys.Length];
-        for(int i = 0; i < keys.Length; i++) actCmds[i] = GetActionCommand(keys[i]);
-        return actCmds;
-    }
-    public IActionCommand[] GetActCmds(CommandPackage[] keys)
-    {
-        IActionCommand[] actCmds = new IActionCommand[keys.Length];
-        for (int i = 0; i < keys.Length; i++) actCmds[i] = GetActionCommand(keys[i]);
-        return actCmds;
+        return GetCmds<IActionCommand>(keys, actionDict);
     }
 
-    public IBattleCommand GetBattleCommand(string key) => battleDict[key].Copy();
-    public IBattleCommand GetBattleCommand(CommandPackage key)
+    public IActionCommand[] GetActCmds(CommandPackage[] keys)
     {
-        var cmd = battleDict[key.cmdName].Copy();
-        cmd.SelectPriority = key.priority;
-        Debug.Log($"{key.cmdName} : {key.priority}");
-        return cmd;
+        return GetCmds<IActionCommand>(keys, actionDict);
+    }
+
+    public IActionCommand GetActionCommand(string key)
+    {
+        return GetCmd<IActionCommand>(key, actionDict);
     }
 
     public IBattleCommand[] GetBattleCmds(string[] keys)
     {
-        IBattleCommand[] battleCmds = new IBattleCommand[keys.Length];
-        for (int i = 0;i < keys.Length; i++) battleCmds[i] = GetBattleCommand(keys[i]);
-        return battleCmds;
+        return GetCmds<IBattleCommand>(keys, battleDict);
     }
 
     public IBattleCommand[] GetBattleCmds(CommandPackage[] keys)
     {
-        IBattleCommand[] battleCmds = new IBattleCommand[keys.Length];
-        for (int i = 0; i < keys.Length; i++) battleCmds[i] = GetBattleCommand(keys[i]);
-        return battleCmds;
+        return GetCmds<IBattleCommand>(keys, battleDict);
     }
 
-    private void Awake()
+    public IBattleCommand GetBattleCommand(string key)
     {
-        actionDict = new Dictionary<string, IActionCommand>();
-        foreach(var act in actionCmds) actionDict[act.key] = act.value;
-
-        battleDict = new Dictionary<string, IBattleCommand>();
-        foreach(var battle in battleCmds) battleDict[battle.key] = battle.value;
+        return GetCmd<IBattleCommand>(key, battleDict);
     }
 
-    // Use this for initialization
+    void Awake()
+    {
+        Object[] actionCmds = Resources.LoadAll("Commands/ActionCommand", typeof(IActionCommand));
+        foreach (IActionCommand cmd in actionCmds)
+        {
+            actionDict.Add(cmd.Name, cmd);
+        }
+        Object[] battleCmds = Resources.LoadAll("Commands/BattleCommand", typeof(IBattleCommand));
+        foreach (IBattleCommand cmd in battleCmds)
+        {
+            battleDict.Add(cmd.Name, cmd);
+        }
+    }
+
+    // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }

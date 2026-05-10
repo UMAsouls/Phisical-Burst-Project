@@ -16,14 +16,16 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
     [Inject]
     CameraControllable cameraControler;
 
+    
+
     [SerializeField]
     private GameObject RangeViewer;
 
-    private PlayerInput input;
+    protected override InputMode SelfMode => InputMode.Ambush;
 
-    public async UniTask<bool> AmbushSelect(int pawnID)
+    public virtual async UniTask<bool> AmbushSelect(int pawnID)
     {
-        input.SwitchCurrentActionMap("Ambush");
+        inputModeBroker.BroadCast(InputModeTopic.SwitchActionMap, SelfMode);
 
         AmbushPawn pawn = strage.GetPawnByID<AmbushPawn>(pawnID);
 
@@ -45,7 +47,6 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
         
         await UniTask.WaitUntil(() => isConfirm || isCancel, cancellationToken: destroyCancellationToken);
 
-        input.SwitchCurrentActionMap("None");
         cameraChanger.ChangeToPawnCamera(pawnID);
         Destroy(obj);
         if (isCancel) return false;
@@ -55,10 +56,6 @@ public class AmbushSelectSystem : ConfirmCancelCatchAble
     }
 
     // Use this for initialization
-    void Start()
-    {
-        input = GetComponent<PlayerInput>();
-    }
 
     // Update is called once per frame
     void Update()

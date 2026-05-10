@@ -11,20 +11,20 @@ public class TitleController : ConfirmCancelCatchAble
     [Inject]
     SystemSEPlayable sePlayer;
 
+    [SerializeField]
+    string FirstScene = "Tutorial";
+
     private ICmdSelectorController controller;
-    private ICmdUI setter;
 
     private int idx;
 
-    private PlayerInput input;
-
+    protected override InputMode SelfMode => InputMode.Title;
 
     public void OnSelectorMove(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
 
-        if (!context.performed) return;
-
+        if (!context.started) return;
         sePlayer.SelectorMoveSE();
 
         //input上ではup > 0 down < 0
@@ -41,23 +41,24 @@ public class TitleController : ConfirmCancelCatchAble
         }
     }
 
+    protected override void SetAllAction()
+    {
+        SetAction("Move", OnSelectorMove);
+        base.SetAllAction();
+    }
+
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         idx = 0;
         controller = GetComponentInChildren<ICmdSelectorController>();
-        setter = GetComponentInChildren<ICmdUI>();
-
-        setter.CmdAdd("プレイ");
-        setter.CmdAdd("終了");
+        
         isCancel = false;
         isConfirm = false;
 
-        input = GetComponent<PlayerInput>();
-        input.SwitchCurrentActionMap("main");
-
-        controller.Set(0);
+        base.Start();
+        InputModeChangeToSelf();
     }
 
     // Update is called once per frame
@@ -68,7 +69,7 @@ public class TitleController : ConfirmCancelCatchAble
             switch(idx)
             {
                 case 0:
-                    SceneManager.LoadScene("Battle");
+                    SceneManager.LoadScene(FirstScene);
                     break;
                 case 1:
                     #if UNITY_EDITOR

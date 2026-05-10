@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Zenject;
@@ -14,8 +15,8 @@ public struct CommandPackage
     public float priority;
 }
 
-
-public class PawnPackage : MonoBehaviour
+[CreateAssetMenu(fileName = "PawnPackage", menuName = "PBP/Pawn/PawnPackage")]
+public class PawnPackage : ScriptableObject
 {
     static CommandPackage[] defaultBattleCmds = new CommandPackage[4];
 
@@ -60,45 +61,85 @@ public class PawnPackage : MonoBehaviour
     Vector2 position;
     public Vector2 Position { set => position = value; }
 
+    public CommandPackage[] AddBattleCmds => addBattleCmds;
+    public CommandPackage[] AddActionCmds => addActCmds;
+    public string Name => status.Name;
+    public IStatus Status => status;
+
     [Inject]
     ICommandStrage cmdStrage;
 
     [Inject]
     DiContainer container;
 
+    [Inject]
+    ICommandAdder commandAdder;
+
     public void Init()
     {
-        status.init();
         sattack.cmdName = "強攻撃"; sattack.priority = StrongAttackPriority; defaultBattleCmds[0] = sattack;
         wattack.cmdName = "弱攻撃"; wattack.priority = WeekAttackPriority; defaultBattleCmds[1] = wattack;
         defence.cmdName = "防御"; defence.priority = DefencePriority; defaultBattleCmds[2] = defence;
         dodge.cmdName = "回避"; dodge.priority = DodgePriority; defaultBattleCmds[3] = dodge;
     }
 
-    private void OptionSet(PawnOptionSettable statusSettable, int id)
+    private void BattleCmdSet(PawnOptionSettable statusSettable, List<int> addBattleCmdindices)
     {
-        statusSettable.Status = status;
-        statusSettable.ID = id;
+        CommandPackage[] battleCmds =
+            new CommandPackage[4 + battleCommands.Length + addBattleCmdindices.Count];
 
-        CommandPackage[] battleCmds = new CommandPackage[4 + battleCommands.Length];
+        CommandPackage[] adds = new CommandPackage[addBattleCmdindices.Count];
+        for (int i = 0; i < addBattleCmdindices.Count; i++)
+        {
+            adds[i] = addBattleCmds[addBattleCmdindices[i]];
+        }
 
         defaultBattleCmds.CopyTo(battleCmds, 0);
         battleCommands.CopyTo(battleCmds, 4);
+        adds.CopyTo(battleCmds, 4 + battleCommands.Length);
 
-        statusSettable.ActionCommands = cmdStrage.GetActCmds(actionCommands);
         statusSettable.BattleCommands = cmdStrage.GetBattleCmds(battleCmds);
+    }
 
-        foreach(var cmd in statusSettable.BattleCommands)
+    private void ActionCmdSet(PawnOptionSettable statusSettable, List<int> addActionCmdindices)
+    {
+        CommandPackage[] actionCmds =
+            new CommandPackage[actionCommands.Length  + addActionCmdindices.Count];
+
+        CommandPackage[] adds = new CommandPackage[addActionCmdindices.Count];
+        for (int i = 0; i < addActionCmdindices.Count; i++)
         {
-            Debug.Log($"{status.Name} : {cmd.Name} : 優先度{cmd.SelectPriority} ");
+            adds[i] = addActCmds[addActionCmdindices[i]];
         }
+
+        actionCommands.CopyTo(actionCmds, 0);
+        adds.CopyTo(actionCmds, actionCommands.Length);
+
+        statusSettable.ActionCommands = cmdStrage.GetActCmds(actionCmds);
+    }
+
+    private void OptionSet(PawnOptionSettable statusSettable, int id, AddCommand addCmds)
+    {
+        var c_status = status.Clone();
+        c_status.init();
+        statusSettable.Status = c_status;
+        statusSettable.ID = id;
+
+        var addBattleCmdindices = addCmds.AddBattleCmdList;
+        BattleCmdSet(statusSettable, addBattleCmdindices);
+        var addActionCmdIndices = addCmds.AddActionCmdList;
+        ActionCmdSet(statusSettable, addActionCmdIndices);
     }
 
     public GameObject MakePawn(DiContainer container, int id)
     {
         var obj = container.InstantiatePrefab(pawn);
         obj.transform.position = position;
-        OptionSet(obj.GetComponent<PawnOptionSettable>(), id);
+        AddCommand addCommand = commandAdder.GetCommandList(status.Name);
+
+        Debug.Log(addCommand.ToString());
+
+        OptionSet(obj.GetComponent<PawnOptionSettable>(), id, addCommand);
         return obj;
     }
 }

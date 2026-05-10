@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RectTransform))]
+[ExecuteAlways]
 public class TextWindowScaler : MonoBehaviour, IWindowScaler
 {
     public Vector2 Scale

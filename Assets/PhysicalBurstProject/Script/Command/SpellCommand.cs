@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "SpellCommand", menuName = "PBP/Command/Action/SpellCommand")]
 [Serializable]
 public class SpellCommand : ActionCommand<ISpellCommand>, ISpellCommand
 {

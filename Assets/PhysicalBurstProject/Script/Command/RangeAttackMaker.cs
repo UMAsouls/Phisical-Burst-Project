@@ -11,6 +11,8 @@ public class RangeAttackMaker : CommandMakerBase<IRangeAttackCommand>
 
     private CancellationToken cts;
 
+    protected override InputMode SelfMode => InputMode.Action_Range;
+
     public override async UniTask<IActionCommandBehaviour> MakeBehaviour(IRangeAttackCommand cmd, int pawnID)
     {
         cameraZoomController.OrthoSize = cmd.Range;

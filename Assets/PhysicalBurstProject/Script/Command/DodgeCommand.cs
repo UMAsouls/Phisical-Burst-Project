@@ -2,7 +2,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-
+[CreateAssetMenu(fileName = "DodgeCommand", menuName = "PBP/Command/Battle/DodgeCommand")]
 public class DodgeCommand : BattleCommand
 {
     public override BattleCommandType Type => BattleCommandType.Dodge;
