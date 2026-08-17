@@ -1,6 +1,7 @@
 ﻿
 using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using Zenject;
@@ -179,12 +180,17 @@ public class EnemyAI : MonoBehaviour
     {
         await UniTask.WaitUntil(() => strage.IsSetComplete, cancellationToken: destroyCancellationToken);
 
-        IDGettable[] pawns = strage.GetPawnList<IDGettable>();
+        PawnTypeGettable[] pawns = strage.GetPawnList<PawnTypeGettable>();
+
+        IDGettable[] pawnIDs = strage.GetPawnList<IDGettable>();
 
         HateList = new Dictionary<int, float>();
-        foreach (var pawn in pawns) HateList[pawn.ID] = 0;
+        for (int i = 0; i < pawns.Length; i++)
+        {
+            if(pawns[i].Type == PawnType.Member) HateList[pawnIDs[i].ID] = 0;
+        }
 
-        targetID = pawns[0].ID;
+        targetID = HateList.First().Key;
     }
 
 

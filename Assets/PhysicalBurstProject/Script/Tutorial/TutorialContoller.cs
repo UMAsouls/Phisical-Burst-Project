@@ -54,6 +54,7 @@ public class TutorialContoller : ConfirmCancelCatchAble, ISubscriber<TutorialTim
         if(end)
         {
             await FadeOut();
+            if (printingUI == null) return;
             printingUI.DestroyUI();
             printingUI = null;
             tutorialBroker.BroadCast(TutorialTopicFrag.TutorialEnd, printingUIKind);
