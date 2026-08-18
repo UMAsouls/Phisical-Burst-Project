@@ -45,10 +45,18 @@ public class BattleCmdSlotUIPrinter : UIPrinter, IBattleCmdSlotUIPrinter
     public SlotWindowControlable PrintUIInBattle(Vector2 worldPoint, Vector2 dir)
     {
         Vector2 pos = WorldToUIPoint(worldPoint);
-        pos.y += 150;
-        pos.x -= 170;
 
         pos += (dir.normalized) * 500;
+
+        int x = 220;
+        int y = 150;
+
+        if(pos.x + 2*x  > WINDOW_WIDTH) pos.x = WINDOW_WIDTH - 2*x;
+        if(pos.x < 0) pos.x = 0;
+
+        if (pos.y + 2*y + 200 > WINDOW_HEIGHT) pos.y = WINDOW_HEIGHT - 2*y - 200;
+        if (pos.y < - WINDOW_HEIGHT) pos.y = 0;
+
         return PrintUIAt(pos);
     }
 

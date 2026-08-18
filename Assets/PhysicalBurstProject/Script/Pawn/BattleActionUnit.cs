@@ -54,15 +54,17 @@ public class BattleActionUnit : InputActionSetter
 
         var arrow = Instantiate(BattleArrow, arrowPos, Quaternion.identity);
         arrow.transform.Rotate(0, 0, arrowRot);
-        sePlayer.BattleAlarmSE();
 
+        if(pawn.Type == PawnType.Enemy) await UniTask.Delay(500, cancellationToken: destroyCancellationToken);
+
+        await target.EmergencyBattle(pawn);
+
+        sePlayer.BattleAlarmSE();
         await UniTask.Delay(1000, cancellationToken: destroyCancellationToken);
 
         pawn.MiniStatusPrint();
         target.MiniStatusPrint();
         Debug.Log($"対戦:{target.name}");
-        await target.EmergencyBattle(pawn);
-        
 
         Destroy(arrow);
         var dir1 = (target.Position - pawn.Position);
