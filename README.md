@@ -2,6 +2,11 @@
 Unityで作成したSRPG風の戦闘ゲームです。
 攻撃の際にお互いに技を出し、その相性で結果が変わることが特徴です。有利な状況を見極めて、上手く敵モンスターの全滅を目指すのが目的です。
 
+<img width="800" height="450" alt="PBP-作品紹介動画_10秒" src="https://github.com/user-attachments/assets/d3e850e5-ebe4-4264-972c-ed786045e68f" />
+
+## プレイ動画
+[<img width="1783" height="1002" alt="image" src="https://github.com/user-attachments/assets/99680810-c8d8-474d-b0bc-ab1a350cf573" />](https://youtu.be/X70XhVJwUJ0)
+
 ## 制作期間
 2ヶ月
 
